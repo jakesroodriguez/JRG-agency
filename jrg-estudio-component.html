@@ -1,0 +1,240 @@
+<!-- 
+  ========================================================================
+  JRG ESTUDIO - COMPONENTE PREMIUM PARA PIE DE PÁGINA (FOOTER)
+  ========================================================================
+  
+  Instrucciones de uso:
+  1. Copia todo el bloque de código de abajo.
+  2. Pégalo dentro del footer de cualquier página web donde quieras usarlo.
+  3. Asegúrate de tener el archivo "FAVICON.png" (o el logo de JRG) en la misma 
+     carpeta, o si prefieres, el componente cargará automáticamente el logo 
+     desde jrgestudio.com si no se encuentra de forma local.
+-->
+
+<!-- Contenedor del Componente JRG Estudio -->
+<div class="jrg-studio-wrapper" style="font-family: 'Inter', sans-serif; max-width: 400px; width: 100%; margin: 0 auto;">
+    
+    <!-- Enlaces a fuentes e iconos externos (Puedes mover estos al <head> de tu HTML si quieres) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Estilos CSS personalizados para el efecto 3D y Shimmer -->
+    <style>
+        .footer-3d-card {
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        
+        .footer-3d-card:hover {
+            box-shadow: 0 45px 95px rgba(0, 0, 0, 0.55);
+        }
+
+        .jrg-super-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 200%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+            transform: translateX(-100%) skewX(-20deg);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .jrg-super-btn:hover::before {
+            transform: translateX(100%) skewX(-20deg);
+        }
+
+        /* Mobile: desactivar efecto 3D pesado */
+        @media (max-width: 767px) {
+            .footer-3d-card:hover { 
+                transform: none !important; 
+                box-shadow: 0 15px 30px rgba(0,0,0,0.3) !important; 
+            }
+        }
+    </style>
+
+    <!-- Tarjeta Interactiva 3D -->
+    <div id="jrg-studio-card" class="footer-3d-card rounded-[32px] p-6 md:p-8 relative overflow-hidden border border-white/10 flex flex-col gap-6" 
+         style="background: linear-gradient(135deg, #07111e 0%, #0d1e36 100%); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); transform-style: preserve-3d; perspective: 1000px;">
+        
+        <!-- Interactive Mouse spotlight tracker -->
+        <div class="jrg-spotlight absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none" style="background: radial-gradient(circle 140px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.15), transparent 100%);"></div>
+
+        <!-- Corporate Aurora Glow -->
+        <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none" style="background: radial-gradient(#38bdf8, transparent 70%);"></div>
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 rounded-full blur-3xl opacity-15 pointer-events-none" style="background: radial-gradient(#b0b7bd, transparent 70%);"></div>
+
+        <!-- Brand Header with FAVICON.png as Logo -->
+        <div class="flex items-center gap-3.5 pb-4 border-b border-white/5 relative z-10" style="transform: translateZ(30px); transform-style: preserve-3d;">
+            <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-1.5 shadow-inner transition-transform duration-500 hover:rotate-[15deg]">
+                <img src="FAVICON.png" alt="JRG logo" class="w-full h-full object-contain" onerror="this.src='https://jrgestudio.com/favicon.png';">
+            </div>
+            <div class="text-left font-sans">
+                <span class="text-[8px] uppercase tracking-[0.25em] text-[#b0b7bd] font-bold block mb-0.5">Estudio Creativo</span>
+                <h4 class="font-extrabold text-sm text-white tracking-widest uppercase">JRG ESTUDIO</h4>
+            </div>
+        </div>
+
+        <!-- Studio Pitch -->
+        <p class="text-xs text-[#b0b7bd] leading-relaxed font-light text-left relative z-10" style="transform: translateZ(20px);">
+            Diseño de interfaces a medida, desarrollo web interactivo y optimización de experiencias digitales con acabados de alta costura.
+        </p>
+
+        <!-- Interactive Buttons Group -->
+        <div class="flex flex-col gap-3 relative z-10" style="transform: translateZ(40px); transform-style: preserve-3d;">
+            
+            <!-- MAIN BUTTON: Diseña tu web -->
+            <a href="https://jrgestudio.com" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="jrg-super-btn relative py-4 px-5 rounded-2xl flex items-center justify-between overflow-hidden transition-all duration-500 hover:scale-[1.03] active:scale-[0.98] shadow-lg group/btn"
+               style="background: linear-gradient(135deg, #102a43 0%, #1e3a5f 100%); border: 1px solid rgba(255,255,255,0.12); transform: translateZ(10px);">
+                <!-- Glossy sheen sweep -->
+                <div class="absolute inset-0 -translate-x-full group-hover/btn:animate-sheen pointer-events-none" style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition: transform 0.6s;"></div>
+                <!-- Inner ambient glow -->
+                <div class="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 pointer-events-none" style="background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.15), transparent 70%);"></div>
+                
+                <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-white text-[18px]">contact_support</span>
+                    <span class="text-xs font-black uppercase tracking-[0.15em] text-white">Diseña tu web</span>
+                </div>
+                <span class="material-symbols-outlined text-white/50 group-hover/btn:translate-x-1 group-hover/btn:text-white transition-all text-[18px]">arrow_forward</span>
+            </a>
+
+            <!-- SECONDARY BUTTON: Dejar Reseña -->
+            <a href="https://www.google.com/search?sca_esv=2dd0b3b2c41daf7e&sxsrf=APpeQnvGjnvkYKsk4B72D3fojNpPyszJig%3A1782653931276&q=JRG%20estudio&stick=H4sIAAAAAAAAAONgU1I1qEg0SzZISTVINE5ONjEyNjG1MqgwMzK3NLIwTUo1MDA2N09OW8TK7RXkrpBaXFKakpkPAAGO6OI3AAAA&mat=CWYuBBgaRwSh&ved=2ahUKEwi1zdKyh6qVAxVXVaQEHUpXEFUQrMcEegQIFxAC" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="relative p-4 rounded-2xl flex items-center gap-3.5 transition-all duration-300 hover:bg-white/[0.04] border border-white/5 group/btn2 text-left"
+               style="transform: translateZ(5px);">
+                <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover/btn2:scale-110 transition-transform duration-300">
+                    <span class="material-symbols-outlined text-[#b0b7bd] group-hover/btn2:text-white transition-colors text-[18px]">rate_review</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-[0.15em] text-white">Dejar una reseña</span>
+                    <span class="text-[11px] text-[#b0b7bd]/70 font-light mt-0.5">Opina sobre el estudio</span>
+                </div>
+                <span class="ml-auto material-symbols-outlined text-white/20 group-hover/btn2:text-white group-hover/btn2:translate-x-0.5 transition-all text-[16px]">open_in_new</span>
+            </a>
+
+            <!-- WHATSAPP BUTTON -->
+            <a href="https://wa.me/34613448185" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="relative p-4 rounded-2xl flex items-center gap-3.5 transition-all duration-300 hover:bg-white/[0.04] border border-white/5 group/btn4 text-left"
+               style="transform: translateZ(5px);">
+                <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover/btn4:scale-110 transition-transform duration-300">
+                    <svg class="w-4 h-4 fill-[#b0b7bd] group-hover/btn4:fill-[#25D366] transition-colors" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.97-1.863-1.868-4.343-2.899-6.977-2.9-5.439 0-9.861 4.37-9.866 9.8-.001 1.84.49 3.636 1.42 5.22l-.99 3.616 3.709-.968zm11.341-7.713c-.302-.15-1.788-.882-2.057-.978-.268-.097-.463-.147-.658.15-.195.296-.757.954-.928 1.148-.17.194-.341.218-.643.07-1.3-.649-2.277-1.161-3.167-2.686-.235-.403-.075-.621.077-.773.136-.137.302-.349.453-.524.15-.174.2-.299.3-.498.1-.2.05-.374-.025-.524-.075-.15-.658-1.585-.902-2.17-.238-.574-.479-.496-.658-.505-.17-.008-.365-.01-.56-.01-.196 0-.513.073-.78.365-.268.291-1.024 1.002-1.024 2.445 0 1.443 1.049 2.839 1.195 3.036.147.197 2.064 3.15 5.002 4.425.699.303 1.244.484 1.669.619.702.223 1.34.192 1.844.117.562-.083 1.788-.731 2.037-1.438.25-.706.25-1.314.175-1.439-.076-.124-.27-.199-.572-.349z"/></svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-[0.15em] text-white">WhatsApp</span>
+                    <span class="text-xs text-[#b0b7bd] font-semibold font-mono tracking-wide mt-0.5">613 44 81 85</span>
+                </div>
+                <span class="ml-auto material-symbols-outlined text-white/20 group-hover/btn4:text-[#25D366] group-hover/btn4:translate-x-0.5 transition-all text-[16px]">arrow_forward</span>
+            </a>
+
+            <!-- INSTAGRAM BUTTON -->
+            <a href="https://www.instagram.com/jakesroodriguez" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="relative p-4 rounded-2xl flex items-center gap-3.5 transition-all duration-300 hover:bg-white/[0.04] border border-white/5 group/btn5 text-left"
+               style="transform: translateZ(5px);">
+                <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover/btn5:scale-110 transition-transform duration-300">
+                    <svg class="w-4 h-4 fill-[#b0b7bd] group-hover/btn5:fill-[#E1306C] transition-colors" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-black uppercase tracking-[0.15em] text-white">Instagram</span>
+                    <span class="text-xs text-[#b0b7bd] font-semibold mt-0.5">@jakesroodriguez</span>
+                </div>
+                <span class="ml-auto material-symbols-outlined text-white/20 group-hover/btn5:text-[#E1306C] group-hover/btn5:translate-x-0.5 transition-all text-[16px]">arrow_forward</span>
+            </a>
+        </div>
+
+        <!-- Signature credits & custom links -->
+        <div class="border-t border-white/5 pt-4 flex flex-col gap-3 relative z-10" style="transform: translateZ(20px);">
+            <div class="flex items-center justify-between text-[10px] text-[#b0b7bd]/60">
+                <span>Diseñado y creado por</span>
+                <span class="font-extrabold text-[#b0b7bd] hover:text-white transition-colors">JRG Estudio</span>
+            </div>
+
+            <!-- Star Rating inside the card -->
+            <div class="flex flex-col gap-2 pt-1 border-t border-white/[0.03]">
+                <div class="flex items-center justify-between">
+                    <span class="text-[9px] uppercase tracking-wider text-[#b0b7bd]/50 font-bold">¿Te gusta la web?</span>
+                    <div class="flex items-center gap-1" id="jrg-rating-stars">
+                        <button type="button" onclick="jrgRateWeb(1)" class="material-symbols-outlined text-zinc-600 hover:text-yellow-400 hover:scale-125 transition-all text-[18px] cursor-pointer" style="background: none; border: none; padding: 0;">star</button>
+                        <button type="button" onclick="jrgRateWeb(2)" class="material-symbols-outlined text-zinc-600 hover:text-yellow-400 hover:scale-125 transition-all text-[18px] cursor-pointer" style="background: none; border: none; padding: 0;">star</button>
+                        <button type="button" onclick="jrgRateWeb(3)" class="material-symbols-outlined text-zinc-600 hover:text-yellow-400 hover:scale-125 transition-all text-[18px] cursor-pointer" style="background: none; border: none; padding: 0;">star</button>
+                        <button type="button" onclick="jrgRateWeb(4)" class="material-symbols-outlined text-zinc-600 hover:text-yellow-400 hover:scale-125 transition-all text-[18px] cursor-pointer" style="background: none; border: none; padding: 0;">star</button>
+                        <button type="button" onclick="jrgRateWeb(5)" class="material-symbols-outlined text-zinc-600 hover:text-yellow-400 hover:scale-125 transition-all text-[18px] cursor-pointer" style="background: none; border: none; padding: 0;">star</button>
+                    </div>
+                </div>
+                <!-- Inline rating thank you message -->
+                <div id="jrg-rating-thankyou" class="hidden text-right text-[10px] text-[#38bdf8] font-bold animate-pulse">
+                    ¡Muchas gracias por valorar! 😘
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de interactividad 3D y valoraciones -->
+    <script>
+        (function() {
+            var card = document.getElementById('jrg-studio-card');
+            if (!card) return;
+
+            // Efecto de inclinación 3D (Tilt)
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var cx = rect.left + rect.width / 2;
+                var cy = rect.top + rect.height / 2;
+                var dx = (e.clientX - cx) / (rect.width / 2);
+                var dy = (e.clientY - cy) / (rect.height / 2);
+                
+                // Rotación máxima de 5 grados para mantener la sutileza
+                card.style.transform = 'rotateY(' + (dx * 5) + 'deg) rotateX(' + (-dy * 5) + 'deg) translateZ(8px)';
+
+                // Posicionamiento de la luz focal interactiva
+                var mx = ((e.clientX - rect.left) / rect.width) * 100;
+                var my = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', mx + '%');
+                card.style.setProperty('--mouse-y', my + '%');
+                
+                var spotlight = card.querySelector('.jrg-spotlight');
+                if (spotlight) {
+                    spotlight.style.opacity = '1';
+                }
+            }, { passive: true });
+
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+                var spotlight = card.querySelector('.jrg-spotlight');
+                if (spotlight) {
+                    spotlight.style.opacity = '0';
+                }
+            });
+        })();
+
+        // Función del Widget de Estrellas
+        function jrgRateWeb(rating) {
+            var starsContainer = document.getElementById('jrg-rating-stars');
+            var thankyou = document.getElementById('jrg-rating-thankyou');
+            
+            if (starsContainer) {
+                var buttons = starsContainer.querySelectorAll('button');
+                buttons.forEach(function(btn, index) {
+                    if (index < rating) {
+                        btn.style.color = '#38bdf8'; // Color azul brillante temático de JRG
+                    } else {
+                        btn.style.color = '';
+                    }
+                });
+            }
+            
+            if (thankyou) {
+                thankyou.classList.remove('hidden');
+            }
+        }
+    </script>
+</div>

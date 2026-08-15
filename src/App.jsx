@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from 'react';
         heroSubtitleEm: "Tu próximo proyecto, hecho para destacar.",
         btnTalk: "Hablemos de tu proyecto",
         btnWork: "Ver trabajos",
-        services: "Servicios",
+        services: "Skills & Habilidades",
         servicesTitle: "Todo lo que necesitas para destacar online",
         servicesDesc: "Combino estrategia de producto, UI de alto nivel y tecnología 3D para que tu marca no pase desapercibida.",
         portfolio: "Portfolio",
@@ -44,7 +44,7 @@ import React, { useEffect, useRef, useState } from 'react';
         footerAvail: "Disponible Q3/Q4 2026",
         footerExplore: "Explorar",
         footerConnect: "Conectar",
-        navServices: "Servicios",
+        navServices: "Skills",
         navWork: "Trabajo",
         navContact: "Contacto",
         navStart: "Empezar",
@@ -68,7 +68,7 @@ import React, { useEffect, useRef, useState } from 'react';
         heroSubtitleEm: "Your next project, designed to stand out.",
         btnTalk: "Let's talk about your project",
         btnWork: "View works",
-        services: "Services",
+        services: "Skills & Capabilities",
         servicesTitle: "Everything you need to stand out online",
         servicesDesc: "I combine product strategy, high-level UI, and 3D technology to ensure your brand gets noticed.",
         portfolio: "Portfolio",
@@ -98,7 +98,7 @@ import React, { useEffect, useRef, useState } from 'react';
         footerAvail: "Available Q3/Q4 2026",
         footerExplore: "Explore",
         footerConnect: "Connect",
-        navServices: "Services",
+        navServices: "Skills",
         navWork: "Work",
         navContact: "Contact",
         navStart: "Get Started",
@@ -122,9 +122,9 @@ import React, { useEffect, useRef, useState } from 'react';
         heroSubtitleEm: "Zure hurrengo proiektua, nabarmentzeko egina.",
         btnTalk: "Hitz egin dezagun zure proiektuari buruz",
         btnWork: "Ikusi lanak",
-        services: "Zerbitzuak",
+        services: "Trebetasunak & Gaitasunak",
         servicesTitle: "Sarean nabarmentzeko behar duzun guztia",
-        servicesDesc: "Produktu estrategia, maila altuko UI diseinua eta 3D teknologia konbinatzen dituj marka nabarmendu dadin.",
+        servicesDesc: "Produktu estrategia, maila altuko UI diseinua eta 3D teknologia konbinatzen ditut marka nabarmendu dadin.",
         portfolio: "Portfolioa",
         portfolioTitle: "Ideiatik hedapenera aste gutxitan",
         portfolioDesc: "CRMak, rantza-orriak, SaaS eta panelak egitura bisual berdinarekin: iluna, dotorea eta urdin xehetasunekin.",
@@ -152,7 +152,7 @@ import React, { useEffect, useRef, useState } from 'react';
         footerAvail: "Erabilgarri Q3/Q4 2026",
         footerExplore: "Arakatu",
         footerConnect: "Konektatu",
-        navServices: "Zerbitzuak",
+        navServices: "Trebetasunak",
         navWork: "Lana",
         navContact: "Kontaktua",
         navStart: "Hasi",
@@ -392,7 +392,7 @@ import React, { useEffect, useRef, useState } from 'react';
       );
     }
 
-    function FeatureCard({ feature }) {
+    function FeatureCard({ feature, lang = 'es' }) {
       const cardRef = useRef(null);
 
       const handleMouseMove = (e) => {
@@ -444,7 +444,7 @@ import React, { useEffect, useRef, useState } from 'react';
           </ul>
 
           <div className="feature-card-footer">
-            <span className="learn-more-text">Saber más</span>
+            <span className="learn-more-text">{lang === 'eu' ? 'Gehiago jakin' : lang === 'en' ? 'Learn more' : 'Saber más'}</span>
             <div className="arrow-icon-wrap">
               <i data-lucide="arrow-right" className="arrow-icon"></i>
             </div>
@@ -1242,14 +1242,19 @@ import React, { useEffect, useRef, useState } from 'react';
 
               <div className="hero-available-chip">
                 <span className="hero-badge-dot"></span>
-                {t.availChip}
+                <span className="hero-badge-text">{t.availChip}</span>
               </div>
 
               <h1 className="hero-title">
-                <span className="hero-name">Jakes<br/>Rodriguez Garcia</span>
-                <span className="hero-role-wrap">
-                  <span className="hero-role">Web Developer</span>
+                <span className="hero-brand-name">
+                  JRG estudio
                 </span>
+                <div className="hero-creator-badge">
+                  <span className="hero-creator-dot"></span>
+                  <span className="hero-creator-name">Jakes Rodriguez Garcia</span>
+                  <span className="hero-creator-sep">·</span>
+                  <span className="hero-creator-role">{lang === 'eu' ? 'Web Garatzailea' : lang === 'en' ? 'Web Developer' : 'Desarrollador Web'}</span>
+                </div>
                 <span className="sr-only"> - JRG estudio | Mejores creadores de páginas web en el País Vasco, desarrollador web freelance.</span>
               </h1>
 
@@ -1258,12 +1263,11 @@ import React, { useEffect, useRef, useState } from 'react';
                 <div className="sparkles-gradient sparkles-grad-1" />
                 <div className="sparkles-gradient sparkles-grad-2" />
                 <div className="sparkles-gradient sparkles-grad-3" />
-                <div className="sparkles-gradient sparkles-grad-4" />
                 <Sparkles 
                   minSize={0.4} 
-                  maxSize={1.4} 
-                  particleDensity={350} 
-                  particleColor="#1B365D" 
+                  maxSize={1.2} 
+                  particleDensity={35} 
+                  particleColor="#3b82f6" 
                 />
               </div>
 
@@ -1277,15 +1281,14 @@ import React, { useEffect, useRef, useState } from 'react';
                   e.preventDefault();
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                 }}>
-                  {t.btnTalk}
-                  <i data-lucide="arrow-right" style={{ width: 16, height: 16 }}></i>
+                  <span>{t.btnTalk}</span>
+                  <i data-lucide="arrow-right" className="btn-arrow-icon" style={{ width: 16, height: 16 }}></i>
                 </a>
                 <a href="#portfolio-grid" className="btn-glass" onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth' });
                 }}>{t.btnWork}</a>
               </div>
-
 
               <div className="hero-stats">
                 {getStats(lang).map((item) => (
@@ -1708,7 +1711,7 @@ import React, { useEffect, useRef, useState } from 'react';
             >
               <div className="features-grid" style={{ marginTop: 0 }}>
                 {getFeatures(lang).map((f) => (
-                  <FeatureCard key={f.title} feature={f} />
+                  <FeatureCard key={f.title} feature={f} lang={lang} />
                 ))}
               </div>
             </ContainerScroll>
