@@ -124,10 +124,8 @@ const sculptEyebrows = (mesh: THREE.Mesh) => {
   const geometry = mesh.geometry;
   if (!geometry || !geometry.attributes.position) return;
   const posAttr = geometry.attributes.position;
+  const uvAttr = geometry.attributes.uv;
   const vertexCount = posAttr.count;
-
-  // Centro de referencia Y de las cejas originales
-  const centerY = 13.61;
 
   for (let i = 0; i < vertexCount; i++) {
     const x = posAttr.getX(i);
@@ -137,32 +135,50 @@ const sculptEyebrows = (mesh: THREE.Mesh) => {
     const absX = Math.abs(x);
     const signX = Math.sign(x);
 
-    // Normalizado t en [0, 1] desde cabeza interna (|x| ~ 0.12) hasta cola externa (|x| ~ 0.74)
-    const t = Math.min(Math.max((absX - 0.12) / (0.74 - 0.12), 0), 1);
+    // t va de 0 (cabeza interna, |x| ~ 0.13) a 1 (cola externa, |x| ~ 0.74)
+    const t = Math.min(Math.max((absX - 0.13) / (0.74 - 0.13), 0), 1);
 
-    // 1. Ampliar el tamaño vertical y presencia (más grande y definida)
-    const scaledY = centerY + (y - centerY) * 1.30;
+    // Centro vertical local del trazo
+    const localCenterY = 13.585 + t * 0.065;
+    const distFromCenter = y - localCenterY;
 
-    // 2. Curvatura estilizada de ala arqueada idéntica a la referencia:
-    // Subida elegante hacia el ápice (+0.062 en Y en t=0.65) y descenso fluido hacia la cola (-0.075)
-    let archCurve = 0;
-    if (t <= 0.65) {
-      archCurve = Math.pow(t / 0.65, 1.15) * 0.062;
-    } else {
-      const tailProgress = (t - 0.65) / 0.35;
-      archCurve = 0.062 - Math.pow(tailProgress, 1.25) * 0.075;
+    // Grosor dinámico (anatomía de la imagen de referencia):
+    // Cabeza (t=0..0.2): suavemente redondeada (0.90x)
+    // Cuerpo (t=0.2..0.58): cuerpo denso (1.05x)
+    // Cola (t > 0.58): afilado progresivo hacia una punta fina y elegante (0.15x al final)
+    let thicknessFactor = 1.05;
+    if (t < 0.20) {
+      thicknessFactor = 0.88 + (t / 0.20) * 0.17;
+    } else if (t > 0.58) {
+      thicknessFactor = Math.max(0.12, 1.05 - Math.pow((t - 0.58) / 0.42, 1.25) * 0.93);
     }
 
-    // 3. Proyección frontal 3D (+0.034 en Z) para que la ceja destaque nítidamente sobre la piel
-    const browRidgeZ = (1 - Math.pow(t, 2) * 0.35) * 0.034;
+    // Curvatura del arco (subida en ala hacia ápice en t=0.62 y caída curva de la cola)
+    let archLift = 0;
+    if (t <= 0.62) {
+      archLift = Math.pow(t / 0.62, 1.20) * 0.052;
+    } else {
+      const tailP = (t - 0.62) / 0.38;
+      archLift = 0.052 - Math.pow(tailP, 1.30) * 0.088;
+    }
 
-    // 4. Envergadura estilizada en X (10% más amplia)
-    const scaledX = signX * (0.11 + (absX - 0.11) * 1.10);
+    const newY = localCenterY + distFromCenter * thicknessFactor + archLift;
 
-    posAttr.setXYZ(i, scaledX, scaledY + archCurve, z + browRidgeZ);
+    // Adaptación a la frente (curvatura hacia adelante)
+    const forwardZ = (1 - Math.pow(t, 2) * 0.35) * 0.024;
+
+    // Envergadura lateral en X
+    const newX = signX * (0.13 + t * (0.74 - 0.13) * 1.04);
+
+    posAttr.setXYZ(i, newX, newY, z + forwardZ);
+
+    if (uvAttr) {
+      uvAttr.setXY(i, t, Math.min(Math.max(1 - (y - 13.52) / (13.72 - 13.52), 0), 1));
+    }
   }
 
   posAttr.needsUpdate = true;
+  if (uvAttr) uvAttr.needsUpdate = true;
   geometry.computeVertexNormals();
 };
 
@@ -172,20 +188,16 @@ const applyWardrobe = (character: THREE.Object3D) => {
   const shoes = createClothingMaterial("leather", "#f1f0eb", "#c7c5bf", 0.52, 0.025, 0.50, 0.03);
   const soles = createClothingMaterial("rubber", "#deddd8", "#a8a7a2", 0.68, 0.05, 0.35, 0.01);
 
-  // Material texturizado de alta definición extraído del diseño de referencia
-  // alphaTest: 0.15 asegura que el polígono exterior sea 100% invisible, dejando únicamente el pelo
-  const { diffuse: eyebrowDiffuse, bump: eyebrowBump } = loadEyebrowTextures();
+  // Ceja 3D sólida, definida y texturizada con micro-relieve capilar
+  // Sin alphaTest para evitar bordes fantasmas o dobles siluetas: la malla 3D completa es la ceja
+  const { bump: eyebrowBump } = loadEyebrowTextures();
   const eyebrowMaterial = new THREE.MeshStandardMaterial({
-    color: new THREE.Color("#ffffff"), // Sin tintado multiplicativo para preservar el negro natural del PNG
-    map: eyebrowDiffuse,
+    color: new THREE.Color("#121110"), // Tono negro carbón intenso y elegante
     bumpMap: eyebrowBump,
-    bumpScale: 0.08,
-    roughness: 0.48,
-    metalness: 0.02,
-    envMapIntensity: 0.45,
-    transparent: true,
-    alphaTest: 0.15, // Recorta limpiamente cualquier resto exterior
-    depthWrite: true,
+    bumpScale: 0.065,
+    roughness: 0.46,
+    metalness: 0.03,
+    envMapIntensity: 0.40,
     side: THREE.DoubleSide,
   });
 
