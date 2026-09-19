@@ -12,15 +12,24 @@ const Navbar = () => {
   useEffect(() => {
     // Initialize Lenis smooth scroll
     lenis = new Lenis({
-      duration: 1.7,
+      duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1.7,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.5,
       infinite: false,
     });
+
+    (window as any).lenis = lenis;
+
+    lenis.on("scroll", ScrollTrigger.update);
+
+    const onScrollTriggerRefresh = () => {
+      lenis?.resize();
+    };
+    ScrollTrigger.addEventListener("refresh", onScrollTriggerRefresh);
 
     // Start paused
     lenis.stop();
@@ -60,36 +69,39 @@ const Navbar = () => {
     });
 
     return () => {
+      ScrollTrigger.removeEventListener("refresh", onScrollTriggerRefresh);
       lenis?.destroy();
+      (window as any).lenis = null;
     };
   }, []);
   return (
     <>
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          RH
+          <img src="/logo.png" alt="Agency Logo" className="navbar-logo-img" />
+          <span>AGENCY</span>
         </a>
         <a
-          href="mailto:redoyanul1234@gmail.com"
+          href="mailto:jakessrodriguezz@gmail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          redoyanul1234@gmail.com
+          jakessrodriguezz@gmail.com
         </a>
         <ul>
           <li>
             <a data-href="#about" href="#about">
-              <HoverLinks text="ABOUT" />
+              <HoverLinks text="AGENCIA" />
             </a>
           </li>
           <li>
             <a data-href="#work" href="#work">
-              <HoverLinks text="WORK" />
+              <HoverLinks text="PROYECTOS" />
             </a>
           </li>
           <li>
             <a data-href="#contact" href="#contact">
-              <HoverLinks text="CONTACT" />
+              <HoverLinks text="CONTACTO" />
             </a>
           </li>
         </ul>

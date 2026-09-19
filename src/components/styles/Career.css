@@ -15,15 +15,17 @@
 .career-section h2 {
   font-size: 70px;
   line-height: 70px;
-  font-weight: 400;
+  font-weight: 500;
   text-align: center;
-  background: linear-gradient(0deg, #7f40ff, #ffffff);
+  background: linear-gradient(0deg, var(--accentColor), #18181b);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   margin-top: 50px;
   margin-bottom: 90px;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .career-section h2>span {
@@ -46,10 +48,11 @@
 
 .career-info-box p {
   width: 40%;
-  font-size: 14px;
-  font-weight: 300;
+  font-size: var(--fs-small);
+  font-weight: 400;
   margin: 0;
-  line-height: 20px;
+  line-height: var(--lh-normal);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .career-info-in {
@@ -67,20 +70,21 @@
 }
 
 .career-info h4 {
-  font-size: 33px;
-  line-height: 30px;
-  letter-spacing: 0.8px;
-  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-normal);
+  font-weight: 600;
   margin: 0;
 }
 
 .career-info h5 {
-  font-weight: 400;
-  letter-spacing: 0.7px;
-  font-size: 20px;
-  text-transform: capitalize;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: var(--ls-wide);
+  font-size: var(--fs-mono);
+  text-transform: uppercase;
   margin: 10px 0px;
-  color: var(--accentColor);
+  color: #64748b;
 }
 
 .career-timeline {
@@ -91,8 +95,8 @@
   width: 3px;
   height: 100%;
   background-image: linear-gradient(to top,
-      #aa42ff 20%,
-      var(--accentColor) 50%,
+      #18181b 20%,
+      #71717a 50%,
       transparent 95%);
   max-height: 0%;
 }
@@ -102,12 +106,12 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 50%);
-  background-color: #aa42ff;
+  background-color: #18181b;
   width: 10px;
   height: 10px;
   border-radius: 50px;
-  box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 8px #d097ff,
-    0px 0px 110px 20px #f2c0ff;
+  box-shadow: 0px 0px 5px 2px #71717a, 0px 0px 15px 8px #a1a1aa,
+    0px 0px 50px 15px #e4e4e7;
   animation: timeline 0.8s linear infinite forwards;
 }
 
@@ -118,7 +122,7 @@
   50%,
   70%,
   90% {
-    box-shadow: 0px 0px 5px 2px #d29bff;
+    box-shadow: 0px 0px 5px 2px #71717a;
   }
 
   10%,
@@ -127,19 +131,19 @@
   100%,
   64%,
   80% {
-    box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 5px #d097ff,
-      0px 0px 110px 20px #f2c0ff;
+    box-shadow: 0px 0px 5px 2px #71717a, 0px 0px 15px 5px #a1a1aa,
+      0px 0px 50px 15px #e4e4e7;
   }
 }
 
 @keyframes timeline2 {
   0% {
-    box-shadow: 0px 0px 5px 2px #d29bff;
+    box-shadow: 0px 0px 5px 2px #71717a;
   }
 
   100% {
-    box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 5px #d097ff,
-      0px 0px 110px 20px #f2c0ff;
+    box-shadow: 0px 0px 5px 2px #71717a, 0px 0px 15px 5px #a1a1aa,
+      0px 0px 50px 15px #e4e4e7;
   }
 }
 

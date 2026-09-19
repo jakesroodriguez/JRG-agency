@@ -1,192 +1,136 @@
 export const config = {
     developer: {
-        name: "Redoyanul",
-        fullName: "Redoyanul Haque",
-        title: "AI & Full-Stack Developer",
-        description: "AI & Full-Stack Developer building intelligent systems and modern web applications. Passionate about machine learning, deep learning, and creating next-gen autonomous agents."
+        name: "JRG",
+        fullName: "JRG Agency",
+        founder: "Jakes Rodriguez Garcia",
+        title: "Arquitectura Web 3D & Experiencias Frontend de Alto Impacto",
+        description: "Estudio de ingeniería web y narrativa tridimensional inmersiva en el País Vasco. Diseñamos sitios que cautivan a primera vista — rendimiento Lighthouse 100/100, animaciones cinemáticas con Three.js y código de vanguardia que transforma visitantes en clientes."
     },
     social: {
-        github: "red1-for-hek",
-        email: "redoyanul1234@gmail.com",
-        location: "Bangladesh"
+        github: "jakessrodriguezz",
+        email: "jakessrodriguezz@gmail.com",
+        location: "Urretxu, País Vasco, España",
+        phone: "+34 613 44 81 85",
+        whatsapp: "https://wa.me/34613448185"
     },
     about: {
-        title: "About Me",
-        description: "I am a self-taught AI & Full-Stack Developer from Bangladesh. I build intelligent systems, chatbots, and modern web applications. My expertise includes Machine Learning, Deep Learning, NLP, and Full-Stack Web Development with React, Node.js, and Python. Currently building next-gen AI Agents and JARVIS-like Personal Assistants. I have a competitive programming mindset and a deep passion for automation. Code is poetry, AI is the canvas."
+        title: "Sobre JRG Agency",
+        description: "Desde Urretxu, País Vasco — JRG Agency fusiona ingeniería web de vanguardia con narrativa tridimensional inmersiva. Cada proyecto nace con un objetivo claro: rendimiento extremo (Lighthouse 100/100), inmersión 3D real con Three.js y WebGL, y diseño estratégico orientado a conversión. No hacemos webs — creamos experiencias digitales que se sienten, se recuerdan y convierten."
     },
     experiences: [
         {
-            position: "Learning Something New",
-            company: "Self-Development",
-            period: "2025 - Present",
-            location: "Bangladesh",
-            description: "Continuously exploring emerging technologies, researching advanced AI systems, and pushing the boundaries of what's possible in tech.",
+            position: "Fundador & Lead Web Developer",
+            company: "JRG Agency",
+            period: "2025 - Presente",
+            location: "Urretxu, País Vasco",
+            description: "Dirección técnica y creativa del estudio. Desarrollo de páginas web corporativas, catálogos interactivos y experiencias 3D para empresas y negocios locales.",
             responsibilities: [
-                "Researching cutting-edge AI and ML technologies",
-                "Experimenting with new frameworks and tools",
-                "Contributing to open-source projects",
-                "Building innovative personal projects"
+                "Creación de experiencias web 3D interactivas con Three.js, Spline y WebGL",
+                "Desarrollo frontend de alto rendimiento con React, Vite y Tailwind CSS",
+                "Estrategias de SEO local y optimización de Core Web Vitals (puntuación 100/100)",
+                "Despliegue y hosting continuo en Edge mediante Vercel y Cloudflare"
             ],
-            technologies: ["Research", "Innovation", "Open Source", "New Tech"]
+            technologies: ["React", "TypeScript", "Three.js", "WebGL", "Tailwind CSS", "GSAP", "Vercel"]
         },
         {
-            position: "AI Engineer",
-            company: "Freelance & Projects",
-            period: "2025",
-            location: "Bangladesh",
-            description: "Developing intelligent AI systems, chatbots, and machine learning solutions. Building next-gen conversational AI agents and JARVIS-like personal assistants.",
+            position: "Desarrollador Web Freelance",
+            company: "JRG estudio",
+            period: "2024 - 2025",
+            location: "País Vasco, España",
+            description: "Diseño y desarrollo de sitios web personalizados para hostelería, comercios locales y servicios técnicos en la comarca del Alto Urola.",
             responsibilities: [
-                "Building AI-powered chatbots and conversational agents",
-                "Developing machine learning models with TensorFlow and PyTorch",
-                "Working with LLMs and transformer architectures",
-                "Creating autonomous AI systems and automation tools"
+                "Desarrollo de webs completas desde la fase de wireframing hasta producción",
+                "Integración de sistemas de reservas, catálogos online y contacto directo por WhatsApp",
+                "Optimización de velocidad de carga y adaptabilidad total para dispositivos móviles",
+                "Asesoramiento y gestión de identidad visual digital"
             ],
-            technologies: ["Python", "TensorFlow", "PyTorch", "LLMs", "NLP", "AI Agents"]
+            technologies: ["React", "JavaScript", "HTML5/CSS3", "Vite", "SEO Local", "Responsive Design"]
         },
         {
-            position: "Full-Stack Developer",
-            company: "Freelance & Projects",
-            period: "2024",
-            location: "Bangladesh",
-            description: "Built complete web applications from frontend to backend. Developed responsive UIs, RESTful APIs, and database solutions for various clients and projects.",
+            position: "Diseñador UI/UX & Motion",
+            company: "Proyectos Digitales",
+            period: "2023 - 2024",
+            location: "País Vasco",
+            description: "Especialización en diseño de interfaces atractivas, sistemas de diseño y animaciones web fluidas centradas en mejorar la retención de usuarios.",
             responsibilities: [
-                "Developing full-stack web applications using React and Node.js",
-                "Building RESTful APIs and integrating databases",
-                "Creating responsive and interactive user interfaces",
-                "Deploying and maintaining web applications"
+                "Prototipado interactivo y sistemas de diseño en Figma",
+                "Implementación de animaciones de scroll y microinteracciones con GSAP",
+                "Auditorías de usabilidad y arquitectura de información",
+                "Diseño visual y optimización de recursos gráficos"
             ],
-            technologies: ["React", "Node.js", "MongoDB", "Express", "Next.js", "TypeScript"]
-        },
-        {
-            position: "Python Developer",
-            company: "Self-Taught & Projects",
-            period: "2023",
-            location: "Bangladesh",
-            description: "Dove deep into Python programming, building automation scripts, bots, and mastering the fundamentals of software development and problem-solving.",
-            responsibilities: [
-                "Learning Python programming and core concepts",
-                "Building automation scripts and Discord bots",
-                "Exploring data structures and algorithms",
-                "Participating in competitive programming"
-            ],
-            technologies: ["Python", "Automation", "Scripting", "Discord.py", "Problem Solving"]
-        },
-        {
-            position: "Graphic Designer",
-            company: "Freelance",
-            period: "2022",
-            location: "Bangladesh",
-            description: "Started my creative journey as a graphic designer, creating logos, banners, and visual content. This sparked my passion for technology and digital creation.",
-            responsibilities: [
-                "Designing logos and brand identity materials",
-                "Creating social media graphics and banners",
-                "Working with clients on creative projects",
-                "Learning design principles and visual aesthetics"
-            ],
-            technologies: ["Photoshop", "Illustrator", "Canva", "Figma", "Visual Design"]
-        },
-        {
-            position: "Microsoft Office",
-            company: "Begin Learning",
-            period: "2021",
-            location: "Bangladesh",
-            description: "Started my journey into the digital world by learning Microsoft Office tools. This foundational step introduced me to computers and sparked my curiosity for technology.",
-            responsibilities: [
-                "Learning Microsoft Word, Excel, and PowerPoint",
-                "Creating documents and presentations",
-                "Understanding basic computer operations",
-                "Building foundational digital skills"
-            ],
-            technologies: ["MS Word", "MS Excel", "MS PowerPoint", "Computer Basics"]
+            technologies: ["Figma", "GSAP", "Motion Design", "UI/UX", "Adobe Suite"]
         }
     ],
     projects: [
         {
             id: 1,
-            title: "Drishti",
-            category: "AI / LLM",
-            technologies: "Python, PyTorch, Transformers, FastAPI, React, MongoDB",
-            image: "/images/Drishti.png",
-            description: "Bangladesh's first intelligent advanced AI chatbot powered by a custom Large Language Model. Features natural language understanding, contextual conversations, and multilingual support including Bengali.",
-            link: "https://huggingface.co/red1-for-hek/drishti-ilm-x1"
+            title: "Gure Trena",
+            category: "Hostelería / Restauración",
+            technologies: "React, Vite, Tailwind CSS, Responsive Design, Local SEO",
+            image: "/images/Prodesk.png",
+            description: "Sitio web oficial para el bar y restaurante tradicional Gure Trena en Urretxu. Destaca su oferta gastronómica de pintxos, bocadillos artesanos y café en un ambiente acogedor y moderno.",
+            link: "https://guretrenaurretxu.com/"
         },
         {
             id: 2,
-            title: "VoteChain",
-            category: "Blockchain",
-            technologies: "Solidity, Web3.js, React, Ethereum, IPFS, MetaMask, Node.js",
+            title: "Urkulu Móviles",
+            category: "Comercio & Servicio Técnico",
+            technologies: "React, TypeScript, Vite, Tailwind CSS, WhatsApp API",
             image: "/images/VoteChain.png",
-            description: "A decentralized election system built on blockchain technology ensuring transparent, tamper-proof, and verifiable voting. Features smart contracts for vote integrity and real-time result tracking.",
-            link: "https://github.com/red1-for-hek/smart-election-by-blockchain"
+            description: "Plataforma digital para la tienda líder en reparación de smartphones, tablets, cambio de baterías/pantallas y accesorios tecnológicos exclusivos en Urretxu.",
+            link: "https://urkulumovilesurretxu.com/"
+        },
+        {
+            id: 3,
+            title: "Otxaran Denda",
+            category: "Moda & Comercio Local",
+            technologies: "HTML5, Tailwind CSS, JavaScript, Catálogo Interactivo",
+            image: "/images/Drishti.png",
+            description: "Showcase web para boutique de moda y confección femenina. Presenta colecciones de temporada, asesoramiento personalizado y tendencias actuales con una navegación fluida.",
+            link: "https://otxaran-denda.vercel.app/"
         },
         {
             id: 4,
-            title: "Flood Spaces 2.0",
-            category: "AI / ML",
-            technologies: "Python, TensorFlow, Pandas, React, FastAPI, GIS",
-            image: "/images/FloodSpaces.png",
-            description: "Predicts flood risks across Bangladesh up to one month in advance and sends early alerts to help people prepare.",
-            link: "https://github.com/red1-for-hek/Flood-Spaces-2.0"
+            title: "JRG 3D Interactive Hub",
+            category: "Experiencia 3D / WebGL",
+            technologies: "Three.js, GSAP, WebGL, Lenis Scroll, TypeScript",
+            image: "/images/Phoenix3.0.png",
+            description: "Entorno interactivo 3D con personaje animado en tiempo real, efectos cinemáticos de cámara e iluminación por scroll para la presentación de marcas premium.",
+            link: "/"
         },
         {
             id: 5,
-            title: "Phoenix 3.0",
-            category: "AI Assistant",
-            technologies: "Python, Speech Recognition, PyAutoGUI, OpenAI API, Tkinter",
-            image: "/images/Phoenix3.0.png",
-            description: "A JARVIS-inspired personal AI desktop assistant. Controls system functions, manages tasks, answers queries, automates workflows, and provides voice-activated computing experience.",
-            link: "https://github.com/red1-for-hek/phoenix3.0"
-        },
-        {
-            id: 6,
-            title: "RedxChess",
-            category: "AI / Game Engine",
-            technologies: "Python, C++, Neural Networks, Bitboards, UCI Protocol",
+            title: "RedxChess AI",
+            category: "Motor Interactivo / Juego",
+            technologies: "JavaScript, Algoritmos Minimax, Evaluación Neuronal, Web Workers",
             image: "/images/RedxChess.png",
-            description: "A high-performance chess engine rated 3640 ELO. Features advanced search algorithms, neural network evaluation, and optimized bitboard representation for lightning-fast move generation.",
+            description: "Motor de ajedrez interactivo integrado en el navegador con análisis de aperturas y juego en tiempo real con más de 3000 ELO.",
             link: "/play"
-        },
-        {
-            id: 7,
-            title: "Prodesk",
-            category: "E-commerce",
-            technologies: "React, Node.js, MongoDB, Express, Stripe",
-            image: "/images/Prodesk.png",
-            description: "A complete e-commerce platform with secure checkout and smooth product browsing.",
-            link: "https://github.com/red1-for-hek/prodesk"
-        },
-        {
-            id: 8,
-            title: "HekTools",
-            category: "Security / Android",
-            technologies: "Kotlin, Android SDK, Firebase, Python, Encryption",
-            image: "/images/hektools.png",
-            description: "An advanced Android monitoring and security research tool. Features remote device management, activity logging, and encrypted data transmission for security testing purposes.",
-            link: ""
         }
     ],
     contact: {
-        email: "redoyanul1234@gmail.com",
-        github: "https://github.com/red1-for-hek",
-        linkedin: "https://linkedin.com/in/red1-for-hek",
-        twitter: "https://x.com/red_1_ul",
-        facebook: "https://www.facebook.com/redoyanulhaque.hacker.official",
-        instagram: "https://www.instagram.com/red_1_ul"
+        email: "jakessrodriguezz@gmail.com",
+        phone: "+34 613 44 81 85",
+        whatsapp: "https://wa.me/34613448185",
+        github: "https://github.com/jakessrodriguezz",
+        linkedin: "https://linkedin.com",
+        twitter: "https://x.com",
+        facebook: "https://facebook.com",
+        instagram: "https://instagram.com",
+        website: "https://jrg-estudio.vercel.app/"
     },
     skills: {
         develop: {
-            title: "AI DEVELOPER",
-            description: "Building intelligent systems & AI solutions",
-            details: "Developing AI agents, chatbots, and machine learning models using Python, TensorFlow, and PyTorch. Specializing in LLMs, NLP, deep learning, and autonomous systems.",
-            tools: ["Python", "TensorFlow", "PyTorch", "OpenCV", "Scikit-learn", "LLMs", "NLP", "Deep Learning", "Chatbots", "AI Agents"]
+            title: "DESARROLLO DE ALTO RENDIMIENTO",
+            description: "Código que carga en milisegundos y convierte en segundos",
+            details: "Arquitectura frontend con React, TypeScript y Vite optimizada para Lighthouse 100/100. Cada línea de código está escrita para velocidad, accesibilidad y escalabilidad — porque un sitio lento es un cliente perdido.",
+            tools: ["React", "TypeScript", "Vite", "Tailwind CSS", "Next.js", "Node.js", "APIs REST", "Edge Vercel", "Git"]
         },
         design: {
-            title: "FULL-STACK",
-            description: "Modern web development & scalable applications",
-            details: "Building responsive and performant web applications using React, Next.js, Node.js, and databases. Creating seamless user experiences with modern UI/UX principles.",
-            tools: ["React", "Next.js", "Node.js", "TypeScript", "MongoDB", "PostgreSQL", "TailwindCSS", "REST APIs", "Docker", "Git"]
+            title: "EXPERIENCIAS 3D & WEBGL",
+            description: "Narrativa visual que se siente, no solo se ve",
+            details: "Modelos 3D interactivos, animaciones cinemáticas con GSAP y desplazamiento suave con Lenis. Creamos entornos tridimensionales inmersivos que elevan tu marca por encima del ruido digital.",
+            tools: ["Three.js", "WebGL", "Spline 3D", "GSAP ScrollTrigger", "Lenis Scroll", "Figma", "UI/UX", "SEO Local"]
         }
     }
 };
-
-

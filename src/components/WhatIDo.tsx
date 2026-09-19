@@ -29,9 +29,9 @@ const WhatIDo = () => {
     <div className="whatIDO">
       <div className="what-box">
         <h2 className="title">
-          W<span className="hat-h2">HAT</span>
+          Q<span className="hat-h2">UÉ</span>
           <div>
-            &nbsp;I<span className="do-h2"> DO</span>
+            &nbsp;H<span className="do-h2">AGO</span>
           </div>
         </h2>
       </div>
@@ -44,7 +44,7 @@ const WhatIDo = () => {
                 y1="0"
                 x2="0"
                 y2="100%"
-                stroke="white"
+                stroke="rgba(0,0,0,0.2)"
                 strokeWidth="2"
                 strokeDasharray="7,7"
               />
@@ -53,7 +53,7 @@ const WhatIDo = () => {
                 y1="0"
                 x2="100%"
                 y2="100%"
-                stroke="white"
+                stroke="rgba(0,0,0,0.2)"
                 strokeWidth="2"
                 strokeDasharray="7,7"
               />
@@ -70,7 +70,7 @@ const WhatIDo = () => {
                   y1="0"
                   x2="100%"
                   y2="0"
-                  stroke="white"
+                  stroke="rgba(0,0,0,0.2)"
                   strokeWidth="2"
                   strokeDasharray="6,6"
                 />
@@ -79,7 +79,7 @@ const WhatIDo = () => {
                   y1="100%"
                   x2="100%"
                   y2="100%"
-                  stroke="white"
+                  stroke="rgba(0,0,0,0.2)"
                   strokeWidth="2"
                   strokeDasharray="6,6"
                 />
@@ -93,7 +93,7 @@ const WhatIDo = () => {
               <p>
                 {config.skills.develop.details}
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Habilidades y herramientas</h5>
               <div className="what-content-flex">
                 {config.skills.develop.tools.map((tool, index) => (
                   <div key={index} className="what-tags">{tool}</div>
@@ -113,7 +113,7 @@ const WhatIDo = () => {
                   y1="100%"
                   x2="100%"
                   y2="100%"
-                  stroke="white"
+                  stroke="rgba(0,0,0,0.2)"
                   strokeWidth="2"
                   strokeDasharray="6,6"
                 />
@@ -126,7 +126,7 @@ const WhatIDo = () => {
               <p>
                 {config.skills.design.details}
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Habilidades y herramientas</h5>
               <div className="what-content-flex">
                 {config.skills.design.tools.map((tool, index) => (
                   <div key={index} className="what-tags">{tool}</div>

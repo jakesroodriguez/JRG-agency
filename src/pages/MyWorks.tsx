@@ -7,12 +7,12 @@ const MyWorks = () => {
     <div className="myworks-page">
       <div className="myworks-header">
         <Link to="/" className="back-button" data-cursor="disable">
-          ← Back to Home
+          ← Volver al Inicio
         </Link>
         <h1>
-          All <span>Works</span>
+          Todos los <span>Proyectos</span>
         </h1>
-        <p>A collection of all my projects and creations</p>
+        <p>Casos de éxito, proyectos y creaciones digitales desarrolladas por JRG Agency</p>
       </div>
 
       <div className="myworks-grid">

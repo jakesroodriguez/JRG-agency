@@ -2,91 +2,78 @@ import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
 
-import Marquee from "react-fast-marquee";
-
 const Loading = ({ percent }: { percent: number }) => {
   const { setIsLoading } = useLoading();
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [clicked, setClicked] = useState(false);
-
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1000);
-    }, 600);
-  }
+  const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    import("./utils/initialFX").then((module) => {
-      if (isLoaded) {
-        setClicked(true);
-        setTimeout(() => {
-          if (module.initialFX) {
-            module.initialFX();
-          }
-          setIsLoading(false);
-        }, 900);
-      }
-    });
-  }, [isLoaded]);
+    if (percent >= 100 && !loaded) {
+      const t1 = setTimeout(() => {
+        setLoaded(true);
+        const t2 = setTimeout(() => {
+          setIsLoaded(true);
+        }, 300);
+        return () => clearTimeout(t2);
+      }, 150);
+      return () => clearTimeout(t1);
+    }
+  }, [percent, loaded]);
 
-  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
-    const { currentTarget: target } = e;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    target.style.setProperty("--mouse-x", `${x}px`);
-    target.style.setProperty("--mouse-y", `${y}px`);
-  }
+  useEffect(() => {
+    if (!isLoaded) return;
+    setExiting(true);
+    const timeout = setTimeout(() => {
+      import("./utils/initialFX").then((module) => {
+        if (module.initialFX) {
+          module.initialFX();
+        }
+        setIsLoading(false);
+      });
+    }, 450);
+    return () => clearTimeout(timeout);
+  }, [isLoaded, setIsLoading]);
+
+  const displayPercent = Math.min(100, Math.max(0, Math.round(percent)));
 
   return (
-    <>
-      <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
-          RedoyanulHaque
-        </a>
-        <div className={`loaderGame ${clicked && "loader-out"}`}>
-          <div className="loaderGame-container">
-            <div className="loaderGame-in">
-              {[...Array(27)].map((_, index) => (
-                <div className="loaderGame-line" key={index}></div>
-              ))}
-            </div>
-            <div className="loaderGame-ball"></div>
-          </div>
-        </div>
-      </div>
+    <div className={`loading-wrapper ${exiting ? "loading-wrapper-exit" : ""}`}>
       <div className="loading-screen">
-        <div className="loading-marquee">
-          <Marquee>
-            <span>&nbsp; AI Engineer &nbsp;</span> <span>&nbsp; Full Stack Developer &nbsp;</span>
-            <span>&nbsp; AI Engineer &nbsp;</span> <span>&nbsp; Full Stack Developer &nbsp;</span>
-          </Marquee>
-        </div>
-        <div
-          className={`loading-wrap ${clicked && "loading-clicked"}`}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <div className="loading-hover"></div>
-          <div className={`loading-button ${loaded && "loading-complete"}`}>
-            <div className="loading-container">
-              <div className="loading-content">
-                <div className="loading-content-in">
-                  Loading <span>{percent}%</span>
+        <div className="loading-capsule-wrapper">
+          <div className={`loading-capsule ${loaded ? "loading-capsule-ready" : ""}`}>
+            <div className="loading-capsule-glow" />
+
+            <div className="loading-capsule-body">
+              {!loaded ? (
+                <div className="loading-capsule-state">
+                  <span className="loading-capsule-tag">CARGANDO</span>
+                  <div className="loading-capsule-counter">
+                    <span className="loading-capsule-num">
+                      {String(displayPercent).padStart(2, "0")}
+                    </span>
+                    <span className="loading-capsule-pct">%</span>
+                  </div>
                 </div>
-              </div>
-              <div className="loading-box"></div>
+              ) : (
+                <div className="loading-capsule-state-complete">
+                  <span className="loading-capsule-welcome">BIENVENIDO</span>
+                  <span className="loading-capsule-ready-dot" />
+                </div>
+              )}
             </div>
-            <div className="loading-content2">
-              <span>Welcome</span>
+
+            {/* Laser precision micro progress bar */}
+            <div className="loading-progress-track">
+              <div
+                className="loading-progress-bar"
+                style={{ width: `${displayPercent}%` }}
+              />
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -94,42 +81,51 @@ export default Loading;
 
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
+  let isDone = false;
 
-  let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
-      setLoading(percent);
-    } else {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
-          clearInterval(interval);
-        }
-      }, 2000);
+  // Progresión rápida y fluida: alcanza ~80% en 500ms y ~95% en 800ms
+  const interval = setInterval(() => {
+    if (isDone) return;
+    if (percent < 75) {
+      percent += Math.floor(Math.random() * 8) + 4;
+    } else if (percent < 95) {
+      percent += Math.floor(Math.random() * 3) + 1;
     }
-  }, 100);
+    if (percent > 95) percent = 95;
+    setLoading(percent);
+  }, 40);
 
   function clear() {
+    isDone = true;
     clearInterval(interval);
     setLoading(100);
   }
 
   function loaded() {
     return new Promise<number>((resolve) => {
+      isDone = true;
       clearInterval(interval);
-      interval = setInterval(() => {
+      // Rápida subida a 100% en menos de 80ms
+      const finishInterval = setInterval(() => {
         if (percent < 100) {
-          percent++;
+          percent += 4;
+          if (percent > 100) percent = 100;
           setLoading(percent);
         } else {
-          resolve(percent);
-          clearInterval(interval);
+          clearInterval(finishInterval);
+          resolve(100);
         }
-      }, 2);
+      }, 10);
     });
   }
+
+  // RED DE SEGURIDAD (FAIL-SAFE):
+  // Si en 2.0 segundos no se ha completado, forzar finalización para que NUNCA se quede colgado
+  setTimeout(() => {
+    if (!isDone) {
+      loaded();
+    }
+  }, 2000);
+
   return { loaded, percent, clear };
 };

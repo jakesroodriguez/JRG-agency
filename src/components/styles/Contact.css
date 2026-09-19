@@ -1,31 +1,36 @@
 .contact-section {
   margin: auto;
-  padding-bottom: 150px;
+  padding: 60px 0 160px;
   margin-top: 0;
   position: relative;
-  z-index: 1;
-  background-color: var(--backgroundColor);
-  min-height: 60vh;
+  z-index: 10;
+  background-color: transparent;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 .contact-section h3 {
-  font-size: 32px;
-  font-weight: 400;
+  font-size: var(--fs-h1);
+  font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: var(--ls-tight);
   margin: 0;
   margin-bottom: 30px;
+  text-wrap: balance;
 }
 .contact-flex {
   display: flex;
   justify-content: space-between;
 }
 .contact-flex h4 {
+  font-family: var(--font-mono);
   font-weight: 500;
   margin: 0;
-  opacity: 0.6;
-  font-size: 14px;
+  opacity: 0.5;
+  font-size: var(--fs-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
 }
 .contact-box {
   display: flex;
@@ -59,26 +64,17 @@ a.contact-social {
   opacity: 0.5;
 }
 @media only screen and (min-width: 600px) {
-  .contact-section h3 {
-    font-size: 40px;
-  }
   .contact-box h2 {
     font-size: 18px;
   }
   a.contact-social {
     font-size: 18px;
   }
-  .contact-flex h4 {
-    font-size: 15px;
-  }
   .contact-flex p {
     font-size: 15px;
   }
 }
 @media only screen and (min-width: 900px) {
-  .contact-section h3 {
-    font-size: 48px;
-  }
   .contact-box h2 {
     font-size: 20px;
   }
@@ -87,9 +83,6 @@ a.contact-social {
   }
 }
 @media only screen and (min-width: 1300px) {
-  .contact-section h3 {
-    font-size: 55px;
-  }
   .contact-box h2 {
     font-size: 22px;
   }
@@ -99,7 +92,6 @@ a.contact-social {
 }
 @media only screen and (min-width: 1600px) {
   .contact-section h3 {
-    font-size: 60px;
     margin-bottom: 40px;
   }
   .contact-box h2 {
@@ -136,4 +128,20 @@ a.contact-social {
   .contact-container {
     width: calc(100% - 25px);
   }
+}
+
+.contact-logo-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  margin-bottom: 14px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.contact-logo-img:hover {
+  transform: rotate(8deg) scale(1.1);
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.2);
 }

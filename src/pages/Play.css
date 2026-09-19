@@ -20,13 +20,24 @@ body:has(.play-page) {
   position: fixed;
   top: -150px;
   left: -150px;
-  width: 300px;
-  height: 300px;
-  background-color: #fb8dff;
-  box-shadow: inset -50px 40px 50px rgba(84, 0, 255, 0.6);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #cbd5e1 48%,
+    #94a3b8 70%,
+    #475569 88%,
+    #1e293b 100%
+  );
+  box-shadow: 
+    inset -50px 40px 60px rgba(15, 23, 42, 0.35),
+    inset 40px -30px 50px rgba(255, 255, 255, 0.85),
+    0 0 70px rgba(203, 213, 225, 0.35);
   filter: blur(60px);
   border-radius: 50%;
-  opacity: 0.6;
+  opacity: 0.7;
   animation: floatOrb1 8s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -37,13 +48,24 @@ body:has(.play-page) {
   position: fixed;
   bottom: -100px;
   right: -100px;
-  width: 250px;
-  height: 250px;
-  background-color: #c2a4ff;
-  box-shadow: inset -30px 30px 40px rgba(84, 0, 255, 0.5);
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle at 65% 35%,
+    #ffffff 0%,
+    #e2e8f0 22%,
+    #cbd5e1 45%,
+    #94a3b8 68%,
+    #475569 88%,
+    #1e293b 100%
+  );
+  box-shadow: 
+    inset -35px 35px 55px rgba(15, 23, 42, 0.3),
+    inset 35px -25px 45px rgba(255, 255, 255, 0.85),
+    0 0 60px rgba(203, 213, 225, 0.3);
   filter: blur(70px);
   border-radius: 50%;
-  opacity: 0.4;
+  opacity: 0.5;
   animation: floatOrb2 10s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -88,7 +110,7 @@ body:has(.play-page) {
   font-size: 14px;
   transition: all 0.3s ease;
   padding: 8px 16px;
-  border: 1px solid rgba(194, 164, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 20px;
 }
 
@@ -123,9 +145,10 @@ body:has(.play-page) {
   align-items: center;
   gap: 12px;
   padding: 8px 12px;
-  background: rgba(11, 8, 12, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -169,9 +192,10 @@ body:has(.play-page) {
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  background: rgba(11, 8, 12, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   width: 100%;
   box-sizing: border-box;
@@ -180,13 +204,13 @@ body:has(.play-page) {
 .player-avatar {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, rgba(251, 141, 255, 0.2), rgba(194, 164, 255, 0.1));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.04));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  border: 1px solid rgba(194, 164, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 
@@ -205,7 +229,7 @@ body:has(.play-page) {
 .player-name {
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
+  color: #18181b;
 }
 
 .player-rating {
@@ -220,8 +244,8 @@ body:has(.play-page) {
   gap: 2px;
   min-height: 28px;
   padding: 6px 8px;
-  background: rgba(11, 8, 12, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -245,11 +269,10 @@ body:has(.play-page) {
   background: linear-gradient(145deg, rgba(20, 15, 25, 0.95), rgba(11, 8, 12, 0.98));
   border-radius: 16px;
   box-shadow:
-    0 0 80px rgba(251, 141, 255, 0.12),
-    0 0 120px rgba(194, 164, 255, 0.08),
-    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 0, 0, 0.2),
+    0 25px 50px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(194, 164, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   flex-shrink: 0;
 }
 
@@ -283,11 +306,11 @@ body:has(.play-page) {
 }
 
 .chess-square.selected {
-  background-color: rgba(251, 141, 255, 0.5) !important;
+  background-color: rgba(212, 212, 216, 0.6) !important;
 }
 
 .chess-square.last-move {
-  background-color: rgba(194, 164, 255, 0.3) !important;
+  background-color: rgba(161, 161, 170, 0.4) !important;
 }
 
 .chess-square.in-check {
@@ -366,9 +389,10 @@ body:has(.play-page) {
 /* Game Status */
 .game-status {
   padding: 10px 14px;
-  background: rgba(11, 8, 12, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   text-align: center;
   width: 100%;
@@ -377,23 +401,24 @@ body:has(.play-page) {
 
 .game-status span {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #18181b;
+  font-weight: 500;
 }
 
 .game-status span.check {
-  color: #fb8dff;
+  color: #e11d48;
   font-weight: 600;
 }
 
 /* Move History */
 .move-history {
   width: 100%;
-  background: rgba(11, 8, 12, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .move-history-header {
@@ -401,8 +426,8 @@ body:has(.play-page) {
   font-size: 12px;
   font-weight: 600;
   color: var(--accentColor);
-  background: rgba(194, 164, 255, 0.08);
-  border-bottom: 1px solid rgba(194, 164, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -419,17 +444,17 @@ body:has(.play-page) {
 }
 
 .move-history-list::-webkit-scrollbar-track {
-  background: rgba(194, 164, 255, 0.05);
+  background: rgba(0, 0, 0, 0.04);
   border-radius: 3px;
 }
 
 .move-history-list::-webkit-scrollbar-thumb {
-  background: rgba(194, 164, 255, 0.25);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 }
 
 .move-history-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(194, 164, 255, 0.4);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .move-row {
@@ -440,16 +465,16 @@ body:has(.play-page) {
 }
 
 .move-row:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .move-num {
-  color: rgba(255, 255, 255, 0.4);
+  color: #a1a1aa;
 }
 
 .move-white,
 .move-black {
-  color: rgba(255, 255, 255, 0.8);
+  color: #27272a;
   font-family: monospace;
 }
 
@@ -465,17 +490,19 @@ body:has(.play-page) {
   padding: 10px 14px;
   font-size: 12px;
   font-weight: 500;
-  color: #fff;
-  background: rgba(11, 8, 12, 0.8);
+  color: #18181b;
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .control-btn:hover {
-  background: rgba(194, 164, 255, 0.15);
+  background: var(--accentColor);
+  color: #ffffff;
   border-color: var(--accentColor);
 }
 
@@ -612,17 +639,21 @@ body:has(.play-page) {
   height: 580px;
   display: flex;
   flex-direction: column;
-  background: rgba(11, 8, 12, 0.9);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px 16px;
-  background: rgba(194, 164, 255, 0.08);
-  border-bottom: 1px solid rgba(194, 164, 255, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .chat-title {
@@ -647,11 +678,11 @@ body:has(.play-page) {
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: rgba(194, 164, 255, 0.05);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: rgba(194, 164, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 }
 
@@ -666,14 +697,14 @@ body:has(.play-page) {
 .chat-message.user {
   align-self: flex-end;
   background: var(--accentColor);
-  color: #0b080c;
+  color: #ffffff;
   border-bottom-right-radius: 4px;
 }
 
 .chat-message.assistant {
   align-self: flex-start;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.05);
+  color: #18181b;
   border-bottom-left-radius: 4px;
 }
 
@@ -686,7 +717,7 @@ body:has(.play-page) {
 .message-content.typing span {
   width: 6px;
   height: 6px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
   animation: typingDot 1.4s infinite ease-in-out;
 }
@@ -722,17 +753,17 @@ body:has(.play-page) {
   display: flex;
   gap: 8px;
   padding: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-top: 1px solid rgba(194, 164, 255, 0.1);
+  background: rgba(0, 0, 0, 0.02);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .chat-input {
   flex: 1;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(194, 164, 255, 0.15);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 8px;
-  color: #fff;
+  color: #18181b;
   font-size: 13px;
   font-family: inherit;
   outline: none;
@@ -740,7 +771,7 @@ body:has(.play-page) {
 }
 
 .chat-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #a1a1aa;
 }
 
 .chat-input:focus {
@@ -756,7 +787,7 @@ body:has(.play-page) {
   background: var(--accentColor);
   border: none;
   border-radius: 8px;
-  color: #0b080c;
+  color: #ffffff;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
@@ -764,7 +795,7 @@ body:has(.play-page) {
 
 .chat-send-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(194, 164, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive for chat */

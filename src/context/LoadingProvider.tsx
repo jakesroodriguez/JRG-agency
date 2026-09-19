@@ -46,7 +46,9 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
   return (
     <LoadingContext.Provider value={value as LoadingType}>
       {isLoading && <Loading percent={loading} />}
-      <main className="main-body">{children}</main>
+      <main className={`main-body ${isLoading ? "main-loading" : "main-active"}`}>
+        {children}
+      </main>
     </LoadingContext.Provider>
   );
 };

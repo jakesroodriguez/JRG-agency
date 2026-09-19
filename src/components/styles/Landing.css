@@ -144,7 +144,7 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 40px rgba(194, 164, 255, 0.4));
+    filter: drop-shadow(0 0 40px rgba(226, 232, 240, 0.5));
   }
 }
 
@@ -169,13 +169,24 @@
   left: 0%;
   z-index: 15;
   position: fixed;
-  width: 300px;
-  height: 300px;
-  background-color: #fb8dff;
-  box-shadow: inset -50px 40px 50px rgba(84, 0, 255, 0.6);
-  filter: blur(60px);
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff 0%,
+    #e2e8f0 22%,
+    #cbd5e1 45%,
+    #94a3b8 68%,
+    #475569 88%,
+    #1e293b 100%
+  );
+  box-shadow: 
+    inset -50px 40px 60px rgba(15, 23, 42, 0.35),
+    inset 40px -30px 50px rgba(255, 255, 255, 0.9),
+    0 0 80px rgba(203, 213, 225, 0.4);
+  filter: blur(55px);
   border-radius: 50%;
-  animation: loadingCircle 5s linear infinite;
+  animation: loadingCircle 6s linear infinite;
 }
 
 .nav-fade {
@@ -209,13 +220,24 @@
   z-index: 9;
   position: fixed;
   display: none;
-  width: 300px;
-  height: 300px;
-  background-color: #fb8dff;
-  box-shadow: inset -50px 40px 50px rgba(84, 0, 255, 0.6);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle at 65% 40%,
+    #ffffff 0%,
+    #e2e8f0 20%,
+    #cbd5e1 42%,
+    #94a3b8 65%,
+    #475569 85%,
+    #1e293b 100%
+  );
+  box-shadow: 
+    inset 50px -40px 60px rgba(15, 23, 42, 0.3),
+    inset -40px 30px 50px rgba(255, 255, 255, 0.85),
+    0 0 70px rgba(203, 213, 225, 0.35);
   filter: blur(50px);
   border-radius: 50%;
-  animation: loadingCircle2 5s linear infinite;
+  animation: loadingCircle2 6s linear infinite;
 }
 
 @keyframes loadingCircle2 {
@@ -241,13 +263,24 @@
 
 .character-rim {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 440px;
+  height: 440px;
   z-index: 1;
-  background-color: #f59bf8;
+  background: radial-gradient(
+    circle at 50% 45%,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #cbd5e1 50%,
+    #94a3b8 72%,
+    #475569 90%,
+    #1e293b 100%
+  );
   transform: translate(-50%, 36%) scaleX(1.4);
-  box-shadow: inset 66px 35px 85px 0px rgba(85, 0, 255, 0.65);
-  filter: blur(50px);
+  box-shadow: 
+    inset 60px 35px 85px 0px rgba(15, 23, 42, 0.4),
+    inset -45px -30px 65px 0px rgba(255, 255, 255, 0.85),
+    0 0 90px rgba(203, 213, 225, 0.5);
+  filter: blur(52px);
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -327,19 +360,22 @@
 
 .landing-intro h2 {
   margin: 0;
-  color: var(--accentColor);
-  font-size: 22px;
-  font-weight: 300;
-  letter-spacing: 2px;
+  color: #64748b;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
 }
 
 .landing-intro h1 {
   margin: 0;
-  letter-spacing: 2px;
-  font-size: 28px;
-  line-height: 28px;
-  font-weight: 500;
+  letter-spacing: var(--ls-tight);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  font-weight: 700;
   font-family: "Geist", sans-serif;
+  text-wrap: balance;
 }
 
 /* .landing-intro h1 span {
@@ -356,10 +392,12 @@
 }
 
 .landing-info h3 {
-  font-size: 22px;
-  letter-spacing: 2px;
-  font-weight: 300;
-  color: var(--accentColor);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-wide);
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
   margin: 0;
 }
 
@@ -390,14 +428,20 @@
 }
 
 h2.landing-info-h2 {
-  color: #c481ff;
   font-size: 36px;
   width: 150%;
   margin: 0;
   font-family: "Geist", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   margin-left: -5px;
+  letter-spacing: -0.03em;
+  /* Degradado Titanio Líquido */
+  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 30%, #94a3b8 55%, #475569 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .landing-h2-2 {
@@ -413,10 +457,11 @@ h2.landing-info-h2 {
   height: 120%;
   z-index: 3;
   background-image: linear-gradient(0deg,
-      var(--backgroundColor) 40%,
-      rgba(0, 0, 0, 0) 110%);
+      rgba(0, 0, 0, 0.06) 20%,
+      rgba(0, 0, 0, 0) 90%);
   top: 0;
   left: 0;
+  pointer-events: none;
 }
 
 @media screen and (min-width: 500px) {
@@ -426,19 +471,6 @@ h2.landing-info-h2 {
 
   .character-model {
     z-index: 0;
-  }
-
-  .landing-info h3 {
-    font-size: 18px;
-  }
-
-  .landing-intro h2 {
-    font-size: 18px;
-  }
-
-  .landing-intro h1 {
-    font-size: 30px;
-    line-height: 30px;
   }
 
   .landing-info h2 {
@@ -454,19 +486,6 @@ h2.landing-info-h2 {
 @media screen and (min-width: 768px) {
   .character-model {
     height: 80vh;
-  }
-
-  .landing-intro h2 {
-    font-size: 25px;
-  }
-
-  .landing-intro h1 {
-    font-size: 40px;
-    line-height: 35px;
-  }
-
-  .landing-info h3 {
-    font-size: 25px;
   }
 
   .landing-info h2 {
@@ -550,5 +569,53 @@ h2.landing-info-h2 {
 
   h2.landing-info-h2 {
     font-size: 75px;
+  }
+}
+
+/* JRG Agency Brand Header & Logo */
+.landing-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.landing-title-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.landing-title-logo:hover {
+  transform: scale(1.08) rotate(6deg);
+  box-shadow: 0 6px 28px rgba(255, 255, 255, 0.25);
+}
+
+@media only screen and (max-width: 768px) {
+  .landing-brand-header {
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .landing-title-logo {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .landing-brand-header {
+    gap: 22px;
+    margin-top: 12px;
+  }
+
+  .landing-title-logo {
+    width: 80px;
+    height: 80px;
   }
 }

@@ -12,32 +12,30 @@ const Landing = ({ children }: PropsWithChildren) => {
       <div className="landing-section" id="landingDiv">
         <div className="landing-container">
           <div className="landing-intro">
-            <h2>Hello! I'm</h2>
-            <h1>
-              {firstName.toUpperCase()}
-              {' '}
-              <br />
-              {lastName && <span>{lastName.toUpperCase()}</span>}
-            </h1>
+            <h2>Bienvenido a</h2>
+            <div className="landing-brand-header">
+              <img
+                src="/logo.png"
+                alt="JRG Agency Logo"
+                className="landing-title-logo"
+                loading="eager"
+              />
+              <h1>
+                {firstName.toUpperCase()}
+                {' '}
+                <br />
+                {lastName && <span>{lastName.toUpperCase()}</span>}
+              </h1>
+            </div>
           </div>
           <div className="landing-info">
-            <h3>An</h3>
+            <h3>Estudio de</h3>
             <h2 className="landing-info-h2">
-              <div className="landing-h2-1">AI Engineer</div>
+              <div className="landing-h2-1">Diseño & 3D Web</div>
             </h2>
             <h2>
-              <div className="landing-h2-info">Full-Stack Developer</div>
+              <div className="landing-h2-info">Desarrollo Frontend</div>
             </h2>
-          </div>
-          {/* Mobile photo - shows only on mobile when 3D character is hidden */}
-          <div className="mobile-photo">
-            <img
-              src="/images/mypicnbg.png"
-              alt="Redoyanul Haque"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-            />
           </div>
         </div>
         {children}

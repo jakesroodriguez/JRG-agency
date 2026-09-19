@@ -38,7 +38,6 @@ const Work = () => {
         scrub: 1,
         pin: true,
         pinSpacing: true,
-        anticipatePin: 1,
         id: "work",
         invalidateOnRefresh: true,
       },
@@ -62,7 +61,7 @@ const Work = () => {
     <div className="work-section" id="work">
       <div className="work-container section-container">
         <h2>
-          My <span>Work</span>
+          Proyectos <span>Destacados</span>
         </h2>
         <div className="work-flex">
           {config.projects.slice(0, 5).map((project, index) => (
@@ -76,7 +75,7 @@ const Work = () => {
                     <p>{project.category}</p>
                   </div>
                 </div>
-                <h4>Tools and features</h4>
+                <h4>Herramientas y características</h4>
                 <p>{project.technologies}</p>
               </div>
               <WorkImage image={project.image} alt={project.title} link={project.link} />
@@ -85,10 +84,10 @@ const Work = () => {
           {/* See All Works Button */}
           <div className="work-box work-box-cta">
             <div className="see-all-works">
-              <h3>Want to see more?</h3>
-              <p>Explore all of my projects and creations</p>
+              <h3>¿Quieres ver más?</h3>
+              <p>Explora todos nuestros proyectos y creaciones</p>
               <Link to="/myworks" className="see-all-btn" data-cursor="disable">
-                See All Works →
+                Ver Todos los Trabajos →
               </Link>
             </div>
           </div>

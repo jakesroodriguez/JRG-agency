@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  align-items: center;
   max-width: var(--cMaxWidth);
   width: var(--cWidth);
   justify-content: space-between;
@@ -13,7 +14,8 @@
   z-index: 9999;
 }
 .header ul {
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -22,11 +24,13 @@
   column-gap: 20px;
   row-gap: 6px;
   align-items: end;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
 }
 .header ul li {
   margin-left: 0px;
-  letter-spacing: 0.8px;
-  color: #ccc;
+  letter-spacing: var(--ls-wide);
+  color: #71717a;
   font-weight: 600;
   cursor: pointer;
 }
@@ -36,14 +40,36 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 13px;
-  letter-spacing: 0.8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
   font-weight: 500;
+  color: #52525b;
 }
 .navbar-title {
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #18181b;
+  text-decoration: none;
+}
+.navbar-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.navbar-title:hover .navbar-logo-img {
+  transform: scale(1.08) rotate(6deg);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.22);
 }
 @media only screen and (min-width: 500px) {
   .header {
@@ -52,13 +78,18 @@
   .header ul {
     flex-direction: row;
     align-items: center;
-    font-size: 14px;
+    font-size: var(--fs-mono);
   }
   .header ul li {
-    color: #eae5ec;
+    color: #18181b;
   }
   .navbar-title {
-    font-size: 16px;
+    font-size: 22px;
+    gap: 14px;
+  }
+  .navbar-logo-img {
+    width: 48px;
+    height: 48px;
   }
 }
 @media only screen and (min-width: 900px) {
@@ -72,10 +103,10 @@
   }
   .header ul {
     column-gap: 80px;
-    font-size: 16px;
+    font-size: var(--fs-mono);
   }
   .navbar-connect {
-    font-size: 16px;
+    font-size: var(--fs-mono);
   }
   .navbar-title {
     font-size: 18px;

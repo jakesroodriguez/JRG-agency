@@ -12,42 +12,25 @@ const Contact = () => {
     const contactTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".contact-section",
-        start: "top 80%",
-        end: "bottom center",
+        start: "top 95%",
         toggleActions: "play none none none",
       },
     });
 
-    // Animate title from bottom
+    // Animate title and contact boxes smoothly
     contactTimeline.fromTo(
-      ".contact-section h3",
+      ".contact-section h3, .contact-box",
       {
         opacity: 0,
-        y: 50,
+        y: 40,
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.7,
+        stagger: 0.1,
         ease: "power3.out",
       }
-    );
-
-    // Animate contact boxes with stagger from bottom
-    contactTimeline.fromTo(
-      ".contact-box",
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-      },
-      "-=0.4"
     );
 
     // Clean up
@@ -68,13 +51,37 @@ const Contact = () => {
                 {config.contact.email}
               </a>
             </p>
-            <h4>Location</h4>
+            <h4>WhatsApp & Teléfono</h4>
+            <p>
+              <a href={config.contact.whatsapp} target="_blank" rel="noopener noreferrer" data-cursor="disable">
+                {config.contact.phone}
+              </a>
+            </p>
+            <h4>Ubicación</h4>
             <p>
               <span>{config.social.location}</span>
             </p>
           </div>
           <div className="contact-box">
-            <h4>Social</h4>
+            <h4>Canales & Enlaces</h4>
+            <a
+              href={config.contact.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              WhatsApp Directo <MdArrowOutward />
+            </a>
+            <a
+              href={config.contact.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="disable"
+              className="contact-social"
+            >
+              Web JRG Estudio <MdArrowOutward />
+            </a>
             <a
               href={config.contact.github}
               target="_blank"
@@ -83,33 +90,6 @@ const Contact = () => {
               className="contact-social"
             >
               Github <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Linkedin <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href={config.contact.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Facebook <MdArrowOutward />
             </a>
             <a
               href={config.contact.instagram}
@@ -121,12 +101,14 @@ const Contact = () => {
               Instagram <MdArrowOutward />
             </a>
           </div>
-          <div className="contact-box">
+          <div className="contact-box contact-box-brand">
+            <img src="/logo.png" alt="JRG Agency Logo" className="contact-logo-img" />
             <h2>
-              Designed and Developed <br /> by <span>{config.developer.fullName}</span>
+              Diseñado y Desarrollado <br /> por <span>{config.developer.fullName}</span>
+              <br /><small style={{ fontSize: '0.65em', opacity: 0.8 }}>Fundado por {config.developer.founder}</small>
             </h2>
             <h5>
-              <MdCopyright /> {new Date().getFullYear()}
+              <MdCopyright /> {new Date().getFullYear()} JRG Agency · Todos los derechos reservados
             </h5>
           </div>
         </div>

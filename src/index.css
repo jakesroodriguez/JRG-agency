@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@300..700&display=swap");
 
 :root {
   font-family: "Geist", sans-serif;
@@ -7,9 +7,9 @@
   font-style: normal;
   line-height: 1.5;
   scroll-behavior: smooth;
-  color-scheme: light dark;
-  color: #eae5ec;
-  background-color: var(--backgroundColor);
+  color-scheme: light;
+  color: #18181b;
+  background-color: transparent;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,10 +18,30 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  --accentColor: #c2a4ff;
-  --backgroundColor: #0b080c;
+  --accentColor: #18181b;
+  --backgroundColor: transparent;
   --vh: 100vh;
   --vh: 100svh;
+
+  /* — ESCALA TIPOGRÁFICA FLUIDA — */
+  --fs-display:  clamp(2.5rem, 5.5vw + 1rem, 5.5rem);
+  --fs-h1:       clamp(2rem, 4vw + 0.8rem, 4.5rem);
+  --fs-h2:       clamp(1.6rem, 3vw + 0.6rem, 3rem);
+  --fs-h3:       clamp(1.2rem, 2vw + 0.5rem, 2rem);
+  --fs-body:     clamp(1rem, 0.4vw + 0.9rem, 1.25rem);
+  --fs-small:    clamp(0.75rem, 0.3vw + 0.65rem, 0.9rem);
+  --fs-mono:     clamp(0.7rem, 0.25vw + 0.6rem, 0.85rem);
+
+  --lh-tight:    1.05;
+  --lh-normal:   1.65;
+  --lh-heading:  1.15;
+
+  --ls-tight:    -0.04em;
+  --ls-normal:   -0.02em;
+  --ls-wide:      0.12em;
+
+  /* — TIPOGRAFÍA MONO HUD — */
+  --font-mono: "Geist Mono", ui-monospace, monospace;
 }
 
 h1,
@@ -33,8 +53,46 @@ h6 {
   font-family: "Geist", sans-serif;
 }
 
+/* — Texto equilibrado — */
+h1, h2, h3 { text-wrap: balance; }
+p          { text-wrap: pretty;  }
+
+/* — Degradado de texto Titanio Líquido — */
+.text-titanium {
+  background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 35%, #94a3b8 60%, #64748b 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* — Badge HUD Monospace — */
+.mono-badge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  color: #64748b;
+}
+
+/* — Protección de legibilidad sobre fondo animado — */
+.text-protect {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+}
+
+html,
 body {
   overflow: hidden;
+  background-color: transparent;
 }
 
 /* Allow scrolling on mobile */
@@ -88,7 +146,7 @@ main {
 body {
   margin: 0;
   height: auto;
-  background-color: #000;
+  background-color: var(--backgroundColor);
   flex-grow: 1;
   --cWidth: calc(100% - 30px);
   --cMaxWidth: 1920px;
@@ -101,6 +159,18 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+}
+
+.main-loading {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.main-active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .container-main {
@@ -137,8 +207,9 @@ body {
   margin-bottom: 0;
   padding-top: 150px;
   padding-bottom: 150px;
-  background: linear-gradient(180deg, rgba(11, 8, 12, 0.95) 0%, rgba(11, 8, 12, 0.98) 100%);
-  background-color: var(--backgroundColor);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -154,8 +225,8 @@ body {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(194, 164, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(194, 164, 255, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.03) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }

@@ -2,7 +2,7 @@ import "./styles/Career.css";
 import { config } from "../config";
 
 const getDisplayYear = (period: string) => {
-  if (period.includes("Present")) return "NOW";
+  if (period.includes("Present") || period.includes("Presente")) return "ACTUAL";
   if (period.includes(" - ")) {
     return period.split(" - ")[0]; // Show start year for ranges
   }
@@ -14,8 +14,8 @@ const Career = () => {
     <div className="career-section section-container">
       <div className="career-container">
         <h2>
-          My career <span>&</span>
-          <br /> experience
+          Trayectoria <span>&</span>
+          <br /> experiencia
         </h2>
         <div className="career-info">
           <div className="career-timeline">
