@@ -101,11 +101,186 @@ const createClothingMaterial = (
   envMapIntensity,
 });
 
+const createEyebrowTexture = () => {
+  const width = 512;
+  const height = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  // Fondo base con gradiente sutil de tonos oscuros y profundos de cabello natural
+  const grad = ctx.createLinearGradient(0, 0, width, height);
+  grad.addColorStop(0, "#1c1917");
+  grad.addColorStop(0.5, "#141211");
+  grad.addColorStop(1, "#181615");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, width, height);
+
+  // Generación procedimental de fibras capilares (pelos individuales realistas)
+  // u=0 (cabeza interna cerca de la nariz), u=width (cola externa hacia la sien)
+  // v=0 (borde superior), v=height (borde inferior)
+  const strandCount = 2000;
+  for (let i = 0; i < strandCount; i++) {
+    const u = Math.random();
+    const v = Math.random();
+    const x = u * width;
+    const y = v * height;
+
+    const isHead = u < 0.25;
+    const isTail = u > 0.70;
+
+    // Ángulo natural de crecimiento del vello de la ceja
+    let baseAngle = 0.12;
+    if (isHead) {
+      // En la cabeza interna, los vellos crecen hacia arriba y ligeramente hacia afuera
+      baseAngle = -0.42 + (u / 0.25) * 0.50;
+    } else if (isTail) {
+      // En la cola externa, convergen hacia abajo y hacia afuera
+      baseAngle = 0.14 + ((u - 0.70) / 0.30) * 0.28;
+    }
+
+    const angle = baseAngle + (Math.random() - 0.5) * 0.22;
+    const length = 12 + Math.random() * 24;
+
+    const tone = Math.random();
+    let strokeColor = "#0d0c0b";
+    let alpha = 0.30 + Math.random() * 0.45;
+    let lineWidth = 0.75 + Math.random() * 1.1;
+
+    if (tone > 0.78) {
+      strokeColor = "#2d2824"; // Reflejo cálido realista
+      alpha = 0.42;
+      lineWidth = 0.8;
+    } else if (tone > 0.45) {
+      strokeColor = "#1a1816"; // Tono carbón intenso
+    }
+
+    ctx.strokeStyle = strokeColor;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = lineWidth;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+
+    const cpX = x + Math.cos(angle) * (length * 0.5) + (Math.random() - 0.5) * 3;
+    const cpY = y + Math.sin(angle) * (length * 0.5) + (Math.random() - 0.5) * 2.5;
+    const endX = x + Math.cos(angle) * length;
+    const endY = y + Math.sin(angle) * length;
+
+    ctx.quadraticCurveTo(cpX, cpY, endX, endY);
+    ctx.stroke();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.anisotropy = 4;
+  return texture;
+};
+
+const createEyebrowBumpTexture = () => {
+  const width = 512;
+  const height = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  ctx.fillStyle = "#808080";
+  ctx.fillRect(0, 0, width, height);
+
+  // Micro-relieves para simular el brillo especular direccional de cada pelo
+  for (let i = 0; i < 2400; i++) {
+    const u = Math.random();
+    const v = Math.random();
+    const x = u * width;
+    const y = v * height;
+
+    let baseAngle = 0.12;
+    if (u < 0.25) baseAngle = -0.42 + (u / 0.25) * 0.50;
+    else if (u > 0.70) baseAngle = 0.14 + ((u - 0.70) / 0.30) * 0.28;
+
+    const angle = baseAngle + (Math.random() - 0.5) * 0.20;
+    const length = 10 + Math.random() * 20;
+
+    ctx.strokeStyle = Math.random() > 0.5 ? "#b8b8b8" : "#4c4c4c";
+    ctx.globalAlpha = 0.35 + Math.random() * 0.35;
+    ctx.lineWidth = 1 + Math.random() * 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+    ctx.stroke();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.anisotropy = 4;
+  return texture;
+};
+
+const sculptEyebrows = (mesh: THREE.Mesh) => {
+  const geometry = mesh.geometry;
+  if (!geometry || !geometry.attributes.position) return;
+  const posAttr = geometry.attributes.position;
+  const vertexCount = posAttr.count;
+
+  for (let i = 0; i < vertexCount; i++) {
+    const x = posAttr.getX(i);
+    const y = posAttr.getY(i);
+    const z = posAttr.getZ(i);
+
+    const absX = Math.abs(x);
+    const signX = Math.sign(x);
+
+    // Normalizado t en [0, 1] desde cabeza interna (0) hasta cola externa (1)
+    const t = Math.min(Math.max((absX - 0.12) / (0.74 - 0.12), 0), 1);
+
+    // Elevación natural del arco anatómico (pico entre t=0.55 y t=0.72)
+    const archFactor = Math.sin(Math.pow(t, 0.85) * Math.PI);
+    const archLift = archFactor * 0.038;
+
+    // Afinado elegante de la cola hacia la sien
+    const tailTaper = t > 0.72 ? -Math.pow((t - 0.72) / 0.28, 1.4) * 0.024 : 0;
+
+    // Volumen y curvatura hacia adelante siguiendo la frente
+    const forwardCurve = (1 - Math.pow(t, 2) * 0.35) * 0.022;
+
+    const newY = y + archLift + tailTaper;
+    const newZ = z + forwardCurve;
+
+    // Leve barrido lateral estilizado
+    const sweepX = signX * (absX + (t > 0.5 ? (t - 0.5) * 0.012 : 0));
+
+    posAttr.setXYZ(i, sweepX, newY, newZ);
+  }
+
+  posAttr.needsUpdate = true;
+  geometry.computeVertexNormals();
+};
+
 const applyWardrobe = (character: THREE.Object3D) => {
   const shirt = createClothingMaterial("cotton", "#b9b8b4", "#e7e5df", 0.72, 0.04, 0.36, 0.01);
   const trousers = createClothingMaterial("denim", "#090909", "#3f3f3f", 0.80, 0.06, 0.30, 0.01);
   const shoes = createClothingMaterial("leather", "#f1f0eb", "#c7c5bf", 0.52, 0.025, 0.50, 0.03);
   const soles = createClothingMaterial("rubber", "#deddd8", "#a8a7a2", 0.68, 0.05, 0.35, 0.01);
+
+  // Material texturizado y realista para las cejas
+  const eyebrowDiffuse = createEyebrowTexture();
+  const eyebrowBump = createEyebrowBumpTexture();
+  const eyebrowMaterial = new THREE.MeshStandardMaterial({
+    color: new THREE.Color("#181513"),
+    map: eyebrowDiffuse ?? undefined,
+    bumpMap: eyebrowBump ?? undefined,
+    bumpScale: 0.065,
+    roughness: 0.56,
+    metalness: 0.02,
+    envMapIntensity: 0.42,
+    side: THREE.DoubleSide,
+  });
 
   // Tono de piel cálido, natural y realista para cara, orejas, cuello y manos
   const skinColor = new THREE.Color("#dca889");
@@ -121,6 +296,22 @@ const applyWardrobe = (character: THREE.Object3D) => {
     if (name === "Pant" || lower.includes("pant")) mesh.material = trousers;
     if (name === "Shoe" || lower.includes("shoe")) mesh.material = shoes;
     if (name === "Sole" || lower.includes("sole")) mesh.material = soles;
+
+    // Detección y mejora de cejas (Eyebrow / Plane.004)
+    const isEyebrow =
+      name === "Eyebrow" ||
+      name === "Plane.004" ||
+      name === "Plane004" ||
+      lower.includes("eyebrow") ||
+      lower.includes("brow") ||
+      geoName.includes("plane.004") ||
+      geoName.includes("plane004");
+
+    if (isEyebrow) {
+      sculptEyebrows(mesh);
+      mesh.material = eyebrowMaterial;
+      return;
+    }
 
     // Aplicar tono de piel a cara (Plane007 / Plane.007), orejas (Ear001 / Ear.001), cuello (Neck) y manos (Hand)
     const isSkin =
@@ -210,7 +401,10 @@ const setCharacter = (
               name.includes("hand") ||
               name.includes("neck") ||
               name.includes("face") ||
-              name.includes("head");
+              name.includes("head") ||
+              name.includes("eyebrow") ||
+              name.includes("brow") ||
+              name.includes("plane.004");
 
             if (isSkinOrWardrobe) {
               material.needsUpdate = true;
