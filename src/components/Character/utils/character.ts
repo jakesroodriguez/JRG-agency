@@ -126,6 +126,9 @@ const sculptEyebrows = (mesh: THREE.Mesh) => {
   const posAttr = geometry.attributes.position;
   const vertexCount = posAttr.count;
 
+  // Centro de referencia Y de las cejas originales
+  const centerY = 13.61;
+
   for (let i = 0; i < vertexCount; i++) {
     const x = posAttr.getX(i);
     const y = posAttr.getY(i);
@@ -137,25 +140,26 @@ const sculptEyebrows = (mesh: THREE.Mesh) => {
     // Normalizado t en [0, 1] desde cabeza interna (|x| ~ 0.12) hasta cola externa (|x| ~ 0.74)
     const t = Math.min(Math.max((absX - 0.12) / (0.74 - 0.12), 0), 1);
 
-    // Reproducción exacta de la forma arqueada de la referencia:
-    // 1. Cabeza interna (t < 0.20): base erguida con vello vertical natural.
-    // 2. Arco pronunciado y estilizado hacia el ápice en t = 0.65 (+0.058 en Y).
-    // 3. Caída fluida y cola afilada hacia la sien (-0.082 en Y).
+    // 1. Ampliar el tamaño vertical y presencia (más grande y definida)
+    const scaledY = centerY + (y - centerY) * 1.30;
+
+    // 2. Curvatura estilizada de ala arqueada idéntica a la referencia:
+    // Subida elegante hacia el ápice (+0.062 en Y en t=0.65) y descenso fluido hacia la cola (-0.075)
     let archCurve = 0;
     if (t <= 0.65) {
-      archCurve = Math.pow(t / 0.65, 1.15) * 0.058;
+      archCurve = Math.pow(t / 0.65, 1.15) * 0.062;
     } else {
       const tailProgress = (t - 0.65) / 0.35;
-      archCurve = 0.058 - Math.pow(tailProgress, 1.25) * 0.082;
+      archCurve = 0.062 - Math.pow(tailProgress, 1.25) * 0.075;
     }
 
-    // Volumen 3D y relieve hacia adelante (+0.028 en Z) para despegarse de la piel de la frente
-    const browRidgeZ = (1 - Math.pow(t, 2) * 0.38) * 0.028;
+    // 3. Proyección frontal 3D (+0.034 en Z) para que la ceja destaque nítidamente sobre la piel
+    const browRidgeZ = (1 - Math.pow(t, 2) * 0.35) * 0.034;
 
-    // Afinado lateral hacia la sien para una silueta esbelta
-    const lateralX = signX * (absX + (t > 0.60 ? (t - 0.60) * 0.016 : 0));
+    // 4. Envergadura estilizada en X (10% más amplia)
+    const scaledX = signX * (0.11 + (absX - 0.11) * 1.10);
 
-    posAttr.setXYZ(i, lateralX, y + archCurve, z + browRidgeZ);
+    posAttr.setXYZ(i, scaledX, scaledY + archCurve, z + browRidgeZ);
   }
 
   posAttr.needsUpdate = true;
@@ -169,17 +173,18 @@ const applyWardrobe = (character: THREE.Object3D) => {
   const soles = createClothingMaterial("rubber", "#deddd8", "#a8a7a2", 0.68, 0.05, 0.35, 0.01);
 
   // Material texturizado de alta definición extraído del diseño de referencia
+  // alphaTest: 0.15 asegura que el polígono exterior sea 100% invisible, dejando únicamente el pelo
   const { diffuse: eyebrowDiffuse, bump: eyebrowBump } = loadEyebrowTextures();
   const eyebrowMaterial = new THREE.MeshStandardMaterial({
-    color: new THREE.Color("#141211"),
+    color: new THREE.Color("#ffffff"), // Sin tintado multiplicativo para preservar el negro natural del PNG
     map: eyebrowDiffuse,
     bumpMap: eyebrowBump,
     bumpScale: 0.08,
-    roughness: 0.52,
+    roughness: 0.48,
     metalness: 0.02,
     envMapIntensity: 0.45,
     transparent: true,
-    alphaTest: 0.03,
+    alphaTest: 0.15, // Recorta limpiamente cualquier resto exterior
     depthWrite: true,
     side: THREE.DoubleSide,
   });
