@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./preview.png" alt="JRG Agency Banner" width="600" style="border-radius: 12px;" />
+  <img src="./public/logo.png" alt="JRG Agency Logo" width="220" />
 </p>
 
 <h1 align="center">⚡ JRG Agency — Web Portfolio & Experiencias 3D</h1>
