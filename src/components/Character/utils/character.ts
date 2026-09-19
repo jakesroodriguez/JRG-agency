@@ -101,125 +101,23 @@ const createClothingMaterial = (
   envMapIntensity,
 });
 
-const createEyebrowTexture = () => {
-  const width = 512;
-  const height = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return null;
+const loadEyebrowTextures = () => {
+  const textureLoader = new THREE.TextureLoader();
+  const diffuse = textureLoader.load("/textures/eyebrow_diffuse.png");
+  diffuse.colorSpace = THREE.SRGBColorSpace;
+  diffuse.flipY = false;
+  diffuse.generateMipmaps = true;
+  diffuse.minFilter = THREE.LinearMipmapLinearFilter;
+  diffuse.magFilter = THREE.LinearFilter;
+  diffuse.wrapS = THREE.ClampToEdgeWrapping;
+  diffuse.wrapT = THREE.ClampToEdgeWrapping;
 
-  // Fondo base con gradiente sutil de tonos oscuros y profundos de cabello natural
-  const grad = ctx.createLinearGradient(0, 0, width, height);
-  grad.addColorStop(0, "#1c1917");
-  grad.addColorStop(0.5, "#141211");
-  grad.addColorStop(1, "#181615");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, width, height);
+  const bump = textureLoader.load("/textures/eyebrow_bump.png");
+  bump.flipY = false;
+  bump.wrapS = THREE.ClampToEdgeWrapping;
+  bump.wrapT = THREE.ClampToEdgeWrapping;
 
-  // Generación procedimental de fibras capilares (pelos individuales realistas)
-  // u=0 (cabeza interna cerca de la nariz), u=width (cola externa hacia la sien)
-  // v=0 (borde superior), v=height (borde inferior)
-  const strandCount = 2000;
-  for (let i = 0; i < strandCount; i++) {
-    const u = Math.random();
-    const v = Math.random();
-    const x = u * width;
-    const y = v * height;
-
-    const isHead = u < 0.25;
-    const isTail = u > 0.70;
-
-    // Ángulo natural de crecimiento del vello de la ceja
-    let baseAngle = 0.12;
-    if (isHead) {
-      // En la cabeza interna, los vellos crecen hacia arriba y ligeramente hacia afuera
-      baseAngle = -0.42 + (u / 0.25) * 0.50;
-    } else if (isTail) {
-      // En la cola externa, convergen hacia abajo y hacia afuera
-      baseAngle = 0.14 + ((u - 0.70) / 0.30) * 0.28;
-    }
-
-    const angle = baseAngle + (Math.random() - 0.5) * 0.22;
-    const length = 12 + Math.random() * 24;
-
-    const tone = Math.random();
-    let strokeColor = "#0d0c0b";
-    let alpha = 0.30 + Math.random() * 0.45;
-    let lineWidth = 0.75 + Math.random() * 1.1;
-
-    if (tone > 0.78) {
-      strokeColor = "#2d2824"; // Reflejo cálido realista
-      alpha = 0.42;
-      lineWidth = 0.8;
-    } else if (tone > 0.45) {
-      strokeColor = "#1a1816"; // Tono carbón intenso
-    }
-
-    ctx.strokeStyle = strokeColor;
-    ctx.globalAlpha = alpha;
-    ctx.lineWidth = lineWidth;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-
-    const cpX = x + Math.cos(angle) * (length * 0.5) + (Math.random() - 0.5) * 3;
-    const cpY = y + Math.sin(angle) * (length * 0.5) + (Math.random() - 0.5) * 2.5;
-    const endX = x + Math.cos(angle) * length;
-    const endY = y + Math.sin(angle) * length;
-
-    ctx.quadraticCurveTo(cpX, cpY, endX, endY);
-    ctx.stroke();
-  }
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.ClampToEdgeWrapping;
-  texture.anisotropy = 4;
-  return texture;
-};
-
-const createEyebrowBumpTexture = () => {
-  const width = 512;
-  const height = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return null;
-
-  ctx.fillStyle = "#808080";
-  ctx.fillRect(0, 0, width, height);
-
-  // Micro-relieves para simular el brillo especular direccional de cada pelo
-  for (let i = 0; i < 2400; i++) {
-    const u = Math.random();
-    const v = Math.random();
-    const x = u * width;
-    const y = v * height;
-
-    let baseAngle = 0.12;
-    if (u < 0.25) baseAngle = -0.42 + (u / 0.25) * 0.50;
-    else if (u > 0.70) baseAngle = 0.14 + ((u - 0.70) / 0.30) * 0.28;
-
-    const angle = baseAngle + (Math.random() - 0.5) * 0.20;
-    const length = 10 + Math.random() * 20;
-
-    ctx.strokeStyle = Math.random() > 0.5 ? "#b8b8b8" : "#4c4c4c";
-    ctx.globalAlpha = 0.35 + Math.random() * 0.35;
-    ctx.lineWidth = 1 + Math.random() * 1.2;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
-    ctx.stroke();
-  }
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = THREE.ClampToEdgeWrapping;
-  texture.wrapT = THREE.ClampToEdgeWrapping;
-  texture.anisotropy = 4;
-  return texture;
+  return { diffuse, bump };
 };
 
 const sculptEyebrows = (mesh: THREE.Mesh) => {
@@ -236,26 +134,28 @@ const sculptEyebrows = (mesh: THREE.Mesh) => {
     const absX = Math.abs(x);
     const signX = Math.sign(x);
 
-    // Normalizado t en [0, 1] desde cabeza interna (0) hasta cola externa (1)
+    // Normalizado t en [0, 1] desde cabeza interna (|x| ~ 0.12) hasta cola externa (|x| ~ 0.74)
     const t = Math.min(Math.max((absX - 0.12) / (0.74 - 0.12), 0), 1);
 
-    // Elevación natural del arco anatómico (pico entre t=0.55 y t=0.72)
-    const archFactor = Math.sin(Math.pow(t, 0.85) * Math.PI);
-    const archLift = archFactor * 0.038;
+    // Reproducción exacta de la forma arqueada de la referencia:
+    // 1. Cabeza interna (t < 0.20): base erguida con vello vertical natural.
+    // 2. Arco pronunciado y estilizado hacia el ápice en t = 0.65 (+0.058 en Y).
+    // 3. Caída fluida y cola afilada hacia la sien (-0.082 en Y).
+    let archCurve = 0;
+    if (t <= 0.65) {
+      archCurve = Math.pow(t / 0.65, 1.15) * 0.058;
+    } else {
+      const tailProgress = (t - 0.65) / 0.35;
+      archCurve = 0.058 - Math.pow(tailProgress, 1.25) * 0.082;
+    }
 
-    // Afinado elegante de la cola hacia la sien
-    const tailTaper = t > 0.72 ? -Math.pow((t - 0.72) / 0.28, 1.4) * 0.024 : 0;
+    // Volumen 3D y relieve hacia adelante (+0.028 en Z) para despegarse de la piel de la frente
+    const browRidgeZ = (1 - Math.pow(t, 2) * 0.38) * 0.028;
 
-    // Volumen y curvatura hacia adelante siguiendo la frente
-    const forwardCurve = (1 - Math.pow(t, 2) * 0.35) * 0.022;
+    // Afinado lateral hacia la sien para una silueta esbelta
+    const lateralX = signX * (absX + (t > 0.60 ? (t - 0.60) * 0.016 : 0));
 
-    const newY = y + archLift + tailTaper;
-    const newZ = z + forwardCurve;
-
-    // Leve barrido lateral estilizado
-    const sweepX = signX * (absX + (t > 0.5 ? (t - 0.5) * 0.012 : 0));
-
-    posAttr.setXYZ(i, sweepX, newY, newZ);
+    posAttr.setXYZ(i, lateralX, y + archCurve, z + browRidgeZ);
   }
 
   posAttr.needsUpdate = true;
@@ -268,17 +168,19 @@ const applyWardrobe = (character: THREE.Object3D) => {
   const shoes = createClothingMaterial("leather", "#f1f0eb", "#c7c5bf", 0.52, 0.025, 0.50, 0.03);
   const soles = createClothingMaterial("rubber", "#deddd8", "#a8a7a2", 0.68, 0.05, 0.35, 0.01);
 
-  // Material texturizado y realista para las cejas
-  const eyebrowDiffuse = createEyebrowTexture();
-  const eyebrowBump = createEyebrowBumpTexture();
+  // Material texturizado de alta definición extraído del diseño de referencia
+  const { diffuse: eyebrowDiffuse, bump: eyebrowBump } = loadEyebrowTextures();
   const eyebrowMaterial = new THREE.MeshStandardMaterial({
-    color: new THREE.Color("#181513"),
-    map: eyebrowDiffuse ?? undefined,
-    bumpMap: eyebrowBump ?? undefined,
-    bumpScale: 0.065,
-    roughness: 0.56,
+    color: new THREE.Color("#141211"),
+    map: eyebrowDiffuse,
+    bumpMap: eyebrowBump,
+    bumpScale: 0.08,
+    roughness: 0.52,
     metalness: 0.02,
-    envMapIntensity: 0.42,
+    envMapIntensity: 0.45,
+    transparent: true,
+    alphaTest: 0.03,
+    depthWrite: true,
     side: THREE.DoubleSide,
   });
 
