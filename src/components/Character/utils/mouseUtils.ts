@@ -13,8 +13,9 @@ export const handleTouchMove = (
   event: TouchEvent,
   setMousePosition: (x: number, y: number) => void
 ) => {
-  const mouseX = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-  const mouseY = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+  // Gentle subtle tracking on touch so thumb scrolling doesn't skew head sideways
+  const mouseX = ((event.touches[0].clientX / window.innerWidth) * 2 - 1) * 0.35;
+  const mouseY = (-(event.touches[0].clientY / window.innerHeight) * 2 + 1) * 0.35;
   setMousePosition(mouseX, mouseY);
 };
 
@@ -27,11 +28,11 @@ export const handleTouchEnd = (
   ) => void
 ) => {
   setTimeout(() => {
-    setMousePosition(0, 0, 0.03, 0.03);
+    setMousePosition(0, 0, 0.06, 0.06);
     setTimeout(() => {
       setMousePosition(0, 0, 0.1, 0.2);
-    }, 1000);
-  }, 2000);
+    }, 400);
+  }, 250);
 };
 
 export const handleHeadRotation = (

@@ -5,17 +5,17 @@ import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
 export const getCameraConfig = (width: number, height: number) => {
   const aspect = width / height;
   if (aspect < 0.6) {
-    // Mobile portrait (smartphones)
+    // Mobile portrait (smartphones) - offset X to center character & desk symmetrically
     return {
       fov: 22,
-      position: new THREE.Vector3(0, 11.2, 36),
+      position: new THREE.Vector3(0.32, 11.2, 36),
       zoom: 1.0,
     };
   } else if (aspect < 1.0) {
     // Tablet portrait (iPads, tablets)
     return {
       fov: 18,
-      position: new THREE.Vector3(0, 12.2, 29),
+      position: new THREE.Vector3(0.18, 12.2, 29),
       zoom: 1.05,
     };
   } else {
@@ -41,6 +41,7 @@ export default function handleResize(
   if (width === 0 || height === 0) return;
 
   renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.5));
   const config = getCameraConfig(width, height);
   camera.aspect = width / height;
   camera.fov = config.fov;

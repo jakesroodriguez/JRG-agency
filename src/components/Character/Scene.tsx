@@ -24,7 +24,6 @@ const Scene = () => {
 
   useEffect(() => {
     if (!canvasDiv.current) return;
-    const isMobileViewport = window.innerWidth <= 768;
     const rect = canvasDiv.current.getBoundingClientRect();
     const width = rect.width || window.innerWidth;
     const height = rect.height || window.innerHeight;
@@ -32,11 +31,11 @@ const Scene = () => {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !isMobileViewport && window.devicePixelRatio < 2,
+      antialias: true,
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(isMobileViewport ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.08;
     renderer.outputColorSpace = THREE.SRGBColorSpace;

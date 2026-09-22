@@ -45,7 +45,7 @@ const createSurfaceTexture = (kind: FabricKind, color: string, detail: string) =
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(kind === "rubber" ? 2.8 : 3.8, kind === "rubber" ? 2.8 : 3.8);
-  texture.anisotropy = 4;
+  texture.anisotropy = 8;
   return texture;
 };
 
@@ -351,7 +351,7 @@ const setCharacter = (
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
         materials.forEach((material: any) => {
           if (!material) return;
-          material.precision = "mediump";
+          material.precision = "highp";
           if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
             const name = (mesh.name || "").toLowerCase();
             const matName = (material.name || "").toLowerCase();

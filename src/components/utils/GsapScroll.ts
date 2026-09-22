@@ -185,7 +185,7 @@ export function setCharTimeline(
   } else {
     // ─── MOBILE SCROLL TIMELINE (< 768px) ───
     tl1
-      .fromTo(character.rotation, { y: 0 }, { y: 0.35, duration: 1 }, 0)
+      .fromTo(character.rotation, { y: 0 }, { y: 0.1, duration: 1 }, 0)
       .to(camera.position, { z: 32 }, 0)
       .to(".landing-container", { opacity: 0, duration: 0.5 }, 0)
       .to(".landing-container", { y: "20%", duration: 0.8 }, 0);
@@ -196,7 +196,7 @@ export function setCharTimeline(
         { z: 80, y: 8.6, duration: 1.2, ease: "power2.inOut" },
         0
       )
-      .to(character.rotation, { y: 0.75, x: 0.04, duration: 1.2 }, 0)
+      .to(character.rotation, { y: 0.16, x: 0.03, duration: 1.2 }, 0)
       .to(neckBone ? neckBone.rotation : {}, { x: 0.4, duration: 1.0 }, 0)
       .to(monitor ? monitor.material : {}, { opacity: 1, duration: 0.6, delay: 0.4 }, 0)
       .fromTo(
