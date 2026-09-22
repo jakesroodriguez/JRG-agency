@@ -216,6 +216,12 @@ const applyWardrobe = (character: THREE.Object3D) => {
     if (name === "Shoe" || lower.includes("shoe")) mesh.material = shoes;
     if (name === "Sole" || lower.includes("sole")) mesh.material = soles;
 
+    // Eliminar completamente el glow/luz morada frente al ordenador
+    if (name === "screenlight" || lower.includes("screenlight")) {
+      mesh.visible = false;
+      return;
+    }
+
     // Detección y mejora de cejas (Eyebrow / Plane.004)
     const isEyebrow =
       name === "Eyebrow" ||
@@ -278,6 +284,34 @@ const setCharacter = (
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath("/draco/");
   loader.setDRACOLoader(dracoLoader);
+  const neutralizeGroundTexture = (texture: THREE.Texture) => {
+    const image = texture.image;
+    if (!image) return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = image.width || 512;
+    canvas.height = image.height || 512;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.drawImage(image, 0, 0);
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+      data[i] = gray;
+      data[i + 1] = gray;
+      data[i + 2] = gray;
+    }
+    ctx.putImageData(imgData, 0, 0);
+    const newTexture = new THREE.CanvasTexture(canvas);
+    newTexture.colorSpace = THREE.SRGBColorSpace;
+    newTexture.wrapS = texture.wrapS;
+    newTexture.wrapT = texture.wrapT;
+    newTexture.needsUpdate = true;
+    return newTexture;
+  };
 
   const loadCharacter = () => new Promise<GLTF | null>((resolve, reject) => {
     const handleLoadedModel = (gltf: GLTF) => {
@@ -286,6 +320,31 @@ const setCharacter = (
       character.traverse((child: any) => {
         if (!child.isMesh) return;
         const mesh = child as THREE.Mesh;
+        const name = (mesh.name || "").toLowerCase();
+        if (name === "screenlight" || name.includes("screenlight")) {
+          mesh.visible = false;
+          if (mesh.material) {
+            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            mats.forEach((m: any) => {
+              m.visible = false;
+              m.opacity = 0;
+              m.transparent = true;
+            });
+          }
+          return;
+        }
+        if (name === "ground" || name.includes("ground")) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach((m: any) => {
+            if (m && m.map) {
+              const cleanTex = neutralizeGroundTexture(m.map);
+              if (cleanTex) {
+                m.map = cleanTex;
+                m.needsUpdate = true;
+              }
+            }
+          });
+        }
         mesh.castShadow = false;
         mesh.receiveShadow = false;
         mesh.frustumCulled = true;

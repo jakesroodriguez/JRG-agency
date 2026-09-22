@@ -308,10 +308,11 @@
   .work-box {
     width: 100%;
     max-width: 100%;
-    padding: 30px 15px;
+    padding: 36px 16px;
     border-right: none;
-    border-bottom: 1px solid #363636;
+    border-bottom: 1px solid #e4e4e7;
     gap: 20px;
+    box-sizing: border-box;
   }
 
   .work-flex .work-box:nth-child(even) {
@@ -319,14 +320,15 @@
   }
 
   .work-section h2 {
-    font-size: 36px;
+    font-size: clamp(32px, 7vw, 44px);
     margin-top: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    text-align: center;
   }
 
   .work-title h3 {
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 28px;
+    line-height: 1.15;
   }
 
   .work-info h4 {
@@ -334,11 +336,15 @@
   }
 
   .work-image img {
-    max-height: 200px;
+    max-height: 240px;
+    border-radius: 16px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   }
 
   .work-box-cta {
-    padding: 40px 20px;
+    padding: 50px 20px;
     border-bottom: none;
   }
 

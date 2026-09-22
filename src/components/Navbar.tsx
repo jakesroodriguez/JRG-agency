@@ -41,23 +41,21 @@ const Navbar = () => {
     }
     requestAnimationFrame(raf);
 
-    // Handle navigation links
+    // Handle navigation links on all screen sizes
     let links = document.querySelectorAll(".header ul a");
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
-        if (window.innerWidth > 1024) {
-          e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
-          if (section && lenis) {
-            const target = document.querySelector(section) as HTMLElement;
-            if (target) {
-              lenis.scrollTo(target, {
-                offset: 0,
-                duration: 1.5,
-              });
-            }
+        e.preventDefault();
+        let elem = e.currentTarget as HTMLAnchorElement;
+        let section = elem.getAttribute("data-href") || elem.getAttribute("href");
+        if (section && lenis) {
+          const target = document.querySelector(section) as HTMLElement;
+          if (target) {
+            lenis.scrollTo(target, {
+              offset: -40,
+              duration: 1.2,
+            });
           }
         }
       });

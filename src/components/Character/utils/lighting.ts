@@ -86,7 +86,7 @@ const setLighting = (scene: THREE.Scene, renderer: THREE.WebGLRenderer) => {
     const material = (screenGlow as THREE.Mesh | null)?.material as
       | THREE.MeshStandardMaterial
       | undefined;
-    const visible = Boolean(material?.opacity && material.opacity > 0.85);
+    const visible = Boolean(screenGlow?.visible && material?.opacity && material.opacity > 0.85);
     computerLight.intensity = visible ? 0.25 + (material?.emissiveIntensity ?? 0) * 0.8 : 0;
   };
 
