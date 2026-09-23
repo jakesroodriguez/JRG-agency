@@ -5,10 +5,10 @@ import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
 export const getCameraConfig = (width: number, height: number) => {
   const aspect = width / height;
   if (aspect < 0.6) {
-    // Mobile portrait (smartphones) - offset X to center character & desk symmetrically
+    // Mobile portrait (smartphones) - perfectly centered
     return {
       fov: 22,
-      position: new THREE.Vector3(0.32, 11.2, 36),
+      position: new THREE.Vector3(0, 11.2, 36),
       zoom: 1.0,
     };
   } else if (aspect < 1.0) {

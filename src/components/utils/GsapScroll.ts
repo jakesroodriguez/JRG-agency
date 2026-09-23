@@ -22,8 +22,8 @@ export function setCharTimeline(
   const tl2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".about-section",
-      start: isDesktop ? "top top" : isTablet ? "top top" : "top 80%",
-      end: isDesktop ? "+=140%" : isTablet ? "+=100%" : "bottom top",
+      start: isDesktop ? "top top" : isTablet ? "top top" : "top 85%",
+      end: isDesktop ? "+=140%" : isTablet ? "+=100%" : "center center",
       pin: isDesktop || isTablet,
       scrub: 0.6,
       invalidateOnRefresh: true,
@@ -33,8 +33,8 @@ export function setCharTimeline(
   const tl3 = gsap.timeline({
     scrollTrigger: {
       trigger: ".whatIDO",
-      start: isDesktop ? "top top" : isTablet ? "top top" : "top 70%",
-      end: isDesktop ? "+=140%" : isTablet ? "+=100%" : "bottom top",
+      start: isDesktop ? "top top" : isTablet ? "top top" : "top 80%",
+      end: isDesktop ? "+=140%" : isTablet ? "+=100%" : "bottom 20%",
       pin: isDesktop || isTablet,
       scrub: 0.6,
       invalidateOnRefresh: true,
@@ -184,33 +184,60 @@ export function setCharTimeline(
       );
   } else {
     // ─── MOBILE SCROLL TIMELINE (< 768px) ───
+    // Phase 1: Landing text fades out early, then full 3D laptop animation plays cleanly without text blocking!
     tl1
-      .fromTo(character.rotation, { y: 0 }, { y: 0.1, duration: 1 }, 0)
-      .to(camera.position, { z: 32 }, 0)
-      .to(".landing-container", { opacity: 0, duration: 0.5 }, 0)
-      .to(".landing-container", { y: "20%", duration: 0.8 }, 0);
-
-    tl2
+      .to(".landing-container", { opacity: 0, y: -25, duration: 0.3 }, 0)
       .to(
         camera.position,
-        { z: 80, y: 8.6, duration: 1.2, ease: "power2.inOut" },
-        0
+        { z: 78, y: 8.6, duration: 0.7, ease: "power2.inOut" },
+        0.25
       )
-      .to(character.rotation, { y: 0.16, x: 0.03, duration: 1.2 }, 0)
-      .to(neckBone ? neckBone.rotation : {}, { x: 0.4, duration: 1.0 }, 0)
-      .to(monitor ? monitor.material : {}, { opacity: 1, duration: 0.6, delay: 0.4 }, 0)
+      .to(
+        character.rotation,
+        { y: 0.16, x: 0.03, duration: 0.7, ease: "power2.inOut" },
+        0.25
+      )
+      .to(neckBone ? neckBone.rotation : {}, { x: 0.42, duration: 0.65 }, 0.3)
+      .to(monitor ? monitor.material : {}, { opacity: 1, duration: 0.5 }, 0.45)
       .fromTo(
         monitor ? monitor.position : {},
         { y: -8, z: 2 },
-        { y: 0, z: 0, duration: 1.0 },
-        0
+        { y: 0, z: 0, duration: 0.55 },
+        0.35
       );
 
+    // Phase 2: About section appears cleanly
+    tl2.fromTo(
+      ".about-me",
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+      0
+    );
+
+    // Phase 3: What I Do cards appear piece by piece ("cacho por cacho")
     tl3
+      .fromTo(
+        ".what-box:first-child",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        0
+      )
+      .fromTo(
+        ".what-content:nth-of-type(1)",
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.2
+      )
+      .fromTo(
+        ".what-content:nth-of-type(2)",
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.6
+      )
       .to(
         ".character-model",
-        { y: "-60%", autoAlpha: 0, duration: 1.0, ease: "power2.inOut" },
-        0
+        { y: "-100%", autoAlpha: 0, duration: 1.0, ease: "power2.inOut" },
+        1.1
       );
   }
 }

@@ -12,7 +12,10 @@ const Landing = ({ children }: PropsWithChildren) => {
       <div className="landing-section" id="landingDiv">
         <div className="landing-container">
           <div className="landing-intro">
-            <h2>Bienvenido a</h2>
+            <div className="landing-welcome-badge">
+              <span className="welcome-dot" />
+              <h2>Bienvenido a</h2>
+            </div>
             <div className="landing-brand-header">
               <img
                 src="/logo.png"
@@ -20,11 +23,9 @@ const Landing = ({ children }: PropsWithChildren) => {
                 className="landing-title-logo"
                 loading="eager"
               />
-              <h1>
+              <h1 className="landing-title-h1">
                 {firstName.toUpperCase()}
-                {' '}
-                <br />
-                {lastName && <span>{lastName.toUpperCase()}</span>}
+                <span className="landing-title-sub"> {lastName && lastName.toUpperCase()}</span>
               </h1>
             </div>
           </div>
@@ -36,6 +37,14 @@ const Landing = ({ children }: PropsWithChildren) => {
             <h2>
               <div className="landing-h2-info">Desarrollo Frontend</div>
             </h2>
+            <div className="landing-scroll-hint">
+              <span>Desliza para explorar</span>
+              <div className="scroll-hint-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 10l5 5 5-5"/>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
         {children}
