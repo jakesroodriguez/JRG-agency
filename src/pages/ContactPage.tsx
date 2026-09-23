@@ -1,13 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { MdArrowOutward, MdCopyright, MdContentCopy, MdCheck } from "react-icons/md";
 import { FaWhatsapp, FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { config } from "../config";
-import "./styles/Contact.css";
-
-gsap.registerPlugin(ScrollTrigger);
+import "./ContactPage.css";
 
 const projectTypes = [
   {
@@ -51,112 +47,50 @@ const socialLinks = [
   },
 ];
 
-const Contact = () => {
+const ContactPage = () => {
   const [selectedProject, setSelectedProject] = useState(projectTypes[0]);
   const [copied, setCopied] = useState(false);
 
   const whatsappUrl = `${config.contact.whatsapp}?text=${encodeURIComponent(selectedProject.message)}`;
 
   const handleCopy = useCallback(() => {
-    const fallbackCopy = () => {
-      try {
-        const textArea = document.createElement("textarea");
-        textArea.value = config.contact.email;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-9999px";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-      } catch {
-        /* ignore */
-      }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(config.contact.email).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = config.contact.email;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
-    };
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard
-        .writeText(config.contact.email)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2200);
-        })
-        .catch(() => {
-          fallbackCopy();
-        });
-    } else {
-      fallbackCopy();
     }
   }, []);
 
-  useEffect(() => {
-    // Refresh to account for dynamic heights and late image rendering
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 400);
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".contact-section",
-        start: "top 92%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    tl.from(".contact-frame", {
-      opacity: 0,
-      y: 30,
-      duration: 0.6,
-      ease: "power2.out",
-    })
-      .from(
-        ".contact-status",
-        { opacity: 0, y: 15, duration: 0.4 },
-        "-=0.4"
-      )
-      .from(
-        ".contact-headline",
-        { opacity: 0, y: 20, duration: 0.5 },
-        "-=0.2"
-      )
-      .from(
-        ".contact-subheadline",
-        { opacity: 0, y: 15, duration: 0.4 },
-        "-=0.2"
-      )
-      .from(
-        ".bento-card",
-        {
-          opacity: 0,
-          y: 25,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power2.out",
-        },
-        "-=0.2"
-      )
-      .from(
-        ".contact-footer",
-        { opacity: 0, duration: 0.4 },
-        "-=0.2"
-      );
-
-    return () => {
-      clearTimeout(refreshTimer);
-      tl.kill();
-    };
-  }, []);
-
   return (
-    <section className="contact-section" id="contact">
-      <div className="contact-wrapper">
+    <div className="contact-page">
+      <div className="contact-page-header">
+        <Link to="/" className="back-button" data-cursor="disable">
+          ← Volver al Inicio
+        </Link>
+        <div className="contact-page-branding">
+          <img src="/logo.png" alt="JRG Agency" className="contact-page-logo" />
+          <span>JRG AGENCY · CONTACTO</span>
+        </div>
+      </div>
+
+      <div className="contact-page-container">
         <div className="contact-frame">
-          {/* Subtle ambient light gradient inside frame */}
           <div className="frame-ambient-light" />
 
-          {/* ─── CABECERA DE IMPACTO ─── */}
+          {/* Header */}
           <div className="contact-header">
             <div className="contact-status">
               <span className="status-dot" />
@@ -164,19 +98,19 @@ const Contact = () => {
                 DISPONIBLE PARA NUEVOS PROYECTOS · RESPUESTA EN &lt; 2H
               </span>
             </div>
-            <h2 className="contact-headline">
+            <h1 className="contact-headline">
               ¿Listo para llevar tu marca
               <br />a otra dimensión?
-            </h2>
+            </h1>
             <p className="contact-subheadline">
               Cuéntanos tu idea y la transformamos en una experiencia web que se
               siente, se recuerda y convierte.
             </p>
           </div>
 
-          {/* ─── BENTO GRID ─── */}
+          {/* Bento Grid */}
           <div className="contact-bento">
-            {/* Tarjeta WhatsApp — columna izquierda */}
+            {/* WhatsApp Column */}
             <div className="bento-card bento-whatsapp">
               <div className="bento-card-inner">
                 <div className="wa-top">
@@ -216,27 +150,22 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Tarjeta Email + Teléfono + Ubicación */}
+            {/* Email + Info Column */}
             <div className="bento-card bento-email">
               <div className="bento-card-inner">
                 <h4 className="bento-label">EMAIL</h4>
-                <div className="email-row">
-                  <a
-                    href={`mailto:${config.contact.email}`}
-                    className="email-address"
-                    data-cursor="disable"
-                  >
-                    {config.contact.email}
-                  </a>
+                <div className="email-display">
+                  <span className="email-address">{config.contact.email}</span>
                   <button
                     className={`copy-btn ${copied ? "copied" : ""}`}
                     onClick={handleCopy}
-                    aria-label="Copiar email"
+                    title="Copiar email"
                     type="button"
+                    data-cursor="disable"
                   >
                     {copied ? (
                       <>
-                        <MdCheck className="copy-icon check-icon" /> ¡Copiado!
+                        <MdCheck className="copy-icon" /> ¡Copiado!
                       </>
                     ) : (
                       <>
@@ -246,74 +175,70 @@ const Contact = () => {
                   </button>
                 </div>
 
-                <div className="details-grid">
+                <div className="email-details">
                   <div className="detail-item">
-                    <h4 className="bento-label">TELÉFONO</h4>
-                    <a
-                      href={`tel:${config.contact.phone}`}
-                      className="bento-value"
-                      data-cursor="disable"
-                    >
+                    <span className="detail-label">TELÉFONO / WHATSAPP</span>
+                    <a href={`tel:${config.contact.phone}`} className="detail-val">
                       {config.contact.phone}
                     </a>
                   </div>
                   <div className="detail-item">
-                    <h4 className="bento-label">UBICACIÓN</h4>
-                    <span className="bento-value">{config.social.location}</span>
+                    <span className="detail-label">UBICACIÓN</span>
+                    <span className="detail-val">{config.social.location}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">TIEMPO ESTIMADO DE RESPUESTA</span>
+                    <span className="detail-val detail-highlight">Menos de 2 horas</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Tarjeta Redes & Enlaces */}
-            <div className="bento-card bento-links">
+            {/* Social Links Row */}
+            <div className="bento-card bento-socials">
               <div className="bento-card-inner">
-                <h4 className="bento-label">REDES &amp; ENLACES</h4>
-                <div className="social-list">
-                  {socialLinks.map((link) => (
+                <h4 className="bento-label">REDES Y PRESENCIA DIGITAL</h4>
+                <div className="socials-grid">
+                  {socialLinks.map((s) => (
                     <a
-                      key={link.name}
-                      href={link.url}
+                      key={s.name}
+                      href={s.url}
+                      className="social-pill"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="social-row"
                       data-cursor="disable"
                     >
-                      <span className="social-icon">{link.icon}</span>
-                      <span className="social-name">{link.name}</span>
+                      <span className="social-icon">{s.icon}</span>
+                      <span className="social-name">{s.name}</span>
                       <MdArrowOutward className="social-arrow" />
                     </a>
                   ))}
                 </div>
-                <Link to="/play" className="chess-link" data-cursor="disable">
-                  <span className="chess-icon">♟</span> Desafíame al ajedrez →
-                </Link>
               </div>
             </div>
           </div>
 
-          {/* ─── FOOTER ─── */}
+          {/* Footer */}
           <div className="contact-footer">
-            <div className="footer-brand">
-              <img
-                src="/logo.png"
-                alt="JRG Agency Logo"
-                className="footer-logo"
-              />
-              <span>
-                Diseñado por <strong>JRG Agency</strong> · Fundado por{" "}
-                {config.developer.founder}
+            <div className="footer-left">
+              <span className="footer-copy">
+                <MdCopyright /> {new Date().getFullYear()} {config.developer.fullName}. Todos los derechos reservados.
               </span>
+              <span className="footer-origin">Diseñado y desarrollado con Three.js en el País Vasco</span>
             </div>
-            <span className="footer-copy">
-              <MdCopyright /> {new Date().getFullYear()} JRG Agency · Todos los
-              derechos reservados
-            </span>
+            <div className="footer-right">
+              <Link to="/myworks" className="footer-link" data-cursor="disable">
+                Proyectos →
+              </Link>
+              <Link to="/play" className="footer-link" data-cursor="disable">
+                Ajedrez 3D →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Contact;
+export default ContactPage;

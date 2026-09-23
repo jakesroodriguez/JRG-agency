@@ -8,6 +8,7 @@ const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
 import { LoadingProvider } from "./context/LoadingProvider";
 import AlmoayyedBackground from "./components/AlmoayyedBackground";
 
@@ -43,6 +44,22 @@ const App = () => {
           element={
             <Suspense fallback={<div>Cargando...</div>}>
               <Play />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Suspense fallback={<div>Cargando...</div>}>
+              <ContactPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contacto"
+          element={
+            <Suspense fallback={<div>Cargando...</div>}>
+              <ContactPage />
             </Suspense>
           }
         />

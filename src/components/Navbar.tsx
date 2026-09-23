@@ -14,17 +14,17 @@ const Navbar = () => {
 
   const navigateTo = (sectionSelector: string) => {
     setIsIslandOpen(false);
-    if (lenis) {
-      const target = document.querySelector(sectionSelector) as HTMLElement;
-      if (target) {
+    const target = document.querySelector(sectionSelector) as HTMLElement;
+    if (target) {
+      if (lenis) {
+        lenis.start();
         lenis.scrollTo(target, {
           offset: -40,
           duration: 1.2,
         });
+      } else {
+        target.scrollIntoView({ behavior: "smooth" });
       }
-    } else {
-      const target = document.querySelector(sectionSelector);
-      target?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -67,8 +67,11 @@ const Navbar = () => {
     };
     ScrollTrigger.addEventListener("refresh", onScrollTriggerRefresh);
 
-    // Start paused
+    // Start paused during initial load, but add safety resume
     lenis.stop();
+    const safetyStart = setTimeout(() => {
+      lenis?.start();
+    }, 2000);
 
     // Handle smooth scroll animation frame
     function raf(time: number) {
@@ -85,13 +88,18 @@ const Navbar = () => {
         e.preventDefault();
         let elem = e.currentTarget as HTMLAnchorElement;
         let section = elem.getAttribute("data-href") || elem.getAttribute("href");
-        if (section && lenis) {
+        if (section) {
           const target = document.querySelector(section) as HTMLElement;
           if (target) {
-            lenis.scrollTo(target, {
-              offset: -40,
-              duration: 1.2,
-            });
+            if (lenis) {
+              lenis.start();
+              lenis.scrollTo(target, {
+                offset: -40,
+                duration: 1.2,
+              });
+            } else {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
           }
         }
       });
@@ -103,6 +111,7 @@ const Navbar = () => {
     });
 
     return () => {
+      clearTimeout(safetyStart);
       ScrollTrigger.removeEventListener("refresh", onScrollTriggerRefresh);
       lenis?.destroy();
       (window as any).lenis = null;

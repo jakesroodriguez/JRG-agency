@@ -33,6 +33,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
   padding: 44px 44px 28px;
   overflow: hidden;
+  opacity: 1;
 }
 
 /* Subtle emerald ambient spotlight */
@@ -542,7 +543,7 @@ a.bento-value:hover {
 
 @media only screen and (max-width: 960px) {
   .contact-section {
-    padding: 70px 0 50px;
+    padding: 70px 0 130px;
   }
 
   .contact-frame {

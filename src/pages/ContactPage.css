@@ -1,0 +1,65 @@
+/* ════════════════════════════════════════════════════════════════
+   CONTACT PAGE — Standalone Page (/contact and /contacto)
+   ════════════════════════════════════════════════════════════════ */
+
+.contact-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #090b10;
+  color: #f8fafc;
+  padding: 40px 24px 80px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.contact-page-header {
+  max-width: 1080px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-page-branding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.contact-page-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-page-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.contact-page .contact-frame {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .contact-page {
+    padding: 24px 16px 60px;
+  }
+
+  .contact-page-header {
+    margin-bottom: 20px;
+  }
+
+  .contact-page-branding span {
+    display: none;
+  }
+}
