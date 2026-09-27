@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /*?lang=*
+Disallow: /*?*fbclid=*
+Disallow: /*?*utm_*
+
+Sitemap: https://jrgestudio.com/sitemap.xml

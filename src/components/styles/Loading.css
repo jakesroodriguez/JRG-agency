@@ -1,0 +1,198 @@
+/* ==========================================================================
+   LOADING SCREEN — JRG AGENCY (TITANIUM GLASS & HUD CAPSULE)
+   ========================================================================== */
+
+.loading-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  z-index: 9999999;
+  opacity: 1;
+  pointer-events: all;
+  background: transparent;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.loading-wrapper-exit {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+/* — Fondo idéntico al de la web: transparente sobre el fondo animado Almoayyed — */
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* — Contenedor Central de la Cápsula HUD — */
+.loading-capsule-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-capsule {
+  position: relative;
+  overflow: hidden;
+  min-width: 270px;
+  padding: 16px 32px;
+  border-radius: 9999px;
+  background: rgba(18, 18, 22, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.38),
+              inset 0 1px 1px rgba(255, 255, 255, 0.30);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loading-capsule-ready {
+  background: rgba(24, 24, 28, 0.96);
+  border-color: rgba(255, 255, 255, 0.40);
+  box-shadow: 0 24px 54px -10px rgba(0, 0, 0, 0.48),
+              0 0 25px rgba(255, 255, 255, 0.12),
+              inset 0 1px 2px rgba(255, 255, 255, 0.45);
+}
+
+.loading-capsule-glow {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  pointer-events: none;
+}
+
+.loading-capsule-body {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.loading-capsule-state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.loading-capsule-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.loading-capsule-counter {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.loading-capsule-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.loading-capsule-pct {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.loading-capsule-state-complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+.loading-capsule-welcome {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.loading-capsule-ready-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: readyDotGlow 1s infinite alternate ease-in-out;
+}
+
+@keyframes readyDotGlow {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* — Micro-Barra de Progreso Láser — */
+.loading-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #64748b 0%, #cbd5e1 50%, #ffffff 100%);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* — Responsividad — */
+@media only screen and (min-width: 500px) {
+  .loading-capsule {
+    min-width: 300px;
+    padding: 18px 38px;
+  }
+  .loading-capsule-counter {
+    font-size: 24px;
+  }
+  .loading-capsule-tag {
+    font-size: 12px;
+  }
+  .loading-capsule-welcome {
+    font-size: 16px;
+  }
+}

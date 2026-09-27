@@ -1,257 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <script>
-    (function() {
-      var params = new URLSearchParams(window.location.search);
-      var lang = params.get('lang');
-      if (lang && ['es', 'en', 'eu'].includes(lang)) {
-        document.documentElement.lang = lang;
-      }
-    })();
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>JRG estudio | Desarrollador Web en el País Vasco</title>
-  <meta name="description" content="Jakes Rodriguez Garcia, creador de páginas web y desarrollador web freelance en el País Vasco (JRG estudio). Especialista en diseño web, SEO y experiencias digitales de alto impacto.">
-  <meta name="keywords" content="JRG, Jakes Rodriguez Garcia, JRG estudio, web developer, creadores de paginas web, mejores creadores de paginas web en el pais vasco, desarrollador web freelance, paginas web pais vasco, diseño web">
-  <meta name="author" content="Jakes Rodriguez Garcia">
-  <link rel="canonical" href="https://jrgestudio.com/" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>JRG Agency | Diseño & Desarrollo Web 3D en el País Vasco</title>
+    <meta name="description" content="JRG Agency - Jakes Rodriguez Garcia. Estudio de desarrollo web de alto rendimiento, experiencias 3D interactivas y SEO en el País Vasco." />
+    <meta name="keywords" content="JRG, Jakes Rodriguez Garcia, JRG Agency, web developer, desarrollador web freelance, paginas web pais vasco, diseño web 3D" />
+    <meta name="author" content="Jakes Rodriguez Garcia" />
+    <link rel="canonical" href="https://jrgagency.com/" />
 
-  <!-- Open Graph & Social Cards -->
-  <meta property="og:title" content="JRG estudio | Desarrollador Web País Vasco">
-  <meta property="og:description" content="Jakes Rodriguez Garcia, creador de páginas web y desarrollador web freelance en el País Vasco (JRG estudio). Especialista en diseño web de alto impacto.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jrgestudio.com/">
-  <meta property="og:site_name" content="JRG estudio">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="JRG estudio | Desarrollador Web País Vasco">
-  <meta name="twitter:description" content="Creador de páginas web y desarrollador freelance en el País Vasco.">
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:title" content="JRG Agency | Desarrollador Web País Vasco" />
+    <meta property="og:description" content="JRG Agency - Jakes Rodriguez Garcia. Estudio de desarrollo web de alto rendimiento, experiencias 3D interactivas y SEO en el País Vasco." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jrgagency.com/" />
+    <meta property="og:site_name" content="JRG Agency" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- JSON-LD Local SEO Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "JRG estudio",
-    "alternateName": "Jakes Rodriguez Garcia",
-    "url": "https://jrgestudio.com/",
-    "telephone": "+34613448185",
-    "address": {
-      "@type": "PostalAddress",
-      "addressRegion": "País Vasco",
-      "addressCountry": "ES"
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "País Vasco"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Jakes Rodriguez Garcia"
-    },
-    "description": "Desarrollador web freelance y creador de páginas web especializado en diseño de alto rendimiento en el País Vasco.",
-    "knowsAbout": ["Web Development", "Diseño Web", "SEO", "React", "Frontend"]
-  }
-  </script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logoJRG.png?v=3" />
+    <link rel="apple-touch-icon" href="/logoJRG.png?v=3" />
 
-  <meta name="theme-color" content="#0a0a1a">
-  <link rel="icon" type="image/png" href="/favicon.png?v=2">
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@300..700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./index.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <link rel="modulepreload" href="https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js">
-  <link rel="preload" href="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" as="fetch" crossorigin="anonymous">
+    <!-- Spline Preload for Mobile -->
+    <link rel="modulepreload" href="https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js" />
+    <link rel="preload" href="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" as="fetch" crossorigin="anonymous" />
 
-  <!-- SDK de EmailJS para envío de correos sin backend -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-</head>
-<body class="scroll-locked">
-  <!-- Orbs de fondo animados -->
-  <div class="bg-orbs" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div>
-  </div>
-
-  <div id="root">
-    <div class="initial-loader-container">
-      <div class="initial-loader"></div>
-      <div class="initial-loader-text">Cargando experiencia 3D…</div>
-    </div>
-  </div>
-
-  <script>
-    window.start3DExperience = function() {
-      window.start3DExperience.triggered = true;
-    };
-  </script>
-  <script type="module" src="/src/main.jsx"></script>
-
-  <!-- Carga del robot 3D con @splinetool/runtime (independiente de React) -->
-  <script type="module">
-    const SPLINE_SCENE =
-      'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
-
-    const RUNTIME_URL =
-      'https://unpkg.com/@splinetool/runtime@1.9.82/build/runtime.js';
-
-    const ROBOT_ACCENT = '#a78bfa';
-
-    function applyRobotAccentDetails(app) {
-      const objects = typeof app.getAllObjects === 'function' ? app.getAllObjects() : [];
-      const detailName = /eye|light|led|glow|accent|detail|antenna|core|ring|visor|lens|stripe|tube|wire|energy|screen|panel|glass|neon|rim|bot/i;
-
-      objects.forEach((obj) => {
-        try {
-          if (obj.intensity != null && obj.color != null) {
-            obj.color = ROBOT_ACCENT;
-          }
-
-          const name = (obj.name || '').toLowerCase();
-          const isDetail = detailName.test(name);
-          const material = obj.material;
-
-          if (material?.layers?.length) {
-            material.layers.forEach((layer) => {
-              if (layer.type === 'fresnel') {
-                layer.color = ROBOT_ACCENT;
-                if (layer.factor != null) layer.factor = Math.max(layer.factor, 0.4);
-              }
-              if (layer.type === 'light' || layer.type === 'emissive') {
-                layer.color = ROBOT_ACCENT;
-              }
-              if (isDetail && layer.type === 'color') {
-                layer.color = ROBOT_ACCENT;
-              }
-            });
-          }
-
-          if (isDetail && obj.color != null) {
-            obj.color = ROBOT_ACCENT;
-          }
-        } catch (_) {
-          /* objeto sin material editable */
-        }
-      });
+    <!-- JSON-LD Local SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "JRG Agency",
+      "alternateName": "Jakes Rodriguez Garcia",
+      "url": "https://jrgagency.com/",
+      "telephone": "+34613448185",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "País Vasco",
+        "addressCountry": "ES"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "País Vasco"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Jakes Rodriguez Garcia"
+      },
+      "description": "Desarrollador web freelance y creador de páginas web especializado en diseño 3D y alto rendimiento en el País Vasco."
     }
-
-    function waitForMount() {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const timer = setInterval(() => {
-          const host = document.getElementById('spline-mount');
-          if (host) {
-            clearInterval(timer);
-            resolve(host);
-            return;
-          }
-          if (++attempts > 120) {
-            clearInterval(timer);
-            reject(new Error('No se encontró el contenedor 3D'));
-          }
-        }, 50);
-      });
-    }
-
-    function showError(host, message) {
-      host.innerHTML =
-        '<div class="spline-error-msg"><strong>No se pudo cargar el robot 3D</strong><p>' +
-        message +
-        '</p><p class="spline-error-hint">En Spline: Export → <em>Viewer</em> → Update → copia la URL en index.html (SPLINE_SCENE).</p></div>';
-    }
-
-    async function initSpline() {
-      const host = await waitForMount();
-      const fallback = host.querySelector('.spline-fallback');
-
-      try {
-        const { Application } = await import(RUNTIME_URL);
-        const canvas = document.createElement('canvas');
-        canvas.className = 'spline-canvas';
-        host.appendChild(canvas);
-
-        const app = new Application(canvas);
-
-        const resize = () => {
-          const w = host.clientWidth;
-          const h = host.clientHeight;
-          if (w > 0 && h > 0) app.setSize(w, h);
-        };
-
-        resize();
-        window.addEventListener('resize', resize);
-
-        await app.load(SPLINE_SCENE);
-        applyRobotAccentDetails(app);
-
-        if (fallback) fallback.remove();
-        canvas.classList.add('is-ready');
-        host.classList.add('is-loaded');
-
-        // Simulate mouse movement on mobile to keep the robot alive
-        let simTimer = null;
-        if (window.innerWidth <= 900) {
-          let angle = 0;
-          simTimer = setInterval(() => {
-            angle += 0.04;
-            const cx = window.innerWidth / 2;
-            const cy = window.innerHeight / 2;
-            const rx = window.innerWidth * 0.35;
-            const ry = window.innerHeight * 0.25;
-            
-            const event = new PointerEvent('pointermove', {
-              clientX: cx + Math.sin(angle) * rx,
-              clientY: cy + Math.cos(angle * 1.3) * ry,
-              bubbles: true
-            });
-            canvas.dispatchEvent(event);
-          }, 50);
-        }
-
-        // Si detectamos interacción real del usuario, paramos el movimiento sintético
-        window.addEventListener('pointermove', (e) => {
-          if (e.isTrusted && simTimer) {
-            clearInterval(simTimer);
-            simTimer = null;
-          }
-        }, { passive: true });
-
-        // Unlock scroll after the robot's initial zoom animation finishes
-        setTimeout(() => {
-          document.body.classList.remove('scroll-locked');
-        }, 3500);
-      } catch (err) {
-        console.error('[Spline]', err);
-        showError(
-          host,
-          (err && err.message) ||
-            'Revisa tu conexión a internet o la URL de la escena.'
-        );
-        // Ensure scroll is unlocked even if it fails
-        document.body.classList.remove('scroll-locked');
-      }
-    }
-
-    let started = false;
-    const realInit = () => {
-      if (started) return;
-      started = true;
-      initSpline();
-    };
-
-    if (window.start3DExperience && window.start3DExperience.triggered) {
-      realInit();
-    }
-
-    window.start3DExperience = realInit;
-  </script>
-</body>
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

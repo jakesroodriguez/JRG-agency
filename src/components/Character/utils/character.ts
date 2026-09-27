@@ -1,0 +1,456 @@
+import * as THREE from "three";
+import { DRACOLoader, GLTF, GLTFLoader } from "three-stdlib";
+import { decryptFile } from "./decrypt";
+
+type FabricKind = "cotton" | "denim" | "leather" | "rubber";
+
+const createSurfaceTexture = (kind: FabricKind, color: string, detail: string) => {
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+  context.fillStyle = color;
+  context.fillRect(0, 0, size, size);
+
+  const spacing = kind === "rubber" ? 9 : kind === "leather" ? 13 : 7;
+  context.strokeStyle = detail;
+  context.globalAlpha = kind === "denim" ? 0.23 : 0.16;
+  context.lineWidth = kind === "cotton" ? 1 : 1.4;
+  for (let x = -size; x < size * 2; x += spacing) {
+    context.beginPath();
+    context.moveTo(x, 0);
+    context.lineTo(x + size, size);
+    context.stroke();
+  }
+  if (kind === "denim" || kind === "cotton") {
+    for (let y = 0; y < size; y += spacing) {
+      context.beginPath();
+      context.moveTo(0, y);
+      context.lineTo(size, y);
+      context.stroke();
+    }
+  }
+  if (kind === "rubber") {
+    context.globalAlpha = 0.24;
+    for (let y = 0; y < size; y += spacing * 2) {
+      context.fillRect(0, y, size, 2);
+    }
+  }
+  context.globalAlpha = 1;
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(kind === "rubber" ? 2.8 : 3.8, kind === "rubber" ? 2.8 : 3.8);
+  texture.anisotropy = 8;
+  return texture;
+};
+
+const createBumpTexture = (kind: FabricKind) => {
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const context = canvas.getContext("2d");
+  if (!context) return null;
+  context.fillStyle = "#808080";
+  context.fillRect(0, 0, size, size);
+  const spacing = kind === "rubber" ? 9 : 6;
+  context.strokeStyle = kind === "rubber" ? "#ababab" : "#969696";
+  context.globalAlpha = 0.55;
+  context.lineWidth = kind === "leather" ? 1.5 : 1;
+  for (let index = -size; index < size * 2; index += spacing) {
+    context.beginPath();
+    context.moveTo(index, 0);
+    context.lineTo(index + size, size);
+    context.stroke();
+  }
+  if (kind !== "leather") {
+    for (let index = 0; index < size; index += spacing) {
+      context.beginPath();
+      context.moveTo(0, index);
+      context.lineTo(size, index);
+      context.stroke();
+    }
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(4, 4);
+  return texture;
+};
+
+const createClothingMaterial = (
+  kind: FabricKind,
+  color: string,
+  detail: string,
+  roughness: number,
+  bumpScale: number,
+  envMapIntensity = 0.55,
+  metalness = 0.03
+) => new THREE.MeshStandardMaterial({
+  color,
+  map: createSurfaceTexture(kind, color, detail) ?? undefined,
+  bumpMap: createBumpTexture(kind) ?? undefined,
+  bumpScale,
+  roughness,
+  metalness,
+  envMapIntensity,
+});
+
+const loadEyebrowTextures = () => {
+  const textureLoader = new THREE.TextureLoader();
+  const diffuse = textureLoader.load("/textures/eyebrow_diffuse.png");
+  diffuse.colorSpace = THREE.SRGBColorSpace;
+  diffuse.flipY = false;
+  diffuse.generateMipmaps = true;
+  diffuse.minFilter = THREE.LinearMipmapLinearFilter;
+  diffuse.magFilter = THREE.LinearFilter;
+  diffuse.wrapS = THREE.ClampToEdgeWrapping;
+  diffuse.wrapT = THREE.ClampToEdgeWrapping;
+
+  const bump = textureLoader.load("/textures/eyebrow_bump.png");
+  bump.flipY = false;
+  bump.wrapS = THREE.ClampToEdgeWrapping;
+  bump.wrapT = THREE.ClampToEdgeWrapping;
+
+  return { diffuse, bump };
+};
+
+const sculptEyebrows = (mesh: THREE.Mesh) => {
+  const geometry = mesh.geometry;
+  if (!geometry || !geometry.attributes.position) return;
+  const posAttr = geometry.attributes.position;
+  const uvAttr = geometry.attributes.uv;
+  const vertexCount = posAttr.count;
+
+  for (let i = 0; i < vertexCount; i++) {
+    const x = posAttr.getX(i);
+    const y = posAttr.getY(i);
+    const z = posAttr.getZ(i);
+
+    const absX = Math.abs(x);
+    const signX = Math.sign(x);
+
+    // t va de 0 (cabeza interna, |x| ~ 0.13) a 1 (cola externa, |x| ~ 0.74)
+    const t = Math.min(Math.max((absX - 0.13) / (0.74 - 0.13), 0), 1);
+
+    // Centro vertical local del trazo
+    const localCenterY = 13.585 + t * 0.065;
+    const distFromCenter = y - localCenterY;
+
+    // Grosor dinámico (anatomía de la imagen de referencia):
+    // Cabeza (t=0..0.2): suavemente redondeada (0.90x)
+    // Cuerpo (t=0.2..0.58): cuerpo denso (1.05x)
+    // Cola (t > 0.58): afilado progresivo hacia una punta fina y elegante (0.15x al final)
+    let thicknessFactor = 1.05;
+    if (t < 0.20) {
+      thicknessFactor = 0.88 + (t / 0.20) * 0.17;
+    } else if (t > 0.58) {
+      thicknessFactor = Math.max(0.12, 1.05 - Math.pow((t - 0.58) / 0.42, 1.25) * 0.93);
+    }
+
+    // Curvatura del arco (subida en ala hacia ápice en t=0.62 y caída curva de la cola)
+    let archLift = 0;
+    if (t <= 0.62) {
+      archLift = Math.pow(t / 0.62, 1.20) * 0.052;
+    } else {
+      const tailP = (t - 0.62) / 0.38;
+      archLift = 0.052 - Math.pow(tailP, 1.30) * 0.088;
+    }
+
+    const newY = localCenterY + distFromCenter * thicknessFactor + archLift;
+
+    // Adaptación a la frente (curvatura hacia adelante)
+    const forwardZ = (1 - Math.pow(t, 2) * 0.35) * 0.024;
+
+    // Envergadura lateral en X
+    const newX = signX * (0.13 + t * (0.74 - 0.13) * 1.04);
+
+    posAttr.setXYZ(i, newX, newY, z + forwardZ);
+
+    if (uvAttr) {
+      uvAttr.setXY(i, t, Math.min(Math.max(1 - (y - 13.52) / (13.72 - 13.52), 0), 1));
+    }
+  }
+
+  posAttr.needsUpdate = true;
+  if (uvAttr) uvAttr.needsUpdate = true;
+  geometry.computeVertexNormals();
+};
+
+const applyWardrobe = (character: THREE.Object3D) => {
+  const shirt = createClothingMaterial("cotton", "#b9b8b4", "#e7e5df", 0.72, 0.04, 0.36, 0.01);
+  const trousers = createClothingMaterial("denim", "#090909", "#3f3f3f", 0.80, 0.06, 0.30, 0.01);
+  const shoes = createClothingMaterial("leather", "#f1f0eb", "#c7c5bf", 0.52, 0.025, 0.50, 0.03);
+  const soles = createClothingMaterial("rubber", "#deddd8", "#a8a7a2", 0.68, 0.05, 0.35, 0.01);
+
+  // Ceja 3D sólida, definida y texturizada con micro-relieve capilar
+  // Sin alphaTest para evitar bordes fantasmas o dobles siluetas: la malla 3D completa es la ceja
+  const { bump: eyebrowBump } = loadEyebrowTextures();
+  const eyebrowMaterial = new THREE.MeshStandardMaterial({
+    color: new THREE.Color("#121110"), // Tono negro carbón intenso y elegante
+    bumpMap: eyebrowBump,
+    bumpScale: 0.065,
+    roughness: 0.46,
+    metalness: 0.03,
+    envMapIntensity: 0.40,
+    side: THREE.DoubleSide,
+  });
+
+  // Tono de piel cálido, natural y realista para cara, orejas, cuello y manos
+  const skinColor = new THREE.Color("#dca889");
+
+  character.traverse((child) => {
+    if (!(child as THREE.Mesh).isMesh) return;
+    const mesh = child as THREE.Mesh;
+    const name = mesh.name;
+    const lower = name.toLowerCase();
+    const geoName = (mesh.geometry?.name || "").toLowerCase();
+
+    if (name === "BODY.SHIRT" || name === "BODYSHIRT" || lower.includes("shirt")) mesh.material = shirt;
+    if (name === "Pant" || lower.includes("pant")) mesh.material = trousers;
+    if (name === "Shoe" || lower.includes("shoe")) mesh.material = shoes;
+    if (name === "Sole" || lower.includes("sole")) mesh.material = soles;
+
+    // Eliminar completamente el glow/luz morada frente al ordenador
+    if (name === "screenlight" || lower.includes("screenlight")) {
+      mesh.visible = false;
+      return;
+    }
+
+    // Detección y mejora de cejas (Eyebrow / Plane.004)
+    const isEyebrow =
+      name === "Eyebrow" ||
+      name === "Plane.004" ||
+      name === "Plane004" ||
+      lower.includes("eyebrow") ||
+      lower.includes("brow") ||
+      geoName.includes("plane.004") ||
+      geoName.includes("plane004");
+
+    if (isEyebrow) {
+      sculptEyebrows(mesh);
+      mesh.material = eyebrowMaterial;
+      return;
+    }
+
+    // Aplicar tono de piel a cara (Plane007 / Plane.007), orejas (Ear001 / Ear.001), cuello (Neck) y manos (Hand)
+    const isSkin =
+      name === "Plane007" ||
+      name === "Plane.007" ||
+      name === "Ear001" ||
+      name === "Ear.001" ||
+      name === "Neck" ||
+      name === "Hand" ||
+      lower.includes("plane007") ||
+      lower.includes("plane.007") ||
+      lower.includes("ear") ||
+      lower.includes("hand") ||
+      lower.includes("neck") ||
+      lower.includes("face") ||
+      lower.includes("head") ||
+      geoName.includes("plane.007") ||
+      geoName.includes("plane007") ||
+      geoName.includes("plane.003") ||
+      geoName.includes("plane.005") ||
+      geoName.includes("mesh.002");
+
+    if (isSkin) {
+      const origMat = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+      if (origMat) {
+        const skinMat = (origMat as THREE.MeshStandardMaterial).clone();
+        skinMat.color = skinColor;
+        skinMat.vertexColors = false; // Evita que colores de vértice modulen el tono
+        skinMat.roughness = 0.65;
+        skinMat.metalness = 0.0;
+        skinMat.envMapIntensity = 0.36;
+        skinMat.needsUpdate = true;
+        mesh.material = skinMat;
+      }
+    }
+  });
+};
+
+const setCharacter = (
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera
+) => {
+  const loader = new GLTFLoader();
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath("/draco/");
+  loader.setDRACOLoader(dracoLoader);
+  const neutralizeGroundTexture = (texture: THREE.Texture) => {
+    const image = texture.image;
+    if (!image) return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = image.width || 512;
+    canvas.height = image.height || 512;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.drawImage(image, 0, 0);
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+      data[i] = gray;
+      data[i + 1] = gray;
+      data[i + 2] = gray;
+    }
+    ctx.putImageData(imgData, 0, 0);
+    const newTexture = new THREE.CanvasTexture(canvas);
+    newTexture.colorSpace = THREE.SRGBColorSpace;
+    newTexture.wrapS = texture.wrapS;
+    newTexture.wrapT = texture.wrapT;
+    newTexture.needsUpdate = true;
+    return newTexture;
+  };
+
+  const loadCharacter = () => new Promise<GLTF | null>((resolve, reject) => {
+    const handleLoadedModel = (gltf: GLTF) => {
+      const character = gltf.scene;
+      applyWardrobe(character);
+      character.traverse((child: any) => {
+        if (!child.isMesh) return;
+        const mesh = child as THREE.Mesh;
+        const name = (mesh.name || "").toLowerCase();
+        if (name === "screenlight" || name.includes("screenlight")) {
+          mesh.visible = false;
+          if (mesh.material) {
+            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            mats.forEach((m: any) => {
+              m.visible = false;
+              m.opacity = 0;
+              m.transparent = true;
+            });
+          }
+          return;
+        }
+        if (name === "ground" || name.includes("ground")) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach((m: any) => {
+            if (m && m.map) {
+              const cleanTex = neutralizeGroundTexture(m.map);
+              if (cleanTex) {
+                m.map = cleanTex;
+                m.needsUpdate = true;
+              }
+            }
+          });
+        }
+        mesh.castShadow = false;
+        mesh.receiveShadow = false;
+        mesh.frustumCulled = true;
+        const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        materials.forEach((material: any) => {
+          if (!material) return;
+          material.precision = "highp";
+          if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
+            const name = (mesh.name || "").toLowerCase();
+            const matName = (material.name || "").toLowerCase();
+
+            // Si es ropa o piel ya configurada, preservar sus valores exactos
+            const isSkinOrWardrobe =
+              name === "body.shirt" ||
+              name === "bodyshirt" ||
+              name === "pant" ||
+              name === "shoe" ||
+              name === "sole" ||
+              name === "plane007" ||
+              name === "plane.007" ||
+              name === "ear001" ||
+              name === "ear.001" ||
+              name === "neck" ||
+              name === "hand" ||
+              name.includes("shirt") ||
+              name.includes("pant") ||
+              name.includes("shoe") ||
+              name.includes("sole") ||
+              name.includes("plane007") ||
+              name.includes("plane.007") ||
+              name.includes("ear") ||
+              name.includes("hand") ||
+              name.includes("neck") ||
+              name.includes("face") ||
+              name.includes("head") ||
+              name.includes("eyebrow") ||
+              name.includes("brow") ||
+              name.includes("plane.004");
+
+            if (isSkinOrWardrobe) {
+              material.needsUpdate = true;
+              return;
+            }
+
+            // Dispositivos y piezas metálicas/pantallas (laptop, monitor, etc.)
+            if (name.includes("plane") || name.includes("screen") || name.includes("monitor") || matName.includes("metal")) {
+              material.roughness = 0.40;
+              material.metalness = Math.max(material.metalness ?? 0, 0.25);
+              material.envMapIntensity = 0.60;
+            } else if (name.includes("hair") || matName.includes("hair")) {
+              // Cabello: textura mate suave
+              material.roughness = 0.74;
+              material.envMapIntensity = 0.32;
+            } else {
+              // Ajuste moderado y sutil para resto de materiales
+              material.envMapIntensity = material.envMapIntensity ? Math.min(Math.max(material.envMapIntensity, 0.30), 0.45) : 0.35;
+            }
+            material.needsUpdate = true;
+          }
+        });
+      });
+      const footR = character.getObjectByName("footR");
+      const footL = character.getObjectByName("footL");
+      if (footR) footR.position.y = 3.36;
+      if (footL) footL.position.y = 3.36;
+      try {
+        renderer.compile(character, camera, scene);
+      } catch (e) {
+        // Ignorar fallos no críticos de compilación
+      }
+      resolve(gltf);
+      dracoLoader.dispose();
+    };
+
+    // 1. Carga directa de character.glb (ultrarrápida y sin bloqueo de descifrado)
+    loader.load(
+      "/models/character.glb",
+      (gltf) => handleLoadedModel(gltf),
+      undefined,
+      async (directErr) => {
+        console.warn("Carga directa glb no disponible, recurriendo a descifrado:", directErr);
+        try {
+          const encryptedBlob = await decryptFile("/models/character.enc", "Character3D#@");
+          const blobUrl = URL.createObjectURL(new Blob([encryptedBlob]));
+          loader.load(
+            blobUrl,
+            (gltf) => {
+              URL.revokeObjectURL(blobUrl);
+              handleLoadedModel(gltf);
+            },
+            undefined,
+            (encErr) => {
+              URL.revokeObjectURL(blobUrl);
+              console.error("Error cargando modelo descifrado:", encErr);
+              reject(encErr);
+            }
+          );
+        } catch (decryptErr) {
+          console.error("Error en descifrado:", decryptErr);
+          reject(decryptErr);
+        }
+      }
+    );
+  });
+
+  return { loadCharacter };
+};
+
+export default setCharacter;

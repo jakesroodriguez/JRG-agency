@@ -1,129 +1,118 @@
-# JRG estudio — Portfolio Web
+<p align="center">
+  <img src="./public/logo.png" alt="JRG Agency Logo" width="220" />
+</p>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 18"/>
-  <img src="https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 5"/>
-  <img src="https://img.shields.io/badge/CSS-Vanilla-1572B6?style=flat-square&logo=css3&logoColor=white" alt="Vanilla CSS"/>
-  <img src="https://img.shields.io/badge/GSAP-3-88CE02?style=flat-square&logo=greensock&logoColor=white" alt="GSAP"/>
-  <img src="https://img.shields.io/badge/i18n-ES%20%7C%20EN%20%7C%20EU-orange?style=flat-square" alt="Multilingual"/>
-</div>
+<h1 align="center">⚡ JRG Agency — Web Portfolio & Experiencias 3D</h1>
 
-<br/>
+<p align="center">
+  <strong>Desarrollo Web de Alto Rendimiento · Experiencias 3D Inmersivas · Diseño Vanguardista</strong><br>
+  <em>Desde Urretxu, País Vasco, España</em>
+</p>
 
-> Portfolio personal de **Jakes Rodriguez Garcia** — Desarrollador web freelance especializado en diseño premium para negocios locales del País Vasco.
-
----
-
-## ✨ Características
-
-- 🌊 **Dynamic Island** — Navegación flotante estilo iOS con animaciones spring líquido (`cubic-bezier`) y micro-interacciones premium
-- 🌐 **Multilingüe** — Interfaz completa en Español, Inglés y Euskera con cambio dinámico al vuelo
-- 🎨 **Liquid Glass Design** — Glassmorphism, backdrop-blur, gradientes suaves y sombras en capas
-- 📱 **Responsive** — Adaptado para móvil, tablet y escritorio con layouts fluid
-- ⚡ **Animaciones GSAP + CSS** — Transiciones suaves, parallax y staggered entrances
-- 🗺️ **Google Business / Maps** — Sección de reputación con integración visual de Google
-- 📧 **EmailJS** — Formulario de contacto funcional con envío real al email del propietario
-- 💬 **WhatsApp Float** — Botón flotante de contacto directo por WhatsApp
-- 🔍 **SEO Dinámico** — Metadatos Open Graph, Twitter Cards y JSON-LD actualizados en tiempo real por idioma
-- 🗺️ **Sitemap XML** — Configurado para indexación multilingüe en Google Search Console
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React 18" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Three.js-WebGL-black?style=for-the-badge&logo=three.js" alt="Three.js" />
+  <img src="https://img.shields.io/badge/GSAP-ScrollTrigger-green?style=for-the-badge&logo=greensock" alt="GSAP" />
+  <img src="https://img.shields.io/badge/Vite-Bundler-646CFF?style=for-the-badge&logo=vite" alt="Vite" />
+  <img src="https://img.shields.io/badge/Lenis-Smooth_Scroll-orange?style=for-the-badge" alt="Lenis" />
+</p>
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🌟 Sobre JRG Agency
 
-| Tecnología | Uso |
-|---|---|
-| **React 18** | Framework UI principal |
-| **Vite 5** | Bundler y dev server |
-| **Vanilla CSS** | Sistema de diseño completo y tokens visuales |
-| **GSAP 3** | Animaciones avanzadas (Spline 3D, scroll) |
-| **Lucide React** | Iconografía ligera y consistente |
-| **EmailJS** | Envío de formularios de contacto |
+Sitio web oficial y portafolio interactivo de **JRG Agency**, especializado en el diseño y desarrollo de aplicaciones web de alto rendimiento, interfaces interactivas de última generación y experiencias tridimensionales inmersivas en el navegador.
 
 ---
 
-## 🚀 Instalación y Desarrollo
+## ✨ Características Principales
 
+- 🎮 **Experiencia 3D Interactiva:** Integración avanzada de WebGL mediante **Three.js** y **React Three Fiber (@react-three/fiber, @react-three/drei)**, con iluminación dinámica, animaciones de entrada y modelos renderizados en tiempo real.
+- 🎬 **Animaciones Cinemáticas y Scroll Trigger:** Líneas de tiempo milimétricamente coreografiadas con **GSAP** y **ScrollTrigger**, con fijación de secciones (*pinning*) y transiciones de texto fluidas.
+- 🌊 **Smooth Scrolling Profesional:** Desplazamiento ultra suave impulsado por **Lenis**, sincronizado en tiempo real con los espaciadores dinámicos de GSAP.
+- 🌌 **Fondo Animado e Interactivo:** Canvas interactivo personalizado con efectos fluidos y estéticos.
+- 📱 **Diseño Totalmente Responsive:** Adaptabilidad completa para smartphones, tablets y pantallas de escritorio de alta resolución.
+- 💼 **Showcase de Proyectos y Trayectoria:** Secciones visuales dedicadas a proyectos destacados, trayectoria y stack técnico.
+- 📞 **Centro de Contacto Directo:** Acceso rápido a WhatsApp, Email corporativo, redes sociales y ubicación geográfica.
+
+---
+
+## 🧰 Stack Tecnológico
+
+| Área | Tecnologías |
+| :--- | :--- |
+| **Frontend Core** | React 18, TypeScript, HTML5 Semántico, CSS3 Moderno |
+| **3D & Gráficos** | Three.js, React Three Fiber, Drei, WebGL Shaders |
+| **Animación & Física** | GSAP (GreenSock), ScrollTrigger, Lenis Smooth Scroll |
+| **Herramientas de Build** | Vite, Terser, ESLint |
+| **Analítica & Rendimiento** | Vercel Analytics, Speed Insights |
+
+---
+
+## 🚀 Instalación y Desarrollo Local
+
+Sigue estos pasos para clonar y ejecutar el proyecto en tu entorno local:
+
+### 1. Clonar el repositorio
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/jakesroodriguez/JRG-estudio.git
-cd JRG-estudio
+git clone https://github.com/jakesroodriguez/JRG-agency.git
+cd JRG-agency
+```
 
-# 2. Instalar dependencias
+### 2. Instalar dependencias
+```bash
 npm install
+```
 
-# 3. Iniciar servidor de desarrollo
+### 3. Iniciar el servidor de desarrollo
+```bash
 npm run dev
 ```
+Abre tu navegador en `http://localhost:5173/`.
 
-El servidor arranca en **http://localhost:5173** por defecto con Hot Module Replacement (HMR) activo.
-
+### 4. Compilar para producción
 ```bash
-# Compilar para producción
 npm run build
-
-# Previsualizar el build de producción
-npm run preview
 ```
+Los archivos optimizados y empaquetados se generarán en la carpeta `dist/`.
 
 ---
 
 ## 📁 Estructura del Proyecto
 
-```
-JakesRodriguez/
-├── public/
-│   ├── sitemap.xml          # Sitemap multilingüe para SEO
-│   ├── favicon.png          # Icono de la marca JRG
-│   └── portfolio-*.webp     # Imágenes de proyectos del portfolio
+```plaintext
+├── public/                     # Recursos estáticos (logos, modelos 3D, texturas)
 ├── src/
-│   ├── App.jsx              # Componente principal (SPA completa)
-│   └── components/
-│       └── CardFanCarousel.jsx  # Carrusel de tarjetas en abanico
-├── index.css                # Sistema de diseño completo (5500+ líneas)
-├── index.html               # Entry point con SEO, JSON-LD y scripts
+│   ├── components/             # Componentes modulares de la interfaz
+│   │   ├── Character/          # Escena 3D, controladores de luces y animaciones
+│   │   ├── styles/             # Hojas de estilo CSS modulares
+│   │   ├── utils/              # Funciones auxiliares de GSAP, scroll y texto
+│   │   ├── About.tsx           # Sección sobre JRG Agency
+│   │   ├── Contact.tsx         # Pie de página y tarjetas de contacto
+│   │   ├── Landing.tsx         # Hero section principal
+│   │   ├── Navbar.tsx          # Barra de navegación interactiva y Lenis
+│   │   ├── WhatIDo.tsx         # Servicios y especialidades
+│   │   └── Work.tsx            # Galería horizontal de proyectos destacados
+│   ├── context/                # Proveedores de contexto (Loading, temas)
+│   ├── pages/                  # Vistas auxiliares
+│   ├── App.tsx                 # Componente raíz y enrutador
+│   └── main.tsx                # Punto de entrada de la aplicación
 ├── package.json
-└── vite.config.js
+└── vite.config.ts
 ```
 
 ---
 
-## 🎨 Sistema de Diseño
+## 📬 Contacto y Canales
 
-La paleta de marca está definida como tokens CSS en `:root`:
-
-```css
---navy:       #1B365D;   /* Azul marino principal */
---navy-dark:  #122444;   /* Versión oscura para hover/sombras */
---ash:        #E1E8ED;   /* Gris claro para fondos secundarios */
---white:      #FFFFFF;
---text:       #2C3E50;
-
-/* Curvas de animación premium */
---ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
---spring-liquid: cubic-bezier(0.3, 1.45, 0.35, 1);  /* Rebote líquido */
-```
-
----
-
-## 🌐 Proyectos en el Portfolio
-
-| Proyecto | Descripción | Tech |
-|---|---|---|
-| [Gure Trena](https://guretrenaurretxu.com/) | Bar tradicional en Urretxu | React, Vite, Tailwind |
-| [Urkulu Móviles](https://urkulumovilesurretxu.com/) | Tienda reparación móviles | React, Vite, Tailwind |
-| [Otxaran Denda](https://otxaran-denda.vercel.app/) | Tienda de ropa de mujer | HTML5, Tailwind, JS |
-
----
-
-## 📬 Contacto
-
-- 🌐 Web: [jrgestudio.com](https://jrgestudio.com)
-- 📱 WhatsApp: [+34 613 448 185](https://wa.me/34613448185)
-- 📧 Email: via formulario web
+- 📍 **Ubicación:** Urretxu, País Vasco, España
+- 📧 **Email:** [jakessrodriguezz@gmail.com](mailto:jakessrodriguezz@gmail.com)
+- 📱 **WhatsApp / Teléfono:** [+34 613 44 81 85](https://wa.me/34613448185)
+- 🐙 **GitHub:** [@jakesroodriguez](https://github.com/jakesroodriguez)
 
 ---
 
 ## 📄 Licencia
 
-© 2026 Jakes Rodriguez Garcia / JRG estudio — Todos los derechos reservados.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.

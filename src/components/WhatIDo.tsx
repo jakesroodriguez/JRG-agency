@@ -1,0 +1,181 @@
+import { useEffect, useRef } from "react";
+import "./styles/WhatIDo.css";
+import { config } from "../config";
+
+const WhatIDo = () => {
+  const containerRef = useRef<(HTMLDivElement | null)[]>([]);
+  const setRef = (el: HTMLDivElement | null, index: number) => {
+    containerRef.current[index] = el;
+  };
+  useEffect(() => {
+    containerRef.current.forEach((container) => {
+      if (container) {
+        container.addEventListener("click", () => handleClick(container));
+      }
+    });
+    return () => {
+      containerRef.current.forEach((container) => {
+        if (container) {
+          container.removeEventListener("click", () => handleClick(container));
+        }
+      });
+    };
+  }, []);
+  return (
+    <div className="whatIDO">
+      <div className="what-box">
+        <h2 className="title">
+          Q<span className="hat-h2">UÉ</span>
+          <div>
+            &nbsp;H<span className="do-h2">AGO</span>
+          </div>
+        </h2>
+      </div>
+      <div className="what-box">
+        <div className="what-box-in">
+          <div className="what-border2">
+            <svg width="100%">
+              <line
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="100%"
+                stroke="rgba(0,0,0,0.2)"
+                strokeWidth="2"
+                strokeDasharray="7,7"
+              />
+              <line
+                x1="100%"
+                y1="0"
+                x2="100%"
+                y2="100%"
+                stroke="rgba(0,0,0,0.2)"
+                strokeWidth="2"
+                strokeDasharray="7,7"
+              />
+            </svg>
+          </div>
+          <div
+            className="what-content what-noTouch"
+            ref={(el) => setRef(el, 0)}
+          >
+            <div className="what-border1">
+              <svg height="100%">
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="100%"
+                  y2="0"
+                  stroke="rgba(0,0,0,0.2)"
+                  strokeWidth="2"
+                  strokeDasharray="6,6"
+                />
+                <line
+                  x1="0"
+                  y1="100%"
+                  x2="100%"
+                  y2="100%"
+                  stroke="rgba(0,0,0,0.2)"
+                  strokeWidth="2"
+                  strokeDasharray="6,6"
+                />
+              </svg>
+            </div>
+            <div className="what-corner"></div>
+
+            <div className="what-content-in">
+              <h3>{config.skills.develop.title}</h3>
+              <h4>{config.skills.develop.description}</h4>
+              <p>
+                {config.skills.develop.details}
+              </p>
+              <h5>Habilidades y herramientas</h5>
+              <div className="what-content-flex">
+                {config.skills.develop.tools.map((tool, index) => (
+                  <div key={index} className="what-tags">{tool}</div>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="what-interactive-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.dispatchEvent(new CustomEvent("open-detail-modal", { detail: "develop" }));
+                }}
+              >
+                <span>Explorar Rendimiento & Stack</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+              <div className="what-arrow"></div>
+            </div>
+          </div>
+          <div
+            className="what-content what-noTouch"
+            ref={(el) => setRef(el, 1)}
+          >
+            <div className="what-border1">
+              <svg height="100%">
+                <line
+                  x1="0"
+                  y1="100%"
+                  x2="100%"
+                  y2="100%"
+                  stroke="rgba(0,0,0,0.2)"
+                  strokeWidth="2"
+                  strokeDasharray="6,6"
+                />
+              </svg>
+            </div>
+            <div className="what-corner"></div>
+            <div className="what-content-in">
+              <h3>{config.skills.design.title}</h3>
+              <h4>{config.skills.design.description}</h4>
+              <p>
+                {config.skills.design.details}
+              </p>
+              <h5>Habilidades y herramientas</h5>
+              <div className="what-content-flex">
+                {config.skills.design.tools.map((tool, index) => (
+                  <div key={index} className="what-tags">{tool}</div>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="what-interactive-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.dispatchEvent(new CustomEvent("open-detail-modal", { detail: "design" }));
+                }}
+              >
+                <span>Ver Capacidades 3D & WebGL</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+              <div className="what-arrow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WhatIDo;
+
+function handleClick(container: HTMLDivElement) {
+  container.classList.toggle("what-content-active");
+  container.classList.remove("what-sibling");
+  if (container.parentElement) {
+    const siblings = Array.from(container.parentElement.children);
+
+    siblings.forEach((sibling) => {
+      if (sibling !== container) {
+        sibling.classList.remove("what-content-active");
+        sibling.classList.toggle("what-sibling");
+      }
+    });
+  }
+}

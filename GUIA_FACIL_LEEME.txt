@@ -1,0 +1,34 @@
+============================================================
+              BIENVENIDO A TU CARPETA DE PROYECTOS
+============================================================
+
+Aqui tienes todo tu trabajo organizado de forma facil y clara:
+
+▶️ ABRIR_MI_WEB.bat
+   - Haz doble clic aqui para encender tu pagina web y que
+     se abra directamente en tu navegador sin comandos.
+
+📁 1 - Mi Pagina Web
+   - Todo el codigo y archivos de tu pagina web oficial (JRG Estudio).
+   - Aqui dentro se editan tus secciones, textos y estilos.
+
+📁 2 - Fotos y Diseños
+   - Tus fotos de perfil (originales y en alta resolucion).
+   - Tus logotipos oficiales y favicons transparentes.
+   - Diseños conceptuales, capturas y mockups.
+
+📁 3 - Componentes y Plantillas
+   - El archivo con el diseño del pie de pagina (footer) de JRG Estudio
+     listo para copiar y pegar en otras webs o clientes.
+
+📁 4 - Herramientas e Instaladores
+   - El instalador oficial de Node.js.
+   - Script utilitario para quitar fondos de imagenes.
+   - Versiones portables de Node.
+
+📁 5 - Otros Proyectos y Referencias
+   - Tu proyecto de animacion y video "Hyperframes Luka".
+   - Portafolio de referencia previo.
+   - Archivos antiguos de prueba guardados.
+
+============================================================
