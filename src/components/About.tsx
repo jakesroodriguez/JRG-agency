@@ -1,14 +1,49 @@
+import { useEffect, useRef } from "react";
 import "./styles/About.css";
 import { config } from "../config";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const openModal = () => {
     window.dispatchEvent(new CustomEvent("open-detail-modal", { detail: "about" }));
   };
 
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    // Estado inicial: invisible y desplazada hacia abajo
+    gsap.set(card, { opacity: 0, y: 60 });
+
+    const trigger = ScrollTrigger.create({
+      trigger: card,
+      start: "top 85%",   // empieza cuando el top de la tarjeta llega al 85% del viewport
+      end: "top 35%",     // completa cuando llega al 35%
+      scrub: 1.2,         // sigue el scroll suavemente
+      onUpdate: (self) => {
+        gsap.to(card, {
+          opacity: self.progress,
+          y: 60 * (1 - self.progress),
+          duration: 0,
+          ease: "none",
+        });
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      gsap.set(card, { clearProps: "all" });
+    };
+  }, []);
+
   return (
     <div className="about-section" id="about">
-      <div className="about-me">
+      <div className="about-me" ref={cardRef}>
         <div className="about-title-row">
           <img src="/logo.png" alt="JRG Logo" className="about-logo-badge" />
           <h3 className="title">{config.about.title}</h3>

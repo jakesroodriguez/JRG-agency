@@ -16,7 +16,7 @@ export default function setSplitText() {
   const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
 
   const TriggerStart = window.innerWidth <= 1024 ? "top 60%" : "20% 60%";
-  const ToggleAction = "play pause resume reverse";
+  const ToggleAction = "play none none none";
 
   paras.forEach((para: ParaElement) => {
     para.classList.add("visible");

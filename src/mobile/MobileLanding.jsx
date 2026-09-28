@@ -209,56 +209,155 @@ import { initSplineRobot } from './splineRobot';
 
     const getFeatures = (lang) => [
       {
+        id: 0,
         icon: 'layers',
         badge: lang === 'es' ? 'UI & 3D INMERSIVO' : lang === 'en' ? 'IMMERSIVE UI & 3D' : 'UI ETA 3D INMERSIBOA',
         title: lang === 'es' ? 'Diseño inmersivo' : lang === 'en' ? 'Immersive Design' : 'Diseinu murgiltzailea',
-        text: lang === 'es' 
-          ? 'Interfaces con profundidad visual y motion que captan atención desde el primer segundo.'
+        shortDesc: lang === 'es' 
+          ? 'Modelos 3D interactivos y WebGL que captan atención al instante.'
           : lang === 'en'
-          ? 'Interfaces with visual depth and motion that capture attention from the very first second.'
-          : 'Ikusizko sakontasuna eta mugimendua duten interfazeak, lehen segundotik arreta erakartzen dutenak.',
-        details: lang === 'es' 
-          ? ['Modelados 3D interactivos', 'Interfaces WebGL fluidas', 'Motion Design premium']
+          ? 'Interactive 3D models and WebGL capturing attention instantly.'
+          : 'Ikusizko sakontasuna eta 3D efektuak arreta lehen segundotik bereganatzeko.',
+        fullDesc: lang === 'es' 
+          ? 'Creamos experiencias visuales envolventes que diferencian tu negocio de la competencia. No usamos plantillas genéricas; diseñamos entornos tridimensionales donde cada interacción genera interés, retención y confianza.'
           : lang === 'en'
-          ? ['Interactive 3D models', 'Fluid WebGL interfaces', 'Premium Motion Design']
-          : ['3D interaktibo modeloak', 'WebGL interfaze arinak', 'Premium Motion diseinua'],
-        gradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(167, 139, 250, 0.03) 100%)',
+          ? 'We craft immersive visual experiences that set your brand apart. No generic templates; we design digital journeys where every interaction drives engagement, retention, and trust.'
+          : 'Zure marka lehiatik bereizten duten esperientzia bisual murgiltzaileak sortzen ditugu. Ez dugu txantiloiekin lan egiten; konfiantza sortzen duten unibertso digitalak diseinatzen ditugu.',
+        subBlocks: [
+          {
+            icon: 'box',
+            title: lang === 'es' ? 'Modelados 3D interactivos' : lang === 'en' ? 'Interactive 3D Models' : '3D modelo interaktiboak',
+            desc: lang === 'es'
+              ? 'Escenas y modelos 3D que el visitante puede rotar y explorar en tiempo real sin salir del navegador.'
+              : lang === 'en'
+              ? '3D scenes and assets that visitors can freely rotate and explore in real-time in their browser.'
+              : 'Erabiltzaileak nabigatzailean denbora errealean biratu eta ikus ditzakeen 3D eszenak eta ereduak.',
+            tag: 'Spline · Three.js'
+          },
+          {
+            icon: 'sparkles',
+            title: lang === 'es' ? 'Interfaces WebGL a 60 FPS' : lang === 'en' ? 'Fluid 60 FPS WebGL' : 'WebGL interfazeak 60 FPS-tan',
+            desc: lang === 'es'
+              ? 'Efectos visuales y shaders acelerados por la gráfica, manteniendo la máxima fluidez en teléfonos móviles.'
+              : lang === 'en'
+              ? 'GPU-accelerated visual effects and shaders, ensuring silky-smooth performance on mobile devices.'
+              : 'Txartel grafikoak azeleratutako efektuak eta shader-ak, mugikorretan errendimendu arina lortzeko.',
+            tag: 'WebGL · Shaders GLSL'
+          },
+          {
+            icon: 'film',
+            title: lang === 'es' ? 'Motion Design cinemático' : lang === 'en' ? 'Cinematic Motion Design' : 'Motion Diseinu zinematikoa',
+            desc: lang === 'es'
+              ? 'Micro-animaciones coordinadas con el scroll que dinamizan la lectura y guían al contacto.'
+              : lang === 'en'
+              ? 'Scroll-synchronized micro-animations that make browsing dynamic and guide visitors to take action.'
+              : 'Erabiltzailearen scroll-arekin sinkronizatutako mikro-animazioak, irakurketa erraztuz.',
+            tag: 'GSAP · Lenis Scroll'
+          }
+        ],
+        gradient: 'linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(167, 139, 250, 0.04) 100%)',
         accentColor: '#6366f1',
         glowColor: '99, 102, 241'
       },
       {
+        id: 1,
         icon: 'code-2',
         badge: lang === 'es' ? 'CÓDIGO & PRESTACIONES' : lang === 'en' ? 'CODE & PERFORMANCE' : 'KODEA ETA ETEKINA',
         title: lang === 'es' ? 'Desarrollo moderno' : lang === 'en' ? 'Modern Development' : 'Garapen modernoa',
-        text: lang === 'es'
-          ? 'React, WebGL y APIs listas para escalar sin sacrificar rendimiento ni mantenibilidad.'
+        shortDesc: lang === 'es'
+          ? 'React, TypeScript y código modular optimizado para máxima velocidad.'
           : lang === 'en'
-          ? 'React, WebGL, and APIs ready to scale without sacrificing performance or maintainability.'
-          : 'React, WebGL eta APIak eskalatzeko prest errendimendua edo mantentze-lanak galdu gabe.',
-        details: lang === 'es'
-          ? ['Código semántico y modular', 'Optimización de Core Web Vitals', 'Despliegues en Vercel/Netlify']
+          ? 'React, TypeScript, and modular code optimized for ultra-fast speed.'
+          : 'React, TypeScript eta kode modularra abiadura handiena lortzeko.',
+        fullDesc: lang === 'es'
+          ? 'Construimos con el stack frontend más moderno y fiable de la industria. Cada línea de código está optimizada para cargar al instante, posicionar en Google y ofrecer una experiencia robusta sin errores.'
           : lang === 'en'
-          ? ['Semantic & modular code', 'Core Web Vitals optimization', 'Deployments on Vercel/Netlify']
-          : ['Kode semantiko eta modularra', 'Core Web Vitals optimizazioa', 'Hedapenak Vercel/Netlify-n'],
-        gradient: 'linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(99, 102, 241, 0.03) 100%)',
+          ? 'We build with the most modern, reliable frontend stack in the industry. Every line of code is optimized for instant loading, top SEO ranking, and bulletproof stability.'
+          : 'Industriako frontend stack fidagarrienarekin eraikitzen dugu. Kode guztia berehala kargatzeko eta fidagarritasuna bermatzeko optimizatuta dago.',
+        subBlocks: [
+          {
+            icon: 'code',
+            title: lang === 'es' ? 'Código semántico y modular' : lang === 'en' ? 'Semantic & Modular Code' : 'Kode semantiko eta modularra',
+            desc: lang === 'es'
+              ? 'Componentes React limpios tipados con TypeScript. Estructura limpia y fácil de actualizar con el tiempo.'
+              : lang === 'en'
+              ? 'Clean React components typed with TypeScript. Organized structure that is effortless to maintain and scale.'
+              : 'TypeScript-ekin idatzitako React osagai garbiak. Etorkizunean mantentzeko eta handitzeko oso erraza.',
+            tag: 'React 18 · TypeScript'
+          },
+          {
+            icon: 'zap',
+            title: lang === 'es' ? 'Core Web Vitals al 100%' : lang === 'en' ? 'Core Web Vitals 100%' : 'Core Web Vitals %100ean',
+            desc: lang === 'es'
+              ? 'Puntuaciones máximas en Google Lighthouse. Carga ultrarrápida para no perder ni un solo cliente por espera.'
+              : lang === 'en'
+              ? 'Top scores on Google Lighthouse. Ultra-fast initial paint so you never lose visitors due to slow loading.'
+              : 'Puntuazio gorena Google Lighthouse-n. Karga azkarra itxaronaldiengatik bezerorik ez galtzeko.',
+            tag: 'Lighthouse 95-100 · Speed'
+          },
+          {
+            icon: 'server',
+            title: lang === 'es' ? 'Despliegues en Edge & CDN' : lang === 'en' ? 'Edge Deployments & CDN' : 'Hedapenak Edge & CDN-n',
+            desc: lang === 'es'
+              ? 'Alojamiento global con Vercel. Servidores distribuidos por todo el mundo con seguridad SSL y máxima disponibilidad.'
+              : lang === 'en'
+              ? 'Global edge hosting via Vercel. Geographically distributed servers with instant SSL and 99.9% uptime.'
+              : 'Vercel bidezko hedapen globala. Mundu osoan zehar banatutako zerbitzari azkarrak eta SSL segurua.',
+            tag: 'Vercel Edge · Global CDN'
+          }
+        ],
+        gradient: 'linear-gradient(135deg, rgba(6, 182, 212, 0.04) 0%, rgba(99, 102, 241, 0.04) 100%)',
         accentColor: '#06b6d4',
         glowColor: '6, 182, 212'
       },
       {
+        id: 2,
         icon: 'rocket',
         badge: lang === 'es' ? 'VELOCIDAD & SEO' : lang === 'en' ? 'SPEED & SEO' : 'ABIADURA ETA SEO',
         title: lang === 'es' ? 'Lanzamiento rápido' : lang === 'en' ? 'Fast Launch' : 'Abiarazte azkarra',
-        text: lang === 'es'
-          ? 'De prototipo a producción con entregas iterativas y métricas claras de conversión.'
+        shortDesc: lang === 'es'
+          ? 'De idea a producción con métricas claras y captación directa.'
           : lang === 'en'
-          ? 'From prototype to production with iterative deliveries and clear conversion metrics.'
-          : 'Prototipotik produkziora entrega iteratiboekin eta bihurketa metrika argiekin.',
-        details: lang === 'es'
-          ? ['Auditoría SEO técnica', 'Estrategia MVP enfocada', 'Configuración de Analytics']
+          ? 'From idea to production with clear metrics and direct customer leads.'
+          : 'Ideiatik produkziora metrika argiekin eta bezeroak erakarriz.',
+        fullDesc: lang === 'es'
+          ? 'Priorizamos entregas ágiles y orientadas a resultados reales de negocio. Diseñamos con un objetivo clave: que tu nueva web empiece a captar llamadas, mensajes de WhatsApp y presupuestos desde la primera semana.'
           : lang === 'en'
-          ? ['Technical SEO audit', 'Focused MVP strategy', 'Analytics setup']
-          : ['SEO audit teknikoa', 'MVP estrategia bideratua', 'Analytics konfigurazioa'],
-        gradient: 'linear-gradient(135deg, rgba(52, 211, 153, 0.03) 0%, rgba(6, 182, 212, 0.03) 100%)',
+          ? 'We focus on agile delivery oriented towards real business results. Designed with one main goal: your website starts generating calls, WhatsApp messages, and quote inquiries from week one.'
+          : 'Negozio-emaitza errealetara bideratutako entrega arina lehenesten dugu: zure webguneak deiak eta mezuak lortzea lehen astetik bertatik.',
+        subBlocks: [
+          {
+            icon: 'search',
+            title: lang === 'es' ? 'Auditoría y SEO Local' : lang === 'en' ? 'Technical & Local SEO' : 'SEO teknikoa eta tokikoa',
+            desc: lang === 'es'
+              ? 'Optimización de etiquetas y estructura para aparecer en Google y en Google Maps cuando busquen en tu ciudad.'
+              : lang === 'en'
+              ? 'Complete schema and keyword optimization to rank on Google search and Google Maps in your local area.'
+              : 'Etiketa eta egitura optimizazioa zure inguruan bilatzen dutenean Google-n lehen agertzeko.',
+            tag: 'Google Maps · SEO Local'
+          },
+          {
+            icon: 'target',
+            title: lang === 'es' ? 'Estrategia MVP enfocada' : lang === 'en' ? 'Focused MVP Strategy' : 'MVP estrategia bideratua',
+            desc: lang === 'es'
+              ? 'Lanzamiento sin rodeos con botones directos a WhatsApp y llamadas estratégicas que aumentan la conversión.'
+              : lang === 'en'
+              ? 'Streamlined launch with direct WhatsApp links and clear call-to-action buttons that convert visitors.'
+              : 'Bihurketa handitzen duten WhatsApp eta deietarako botoi estrategikoekin egindako abiaraztea.',
+            tag: 'Conversión UX · CTAs'
+          },
+          {
+            icon: 'bar-chart-2',
+            title: lang === 'es' ? 'Métricas y Analítica en vivo' : lang === 'en' ? 'Live Analytics & Tracking' : 'Zuzeneko metrika eta analitika',
+            desc: lang === 'es'
+              ? 'Configuración de Google Analytics para conocer exactamente cuántos usuarios te visitan y qué páginas ven.'
+              : lang === 'en'
+              ? 'Google Analytics setup so you know exactly who visits, where they come from, and what they click.'
+              : 'Google Analytics integrazioa bisitariak nondik datozen eta zer ikusten duten jakiteko.',
+            tag: 'Google Analytics 4 · KPIs'
+          }
+        ],
+        gradient: 'linear-gradient(135deg, rgba(52, 211, 153, 0.04) 0%, rgba(6, 182, 212, 0.04) 100%)',
         accentColor: '#34d399',
         glowColor: '52, 211, 153'
       }
@@ -427,64 +526,185 @@ import { initSplineRobot } from './splineRobot';
       );
     }
 
-    function FeatureCard({ feature, lang = 'es' }) {
-      const cardRef = useRef(null);
+    function InteractiveFeatures({ lang = 'es' }) {
+      const [expandedId, setExpandedId] = useState(null);
+      const features = getFeatures(lang);
 
-      const handleMouseMove = (e) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        cardRef.current.style.setProperty('--mouse-x', `${x}px`);
-        cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+      const toggleExpand = (id) => {
+        setExpandedId(prev => prev === id ? null : id);
       };
 
+      useEffect(() => {
+        if (typeof window !== 'undefined' && window.lucide && window.lucide.createIcons) {
+          window.lucide.createIcons();
+        }
+      }, [expandedId, lang]);
+
       return (
-        <article
-          ref={cardRef}
-          className="feature-card-premium"
-          onMouseMove={handleMouseMove}
-          style={{
-            '--accent-color': feature.accentColor,
-            '--glow-color': feature.glowColor,
-            background: feature.gradient
-          }}
-        >
-          <div className="card-grid-pattern" aria-hidden="true"></div>
-          <div className="card-spotlight" aria-hidden="true"></div>
-          <div className="card-shine" aria-hidden="true"></div>
-          <div className="card-border-glow" aria-hidden="true"></div>
-          <div className="kinetic-bg-text" aria-hidden="true">{feature.title}</div>
+        <div className="features-accordion-container">
+          {features.map((feature) => {
+            const isExpanded = expandedId === feature.id;
+            return (
+              <article
+                key={feature.id}
+                className={`feature-accordion-card ${isExpanded ? 'is-expanded' : ''}`}
+                style={{
+                  '--accent-color': feature.accentColor,
+                  '--glow-color': feature.glowColor,
+                  background: isExpanded ? undefined : feature.gradient
+                }}
+              >
+                {/* Header Clickable Area */}
+                <div 
+                  className="feature-accordion-header"
+                  onClick={() => toggleExpand(feature.id)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isExpanded}
+                  onKeyDown={(e) => { 
+                    if (e.key === 'Enter' || e.key === ' ') { 
+                      e.preventDefault(); 
+                      toggleExpand(feature.id); 
+                    } 
+                  }}
+                >
+                  <div className="feature-header-left">
+                    <div 
+                      className="feature-icon-box" 
+                      style={{ 
+                        background: `rgba(${feature.glowColor}, 0.12)`, 
+                        borderColor: `rgba(${feature.glowColor}, 0.25)` 
+                      }}
+                    >
+                      <i data-lucide={feature.icon} style={{ color: feature.accentColor, width: 22, height: 22 }}></i>
+                    </div>
+                    <div className="feature-header-text">
+                      <div className="feature-badge-row">
+                        <span 
+                          className="feature-mini-badge" 
+                          style={{ 
+                            color: feature.accentColor, 
+                            background: `rgba(${feature.glowColor}, 0.08)`, 
+                            borderColor: `rgba(${feature.glowColor}, 0.22)` 
+                          }}
+                        >
+                          {feature.badge}
+                        </span>
+                      </div>
+                      <h3 className="feature-accordion-title">{feature.title}</h3>
+                      {!isExpanded && (
+                        <p className="feature-accordion-teaser">{feature.shortDesc}</p>
+                      )}
+                    </div>
+                  </div>
 
-          <div className="feature-card-header">
-            <span className="feature-badge">{feature.badge}</span>
-            <div className="feature-icon-premium">
-              <i data-lucide={feature.icon} style={{ width: 24, height: 24 }}></i>
-              <div className="icon-glow-ring"></div>
-            </div>
-          </div>
+                  <div className="feature-header-right">
+                    <button 
+                      type="button" 
+                      className={`feature-toggle-btn ${isExpanded ? 'btn-expanded' : ''}`}
+                      style={{
+                        color: isExpanded ? feature.accentColor : 'var(--text-secondary)',
+                        borderColor: isExpanded ? `rgba(${feature.glowColor}, 0.35)` : 'rgba(var(--navy-rgb), 0.12)',
+                        background: isExpanded ? `rgba(${feature.glowColor}, 0.08)` : 'rgba(255, 255, 255, 0.7)'
+                      }}
+                      aria-label={isExpanded ? 'Plegar detalles' : 'Desplegar detalles'}
+                    >
+                      <span className="toggle-btn-label">
+                        {isExpanded 
+                          ? (lang === 'eu' ? 'Itxi' : lang === 'en' ? 'Close' : 'Plegar')
+                          : (lang === 'eu' ? 'Ikusi' : lang === 'en' ? 'Details' : 'Ver más')}
+                      </span>
+                      <svg 
+                        viewBox="0 0 24 24" 
+                        width="14" 
+                        height="14" 
+                        stroke="currentColor" 
+                        strokeWidth="2.2" 
+                        fill="none" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        style={{ 
+                          transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' 
+                        }}
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
 
-          <h3 className="feature-title">{feature.title}</h3>
-          <p className="feature-text">{feature.text}</p>
+                {/* Expanded Content Area */}
+                <div 
+                  className="feature-accordion-collapse"
+                  style={{
+                    maxHeight: isExpanded ? '1600px' : '0px',
+                    opacity: isExpanded ? 1 : 0,
+                    transition: 'max-height 0.45s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <div className="feature-expanded-content">
+                    {/* Accent divider */}
+                    <div 
+                      className="feature-expanded-divider" 
+                      style={{ background: `linear-gradient(to right, ${feature.accentColor}, rgba(${feature.glowColor}, 0.1) 80%, transparent)` }}
+                    ></div>
 
-          <ul className="feature-details-premium">
-            {feature.details.map((detail, idx) => (
-              <li key={idx}>
-                <span className="bullet-wrap">
-                  <i data-lucide="check" style={{ width: 12, height: 12 }}></i>
-                </span>
-                <span>{detail}</span>
-              </li>
-            ))}
-          </ul>
+                    {/* Comprehensive explanation paragraph */}
+                    <p className="feature-expanded-description">
+                      {feature.fullDesc}
+                    </p>
 
-          <div className="feature-card-footer">
-            <span className="learn-more-text">{lang === 'eu' ? 'Gehiago jakin' : lang === 'en' ? 'Learn more' : 'Saber más'}</span>
-            <div className="arrow-icon-wrap">
-              <i data-lucide="arrow-right" className="arrow-icon"></i>
-            </div>
-          </div>
-        </article>
+                    {/* 3 Dedicated Sub-blocks */}
+                    <div className="feature-subblocks-section">
+                      <div className="subblocks-label-bar">
+                        <span className="subblocks-label" style={{ color: feature.accentColor }}>
+                          {lang === 'es' ? '3 Bloques clave de este servicio:' : lang === 'en' ? '3 Key Pillars of this Service:' : 'Zerbitzu honen 3 zutabe nagusiak:'}
+                        </span>
+                      </div>
+
+                      <div className="feature-subblocks-grid">
+                        {feature.subBlocks.map((block, idx) => (
+                          <div key={idx} className="feature-subblock-card">
+                            <div className="subblock-top">
+                              <div className="subblock-icon-wrap" style={{ background: `rgba(${feature.glowColor}, 0.1)`, color: feature.accentColor }}>
+                                <i data-lucide={block.icon} style={{ width: 17, height: 17 }}></i>
+                              </div>
+                              <span className="subblock-tag" style={{ borderColor: `rgba(${feature.glowColor}, 0.2)` }}>
+                                {block.tag}
+                              </span>
+                            </div>
+                            <h4 className="subblock-title">{block.title}</h4>
+                            <p className="subblock-desc">{block.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action footer */}
+                    <div className="feature-expanded-footer">
+                      <a href="#contact" className="feature-cta-link" style={{ borderColor: `rgba(${feature.glowColor}, 0.3)`, color: feature.accentColor }}>
+                        <span>{lang === 'es' ? 'Consultar sobre este servicio' : lang === 'en' ? 'Inquire about this service' : 'Zerbitzu honi buruz galdetu'}</span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 4 }}>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                      <button 
+                        type="button" 
+                        className="feature-close-text-btn"
+                        onClick={(e) => { e.stopPropagation(); toggleExpand(feature.id); }}
+                      >
+                        {lang === 'es' ? 'Plegar detalles' : lang === 'en' ? 'Close' : 'Itxi'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       );
     }
 
@@ -950,7 +1170,6 @@ import { initSplineRobot } from './splineRobot';
       const [isBootExiting, setIsBootExiting] = useState(false);
       const [isBootDone, setIsBootDone] = useState(false);
       const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-      const [scrollFill, setScrollFill] = useState(0);
       const [isScrolled, setIsScrolled] = useState(false);
 
       const t = TRANSLATIONS[lang];
@@ -1010,17 +1229,6 @@ import { initSplineRobot } from './splineRobot';
           if (!tickingScroll) {
             window.requestAnimationFrame(() => {
               setIsScrolled(window.scrollY > window.innerHeight * 0.4);
-              const fillSec = document.getElementById('scroll-fill-section') || document.getElementById('portfolio-grid');
-              if (fillSec) {
-                const rect = fillSec.getBoundingClientRect();
-                const viewHeight = window.innerHeight;
-                const startY = viewHeight * 0.88;
-                const endY = viewHeight * 0.28;
-                let pct = (startY - rect.top) / (startY - endY);
-                if (pct < 0) pct = 0;
-                if (pct > 1) pct = 1;
-                setScrollFill(Math.round(pct * 100));
-              }
               tickingScroll = false;
             });
             tickingScroll = true;
@@ -1375,14 +1583,15 @@ import { initSplineRobot } from './splineRobot';
             >
               <div className="maps-showcase premium-google-showcase" style={{ 
                 background: 'linear-gradient(135deg, var(--navy-dark) 0%, #111315 100%)', 
-                borderRadius: '32px', 
+                borderRadius: '24px', 
                 border: '1px solid rgba(255,255,255,0.06)', 
                 boxShadow: '0 40px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08)', 
-                padding: 'clamp(1.5rem, 4vw, 3.5rem)', 
+                padding: 'clamp(16px, 3.5vw, 28px)', 
                 maxWidth: '1080px',
                 margin: '0 auto',
                 position: 'relative', 
-                overflow: 'visible' 
+                overflow: 'hidden',
+                display: 'block'
               }}>
                 {/* Tech grid pattern background */}
                 <div style={{
@@ -1411,39 +1620,43 @@ import { initSplineRobot } from './splineRobot';
                   borderRadius: 'inherit'
                 }} aria-hidden="true"></div>
                 
-                <div className="maps-content premium-google-content" style={{ display: 'flex', flexWrap: 'wrap', gap: '3.5rem', alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                <div className="maps-content premium-google-content" style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'stretch', position: 'relative', zIndex: 2, width: '100%' }}>
                   
-                  {/* Left: Floating Glass Card (Reviews) */}
-                  <div className="maps-visual" style={{ flex: '1 1 450px', maxWidth: '450px', perspective: '1000px', position: 'relative', pointerEvents: 'auto' }}>
+                  {/* Floating Glass Card (Reviews) */}
+                  <div className="maps-visual" style={{ width: '100%', maxWidth: '100%', minHeight: 'auto', position: 'relative', pointerEvents: 'auto', display: 'block', margin: 0, padding: 0 }}>
                     <div className="maps-review-card premium-review-card" style={{ 
                       background: 'rgba(255, 255, 255, 0.02)',
                       backdropFilter: 'blur(20px)',
                       WebkitBackdropFilter: 'blur(20px)',
                       border: '1px solid rgba(255, 255, 255, 0.08)',
                       boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1)',
-                      borderRadius: '24px',
-                      padding: '3.5rem',
+                      borderRadius: '20px',
+                      padding: 'clamp(14px, 3.5vw, 20px)',
                       width: '100%',
+                      boxSizing: 'border-box',
                       position: 'relative',
+                      top: 0,
+                      right: 0,
+                      margin: 0,
                       transition: 'transform 0.5s var(--ease-spring), box-shadow 0.5s ease, border-color 0.5s ease'
                     }}>
                       
 
 
                       {/* Card Content */}
-                      <div className="maps-review-header" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                      <div className="maps-review-header" style={{ marginBottom: '0.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '0.45rem' }}>
                         {/* Avatar with brand gradient border and Logo */}
-                        <div className="avatar-glow-wrap" style={{ position: 'relative', padding: '3px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--navy), var(--ash))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="avatar-glow-wrap" style={{ position: 'relative', padding: '2px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--navy), var(--ash))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <div className="maps-avatar" style={{ 
                             background: '#0b1017', 
-                            width: '52px', 
-                            height: '52px', 
+                            width: '48px', 
+                            height: '48px', 
                             display: 'flex', 
                             alignItems: 'center', 
                             justifyContent: 'center', 
                             borderRadius: '50%',
                             overflow: 'hidden',
-                            padding: '4px'
+                            padding: '3px'
                           }}>
                             <img 
                               src="/logoJRG.png" 
@@ -1457,54 +1670,43 @@ import { initSplineRobot } from './splineRobot';
                             />
                           </div>
                         </div>
-                        <div className="maps-reviewer">
-                          <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <span className="maps-name" style={{ fontSize: '1.35rem', color: 'var(--white)', fontWeight: '600', letterSpacing: '-0.01em' }}>JRG Agency</span>
+                        <div className="maps-reviewer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', width: '100%' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <span className="maps-name" style={{ fontSize: '1.2rem', color: 'var(--white)', fontWeight: '600', letterSpacing: '-0.01em', textAlign: 'center' }}>JRG Agency</span>
                           </div>
-                          <span className="maps-time" style={{ color: 'rgba(225, 232, 237, 0.65)', fontSize: '0.85rem', display: 'block', marginTop: '2px' }}>
+                          <span className="maps-time" style={{ color: 'rgba(225, 232, 237, 0.65)', fontSize: '0.82rem', display: 'block', marginTop: '2px', textAlign: 'center' }}>
                             {lang === 'es' ? 'Desarrollador Web Freelance' : lang === 'en' ? 'Freelance Web Developer' : 'Web Garatzaile Freelancea'}
                           </span>
                         </div>
                       </div>
 
                       {/* Stars Rating */}
-                      <div className="maps-stars" style={{ display: 'flex', gap: '6px', marginBottom: '1.5rem', alignItems: 'center' }}>
-                        <span style={{ color: 'var(--white)', fontWeight: '800', fontSize: '1.5rem', marginRight: '6px', letterSpacing: '-0.02em' }}>4.7</span>
+                      <div className="maps-stars" style={{ display: 'flex', gap: '5px', marginBottom: '0.75rem', alignItems: 'center', justifyContent: 'center' }}>
+                        <span style={{ color: 'var(--white)', fontWeight: '800', fontSize: '1.3rem', marginRight: '4px', letterSpacing: '-0.02em' }}>4.7</span>
                         {[1,2,3,4].map(i => (
                           <div key={i} className="star-pulse">
-                            <i data-lucide="star" style={{ color: '#FBBC05', fill: '#FBBC05', width: '20px', height: '20px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
+                            <i data-lucide="star" style={{ color: '#FBBC05', fill: '#FBBC05', width: '18px', height: '18px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
                           </div>
                         ))}
                         <div className="star-pulse">
-                          <i data-lucide="star-half" style={{ color: '#FBBC05', fill: '#FBBC05', width: '20px', height: '20px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
+                          <i data-lucide="star-half" style={{ color: '#FBBC05', fill: '#FBBC05', width: '18px', height: '18px', filter: 'drop-shadow(0 0 8px rgba(251,188,5,0.4))' }}></i>
                         </div>
-                        <span style={{ color: 'rgba(225, 232, 237, 0.55)', fontSize: '0.85rem', marginLeft: '6px' }}>
+                        <span style={{ color: 'rgba(225, 232, 237, 0.55)', fontSize: '0.8rem', marginLeft: '4px' }}>
                           {lang === 'es' ? '(Reseñas verificadas)' : lang === 'en' ? '(Verified reviews)' : '(Iritzi egiaztatuak)'}
                         </span>
                       </div>
 
                       {/* Testimonial Quote */}
-                      <div style={{ position: 'relative' }}>
-                        {/* Huge quote mark styling */}
-                        <span style={{ 
-                          position: 'absolute', 
-                          top: '-25px', 
-                          left: '-15px', 
-                          fontSize: '5rem', 
-                          fontFamily: 'serif', 
-                          color: 'rgba(255,255,255,0.06)',
-                          lineHeight: 1,
-                          pointerEvents: 'none'
-                        }}>“</span>
-                        
+                      <div style={{ position: 'relative', textAlign: 'center' }}>
                         <p className="maps-review-body" style={{ 
                           color: 'rgba(255,255,255,0.9)', 
-                          fontSize: '1.05rem', 
-                          lineHeight: '1.75', 
+                          fontSize: '0.94rem', 
+                          lineHeight: '1.55', 
                           fontStyle: 'normal',
                           position: 'relative',
                           zIndex: 1,
-                          margin: 0
+                          margin: 0,
+                          textAlign: 'center'
                         }}>
                           {lang === 'es' 
                             ? '"Increíble nivel de detalle y profesionalidad. La página web vuela, el diseño es espectacular y la comunicación de 10. Totalmente recomendado."'
@@ -1517,18 +1719,16 @@ import { initSplineRobot } from './splineRobot';
                   </div>
 
                   {/* Right: Dashboard Analytics Metrics & CTA */}
-                  <div className="maps-stats premium-google-actions" style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', gap: '2.5rem', position: 'relative', zIndex: 10 }}>
+                  <div className="maps-stats premium-google-actions" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px', position: 'relative', zIndex: 10, margin: 0, padding: 0 }}>
                     
-
-
                     {/* Premium Grid metrics layout */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                       
                       <div className="premium-metric-card" style={{ 
                         background: 'rgba(255,255,255,0.02)', 
                         border: '1px solid rgba(255,255,255,0.05)', 
-                        borderRadius: '16px', 
-                        padding: '1.25rem',
+                        borderRadius: '14px', 
+                        padding: '0.9rem',
                         transition: 'transform 0.3s ease, border-color 0.3s ease'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
@@ -1566,19 +1766,19 @@ import { initSplineRobot } from './splineRobot';
                         gridColumn: '1 / span 2',
                         background: 'rgba(255,255,255,0.02)', 
                         border: '1px solid rgba(255,255,255,0.05)', 
-                        borderRadius: '16px', 
-                        padding: '1.25rem',
+                        borderRadius: '14px', 
+                        padding: '0.85rem 1rem',
                         transition: 'transform 0.3s ease, border-color 0.3s ease'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '8px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                            <i data-lucide="phone-call" style={{ color: 'var(--white)', width: 18, height: 18 }}></i>
+                          <div style={{ background: 'rgba(255, 255, 255, 0.05)', padding: '6px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                            <i data-lucide="phone-call" style={{ color: 'var(--white)', width: 16, height: 16 }}></i>
                           </div>
                           <div>
-                            <span style={{ fontSize: '0.8rem', color: 'rgba(225, 232, 237, 0.5)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.03em', display: 'block' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'rgba(225, 232, 237, 0.5)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.03em', display: 'block' }}>
                               {lang === 'es' ? 'Llamadas & Conversión' : lang === 'en' ? 'Calls & Conversion' : 'Deiak eta Bihurketa'}
                             </span>
-                            <div style={{ fontSize: '1.15rem', color: 'var(--white)', fontWeight: '600', marginTop: '2px' }}>
+                            <div style={{ fontSize: '1.05rem', color: 'var(--white)', fontWeight: '600', marginTop: '2px' }}>
                               {lang === 'es' ? 'Visibilidad directa a llamada directa' : lang === 'en' ? 'Direct visibility to direct call' : 'Ikusgarritasun zuzena deira'}
                             </div>
                           </div>
@@ -1595,20 +1795,25 @@ import { initSplineRobot } from './splineRobot';
                          display: 'inline-flex',
                          alignItems: 'center',
                          justifyContent: 'center',
-                         gap: '0.75rem',
+                         gap: '0.65rem',
                          position: 'relative',
                          zIndex: 99,
                          cursor: 'pointer',
                          textDecoration: 'none',
                          color: '#ffffff',
                          pointerEvents: 'auto',
-                         overflow: 'hidden'
+                         overflow: 'hidden',
+                         padding: '11px 20px',
+                         minHeight: '44px',
+                         fontSize: '0.92rem',
+                         width: '100%',
+                         boxSizing: 'border-box'
                        }}
                     >
                       <span className="btn-shine-sweep"></span>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative', zIndex: 2 }}>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', position: 'relative', zIndex: 2 }}>
                         {t.myGoogleBtn}
-                        <i data-lucide="arrow-up-right" className="arrow-icon-shift" style={{ width: 18, height: 18, transition: 'transform 0.3s ease' }}></i>
+                        <i data-lucide="arrow-up-right" className="arrow-icon-shift" style={{ width: 16, height: 16, transition: 'transform 0.3s ease' }}></i>
                       </span>
                     </a>
                     
@@ -1729,10 +1934,8 @@ import { initSplineRobot } from './splineRobot';
                 </div>
               }
             >
-              <div className="features-grid" style={{ marginTop: 0 }}>
-                {getFeatures(lang).map((f) => (
-                  <FeatureCard key={f.title} feature={f} lang={lang} />
-                ))}
+              <div style={{ width: '100%', marginTop: '10px' }}>
+                <InteractiveFeatures lang={lang} />
               </div>
             </ContainerScroll>
           </section>
@@ -1751,17 +1954,6 @@ import { initSplineRobot } from './splineRobot';
               <ShowcasePipeline lang={lang} />
             </ContainerScroll>
           </section>
-
-          <div id="scroll-fill-section" className="scroll-fill-wrapper" aria-hidden="true">
-            <div className="scroll-fill-text" style={{ '--fill-pct': `${scrollFill}%` }}>
-              <span className="scroll-fill-line">
-                {lang === 'es' ? 'PROYECTOS' : lang === 'en' ? 'FEATURED' : 'PROIEKTU'}
-              </span>
-              <span className="scroll-fill-line">
-                {lang === 'es' ? 'DESTACADOS' : lang === 'en' ? 'PROJECTS' : 'NABARMENDUAK'}
-              </span>
-            </div>
-          </div>
 
           {/* PORTFOLIO GRID */}
           <section id="portfolio-grid" className="section features">

@@ -1,0 +1,565 @@
+JRG AGENCY — MASTER PROJECT CONTEXT
+====================================
+Documento de contexto para continuar el proyecto en Antigravity.
+
+ÚLTIMA ACTUALIZACIÓN: 28/09/2026
+
+1. IDENTIDAD DEL PROYECTO
+--------------------------
+Marca: JRG Agency
+Dominio: https://jrgagency.eus
+
+JRG Agency es una agencia tecnológica/creativa centrada en soluciones digitales e inteligencia artificial para empresas, autónomos y negocios.
+
+Objetivo general:
+- Construir una marca profesional y moderna.
+- Conseguir clientes reales.
+- Posicionar JRG Agency en Google.
+- Vender servicios de IA, automatización, chatbots y desarrollo web.
+- Crear una web premium, rápida, visualmente diferencial y que NO parezca una web genérica hecha por IA.
+
+Mercado:
+- Principal: toda España.
+- Mercado local secundario: Gipuzkoa.
+- No limitar la marca exclusivamente a Gipuzkoa.
+
+Clientes prioritarios:
+1. Restaurantes / hostelería.
+2. Empresas / PYMEs.
+3. Autónomos.
+
+2. SERVICIOS PRINCIPALES
+------------------------
+Prioridad comercial:
+
+1. AUTOMATIZACIONES CON IA
+   - Automatización de tareas repetitivas.
+   - Automatización de procesos empresariales.
+   - Integraciones entre herramientas.
+   - Flujos con IA.
+   - Optimización de operaciones.
+
+2. CHATBOTS CON IA
+   - Chatbots para empresas.
+   - Atención automática al cliente.
+   - Asistentes de IA.
+   - Captación y cualificación de clientes.
+   - Respuestas automáticas y soporte.
+
+3. DISEÑO Y DESARROLLO WEB
+   - Diseño web profesional.
+   - Desarrollo de webs modernas.
+   - Webs para empresas y negocios.
+   - Experiencias digitales premium.
+   - Integración de IA cuando tenga sentido.
+
+Posicionamiento deseado:
+JRG Agency debe percibirse como una agencia moderna que combina IA, automatización, desarrollo web y diseño digital. No debe parecer simplemente una empresa de diseño web.
+
+3. OBJETIVOS SEO
+---------------
+Objetivos:
+- Conseguir clientes desde Google.
+- Posicionar servicios principales.
+- Aumentar tráfico orgánico.
+- Posicionar la marca JRG Agency.
+- Tener presencia nacional en España.
+- Aprovechar también búsquedas locales de Gipuzkoa.
+
+Keywords iniciales que interesan:
+- agencia de inteligencia artificial
+- automatizaciones con IA
+- automatización con IA
+- chatbots para empresas
+- chatbot con IA
+- agencia IA
+- inteligencia artificial para empresas
+- automatización de empresas
+- automatización de procesos
+- agentes de IA
+- desarrollo de agentes IA
+- diseño web profesional
+- desarrollo web profesional
+- agencia de diseño web
+- agencia de desarrollo web
+- diseño web para empresas
+- desarrollo web para empresas
+- automatización para restaurantes
+- IA para restaurantes
+- chatbot para restaurantes
+- agencia de inteligencia artificial en España
+- automatización con IA en España
+- agencia IA Gipuzkoa
+- automatización IA Gipuzkoa
+- chatbot Gipuzkoa
+- diseño web Gipuzkoa
+
+IMPORTANTE:
+No intentar meter todas las keywords en todas las páginas.
+Cada página debe tener una intención de búsqueda principal y un conjunto pequeño de keywords relacionadas.
+
+4. ESTADO SEO ACTUAL
+--------------------
+Google Business Profile:
+- Ya está configurado.
+- La web está añadida.
+
+Google Search Console:
+- Todavía NO está configurado.
+- Debe configurarse posteriormente.
+
+SEO técnico pendiente de revisar:
+- indexación real de todas las rutas.
+- title y meta description.
+- H1/H2/H3.
+- canonical.
+- sitemap.xml.
+- robots.txt.
+- datos estructurados / Schema.org.
+- Open Graph.
+- Twitter/X cards.
+- URLs.
+- enlaces internos.
+- páginas 404.
+- redirecciones.
+- rendimiento.
+- Core Web Vitals.
+- contenido que Google pueda interpretar correctamente.
+- renderizado e indexación de la SPA.
+- posibilidad de prerendering/SSR/SSG si fuese necesario.
+- imágenes y atributos alt.
+- lazy loading.
+- peso de assets.
+- JavaScript innecesario para SEO.
+- accesibilidad.
+- seguridad y HTTPS.
+- favicon y metadatos.
+
+5. TECNOLOGÍA DE LA WEB
+-----------------------
+Framework / núcleo:
+- React 18
+- TypeScript
+- Vite 5
+- Terser
+- Code splitting
+- React Router DOM 7
+- Arquitectura SPA (Single Page Application)
+
+3D / gráficos:
+- Three.js
+- React Three Fiber (R3F)
+- @react-three/drei
+- Spline 3D (@splinetool/runtime)
+- Google Draco para compresión de modelos GLB/WASM
+
+Animación:
+- GSAP
+- ScrollTrigger
+- Lenis Smooth Scroll
+- DeviceOrientation API / giroscopio en móvil
+
+UI / diseño:
+- CSS moderno
+- Liquid Glass UI
+- backdrop-filter / blur
+- gradientes dinámicos
+- variables CSS
+- Geist
+- Geist Mono
+- Plus Jakarta Sans
+- Inter
+- Lucide Icons
+- React Icons
+
+Servicios:
+- EmailJS para formularios/contacto
+- Stockfish / RedoxChess para la sección de entretenimiento
+- Vercel Analytics
+- Vercel Speed Insights
+
+Rutas conocidas:
+- /
+- /myworks
+- /play
+- /contact
+
+IMPORTANTE:
+La web utiliza una SPA con React + Vite. El SEO debe diseñarse teniendo esto en cuenta. No asumir que una SPA está automáticamente optimizada para buscadores.
+
+6. DIRECCIÓN VISUAL DE JRG
+--------------------------
+La web debe transmitir:
+- tecnología
+- inteligencia artificial
+- innovación
+- precisión
+- diseño premium
+- creatividad
+- profesionalidad
+- modernidad
+
+Estética:
+- minimalista pero impactante.
+- premium.
+- limpia.
+- tecnológica.
+- inspirada en interfaces modernas.
+- Liquid Glass cuando tenga sentido.
+- animaciones cinematográficas.
+- 3D como elemento diferencial, no como decoración inútil.
+
+Evitar:
+- estética típica de plantilla de agencia IA.
+- exceso de gradientes violetas/azules genéricos.
+- demasiados efectos.
+- aspecto artificial o generado automáticamente.
+- interfaces saturadas.
+- animaciones que dificulten la navegación.
+- texto de marketing vacío.
+- frases genéricas como “revolucionamos el futuro con IA” sin explicar qué se hace realmente.
+
+La web debe seguir pareciendo diseñada deliberadamente por una agencia profesional.
+
+7. PRINCIPIO DE DISEÑO
+----------------------
+La estética es importante, pero la conversión y el SEO también.
+
+Regla:
+DISEÑO + RENDIMIENTO + SEO + CONVERSIÓN
+
+No sacrificar:
+- indexabilidad
+- velocidad
+- accesibilidad
+- claridad
+- UX
+- conversión
+
+por efectos visuales innecesarios.
+
+Las animaciones y escenas 3D deben utilizarse cuando aporten valor.
+
+8. PRINCIPIO DE COPY
+--------------------
+El texto debe:
+- sonar humano.
+- ser directo.
+- explicar claramente qué hace JRG.
+- evitar exageraciones.
+- centrarse en beneficios reales.
+- incluir keywords de manera natural.
+- estar pensado para usuarios y buscadores.
+
+No escribir textos SEO artificiales llenos de keywords.
+
+Ejemplo de mala práctica:
+“Somos la mejor agencia de inteligencia artificial de España especializada en inteligencia artificial, automatización con IA y chatbots con IA...”
+
+Preferir:
+“Automatizamos tareas y procesos para que tu empresa dedique menos tiempo al trabajo repetitivo y más a lo importante.”
+
+9. ARQUITECTURA SEO PROPUESTA
+-----------------------------
+La arquitectura definitiva debe decidirse después de analizar la web actual.
+
+Posible estructura:
+
+/
+Página principal
+- JRG Agency
+- agencia de IA
+- automatización
+- chatbots
+- desarrollo web
+
+/automatizaciones-ia
+- Automatizaciones con IA
+- automatización de procesos
+- automatización empresarial
+
+/chatbots-ia
+- Chatbots con IA
+- chatbots para empresas
+- atención automática
+
+/desarrollo-web
+- Diseño y desarrollo web
+- webs profesionales
+- desarrollo web para empresas
+
+/proyectos o /myworks
+- Casos y trabajos realizados
+
+/contact
+- Contacto / presupuesto
+
+Posibles páginas futuras, SOLO si existe contenido real y útil:
+- /ia-para-restaurantes
+- /automatizacion-para-empresas
+- /chatbot-para-empresas
+- páginas geográficas relevantes
+
+No crear decenas de páginas casi idénticas solo para intentar posicionar keywords.
+
+10. SEO LOCAL
+------------
+Aunque el objetivo es España, Gipuzkoa es un mercado importante.
+
+Posibles búsquedas locales:
+- agencia IA Gipuzkoa
+- automatización IA Gipuzkoa
+- chatbots Gipuzkoa
+- diseño web Gipuzkoa
+- agencia de desarrollo web Gipuzkoa
+
+Google Business Profile debe mantenerse coherente con:
+- nombre JRG Agency
+- web
+- servicios
+- categoría adecuada
+- descripción
+- imágenes
+- publicaciones
+- reseñas
+- datos de contacto
+
+No utilizar técnicas de spam local ni crear ubicaciones falsas.
+
+11. SEO NACIONAL
+---------------
+La estrategia nacional debe centrarse en páginas de servicio fuertes y contenido útil.
+
+Objetivo:
+que Google entienda claramente:
+- qué es JRG Agency.
+- qué servicios ofrece.
+- para quién.
+- dónde trabaja.
+- qué problemas resuelve.
+
+La web debe poder posicionar búsquedas nacionales sin depender de incluir “España” en cada título.
+
+12. GOOGLE SEARCH CONSOLE
+------------------------
+Pendiente.
+
+Cuando se configure:
+1. Añadir propiedad de jrgagency.eus.
+2. Verificar dominio.
+3. Enviar sitemap.xml.
+4. Revisar páginas indexadas.
+5. Revisar consultas.
+6. Revisar impresiones.
+7. Revisar clics.
+8. Revisar CTR.
+9. Revisar posiciones.
+10. Revisar problemas de indexación.
+11. Revisar Core Web Vitals.
+
+13. GOOGLE BUSINESS PROFILE
+---------------------------
+Ya existe y tiene la web añadida.
+
+Debe utilizarse como apoyo al SEO local, no como sustituto del SEO de la web.
+
+14. CONVERSIÓN
+-------------
+El SEO debe traer tráfico que pueda convertirse en clientes.
+
+La web debe tener CTAs claros.
+
+Posibles CTAs:
+- Solicitar presupuesto
+- Hablar con JRG
+- Cuéntanos tu proyecto
+- Automatiza tu empresa
+- Crear mi solución de IA
+
+No saturar la página con CTAs.
+
+15. FILOSOFÍA DE DESARROLLO
+---------------------------
+Antes de modificar código:
+- entender la arquitectura existente.
+- comprobar qué componentes ya existen.
+- reutilizar componentes.
+- no romper funcionalidades.
+- no eliminar efectos o secciones sin motivo.
+- mantener consistencia visual.
+
+Antes de añadir una dependencia:
+- comprobar si ya existe una solución en el proyecto.
+
+Antes de hacer cambios SEO:
+- comprobar cómo React Router gestiona las rutas.
+- comprobar cómo se generan actualmente los metadatos.
+- comprobar build de producción.
+- comprobar URLs finales.
+
+Después de cada cambio importante:
+- ejecutar build.
+- comprobar errores.
+- revisar que las rutas funcionan.
+- revisar versión móvil.
+- revisar rendimiento si el cambio afecta a assets/3D.
+
+16. PRIORIDAD DE TRABAJO
+------------------------
+Prioridad recomendada:
+
+FASE 1 — AUDITORÍA
+- analizar la web actual.
+- analizar estructura.
+- analizar rutas.
+- analizar contenido.
+- analizar metadata.
+- analizar indexabilidad.
+- analizar rendimiento.
+- detectar problemas.
+
+FASE 2 — KEYWORDS
+- investigar keywords relevantes.
+- diferenciar intención comercial/informacional.
+- estudiar competencia.
+- asignar keyword principal a cada página.
+
+FASE 3 — ARQUITECTURA
+- definir páginas.
+- definir URLs.
+- definir jerarquía.
+- definir enlaces internos.
+
+FASE 4 — ON-PAGE
+- titles.
+- meta descriptions.
+- H1/H2/H3.
+- copy.
+- imágenes.
+- alt.
+- FAQs cuando aporten valor.
+- schema.
+
+FASE 5 — TÉCNICO
+- sitemap.
+- robots.
+- canonical.
+- indexación.
+- structured data.
+- rendimiento.
+- Core Web Vitals.
+- SPA rendering.
+
+FASE 6 — SEARCH CONSOLE
+- configurar.
+- enviar sitemap.
+- comprobar indexación.
+
+FASE 7 — AUTORIDAD
+- casos de éxito.
+- contenido útil.
+- enlaces de calidad.
+- menciones.
+- relaciones con empresas/localidades relevantes.
+
+17. REGLAS PARA EL AGENTE DE ANTIGRAVITY
+----------------------------------------
+Actúa como un desarrollador senior + especialista SEO técnico + estratega de producto digital.
+
+NO:
+- inventes datos.
+- inventes métricas de búsqueda.
+- afirmes que una keyword tiene cierto volumen sin comprobarlo.
+- hagas cambios destructivos sin comprobar el proyecto.
+- elimines funcionalidades por simplificar.
+- llenes la web de keywords.
+- sacrifiques rendimiento por efectos.
+- generes contenido SEO genérico.
+
+SÍ:
+- analiza antes de modificar.
+- explica decisiones importantes.
+- prioriza impacto real.
+- conserva el estilo visual existente.
+- busca soluciones elegantes.
+- piensa en móvil.
+- piensa en SEO y conversión simultáneamente.
+- comprueba el resultado después de modificar.
+- utiliza datos reales cuando estén disponibles.
+- si falta información, dilo claramente.
+- cuando una decisión tenga varias opciones válidas, explica brevemente las diferencias y recomienda una implementación técnica basada en criterios objetivos, sin cambiar de dirección arbitrariamente.
+
+18. FORMA DE TRABAJAR CON EL USUARIO
+------------------------------------
+El usuario quiere trabajar directamente sobre el proyecto mediante Antigravity.
+
+Prefiere:
+- respuestas claras.
+- pasos concretos.
+- nada de explicaciones innecesariamente largas.
+- soluciones prácticas.
+- código listo para implementar cuando corresponda.
+- mantener el estilo de la web.
+- iterar rápidamente.
+
+Si se solicita un cambio visual:
+1. entender exactamente qué quiere.
+2. modificar lo mínimo necesario.
+3. mantener el resto intacto.
+4. comprobar responsive.
+
+Si se solicita SEO:
+1. explicar qué se va a mejorar.
+2. implementarlo.
+3. verificarlo.
+4. indicar cómo comprobarlo.
+
+19. ESTADO ACTUAL DEL PROYECTO
+------------------------------
+La web está publicada en:
+https://jrgagency.eus
+
+Actualmente se están dando los últimos detalles de la web.
+
+La prioridad inmediata es preparar una estrategia SEO sólida antes de cerrar definitivamente el proyecto.
+
+El siguiente trabajo recomendado es:
+A) analizar jrgagency.eus.
+B) realizar una auditoría SEO técnica + contenido + UX.
+C) investigar keywords reales.
+D) construir el mapa de keywords/páginas.
+E) implementar las mejoras prioritarias.
+
+20. CONTEXTO COMERCIAL
+----------------------
+JRG Agency busca convertirse en una marca real de servicios digitales, no solamente en un proyecto visual.
+
+La web debe estar preparada para generar:
+- solicitudes de presupuesto.
+- contactos.
+- proyectos de automatización.
+- proyectos de chatbot.
+- proyectos web.
+
+El SEO debe estar orientado a intención comercial.
+
+21. PRINCIPIO FINAL
+------------------
+NO optimizar JRG Agency simplemente para “tener buen SEO”.
+
+Optimizarla para que:
+Google entienda perfectamente el negocio
++
+el usuario entienda inmediatamente qué hace JRG
++
+la web cargue rápido
++
+la experiencia sea premium
++
+las páginas respondan a búsquedas reales
++
+el tráfico pueda convertirse en clientes.
+
+Cuando haya conflicto entre una animación visual y una mejora importante de visual, accesibilidad, indexabilidad o conversión, evaluar el impacto y priorizar la experiencia y el objetivo de negocio.
+
+FIN DEL MASTER CONTEXT
