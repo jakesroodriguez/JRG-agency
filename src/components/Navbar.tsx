@@ -6,6 +6,7 @@ import Lenis from "lenis";
 import "./styles/Navbar.css";
 
 import { lenis, setLenis } from "../utils/lenis";
+import { config } from "../config";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -125,11 +126,11 @@ const Navbar = () => {
           <span>AGENCY</span>
         </a>
         <a
-          href="mailto:jakessrodriguezz@gmail.com"
+          href={`mailto:${config.contact.email}`}
           className="navbar-connect"
           data-cursor="disable"
         >
-          jakessrodriguezz@gmail.com
+          CONTACTAR
         </a>
         <ul>
           <li>

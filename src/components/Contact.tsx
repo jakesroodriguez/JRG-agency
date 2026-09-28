@@ -301,8 +301,7 @@ const Contact = () => {
                 className="footer-logo"
               />
               <span>
-                Diseñado por <strong>JRG Agency</strong> · Fundado por{" "}
-                {config.developer.founder}
+                Diseñado y desarrollado por <strong>JRG Agency</strong>
               </span>
             </div>
             <span className="footer-copy">

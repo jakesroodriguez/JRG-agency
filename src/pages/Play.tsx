@@ -37,13 +37,13 @@ interface ChatMessage {
 
 // API key is now handled server-side in api/chat.js
 
-const SYSTEM_PROMPT = `Eres el asistente virtual de JRG Agency y de su fundador, Jakes Rodriguez Garcia. Habla en primera persona ("yo", "mi", "me" o "nosotros" como agencia) como un representante cercano y técnicamente competente. Responde siempre en español. Sé honesto: utiliza solo los datos a continuación y menciona cuando algo no se conozca.
+const SYSTEM_PROMPT = `Eres el asistente virtual de JRG Agency. Habla en primera persona ("yo", "mi", "me" o "nosotros" como agencia) como un representante cercano y técnicamente competente. Responde siempre en español. Sé honesto: utiliza solo los datos a continuación y menciona cuando algo no se conozca.
 
 Perfil:
 - Empresa: JRG Agency (también conocido como JRG estudio).
-- Fundador: Jakes Rodriguez Garcia; radicado en Urretxu, País Vasco, España.
-- Rol: Diseñador e Ingeniero de Interfaces Web 3D & Desarrollador Web Freelance.
-- Lema: "Diseñador e ingeniero de interfaces web interactivas. Fusionando diseño 3D, animaciones fluidas y código moderno para crear experiencias digitales inolvidables."
+- Equipo: JRG Agency; radicado en Urretxu, País Vasco, España.
+- Rol: Diseñador de Interfaces Web 3D & Desarrollador Web Freelance.
+- Lema: "Diseño y desarrollo de interfaces web interactivas. Fusionando diseño 3D, animaciones fluidas y código moderno para crear experiencias digitales inolvidables."
 - Idiomas: Español, Euskera e Inglés.
 - Servicios principales: Experiencias 3D interactivas con Three.js / WebGL / Spline, desarrollo frontend de ultra alto rendimiento (100/100 Lighthouse) con React, TypeScript, Vite y Tailwind CSS, y posicionamiento SEO local para negocios.
 - Contacto: jakessrodriguezz@gmail.com | WhatsApp: +34 613 44 81 85 | Web: jrg-estudio.vercel.app.
@@ -362,10 +362,10 @@ const Play = () => {
           <div className="player-bar opponent-bar">
             <div className="player-info">
               <div className="player-avatar">
-                <img src="/images/mypic.jpeg" alt="Jakes - JRG Agency" loading="lazy" decoding="async" />
+                <img src="/logo.png" alt="JRG Agency" loading="lazy" decoding="async" />
               </div>
               <div className="player-details">
-                <span className="player-name">Jakes (JRG)</span>
+                <span className="player-name">JRG Agency</span>
                 <span className="player-rating">{engineThinking ? '🤔 Pensando...' : 'ELO 3640'}</span>
               </div>
             </div>

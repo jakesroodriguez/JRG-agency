@@ -2,9 +2,9 @@ export const config = {
     developer: {
         name: "JRG",
         fullName: "JRG Agency",
-        founder: "Jakes Rodriguez Garcia",
+        founder: "JRG Agency",
         title: "Arquitectura Web 3D & Experiencias Frontend de Alto Impacto",
-        description: "Estudio de ingeniería web y narrativa tridimensional inmersiva en el País Vasco. Diseñamos sitios que cautivan a primera vista — rendimiento Lighthouse 100/100, animaciones cinemáticas con Three.js y código de vanguardia que transforma visitantes en clientes."
+        description: "Estudio de diseño web y desarrollo interactivo de alto rendimiento en el País Vasco. Diseñamos sitios que cautivan a primera vista — rendimiento Lighthouse 100/100, animaciones cinemáticas con Three.js y código de vanguardia que transforma visitantes en clientes."
     },
     social: {
         github: "jakessrodriguezz",
@@ -15,7 +15,7 @@ export const config = {
     },
     about: {
         title: "Sobre JRG Agency",
-        description: "Desde Urretxu, País Vasco — JRG Agency fusiona ingeniería web de vanguardia con narrativa tridimensional inmersiva. Cada proyecto nace con un objetivo claro: rendimiento extremo (Lighthouse 100/100), inmersión 3D real con Three.js y WebGL, y diseño estratégico orientado a conversión. No hacemos webs — creamos experiencias digitales que se sienten, se recuerdan y convierten."
+        description: "Desde Urretxu, País Vasco — JRG Agency fusiona diseño y desarrollo web de vanguardia con narrativa tridimensional inmersiva. Cada proyecto nace con un objetivo claro: rendimiento extremo (Lighthouse 100/100), inmersión 3D real con Three.js y WebGL, y diseño estratégico orientado a conversión. No hacemos webs — creamos experiencias digitales que se sienten, se recuerdan y convierten."
     },
     experiences: [
         {

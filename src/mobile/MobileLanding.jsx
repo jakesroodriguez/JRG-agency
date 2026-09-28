@@ -20,7 +20,7 @@ import { initSplineRobot } from './splineRobot';
         bootStep2: "03 · CARGANDO ROBOT INTERACTIVO",
         bootStep3: "04 · SISTEMA LISTO · INICIALIZANDO",
         bootSkip: "Saltar intro",
-        bootMeta1: "INGENIERÍA WEB",
+        bootMeta1: "DESARROLLO WEB",
         bootMeta2: "PAÍS VASCO · 2026",
         availChip: "Disponible para nuevos proyectos",
         heroSubtitle: "Creo experiencias digitales que combinan diseño de alto impacto, tecnología 3D y rendimiento real.",
@@ -53,7 +53,7 @@ import { initSplineRobot } from './splineRobot';
         footerMake: "Hagamos algo",
         footerTogether: "increíble juntos",
         footerStart: "Empezar proyecto",
-        footerDesc: "Diseñador e ingeniero de interfaces web interactivas. Fusionando diseño 3D, animaciones fluidas y código moderno para crear experiencias digitales inolvidables.",
+        footerDesc: "Diseñador y desarrollador de interfaces web interactivas. Fusionando diseño 3D, animaciones fluidas y código moderno para crear experiencias digitales inolvidables.",
         footerAvail: "Disponible Q3/Q4 2026",
         footerExplore: "Explorar",
         footerConnect: "Conectar",
@@ -85,7 +85,7 @@ import { initSplineRobot } from './splineRobot';
         bootStep2: "03 · PRELOADING INTERACTIVE ROBOT",
         bootStep3: "04 · SYSTEM READY · LAUNCHING",
         bootSkip: "Skip intro",
-        bootMeta1: "WEB ENGINEERING",
+        bootMeta1: "WEB DEVELOPMENT",
         bootMeta2: "BASQUE COUNTRY · 2026",
         availChip: "Available for new projects",
         heroSubtitle: "I build digital experiences combining high-impact design, 3D technology, and real-world performance.",
@@ -118,7 +118,7 @@ import { initSplineRobot } from './splineRobot';
         footerMake: "Let's make something",
         footerTogether: "incredible together",
         footerStart: "Start project",
-        footerDesc: "Designer and engineer of interactive web interfaces. Fusing 3D design, fluid animations, and modern code to build unforgettable digital experiences.",
+        footerDesc: "Designer and developer of interactive web interfaces. Fusing 3D design, fluid animations, and modern code to build unforgettable digital experiences.",
         footerAvail: "Available Q3/Q4 2026",
         footerExplore: "Explore",
         footerConnect: "Connect",
@@ -150,7 +150,7 @@ import { initSplineRobot } from './splineRobot';
         bootStep2: "03 · ROBOT INTERAKTIBOA KARGATZEN",
         bootStep3: "04 · SISTEMA PREST · HASIERATZEN",
         bootSkip: "Sarrera saltatu",
-        bootMeta1: "WEB INGENIARITZA",
+        bootMeta1: "WEB GARAPENA",
         bootMeta2: "EUSKADI · 2026",
         availChip: "Proiektu berrietarako erabilgarri",
         heroSubtitle: "Inpaktu handiko diseinua, 3D teknologia eta errendimendu erreala uztartzen dituzten esperientzia digitalak sortzen ditut.",
@@ -183,7 +183,7 @@ import { initSplineRobot } from './splineRobot';
         footerMake: "Egin dezagun zerbait",
         footerTogether: "sinestezina elkarrekin",
         footerStart: "Hasi proiektua",
-        footerDesc: "Web interfaze interaktiboen diseinatzaile eta ingeniaria. 3D diseinua, animazio arinak eta kode modernoa bateratzen ditut esperientzia digital ahaztezinak sortzeko.",
+        footerDesc: "Web interfaze interaktiboen diseinatzaile eta garatzailea. 3D diseinua, animazio arinak eta kode modernoa bateratzen ditut esperientzia digital ahaztezinak sortzeko.",
         footerAvail: "Erabilgarri Q3/Q4 2026",
         footerExplore: "Arakatu",
         footerConnect: "Konektatu",
@@ -567,10 +567,10 @@ import { initSplineRobot } from './splineRobot';
                       <div className="figma-line-placeholder short"></div>
                     </div>
                   </div>
-                  {/* Cursor Jakes */}
+                  {/* Cursor JRG */}
                   <div className="figma-cursor jakes-cursor">
                     <i data-lucide="navigation" style={{ width: 12, height: 12 }}></i>
-                    <span className="cursor-name">Jakes (UX)</span>
+                    <span className="cursor-name">JRG (UX)</span>
                   </div>
                   {/* Cursor Client */}
                   <div className="figma-cursor client-cursor">
@@ -618,7 +618,7 @@ import { initSplineRobot } from './splineRobot';
                   <div className="term-line build">⚡ Uploading assets to Edge CDNs...</div>
                   <div className="term-line build">✦ Routing configured for edge compression...</div>
                   <div className="term-line success glow">✔ Production deploy success! (18s)</div>
-                  <div className="term-line link">👉 https://jakesrodriguez.com</div>
+                  <div className="term-line link">👉 https://jrgagency.com</div>
                 </div>
               </div>
             );
@@ -715,7 +715,7 @@ import { initSplineRobot } from './splineRobot';
               </div>
               <div className="browser-url-input">
                 <i data-lucide="lock" style={{ width: 10, height: 10 }}></i>
-                <span>pipeline.jakes.dev / {steps[activeStep].badge.toLowerCase().replace(/[^a-z0-9]/g, '-')}</span>
+                <span>pipeline.jrg.dev / {steps[activeStep].badge.toLowerCase().replace(/[^a-z0-9]/g, '-')}</span>
               </div>
               <div className="browser-status-badge">
                 <span className="status-dot"></span>
@@ -812,76 +812,131 @@ import { initSplineRobot } from './splineRobot';
     const getPortfolioProjects = (lang) => [
       {
         id: 1,
-        title: 'Korta Taberna',
+        title: 'Gure Trena',
+        badge: lang === 'es' ? 'Hostelería & Gastronomía' : lang === 'en' ? 'Dining & Bar' : 'Ostalaritza',
         desc: lang === 'es' 
-          ? 'El bar de barrio de toda la vida: bocadillos, raciones, pintxos caseros y buen ambiente.' 
+          ? 'El bar y restaurante tradicional de toda la vida: bocadillos, raciones, pintxos caseros y carta digital QR.' 
           : lang === 'en' 
-          ? 'The classic neighborhood bar: hearty sandwiches, homemade tapas, pintxos and great atmosphere.' 
-          : 'Auzoko betiko taberna: ogitartekoak, etxeko errazioak, pintxoak eta giro bikaina.',
+          ? 'The classic neighborhood bar & dining: hearty sandwiches, tapas, homemade pintxos, and digital QR menu.' 
+          : 'Auzoko betiko taberna: ogitartekoak, etxeko errazioak, pintxoak eta QR menu digitala.',
         image: '/portfolio-1.webp',
         link: 'https://guretrenaurretxu.com/',
-        tech: ['React', 'Vite', 'Tailwind', 'Carta QR']
+        displayUrl: 'guretrenaurretxu.com',
+        tech: ['React', 'Vite', 'Tailwind CSS', 'Carta QR']
       },
       {
         id: 2,
         title: 'Urkulu Móviles',
+        badge: lang === 'es' ? 'Servicio Técnico & Tienda' : lang === 'en' ? 'Repair & Tech Shop' : 'Konponketa & Denda',
         desc: lang === 'es' 
-          ? 'Reparación exprés de móviles, pantallas, baterías y accesorios en Urretxu.' 
+          ? 'Reparación exprés de smartphones, tablets, pantallas, cambio de baterías y venta de accesorios en Urretxu.' 
           : lang === 'en' 
-          ? 'Express repair for mobile phones, screens, batteries and accessories in Urretxu.' 
-          : 'Mugikorren konponketa azkarra, pantailak, bateriak eta osagarriak Urretxun.',
+          ? 'Express repair for smartphones, screens, batteries, and tech accessories in Urretxu.' 
+          : 'Mugikorren konponketa azkarra, pantailak, bateriak eta osagarrien salmenta Urretxun.',
         image: '/portfolio-2.webp',
         link: 'https://urkulumovilesurretxu.com/',
-        tech: ['React', 'Vite', 'Tailwind', 'WhatsApp']
+        displayUrl: 'urkulumovilesurretxu.com',
+        tech: ['React', 'Vite', 'Tailwind CSS', 'WhatsApp API']
       },
       {
         id: 3,
         title: 'Otxaran Denda',
+        badge: lang === 'es' ? 'Moda & Boutique' : lang === 'en' ? 'Fashion & Boutique' : 'Moda Denda',
         desc: lang === 'es' 
-          ? 'Lookbook digital y tienda de ropa de mujer con estilo, novedades y complementos.' 
+          ? 'Lookbook digital y catálogo de boutique de moda femenina con tendencias, novedades y complementos de temporada.' 
           : lang === 'en' 
-          ? 'Digital lookbook and women\'s clothing boutique with style, new arrivals and accessories.' 
-          : 'Lookbook digitala eta emakumeentzako arropa denda estilo, berrikuntza eta osagarriekin.',
+          ? 'Digital lookbook and boutique catalog for women\'s fashion with trends, new arrivals, and accessories.' 
+          : 'Emakumeentzako arropa denda eta lookbook digitala: azken joerak, berrikuntzak eta osagarriak.',
         image: '/portfolio-otxaran.png',
         link: 'https://otxaran-denda.vercel.app/',
-        tech: ['HTML5', 'Tailwind', 'JavaScript']
+        displayUrl: 'otxaran-denda.vercel.app',
+        tech: ['HTML5', 'Tailwind CSS', 'JavaScript', 'Catálogo']
       }
     ];
 
-    function PortfolioCard({ project }) {
+    function PortfolioCard({ project, lang = 'es' }) {
       useEffect(() => {
         if (window.lucide && window.lucide.createIcons) {
           window.lucide.createIcons();
         }
       }, []);
 
+      const visitText = lang === 'es' ? 'Visitar web' : lang === 'en' ? 'Visit live site' : 'Webgunea ikusi';
+
       return (
-        <a href={project.link} target="_blank" rel="noopener noreferrer" className="portfolio-card">
-          <div className="portfolio-image-wrap">
-            {project.image ? (
-              <img src={project.image} alt={project.title} className="portfolio-image" loading="lazy" />
-            ) : (
-              <div className="portfolio-image-placeholder" style={{ 
-                position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                background: 'linear-gradient(135deg, rgba(33, 37, 41, 0.4), rgba(18, 18, 28, 0.8))' 
-              }}>
-                <i data-lucide="image" style={{ width: 48, height: 48, opacity: 0.2, color: '#fff' }}></i>
+        <article className="portfolio-card-premium portfolio-card">
+          <div className="portfolio-browser-mockup">
+            <div className="portfolio-browser-bar">
+              <div className="portfolio-browser-dots" aria-hidden="true">
+                <span className="dot dot-close"></span>
+                <span className="dot dot-min"></span>
+                <span className="dot dot-max"></span>
               </div>
-            )}
-          </div>
-          <div className="portfolio-content">
-            <div className="portfolio-title-row">
-              <h3 className="portfolio-title">{project.title}</h3>
-              <i data-lucide="external-link" className="portfolio-link-icon" style={{ width: 18, height: 18 }}></i>
+              <div className="portfolio-browser-url">
+                <i data-lucide="lock" style={{ width: 10, height: 10 }}></i>
+                <span>{project.displayUrl}</span>
+              </div>
+              <div className="portfolio-live-badge">
+                <span className="portfolio-live-dot"></span>
+                <span>ONLINE</span>
+              </div>
             </div>
-            <p className="portfolio-desc">{project.desc}</p>
-            <div className="portfolio-tech-list">
+            
+            <a 
+              href={project.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="portfolio-image-container portfolio-image-wrap"
+              aria-label={`Visitar web de ${project.title}`}
+            >
+              {project.image ? (
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="portfolio-preview-img portfolio-image" 
+                  loading="lazy" 
+                />
+              ) : (
+                <div className="portfolio-image-placeholder">
+                  <i data-lucide="layout" style={{ width: 36, height: 36 }}></i>
+                </div>
+              )}
+              <div className="portfolio-image-hover-overlay">
+                <span className="portfolio-overlay-btn">
+                  <span>{visitText}</span>
+                  <i data-lucide="arrow-up-right" style={{ width: 16, height: 16 }}></i>
+                </span>
+              </div>
+            </a>
+          </div>
+
+          <div className="portfolio-card-body portfolio-content">
+            <div className="portfolio-card-header-row">
+              <div className="portfolio-title-group">
+                <span className="portfolio-category-badge">{project.badge}</span>
+                <h3 className="portfolio-project-title portfolio-title">{project.title}</h3>
+              </div>
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="portfolio-action-link"
+                title={visitText}
+              >
+                <span>{visitText}</span>
+                <i data-lucide="arrow-up-right" style={{ width: 13, height: 13 }}></i>
+              </a>
+            </div>
+
+            <p className="portfolio-project-desc portfolio-desc">{project.desc}</p>
+
+            <div className="portfolio-tech-chips-wrap portfolio-tech-list">
               {project.tech.map((t, i) => (
-                <span key={i} className="portfolio-tech-chip">{t}</span>
+                <span key={i} className="portfolio-pill portfolio-tech-chip">{t}</span>
               ))}
             </div>
           </div>
-        </a>
+        </article>
       );
     }
 
@@ -1719,13 +1774,13 @@ import { initSplineRobot } from './splineRobot';
                     {lang === 'es' ? 'Proyectos Web' : lang === 'en' ? 'Web Projects' : 'Web Proiektuak'}
                   </span>
                   <h2>{lang === 'es' ? 'Portfolio de páginas web' : lang === 'en' ? 'Web pages portfolio' : 'Webguneen portfolioa'}</h2>
-                  <p>{lang === 'es' ? 'Descubre mis últimos proyectos web, diseñados con atención al detalle y enfoque en la experiencia de usuario.' : lang === 'en' ? 'Discover my latest web projects, designed with attention to detail and a focus on user experience.' : 'Ezagutu nire azken web proiektuak, xehetasunei arreta jarriz eta erabiltzailearen esperientzian zentratuz.'}</p>
+                  <p>{lang === 'es' ? 'Descubre nuestros últimos proyectos web, diseñados con atención al detalle, alto rendimiento y enfoque en resultados.' : lang === 'en' ? 'Discover our latest web projects, designed with attention to detail, high performance, and a focus on results.' : 'Ezagutu gure azken web proiektuak, xehetasunei arreta jarriz, errendimendu altuarekin eta emaitzetan zentratuz.'}</p>
                 </div>
               }
             >
               <div className="portfolio-grid">
                 {getPortfolioProjects(lang).map((p) => (
-                  <PortfolioCard key={p.id} project={p} />
+                  <PortfolioCard key={p.id} project={p} lang={lang} />
                 ))}
               </div>
             </ContainerScroll>
@@ -1733,32 +1788,6 @@ import { initSplineRobot } from './splineRobot';
 
           {/* CTA - Premium Full-Width Dark Section */}
           <section id="contact" className="cta-section" style={{ position: 'relative' }}>
-            
-            {/* Giant Contact Card Resting on the Footer Line (Desktop) */}
-            <div className="cta-floating-tarjeta desktop-only-card" style={{
-              position: 'absolute',
-              bottom: '-10px',
-              left: '-4%',
-              transformOrigin: 'bottom left',
-              transform: 'rotate(10deg)',
-              zIndex: 1,
-              pointerEvents: 'none',
-              animation: 'float-slow 8s ease-in-out infinite alternate',
-              filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.6))',
-              maskImage: 'linear-gradient(to bottom, black 30%, transparent 95%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 95%)'
-            }}>
-              <img 
-                src="/tarjeta.png" 
-                alt="Contact Card XXL" 
-                style={{ 
-                  width: 'clamp(450px, 50vw, 950px)',
-                  height: 'auto', 
-                  borderRadius: '32px', 
-                  objectFit: 'contain'
-                }} 
-              />
-            </div>
 
             {/* Animated background orbs */}
             <div className="cta-bg-orbs" aria-hidden="true" style={{ zIndex: 0 }}>
@@ -1773,17 +1802,15 @@ import { initSplineRobot } from './splineRobot';
             <div className="cta-inner cta-inner-custom" style={{ 
               position: 'relative', 
               zIndex: 2, 
-              marginLeft: 'auto', 
-              marginRight: '5%',
-              maxWidth: '1050px' 
+              margin: '0 auto',
+              maxWidth: '1050px',
+              padding: '0 clamp(16px, 4vw, 32px)'
             }}>
               
               {/* Left: Copy */}
               <div className="cta-copy" style={{ 
                 position: 'relative', 
-                zIndex: 1,
-                mixBlendMode: 'difference',
-                color: '#fff'
+                zIndex: 1
               }}>
                 <span className="cta-badge">
                   <i data-lucide="zap" style={{ width: 13, height: 13 }}></i>
@@ -1890,20 +1917,6 @@ import { initSplineRobot } from './splineRobot';
 
           {/* FOOTER — PREMIUM DARK EXPERIENCE */}
           <footer className="footer-epic" style={{ position: 'relative' }}>
-            
-            {/* Giant Contact Card (Mobile) */}
-            <div className="footer-floating-tarjeta mobile-only-card">
-              <img 
-                src="/tarjeta.png" 
-                alt="Contact Card Mobile" 
-                style={{ 
-                  width: 'clamp(220px, 60vw, 320px)',
-                  height: 'auto', 
-                  borderRadius: '24px', 
-                  objectFit: 'contain'
-                }} 
-              />
-            </div>
 
             {/* Animated background effects */}
             <div className="footer-aurora" aria-hidden="true"></div>
@@ -1917,32 +1930,6 @@ import { initSplineRobot } from './splineRobot';
             {/* Animated top border */}
             <div className="footer-top-glow" aria-hidden="true"></div>
 
-            {/* Hero CTA section */}
-            <div className="footer-cta-mega">
-              <span className="footer-cta-label">
-                <i data-lucide="sparkles" style={{ width: 13, height: 13 }}></i>
-                {t.footerNext}
-              </span>
-              <h2 className="footer-cta-headline">
-                <span className="footer-cta-line1">{t.footerMake}</span>
-                <span className="footer-cta-line2">{t.footerTogether}</span>
-              </h2>
-              <a href="#contact" className="footer-cta-btn-mega">
-                <span className="footer-cta-btn-glow" aria-hidden="true"></span>
-                <span className="footer-cta-btn-text">
-                  {t.footerStart}
-                  <i data-lucide="arrow-right" style={{ width: 20, height: 20 }}></i>
-                </span>
-              </a>
-            </div>
-
-            {/* Sparkle divider */}
-            <div className="footer-sparkle-divider" aria-hidden="true">
-              <div className="footer-sparkle-line"></div>
-              <div className="footer-sparkle-dot"></div>
-              <div className="footer-sparkle-line"></div>
-            </div>
-
             {/* Main content grid */}
             <div className="footer-main-grid">
               {/* Brand column */}
@@ -1951,7 +1938,7 @@ import { initSplineRobot } from './splineRobot';
                   <div className="footer-logo-icon-wrap">
                     <img src="/logoJRG.png" alt="Logo JRG" className="footer-logo-icon-img" loading="lazy" decoding="async" />
                   </div>
-                  <span className="footer-logo-name">Jakes Rodriguez Garcia</span>
+                  <span className="footer-logo-name">JRG Agency</span>
                 </div>
                 <p className="footer-brand-desc">
                   {t.footerDesc}
@@ -1977,11 +1964,30 @@ import { initSplineRobot } from './splineRobot';
                 <h4 className="footer-col-title">{t.footerConnect}</h4>
                 <div className="footer-social-cards">
 
+                  <a href="https://wa.me/34613448185" target="_blank" rel="noopener noreferrer" className="footer-social-card" style={{'--social-accent': '#25d366', '--social-accent-rgb': '37,211,102'}}>
+                    <div className="footer-social-card-glow" aria-hidden="true"></div>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ width: 20, height: 20, fill: 'currentColor' }}><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.185-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.767-5.771zm3.374 8.263c-.162.277-.812.543-1.117.58-.27.033-.533.075-.845-.043-.613-.232-1.397-.615-2.072-1.218-.621-.555-1.119-1.21-1.391-1.579-.272-.369-.024-.567.15-.72.156-.138.307-.326.437-.477.108-.124.16-.233.228-.382.067-.149.034-.277-.017-.382-.051-.104-.462-1.12-.633-1.533-.167-.404-.352-.349-.482-.355-.125-.006-.269-.007-.413-.007-.144 0-.379.054-.576.27-.198.217-.756.74-.756 1.802 0 1.063.774 2.09.882 2.238.11.148 1.523 2.324 3.69 3.258.514.222.916.355 1.229.454.517.164.987.141 1.36.085.414-.062 1.272-.519 1.45-1.02.179-.5.179-.928.125-1.02-.054-.09-.198-.144-.413-.253zM12 2C6.477 2 2 6.477 2 12c0 1.885.52 3.654 1.424 5.178L2 22l5.01-1.307C8.423 21.53 10.15 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.25c-1.61 0-3.118-.466-4.402-1.267l-.316-.195-2.98.777.79-2.886-.214-.341C4.015 15.025 3.75 13.565 3.75 12c0-4.55 3.7-8.25 8.25-8.25s8.25 3.7 8.25 8.25-3.7 8.25-8.25 8.25z"/></svg>
+                    <span>WhatsApp</span>
+                  </a>
+
                   <a href="mailto:jakessrodriguezz@gmail.com" className="footer-social-card" style={{'--social-accent': '#a78bfa', '--social-accent-rgb': '167,139,250'}}>
                     <div className="footer-social-card-glow" aria-hidden="true"></div>
                     <i data-lucide="mail" style={{ width: 20, height: 20 }}></i>
                     <span>Email</span>
                   </a>
+
+                  <a href="https://github.com/jakesrodriguez" target="_blank" rel="noopener noreferrer" className="footer-social-card" style={{'--social-accent': '#e2e8f0', '--social-accent-rgb': '226,232,240'}}>
+                    <div className="footer-social-card-glow" aria-hidden="true"></div>
+                    <i data-lucide="github" style={{ width: 20, height: 20 }}></i>
+                    <span>GitHub</span>
+                  </a>
+
+                  <a href="https://linkedin.com/in/jakesrodriguez" target="_blank" rel="noopener noreferrer" className="footer-social-card" style={{'--social-accent': '#0ea5e9', '--social-accent-rgb': '14,165,233'}}>
+                    <div className="footer-social-card-glow" aria-hidden="true"></div>
+                    <i data-lucide="linkedin" style={{ width: 20, height: 20 }}></i>
+                    <span>LinkedIn</span>
+                  </a>
+
                 </div>
               </div>
             </div>
@@ -2015,7 +2021,7 @@ import { initSplineRobot } from './splineRobot';
             {/* Bottom bar */}
             <div className="footer-bottom-epic">
               <p className="footer-copyright-epic">
-                © {new Date().getFullYear()} Jakes Rodriguez Garcia
+                © {new Date().getFullYear()} JRG Agency
                 <span className="footer-copyright-sep">·</span>
                 <span className="footer-copyright-tech">React + Spline + CSS Premium</span>
               </p>

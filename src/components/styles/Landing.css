@@ -197,11 +197,13 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #ffffff;
   flex-shrink: 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   border: 1.5px solid rgba(0, 0, 0, 0.12);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
 .landing-title-logo:hover {

@@ -1,11 +1,7 @@
 import { PropsWithChildren } from "react";
 import "./styles/Landing.css";
-import { config } from "../config";
 
 const Landing = ({ children }: PropsWithChildren) => {
-  const nameParts = config.developer.fullName.split(" ");
-  const firstName = nameParts[0] || config.developer.name;
-  const lastName = nameParts.slice(1).join(" ") || "";
 
   return (
     <>
@@ -24,8 +20,7 @@ const Landing = ({ children }: PropsWithChildren) => {
                 loading="eager"
               />
               <h1 className="landing-title-h1">
-                {firstName.toUpperCase()}
-                <span className="landing-title-sub"> {lastName && lastName.toUpperCase()}</span>
+                JRG<span className="landing-title-sub"> AGENCY</span>
               </h1>
             </div>
           </div>

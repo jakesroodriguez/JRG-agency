@@ -42,7 +42,7 @@ export const MobileDetailModal = ({ type, onClose }: MobileDetailModalProps) => 
         return {
           badge: "AGENCIA & VISIÓN",
           title: "Sobre JRG Agency",
-          subtitle: "Ingeniería Web & Narrativa Tridimensional Inmersiva",
+          subtitle: "Diseño Web & Narrativa Tridimensional Inmersiva",
           description: config.about.description,
           metrics: [
             { label: "Lighthouse", value: "100/100" },
@@ -58,7 +58,7 @@ export const MobileDetailModal = ({ type, onClose }: MobileDetailModalProps) => 
         };
       case "develop":
         return {
-          badge: "INGENIERÍA FRONTEND",
+          badge: "DESARROLLO FRONTEND",
           title: config.skills.develop.title,
           subtitle: config.skills.develop.description,
           description: config.skills.develop.details,
