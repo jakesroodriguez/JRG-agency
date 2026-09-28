@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./App.css";
@@ -13,6 +13,16 @@ const MobileLanding = lazy(() => import("./mobile/MobileLanding"));
 
 import { LoadingProvider } from "./context/LoadingProvider";
 import AlmoayyedBackground from "./components/AlmoayyedBackground";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(() => {
@@ -38,34 +48,29 @@ function useIsMobile(breakpoint = 768) {
 const App = () => {
   const isMobile = useIsMobile(768);
 
-  if (isMobile) {
-    return (
-      <BrowserRouter>
-        <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f7fb' }} />}>
-          <MobileLanding />
-        </Suspense>
-        <Analytics />
-        <SpeedInsights />
-      </BrowserRouter>
-    );
-  }
-
   return (
     <BrowserRouter>
-      <AlmoayyedBackground />
+      <ScrollToTop />
+      {!isMobile && <AlmoayyedBackground />}
       <Routes>
         <Route
           path="/"
           element={
-            <LoadingProvider>
-              <Suspense>
-                <MainContainer>
-                  <Suspense>
-                    <CharacterModel />
-                  </Suspense>
-                </MainContainer>
+            isMobile ? (
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f7fb' }} />}>
+                <MobileLanding />
               </Suspense>
-            </LoadingProvider>
+            ) : (
+              <LoadingProvider>
+                <Suspense>
+                  <MainContainer>
+                    <Suspense>
+                      <CharacterModel />
+                    </Suspense>
+                  </MainContainer>
+                </Suspense>
+              </LoadingProvider>
+            )
           }
         />
         <Route
