@@ -117,7 +117,7 @@ export const config = {
         twitter: "https://x.com",
         facebook: "https://facebook.com",
         instagram: "https://instagram.com",
-        website: "https://jrg-estudio.vercel.app/"
+        website: "https://www.jrgagency.eus/"
     },
     skills: {
         develop: {

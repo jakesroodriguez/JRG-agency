@@ -838,7 +838,7 @@ import { initSplineRobot } from './splineRobot';
                   <div className="term-line build">⚡ Uploading assets to Edge CDNs...</div>
                   <div className="term-line build">✦ Routing configured for edge compression...</div>
                   <div className="term-line success glow">✔ Production deploy success! (18s)</div>
-                  <div className="term-line link">👉 https://jrgagency.com</div>
+                  <div className="term-line link">👉 https://www.jrgagency.eus</div>
                 </div>
               </div>
             );

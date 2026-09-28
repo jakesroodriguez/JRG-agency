@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jrgestudio.com/</loc>
-    <lastmod>2026-06-21</lastmod>
+    <loc>https://www.jrgagency.eus/</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://jrgestudio.com/?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://jrgestudio.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="eu" href="https://jrgestudio.com/?lang=eu" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://jrgestudio.com/" />
   </url>
   <url>
-    <loc>https://jrgestudio.com/?lang=es</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://jrgestudio.com/?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://jrgestudio.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="eu" href="https://jrgestudio.com/?lang=eu" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://jrgestudio.com/" />
+    <loc>https://www.jrgagency.eus/myworks</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jrgestudio.com/?lang=en</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://jrgestudio.com/?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://jrgestudio.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="eu" href="https://jrgestudio.com/?lang=eu" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://jrgestudio.com/" />
+    <loc>https://www.jrgagency.eus/contact</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jrgestudio.com/?lang=eu</loc>
-    <lastmod>2026-06-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://jrgestudio.com/?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://jrgestudio.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="eu" href="https://jrgestudio.com/?lang=eu" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://jrgestudio.com/" />
+    <loc>https://www.jrgagency.eus/play</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

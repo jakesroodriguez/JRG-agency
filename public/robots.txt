@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
-Allow: /*?lang=*
+
+# Evitar indexación de parámetros de seguimiento para prevenir contenido duplicado
 Disallow: /*?*fbclid=*
 Disallow: /*?*utm_*
 
-Sitemap: https://jrgestudio.com/sitemap.xml
+Sitemap: https://www.jrgagency.eus/sitemap.xml
