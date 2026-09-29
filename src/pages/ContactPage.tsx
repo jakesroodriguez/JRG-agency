@@ -81,7 +81,7 @@ const ContactPage = () => {
           ← Volver al Inicio
         </Link>
         <div className="contact-page-branding">
-          <img src="/logo.png" alt="JRG Agency" className="contact-page-logo" />
+          <img src="/logoJRG.png" alt="JRG Agency" className="contact-page-logo" />
           <span>JRG AGENCY · CONTACTO</span>
         </div>
       </div>

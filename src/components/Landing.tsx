@@ -14,7 +14,7 @@ const Landing = ({ children }: PropsWithChildren) => {
             </div>
             <div className="landing-brand-header">
               <img
-                src="/logo.png"
+                src="/logoJRG.png"
                 alt="JRG Agency Logo"
                 className="landing-title-logo"
                 loading="eager"

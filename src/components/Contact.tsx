@@ -296,7 +296,7 @@ const Contact = () => {
           <div className="contact-footer">
             <div className="footer-brand">
               <img
-                src="/logo.png"
+                src="/logoJRG.png"
                 alt="JRG Agency Logo"
                 className="footer-logo"
               />

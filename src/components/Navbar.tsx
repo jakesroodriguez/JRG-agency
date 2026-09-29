@@ -122,7 +122,7 @@ const Navbar = () => {
       {/* Desktop Header */}
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          <img src="/logo.png" alt="Agency Logo" className="navbar-logo-img" />
+          <img src="/logoJRG.png" alt="JRG Agency Logo" className="navbar-logo-img" />
           <span>AGENCY</span>
         </a>
         <a
@@ -165,7 +165,7 @@ const Navbar = () => {
           >
             <div className="dynamic-island-glow-ring" />
             <img
-              src="/logo.png"
+              src="/logoJRG.png"
               alt="JRG Logo"
               className="dynamic-island-logo-img"
             />
@@ -179,7 +179,7 @@ const Navbar = () => {
               onClick={() => setIsIslandOpen(false)}
               aria-label="Cerrar navegación"
             >
-              <img src="/logo.png" alt="JRG" />
+              <img src="/logoJRG.png" alt="JRG" />
             </button>
 
             <nav className="dynamic-island-nav">

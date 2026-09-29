@@ -45,7 +45,7 @@ const About = () => {
     <div className="about-section" id="about">
       <div className="about-me" ref={cardRef}>
         <div className="about-title-row">
-          <img src="/logo.png" alt="JRG Logo" className="about-logo-badge" />
+          <img src="/logoJRG.png" alt="JRG Logo" className="about-logo-badge" />
           <h3 className="title">{config.about.title}</h3>
         </div>
         <p className="para">
