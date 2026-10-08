@@ -137,7 +137,7 @@ const DemoPreview = () => {
           <div className="demo-agency-closer-box" style={{ marginTop: "40px" }}>
             <h3>¿Quieres tu propia web oficial?</h3>
             <p>
-              Por 400€ dejamos tu web lista en 48 horas, optimizada para Google y lista para recibir clientes por WhatsApp.
+              Dejamos tu web lista en 48 horas, optimizada para Google y lista para recibir clientes por WhatsApp.
             </p>
             <a
               href="https://wa.me/34613448185?text=Kaixo%20Jakes!%20Quiero%20solicitar%20un%20boceto%20web%20para%20mi%20negocio"
@@ -155,7 +155,7 @@ const DemoPreview = () => {
 
   // Pre-configured URLs
   const whatsappJrgUrl = `https://wa.me/34613448185?text=${encodeURIComponent(
-    `Kaixo Jakes! He visto el boceto web de ${demo.nombre} y me gustaría activarla para mi negocio por 400€.`
+    `Kaixo Jakes! He visto el boceto web de ${demo.nombre} y me gustaría activarla para mi negocio.`
   )}`;
 
   const whatsappCustomerUrl = `https://wa.me/34${demo.telefonoLimpio}?text=${encodeURIComponent(
@@ -185,9 +185,9 @@ const DemoPreview = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="demo-vip-cta"
-          title="Activar esta web por 400€"
+          title="Activar esta web para tu negocio"
         >
-          <FaBolt /> Activar (400€)
+          <FaBolt /> Activar mi web
         </a>
       </header>
 
@@ -406,11 +406,18 @@ const DemoPreview = () => {
             Esta web está optimizada para que cada búsqueda en {demo.municipio} se convierta en una llamada o WhatsApp directo en tu teléfono.
           </p>
 
-          <div className="demo-price-tag-wrap">
-            <span className="demo-price-huge">400 €</span>
-            <div className="demo-price-details">
-              <strong>Web oficial lista en 48h</strong><br />
-              + 19 €/mes hosting, dominio y soporte
+          <div className="demo-value-points-wrap">
+            <div className="demo-value-point-item">
+              <FaBolt style={{ color: "#0284c7" }} />
+              <span>Lista en 48 horas</span>
+            </div>
+            <div className="demo-value-point-item">
+              <FaShieldAlt style={{ color: "#16a34a" }} />
+              <span>Dominio y hosting incluido</span>
+            </div>
+            <div className="demo-value-point-item">
+              <FaWhatsapp style={{ color: "#25d366" }} />
+              <span>Clientes directos a tu móvil</span>
             </div>
           </div>
 
@@ -421,7 +428,7 @@ const DemoPreview = () => {
               rel="noopener noreferrer"
               className="demo-close-btn-cta"
             >
-              <FaWhatsapp style={{ fontSize: "1.3rem" }} /> Activar esta web por WhatsApp
+              <FaWhatsapp style={{ fontSize: "1.3rem" }} /> Activar esta web para mi negocio
             </a>
           </div>
         </section>

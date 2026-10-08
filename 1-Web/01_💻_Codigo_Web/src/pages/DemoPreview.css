@@ -704,33 +704,26 @@
   max-width: 500px;
 }
 
-.demo-price-tag-wrap {
+.demo-value-points-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.demo-value-point-item {
   background: #ffffff;
-  border: 1px solid rgba(203, 213, 225, 0.8);
-  border-radius: 20px;
-  padding: 14px 22px;
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  border-radius: 999px;
+  padding: 8px 16px;
   display: inline-flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 22px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-}
-
-.demo-price-huge {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #15803d;
-}
-
-.demo-price-details {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-align: left;
-  line-height: 1.35;
-}
-
-.demo-price-details strong {
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 700;
   color: var(--text-title);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .demo-close-btn-cta {
