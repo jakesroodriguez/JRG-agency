@@ -1,0 +1,1022 @@
+{
+  "estanko-laubide-legazpi": {
+    "slug": "estanko-laubide-legazpi",
+    "nombre": "Estanko Laubide",
+    "nombreOriginal": "ESTANKO LAUBIDE",
+    "municipio": "Legazpi",
+    "categoria": "Estanco",
+    "badge": "Comercio Local",
+    "telefono": "943 73 12 49",
+    "telefonoLimpio": "943731249",
+    "rating": 4.4,
+    "reviews": 574,
+    "tagline": "Tu tienda de confianza en Legazpi: calidad, variedad y atención cercana",
+    "heroImage": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Atención y Asesoramiento Directo",
+        "desc": "Te ayudamos a encontrar exactamente lo que necesitas con trato cercano y experto."
+      },
+      {
+        "titulo": "Productos Seleccionados y Novedades",
+        "desc": "Catálogo actualizado continuamente con las mejores marcas y novedades."
+      },
+      {
+        "titulo": "Encargos y Disponibilidad Rápida",
+        "desc": "Consúltanos por teléfono o WhatsApp para apartar tu producto antes de pasar."
+      }
+    ],
+    "highlights": [
+      "Comercio local de proximidad",
+      "Máxima calidad garantizada",
+      "Consulta directa por WhatsApp"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/estanko-laubide-legazpi"
+  },
+  "restaurante-ezkiotarra-zumarraga": {
+    "slug": "restaurante-ezkiotarra-zumarraga",
+    "nombre": "Restaurante Ezkiotarra",
+    "nombreOriginal": "Restaurante Ezkiotarra",
+    "municipio": "Zumarraga",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 72 29 64",
+    "telefonoLimpio": "943722964",
+    "rating": 4.4,
+    "reviews": 331,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/restaurante-ezkiotarra-zumarraga"
+  },
+  "bar-oilarra-legazpi": {
+    "slug": "bar-oilarra-legazpi",
+    "nombre": "Bar Oilarra",
+    "nombreOriginal": "Bar Oilarra",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "605 76 49 16",
+    "telefonoLimpio": "605764916",
+    "rating": 4.5,
+    "reviews": 291,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-oilarra-legazpi"
+  },
+  "urzubi-taberna-zumarraga": {
+    "slug": "urzubi-taberna-zumarraga",
+    "nombre": "Urzubi Taberna",
+    "nombreOriginal": "Urzubi Taberna",
+    "municipio": "Zumarraga",
+    "categoria": "Bar de tapas",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 55 95 04",
+    "telefonoLimpio": "943559504",
+    "rating": 4.5,
+    "reviews": 252,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/urzubi-taberna-zumarraga"
+  },
+  "azpikoetxe-jatetxea-legazpi": {
+    "slug": "azpikoetxe-jatetxea-legazpi",
+    "nombre": "Azpikoetxe Jatetxea",
+    "nombreOriginal": "Azpikoetxe Jatetxea S.L.",
+    "municipio": "Legazpi",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 73 13 87",
+    "telefonoLimpio": "943731387",
+    "rating": 4.4,
+    "reviews": 238,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/azpikoetxe-jatetxea-legazpi"
+  },
+  "bar-gurrutxaga-legazpi": {
+    "slug": "bar-gurrutxaga-legazpi",
+    "nombre": "Bar Gurrutxaga",
+    "nombreOriginal": "Bar Gurrutxaga",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 73 12 71",
+    "telefonoLimpio": "943731271",
+    "rating": 4.5,
+    "reviews": 235,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-gurrutxaga-legazpi"
+  },
+  "cafe-izazpi-zumarraga": {
+    "slug": "cafe-izazpi-zumarraga",
+    "nombre": "Cafe Izazpi",
+    "nombreOriginal": "Cafe Izazpi",
+    "municipio": "Zumarraga",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "605720137",
+    "telefonoLimpio": "605720137",
+    "rating": 4.3,
+    "reviews": 204,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/cafe-izazpi-zumarraga"
+  },
+  "goiherri-jatetxea-legazpi": {
+    "slug": "goiherri-jatetxea-legazpi",
+    "nombre": "Goiherri Jatetxea",
+    "nombreOriginal": "Goiherri Jatetxea",
+    "municipio": "Legazpi",
+    "categoria": "Bar restaurante",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 73 14 61",
+    "telefonoLimpio": "943731461",
+    "rating": 4.3,
+    "reviews": 185,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/goiherri-jatetxea-legazpi"
+  },
+  "kukue-taberna-legazpi": {
+    "slug": "kukue-taberna-legazpi",
+    "nombre": "Kukue Taberna",
+    "nombreOriginal": "Kukue taberna",
+    "municipio": "Legazpi",
+    "categoria": "Cervecería",
+    "badge": "Pub & Coctelería",
+    "telefono": "943 73 16 08",
+    "telefonoLimpio": "943731608",
+    "rating": 4.4,
+    "reviews": 164,
+    "tagline": "Música, cócteles y el mejor tardeo y noche de Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Copas y Destilados Premium",
+        "desc": "Marcas selectas de ginebra, ron, whisky y combinados preparados al detalle."
+      },
+      {
+        "titulo": "Cervezas Nacionales e Importación",
+        "desc": "Variedad de grifos y tercios artesanos bien fríos para cada ocasión."
+      },
+      {
+        "titulo": "Eventos y Buen Ambiente",
+        "desc": "El mejor ambiente musical para disfrutar de los fines de semana con tu cuadrilla."
+      }
+    ],
+    "highlights": [
+      "Copas preparadas con mimo",
+      "Música y ambiente excepcional",
+      "Ubicación céntrica"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/kukue-taberna-legazpi"
+  },
+  "maiatza-legazpi": {
+    "slug": "maiatza-legazpi",
+    "nombre": "Maiatza",
+    "nombreOriginal": "Maiatza",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 73 18 97",
+    "telefonoLimpio": "943731897",
+    "rating": 4.4,
+    "reviews": 164,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/maiatza-legazpi"
+  },
+  "ziaboga-zumarraga": {
+    "slug": "ziaboga-zumarraga",
+    "nombre": "Ziaboga",
+    "nombreOriginal": "Ziaboga",
+    "municipio": "Zumarraga",
+    "categoria": "Bar restaurante",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 25 38 96",
+    "telefonoLimpio": "943253896",
+    "rating": 4.2,
+    "reviews": 157,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/ziaboga-zumarraga"
+  },
+  "fox-taberna-urretxu": {
+    "slug": "fox-taberna-urretxu",
+    "nombre": "Fox Taberna",
+    "nombreOriginal": "Fox Taberna",
+    "municipio": "Urretxu",
+    "categoria": "Pub",
+    "badge": "Pub & Coctelería",
+    "telefono": "943 72 64 17",
+    "telefonoLimpio": "943726417",
+    "rating": 4.7,
+    "reviews": 151,
+    "tagline": "Música, cócteles y el mejor tardeo y noche de Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Copas y Destilados Premium",
+        "desc": "Marcas selectas de ginebra, ron, whisky y combinados preparados al detalle."
+      },
+      {
+        "titulo": "Cervezas Nacionales e Importación",
+        "desc": "Variedad de grifos y tercios artesanos bien fríos para cada ocasión."
+      },
+      {
+        "titulo": "Eventos y Buen Ambiente",
+        "desc": "El mejor ambiente musical para disfrutar de los fines de semana con tu cuadrilla."
+      }
+    ],
+    "highlights": [
+      "Copas preparadas con mimo",
+      "Música y ambiente excepcional",
+      "Ubicación céntrica"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/fox-taberna-urretxu"
+  },
+  "toki-alai-zumarraga": {
+    "slug": "toki-alai-zumarraga",
+    "nombre": "Toki Alai",
+    "nombreOriginal": "Toki Alai",
+    "municipio": "Zumarraga",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 72 06 19",
+    "telefonoLimpio": "943720619",
+    "rating": 4.5,
+    "reviews": 142,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/toki-alai-zumarraga"
+  },
+  "restaurante-palacio-oriental-urretxu": {
+    "slug": "restaurante-palacio-oriental-urretxu",
+    "nombre": "Restaurante Palacio Oriental",
+    "nombreOriginal": "Restaurante Palacio Oriental",
+    "municipio": "Urretxu",
+    "categoria": "Restaurante chino",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 72 52 43",
+    "telefonoLimpio": "943725243",
+    "rating": 4.2,
+    "reviews": 138,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/restaurante-palacio-oriental-urretxu"
+  },
+  "berit-taberna-urretxu": {
+    "slug": "berit-taberna-urretxu",
+    "nombre": "Berit Taberna",
+    "nombreOriginal": "Berit Taberna",
+    "municipio": "Urretxu",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 72 35 75",
+    "telefonoLimpio": "943723575",
+    "rating": 4.5,
+    "reviews": 115,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/berit-taberna-urretxu"
+  },
+  "bar-ibaiondo-legazpi": {
+    "slug": "bar-ibaiondo-legazpi",
+    "nombre": "Bar Ibaiondo",
+    "nombreOriginal": "Bar Ibaiondo",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 03 44 59",
+    "telefonoLimpio": "943034459",
+    "rating": 4.2,
+    "reviews": 113,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-ibaiondo-legazpi"
+  },
+  "krak-taberna-urretxu": {
+    "slug": "krak-taberna-urretxu",
+    "nombre": "Krak Taberna",
+    "nombreOriginal": "KRAK taberna",
+    "municipio": "Urretxu",
+    "categoria": "Pub",
+    "badge": "Pub & Coctelería",
+    "telefono": "687 41 53 02",
+    "telefonoLimpio": "687415302",
+    "rating": 4.2,
+    "reviews": 110,
+    "tagline": "Música, cócteles y el mejor tardeo y noche de Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Copas y Destilados Premium",
+        "desc": "Marcas selectas de ginebra, ron, whisky y combinados preparados al detalle."
+      },
+      {
+        "titulo": "Cervezas Nacionales e Importación",
+        "desc": "Variedad de grifos y tercios artesanos bien fríos para cada ocasión."
+      },
+      {
+        "titulo": "Eventos y Buen Ambiente",
+        "desc": "El mejor ambiente musical para disfrutar de los fines de semana con tu cuadrilla."
+      }
+    ],
+    "highlights": [
+      "Copas preparadas con mimo",
+      "Música y ambiente excepcional",
+      "Ubicación céntrica"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/krak-taberna-urretxu"
+  },
+  "aitube-berri-taberna-urretxu": {
+    "slug": "aitube-berri-taberna-urretxu",
+    "nombre": "Aitube Berri Taberna",
+    "nombreOriginal": "AITUBE BERRI TABERNA",
+    "municipio": "Urretxu",
+    "categoria": "Taberna",
+    "badge": "Pintxos & Raciones",
+    "telefono": "638 33 72 73",
+    "telefonoLimpio": "638337273",
+    "rating": 4.6,
+    "reviews": 108,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/aitube-berri-taberna-urretxu"
+  },
+  "ko-bar-bidea-batzokia-legazpi": {
+    "slug": "ko-bar-bidea-batzokia-legazpi",
+    "nombre": "ko Bar Bidea Batzokia",
+    "nombreOriginal": "Legazpiko Bar Bidea Batzokia",
+    "municipio": "Legazpi",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 73 15 84",
+    "telefonoLimpio": "943731584",
+    "rating": 4.4,
+    "reviews": 98,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/ko-bar-bidea-batzokia-legazpi"
+  },
+  "herbolario-itziar-legazpi": {
+    "slug": "herbolario-itziar-legazpi",
+    "nombre": "Herbolario Itziar",
+    "nombreOriginal": "Herbolario Itziar",
+    "municipio": "Legazpi",
+    "categoria": "Herbolario",
+    "badge": "Comercio Local",
+    "telefono": "943 73 42 01",
+    "telefonoLimpio": "943734201",
+    "rating": 4.8,
+    "reviews": 86,
+    "tagline": "Tu tienda de confianza en Legazpi: calidad, variedad y atención cercana",
+    "heroImage": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Atención y Asesoramiento Directo",
+        "desc": "Te ayudamos a encontrar exactamente lo que necesitas con trato cercano y experto."
+      },
+      {
+        "titulo": "Productos Seleccionados y Novedades",
+        "desc": "Catálogo actualizado continuamente con las mejores marcas y novedades."
+      },
+      {
+        "titulo": "Encargos y Disponibilidad Rápida",
+        "desc": "Consúltanos por teléfono o WhatsApp para apartar tu producto antes de pasar."
+      }
+    ],
+    "highlights": [
+      "Comercio local de proximidad",
+      "Máxima calidad garantizada",
+      "Consulta directa por WhatsApp"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/herbolario-itziar-legazpi"
+  },
+  "bar-bordatxo-taberna-zumarraga": {
+    "slug": "bar-bordatxo-taberna-zumarraga",
+    "nombre": "Bar Bordatxo Taberna",
+    "nombreOriginal": "Bar Bordatxo Taberna Zumarraga",
+    "municipio": "Zumarraga",
+    "categoria": "Taberna",
+    "badge": "Pintxos & Raciones",
+    "telefono": "678 10 55 36",
+    "telefonoLimpio": "678105536",
+    "rating": 4.2,
+    "reviews": 85,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-bordatxo-taberna-zumarraga"
+  },
+  "bar-giroa-legazpi": {
+    "slug": "bar-giroa-legazpi",
+    "nombre": "Bar Giroa",
+    "nombreOriginal": "Bar Giroa",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 73 14 80",
+    "telefonoLimpio": "943731480",
+    "rating": 4.5,
+    "reviews": 69,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-giroa-legazpi"
+  },
+  "bar-karibe-berri-legazpi": {
+    "slug": "bar-karibe-berri-legazpi",
+    "nombre": "Bar Karibe Berri",
+    "nombreOriginal": "Bar Karibe Berri",
+    "municipio": "Legazpi",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 25 35 00",
+    "telefonoLimpio": "943253500",
+    "rating": 4.5,
+    "reviews": 69,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-karibe-berri-legazpi"
+  },
+  "gestoria-martin-aholkularitza-legazpi": {
+    "slug": "gestoria-martin-aholkularitza-legazpi",
+    "nombre": "Gestoria Martin Aholkularitza",
+    "nombreOriginal": "GESTORIA MARTIN AHOLKULARITZA",
+    "municipio": "Legazpi",
+    "categoria": "Servicios legales",
+    "badge": "Servicios Profesionales",
+    "telefono": "943 73 13 92",
+    "telefonoLimpio": "943731392",
+    "rating": 4.5,
+    "reviews": 69,
+    "tagline": "Asesoramiento profesional, legal y fiscal de confianza en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Asesoría Fiscal y Contable",
+        "desc": "Gestión integral de impuestos, libros contables y balances para empresas y autónomos."
+      },
+      {
+        "titulo": "Gestión Laboral y Contratos",
+        "desc": "Nóminas, altas en seguridad social y asesoramiento en convenios colectivos."
+      },
+      {
+        "titulo": "Trámites y Vehículos",
+        "desc": "Transferencias de vehículos, matriculaciones, escrituras y gestiones administrativas."
+      }
+    ],
+    "highlights": [
+      "Atención personalizada y cercana",
+      "Años de experiencia en la comarca",
+      "Resolución ágil de trámites"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/gestoria-martin-aholkularitza-legazpi"
+  },
+  "salon-de-belleza-xarmanki-urretxu": {
+    "slug": "salon-de-belleza-xarmanki-urretxu",
+    "nombre": "Salón De Belleza Xarmanki",
+    "nombreOriginal": "Salón de Belleza Xarmanki",
+    "municipio": "Urretxu",
+    "categoria": "Centro de estética",
+    "badge": "Salud & Bienestar",
+    "telefono": "943 72 25 13",
+    "telefonoLimpio": "943722513",
+    "rating": 4.6,
+    "reviews": 68,
+    "tagline": "Tu centro de belleza, cuidado facial y bienestar personal en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Tratamientos Faciales y Corporales",
+        "desc": "Protocolos personalizados para rejuvenecer, hidratar y tonificar tu piel."
+      },
+      {
+        "titulo": "Manicura, Pedicura y Estética",
+        "desc": "Cuidado integral con esmaltado duradero, diseño de cejas y pestañas."
+      },
+      {
+        "titulo": "Masajes y Relajación",
+        "desc": "Sesiones relajantes y descontracturantes para desconectar del estrés diario."
+      }
+    ],
+    "highlights": [
+      "Productos profesionales de alta gama",
+      "Atención individualizada con cita previa",
+      "Espacio tranquilo y relajante"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/salon-de-belleza-xarmanki-urretxu"
+  },
+  "motz-taberna-urretxu": {
+    "slug": "motz-taberna-urretxu",
+    "nombre": "Motz Taberna",
+    "nombreOriginal": "Motz taberna",
+    "municipio": "Urretxu",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 09 33 34",
+    "telefonoLimpio": "943093334",
+    "rating": 4.5,
+    "reviews": 67,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/motz-taberna-urretxu"
+  },
+  "elizondo-taberna-legazpi": {
+    "slug": "elizondo-taberna-legazpi",
+    "nombre": "Elizondo Taberna",
+    "nombreOriginal": "Elizondo Taberna",
+    "municipio": "Legazpi",
+    "categoria": "Bar de tapas",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 90 04 10",
+    "telefonoLimpio": "943900410",
+    "rating": 3.9,
+    "reviews": 65,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/elizondo-taberna-legazpi"
+  },
+  "bar-txoko-zumarraga": {
+    "slug": "bar-txoko-zumarraga",
+    "nombre": "Bar Txoko",
+    "nombreOriginal": "Bar Txoko",
+    "municipio": "Zumarraga",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 72 65 76",
+    "telefonoLimpio": "943726576",
+    "rating": 4.2,
+    "reviews": 61,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Zumarraga",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/bar-txoko-zumarraga"
+  },
+  "txepetxa-taberna-legazpi": {
+    "slug": "txepetxa-taberna-legazpi",
+    "nombre": "Txepetxa Taberna",
+    "nombreOriginal": "Txepetxa Taberna",
+    "municipio": "Legazpi",
+    "categoria": "Restaurante",
+    "badge": "Gastronomía Tradicional",
+    "telefono": "943 04 04 93",
+    "telefonoLimpio": "943040493",
+    "rating": 4.2,
+    "reviews": 60,
+    "tagline": "Cocina con pasión, producto de temporada y el mejor ambiente en Legazpi",
+    "heroImage": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Menú del Día y Fin de Semana",
+        "desc": "Platos caseros elaborados a diario con materia prima fresca y de proximidad."
+      },
+      {
+        "titulo": "Carta y Raciones Selectas",
+        "desc": "Carnes a la brasa, pescados del día y raciones para compartir entre amigos y familia."
+      },
+      {
+        "titulo": "Comidas y Celebraciones",
+        "desc": "Reserva de mesas para grupos, celebraciones y eventos con menús a medida."
+      }
+    ],
+    "highlights": [
+      "Cocina de mercado con ingredientes frescos",
+      "Terraza y comedor acogedor",
+      "Reserva directa sin comisiones"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/txepetxa-taberna-legazpi"
+  },
+  "malkor-urretxu": {
+    "slug": "malkor-urretxu",
+    "nombre": "Malkor",
+    "nombreOriginal": "Malkor",
+    "municipio": "Urretxu",
+    "categoria": "Bar",
+    "badge": "Pintxos & Raciones",
+    "telefono": "943 72 63 05",
+    "telefonoLimpio": "943726305",
+    "rating": 4.4,
+    "reviews": 58,
+    "tagline": "Pintxos artesanos, raciones y el mejor punto de encuentro en Urretxu",
+    "heroImage": "https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=80",
+    "items": [
+      {
+        "titulo": "Barra de Pintxos Diaria",
+        "desc": "Gran variedad de pintxos fríos y calientes elaborados a lo largo del día."
+      },
+      {
+        "titulo": "Bocadillos y Cazuelitas",
+        "desc": "Bocadillos recién tostados, hamburguesas y raciones para picar."
+      },
+      {
+        "titulo": "Cafés, Vinos y Cervezas",
+        "desc": "Selección de vinos de Rioja, txakoli de la tierra y cervezas bien tiradas."
+      }
+    ],
+    "highlights": [
+      "Barra surtida a diario",
+      "Ambiente cercano y vecinal",
+      "Servicio rápido en barra y terraza"
+    ],
+    "demoUrl": "https://www.jrgagency.eus/demo/malkor-urretxu"
+  }
+}

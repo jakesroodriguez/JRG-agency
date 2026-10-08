@@ -33,8 +33,14 @@ build_errors.txt
 build_output.txt
 screen-capture*.webm
 video.mp4
-2 - Fotos y Diseños/
-3 - Componentes y Plantillas/
-4 - Herramientas e Instaladores/
-5 - Otros Proyectos y Referencias/
-6 - Google Business/
+1-Web/02_*
+1-Web/03_*
+1-Web/04_*
+1-Web/05_*
+1-Web/Fotos y Diseños/
+1-Web/Componentes y Plantillas/
+1-Web/Herramientas e Instaladores/
+1-Web/Otros Proyectos y Referencias/
+2-Modelo 3D/
+3-Leads/
+4-Maps/

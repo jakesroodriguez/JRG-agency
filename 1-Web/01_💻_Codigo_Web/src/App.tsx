@@ -10,6 +10,7 @@ const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const MobileLanding = lazy(() => import("./mobile/MobileLanding"));
+const DemoPreview = lazy(() => import("./pages/DemoPreview"));
 
 import { LoadingProvider } from "./context/LoadingProvider";
 import AlmoayyedBackground from "./components/AlmoayyedBackground";
@@ -102,6 +103,22 @@ const App = () => {
           element={
             <Suspense fallback={<div>Cargando...</div>}>
               <ContactPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/demo/:slug"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0d1117', color: '#8b949e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cargando boceto digital...</div>}>
+              <DemoPreview />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/demo"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0d1117', color: '#8b949e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cargando boceto digital...</div>}>
+              <DemoPreview />
             </Suspense>
           }
         />
