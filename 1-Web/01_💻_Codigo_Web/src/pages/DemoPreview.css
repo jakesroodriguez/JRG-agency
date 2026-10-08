@@ -1,6 +1,6 @@
 /* ==========================================================================
    JRG AGENCY - DEMO LANDING TEMPLATE (NEURO-DESIGN & LIQUID GLASS EDITION)
-   Psicología de la dopamina, modo claro hiper-limpio y alta conversión
+   Psicología de la dopamina, modo claro hiper-limpio, estética grafito y alta conversión
    ========================================================================== */
 
 :root {
@@ -20,9 +20,10 @@
   
   --wsp-green: #25d366;
   --wsp-green-dark: #128c7e;
-  --google-blue: #4285f4;
+  --google-blue: #334155;      /* Gris grafito oscuro */
   --gold-star: #f59e0b;
-  --brand-blue: #0284c7;
+  --brand-blue: #1e293b;       /* Gris grafito oscuro premium */
+  --brand-blue-hover: #0f172a;
 }
 
 /* 1. Base Container & Light Ambient */
@@ -30,9 +31,9 @@
   min-height: 100vh;
   background-color: var(--bg-main);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.7) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(254, 243, 199, 0.4) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(240, 253, 244, 0.5) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(241, 245, 249, 0.9) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(248, 250, 252, 0.7) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(241, 245, 249, 0.8) 0px, transparent 50%);
   background-attachment: fixed;
   color: var(--text-title);
   font-family: -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", "Inter", Roboto, sans-serif;
@@ -42,74 +43,89 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* 2. Top Sticky VIP Agency Bar (Liquid Glass) */
+/* 2. Top Sticky VIP Agency Bar (Liquid Glass Proporcional) */
 .demo-vip-bar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-  padding: 10px 16px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  gap: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .demo-vip-left {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
-.demo-vip-agency-badge {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
-  color: #ffffff;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.72rem;
+.demo-vip-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: contain;
+  flex-shrink: 0;
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.demo-vip-brand-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.demo-vip-brand-name {
+  font-size: 0.84rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+  color: #0f172a;
+  letter-spacing: -0.01em;
 }
 
-.demo-vip-text {
-  font-size: 0.82rem;
-  color: var(--text-subtitle);
-  font-weight: 500;
+.demo-vip-brand-desc {
+  font-size: 0.72rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 175px;
 }
 
-.demo-vip-text strong {
-  color: var(--text-title);
+.demo-vip-brand-desc strong {
+  color: #1e293b;
   font-weight: 700;
 }
 
 .demo-vip-cta {
-  background: linear-gradient(135deg, #16a34a, #15803d);
+  background: #1e293b; /* Gris oscuro elegante */
   color: #ffffff !important;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  padding: 8px 15px;
+  padding: 7px 13px;
   border-radius: 999px;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.28);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   white-space: nowrap;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .demo-vip-cta:hover {
+  background: #0f172a;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
 }
 
 /* 3. Main Container */
@@ -623,7 +639,7 @@
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  background: rgba(2, 132, 199, 0.12);
+  background: rgba(30, 41, 59, 0.08);
   color: var(--brand-blue);
   display: flex;
   align-items: center;
@@ -663,21 +679,21 @@
 
 /* 10. Neuro-Selling: JRG Agency Conversion Closer Box */
 .demo-agency-closer-box {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 249, 255, 0.85));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.9));
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  border: 1.5px solid rgba(203, 213, 225, 0.85);
   border-radius: 30px;
   padding: 30px 22px;
   text-align: center;
-  box-shadow: 0 20px 45px -10px rgba(2, 132, 199, 0.12), 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(0,0,0,0.02);
   margin-bottom: 28px;
 }
 
 .demo-closer-badge {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  background: linear-gradient(135deg, #1e293b, #0f172a);
   color: #ffffff;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -685,7 +701,7 @@
   border-radius: 999px;
   display: inline-block;
   margin-bottom: 14px;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
 }
 
 .demo-agency-closer-box h3 {
@@ -799,6 +815,33 @@
     gap: 6px;
     border: 1px solid rgba(203, 213, 225, 0.8);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  }
+}
+
+@media (max-width: 480px) {
+  .demo-vip-bar {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .demo-vip-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .demo-vip-brand-name {
+    font-size: 0.78rem;
+  }
+
+  .demo-vip-brand-desc {
+    font-size: 0.68rem;
+    max-width: 140px;
+  }
+
+  .demo-vip-cta {
+    font-size: 0.72rem;
+    padding: 6px 11px;
+    gap: 4px;
   }
 }
 

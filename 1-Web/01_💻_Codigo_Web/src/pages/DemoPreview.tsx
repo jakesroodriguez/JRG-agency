@@ -46,9 +46,43 @@ interface DemoData {
 
 const demosDb = demosDataRaw as Record<string, DemoData>;
 
+function findDemoBySlug(requestedSlug?: string): DemoData | null {
+  if (!requestedSlug) return null;
+  const clean = requestedSlug.toLowerCase().trim().replace(/^\/+|\/+$/g, "");
+  if (demosDb[clean]) return demosDb[clean];
+
+  const cleanNorm = clean.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const entries = Object.entries(demosDb);
+
+  // Exact normalized key/slug match
+  for (const [key, item] of entries) {
+    const keyNorm = key.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (keyNorm === cleanNorm) return item;
+    if (item.slug && item.slug.toLowerCase() === clean) return item;
+  }
+
+  // Token matching: ignore generic words like 'restaurante', 'bar', 'taberna', 'urretxu', 'zumarraga', 'legazpi'
+  const stopWords = new Set(["restaurante", "bar", "taberna", "jatetxea", "salon", "de", "belleza", "urretxu", "zumarraga", "legazpi"]);
+  const tokens = cleanNorm.split(/[-_\s]+/).filter(t => t.length > 2 && !stopWords.has(t));
+
+  if (tokens.length > 0) {
+    for (const [key, item] of entries) {
+      const keyNorm = key.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const nameNorm = item.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const hasMatch = tokens.some(tok => keyNorm.includes(tok) || nameNorm.includes(tok));
+      if (hasMatch) return item;
+    }
+  }
+
+  for (const [key, item] of entries) {
+    if (key.includes(clean) || clean.includes(key)) return item;
+  }
+  return null;
+}
+
 const DemoPreview = () => {
   const { slug } = useParams<{ slug?: string }>();
-  const demo = slug ? demosDb[slug.toLowerCase()] : null;
+  const demo = findDemoBySlug(slug);
 
   // Real photos list
   const photosList = demo?.photos && demo.photos.length > 0 ? demo.photos : demo ? [demo.heroImage] : [];
@@ -84,17 +118,20 @@ const DemoPreview = () => {
 
   // Fallback if demo slug is not found or visitor visits /demo
   if (!demo) {
-    const sampleSlugs = Object.keys(demosDb).slice(0, 8);
+    const sampleSlugs = Object.keys(demosDb).slice(0, 12);
 
     return (
       <div className="demo-preview-root">
         <header className="demo-vip-bar">
           <div className="demo-vip-left">
-            <span className="demo-vip-agency-badge">JRG Agency</span>
-            <span className="demo-vip-text">Estudio Web & Automatización · Urretxu</span>
+            <img src="/logoJRG.png" alt="JRG Agency" className="demo-vip-logo" />
+            <div className="demo-vip-brand-wrap">
+              <span className="demo-vip-brand-name">JRG Agency</span>
+              <span className="demo-vip-brand-desc">Estudio Web · Urretxu</span>
+            </div>
           </div>
           <Link to="/" className="demo-vip-cta">
-            Web Oficial <FaArrowRight />
+            <span>Web Oficial</span> <FaArrowRight />
           </Link>
         </header>
 
@@ -121,7 +158,7 @@ const DemoPreview = () => {
                     border: "1px solid rgba(203, 213, 225, 0.8)",
                     padding: "10px 18px",
                     borderRadius: "999px",
-                    color: "#0284c7",
+                    color: "#1e293b",
                     textDecoration: "none",
                     fontSize: "0.88rem",
                     fontWeight: 700,
@@ -173,12 +210,13 @@ const DemoPreview = () => {
       {/* 1. Sticky VIP Agency Header */}
       <header className="demo-vip-bar">
         <div className="demo-vip-left">
-          <span className="demo-vip-agency-badge">
-            <FaBolt /> JRG Agency
-          </span>
-          <span className="demo-vip-text">
-            Boceto exclusivo para <strong>{demo.nombre}</strong>
-          </span>
+          <img src="/logoJRG.png" alt="JRG Agency" className="demo-vip-logo" />
+          <div className="demo-vip-brand-wrap">
+            <span className="demo-vip-brand-name">JRG Agency</span>
+            <span className="demo-vip-brand-desc">
+              Boceto para <strong>{demo.nombre}</strong>
+            </span>
+          </div>
         </div>
         <a
           href={whatsappJrgUrl}
@@ -187,7 +225,7 @@ const DemoPreview = () => {
           className="demo-vip-cta"
           title="Activar esta web para tu negocio"
         >
-          <FaBolt /> Activar mi web
+          <FaBolt /> <span>Activar web</span>
         </a>
       </header>
 
@@ -196,7 +234,7 @@ const DemoPreview = () => {
         <section className="demo-hero-section">
           <div className="demo-pills-row">
             <span className="demo-pill demo-pill-location">
-              <FaMapMarkerAlt style={{ color: "#0284c7" }} /> {demo.municipio}, Gipuzkoa
+              <FaMapMarkerAlt style={{ color: "#475569" }} /> {demo.municipio}, Gipuzkoa
             </span>
             <span className="demo-pill demo-pill-badge">
               <FaFire style={{ color: "#d97706" }} /> Top Valorados
@@ -233,7 +271,7 @@ const DemoPreview = () => {
               <FaWhatsapp style={{ fontSize: "1.25rem" }} /> Contactar por WhatsApp
             </a>
             <a href={`tel:${demo.telefonoLimpio}`} className="demo-btn-call">
-              <FaPhoneAlt style={{ color: "#0284c7" }} /> Llamar: {demo.telefono}
+              <FaPhoneAlt style={{ color: "#334155" }} /> Llamar: {demo.telefono}
             </a>
           </div>
 
@@ -256,7 +294,7 @@ const DemoPreview = () => {
 
               {/* Tag Badge on Image */}
               <div className="demo-photo-tag-badge">
-                <FaCamera style={{ color: "#0284c7" }} /> Foto real de Google Maps
+                <FaCamera style={{ color: "#334155" }} /> Foto real de Google Maps
               </div>
             </div>
 
@@ -357,7 +395,7 @@ const DemoPreview = () => {
             </span>
           </div>
           <div className="demo-review-quote">
-            <FaQuoteLeft style={{ marginRight: 8, opacity: 0.3, color: "#0284c7" }} />
+            <FaQuoteLeft style={{ marginRight: 8, opacity: 0.3, color: "#334155" }} />
             {demo.categoria.toLowerCase().includes("restaurante") || demo.categoria.toLowerCase().includes("bar")
               ? "Excelente calidad, producto casero de primera y un trato cercano inmejorable. El mejor sitio para disfrutar con familia o cuadrilla."
               : "Trato profesional, puntualidad impecable y máxima confianza. Sin duda el lugar de referencia en toda la comarca."}
@@ -408,7 +446,7 @@ const DemoPreview = () => {
 
           <div className="demo-value-points-wrap">
             <div className="demo-value-point-item">
-              <FaBolt style={{ color: "#0284c7" }} />
+              <FaBolt style={{ color: "#334155" }} />
               <span>Lista en 48 horas</span>
             </div>
             <div className="demo-value-point-item">
@@ -453,7 +491,7 @@ const DemoPreview = () => {
           <FaWhatsapp style={{ fontSize: "1.2rem" }} /> Pedir por WhatsApp
         </a>
         <a href={`tel:${demo.telefonoLimpio}`} className="demo-sticky-btn-call">
-          <FaPhoneAlt style={{ color: "#0284c7" }} /> Llamar
+          <FaPhoneAlt style={{ color: "#334155" }} /> Llamar
         </a>
       </nav>
     </div>
