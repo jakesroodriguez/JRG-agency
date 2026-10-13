@@ -16,7 +16,8 @@ import {
   FiTool,
   FiVolume2,
   FiVolumeX,
-  FiExternalLink
+  FiExternalLink,
+  FiX
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import "./AgentOrchestratorPage.css";
@@ -387,7 +388,7 @@ const loFiSynth = new WebAudioLoFiSynth();
 // 5. COMPONENTES 3D: MOBILIARIO RETRO DE HERMES3D
 // ============================================================================
 
-// Puesto de Trabajo con Modelo GLTF y Fallback Procedural
+// Puesto de Trabajo con Monitor CRT y Silla
 function WorkstationDesk({
   position,
   rotation = 0,
@@ -497,12 +498,10 @@ function LoungeCorner({ position }: { position: [number, number, number] }) {
     <group position={position}>
       {/* Sofá de Espera JRG */}
       <group position={[0, 0, 0]}>
-        {/* Asiento */}
         <mesh position={[0, 0.38, 0]} castShadow>
           <boxGeometry args={[2.2, 0.3, 0.8]} />
           <meshStandardMaterial color="#0284c7" roughness={0.8} />
         </mesh>
-        {/* Respaldo */}
         <mesh position={[0, 0.72, -0.35]} castShadow>
           <boxGeometry args={[2.2, 0.55, 0.22]} />
           <meshStandardMaterial color="#0369a1" roughness={0.8} />
@@ -521,17 +520,14 @@ function LoungeCorner({ position }: { position: [number, number, number] }) {
 function CoffeeCorner({ position }: { position: [number, number, number] }) {
   return (
     <group position={position}>
-      {/* Mueble bajo */}
       <mesh position={[0, 0.45, 0]} castShadow>
         <boxGeometry args={[1.2, 0.9, 0.6]} />
         <meshStandardMaterial color="#1e293b" roughness={0.5} />
       </mesh>
-      {/* Cafetera Espresso */}
       <mesh position={[-0.25, 1.08, 0]} castShadow>
         <boxGeometry args={[0.42, 0.36, 0.38]} />
         <meshStandardMaterial color="#ef4444" metalness={0.6} roughness={0.3} />
       </mesh>
-      {/* Dispensador de Agua */}
       <mesh position={[0.32, 1.25, 0]} castShadow>
         <cylinderGeometry args={[0.16, 0.16, 0.55, 16]} />
         <meshStandardMaterial color="#38bdf8" transparent opacity={0.7} />
@@ -582,16 +578,13 @@ function VoxelAgentAvatar({
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (groupRef.current) {
-      // Suave respiración vertical
       groupRef.current.position.y = Math.sin(t * 2 + agent.deskPos[0]) * 0.02;
     }
     if (leftArmRef.current && rightArmRef.current) {
-      // Movimiento de escribir en el teclado
       leftArmRef.current.rotation.x = -1.2 + Math.sin(t * 8 + 1) * 0.12;
       rightArmRef.current.rotation.x = -1.2 + Math.sin(t * 8 + 3) * 0.12;
     }
     if (headRef.current && isSelected) {
-      // Inclinación suave si está seleccionado
       headRef.current.rotation.y = Math.sin(t * 1.5) * 0.15;
     }
   });
@@ -698,7 +691,6 @@ function VoxelAgentAvatar({
       {/* Burbuja de Diálogo 3D Estilo Hermes3D */}
       <Billboard position={[0, 2.35, 0]}>
         <group>
-          {/* Fondo de la burbuja */}
           <mesh position={[0, 0, -0.01]}>
             <planeGeometry args={[2.4, 0.52]} />
             <meshBasicMaterial color="#06090e" transparent opacity={0.9} />
@@ -726,18 +718,22 @@ function VoxelAgentAvatar({
 // Controlador de Cámara Suave
 function CameraRig({
   selectedAgentPos,
+  isMobile,
 }: {
   selectedAgentPos: [number, number, number] | null;
+  isMobile: boolean;
 }) {
   const { camera } = useThree();
 
   useFrame(() => {
     if (selectedAgentPos) {
-      // Lerp hacia la posición del agente seleccionado
+      const offsetX = isMobile ? 3.5 : 4;
+      const offsetY = isMobile ? 6.5 : 5;
+      const offsetZ = isMobile ? 5.5 : 6;
       const targetVec = new THREE.Vector3(
-        selectedAgentPos[0] + 4,
-        selectedAgentPos[1] + 5,
-        selectedAgentPos[2] + 6
+        selectedAgentPos[0] + offsetX,
+        selectedAgentPos[1] + offsetY,
+        selectedAgentPos[2] + offsetZ
       );
       camera.position.lerp(targetVec, 0.04);
     }
@@ -756,7 +752,32 @@ export default function AgentOrchestratorPage() {
   const [activeFloor, setActiveFloor] = useState<1 | 2 | 3>(1);
   const [activeTab, setActiveTab] = useState<"chat" | "kanban" | "leads" | "skills" | "telemetry">("chat");
   const [viewMode, setViewMode] = useState<"3d" | "tactical">("3d");
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
+
+  // Detección inicial de móvil
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth <= 850;
+    }
+    return false;
+  });
+
+  // En móvil el drawer empieza CERRADO para que la oficina 3D sea lo primero que se ve
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth > 850;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 850;
+      setIsMobile(mobile);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [tasks, setTasks] = useState<KanbanTask[]>(INITIAL_TASKS);
   const [newTaskInput, setNewTaskInput] = useState<string>("");
   const [isJukeboxPlaying, setIsJukeboxPlaying] = useState<boolean>(false);
@@ -821,7 +842,6 @@ export default function AgentOrchestratorPage() {
     const message = (textToSend || inputMessage).trim();
     if (!message || isTyping) return;
 
-    // Agregar mensaje del usuario
     setChatHistory((prev) => ({
       ...prev,
       [selectedAgentId]: [
@@ -833,7 +853,6 @@ export default function AgentOrchestratorPage() {
     if (!textToSend) setInputMessage("");
     setIsTyping(true);
 
-    // Respuesta inteligente simulada
     setTimeout(() => {
       let reply = "";
       const lower = message.toLowerCase();
@@ -949,17 +968,29 @@ export default function AgentOrchestratorPage() {
               <span className="jrg-eq-bar" />
             </div>
             <span className="jrg-jukebox-label">
-              {isJukeboxPlaying ? "LO-FI BEATS: ON" : "LO-FI BEATS"}
+              {isJukeboxPlaying ? "LO-FI: ON" : "LO-FI"}
             </span>
           </div>
 
-          <button
-            className="jrg-view-toggle-btn"
-            onClick={() => setViewMode(viewMode === "3d" ? "tactical" : "3d")}
-          >
-            <FiLayers />
-            {viewMode === "3d" ? "Vista 2D" : "Vista 3D"}
-          </button>
+          {/* En móvil: botón directo para abrir/cerrar panel vs oficina 3D */}
+          {isMobile ? (
+            <button
+              className="jrg-view-toggle-btn"
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              style={{ color: drawerOpen ? "#00f2fe" : "#ffffff", borderColor: drawerOpen ? "#00f2fe" : "rgba(255,255,255,0.15)" }}
+            >
+              {drawerOpen ? <FiMaximize2 /> : <FiMessageSquare />}
+              {drawerOpen ? "Oficina 3D" : "Panel"}
+            </button>
+          ) : (
+            <button
+              className="jrg-view-toggle-btn"
+              onClick={() => setViewMode(viewMode === "3d" ? "tactical" : "3d")}
+            >
+              <FiLayers />
+              {viewMode === "3d" ? "Vista 2D" : "Vista 3D"}
+            </button>
+          )}
         </div>
       </header>
 
@@ -969,7 +1000,7 @@ export default function AgentOrchestratorPage() {
       <div className="jrg-orchestrator-body">
         {viewMode === "3d" ? (
           <div className="jrg-canvas-container">
-            {/* Controles de Cámara Flotantes */}
+            {/* Controles de Cámara Flotantes en Desktop */}
             <div className="jrg-canvas-controls-overlay">
               <button
                 className="jrg-cam-btn"
@@ -979,25 +1010,71 @@ export default function AgentOrchestratorPage() {
               </button>
             </div>
 
-            {/* Pastilla del Agente Seleccionado */}
-            <div
-              className={`jrg-focused-agent-pill ${!drawerOpen ? "drawer-closed" : ""}`}
-            >
-              <span style={{ fontSize: "18px" }}>{selectedAgent.emoji}</span>
-              <div>
-                <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
-                  {selectedAgent.name}
-                </strong>
-                <span style={{ fontSize: "11px", color: selectedAgent.color }}>
-                  {selectedAgent.role}
-                </span>
+            {/* Selector Rápido de Agentes para Móvil (Barra Superior Flotante) */}
+            {isMobile && !drawerOpen && (
+              <div className="jrg-mobile-agents-bar">
+                {agents.map((ag) => (
+                  <button
+                    key={`mob-chip-${ag.id}`}
+                    className={`jrg-mobile-agent-chip ${ag.id === selectedAgentId ? "selected" : ""}`}
+                    onClick={() => setSelectedAgentId(ag.id)}
+                  >
+                    <span>{ag.emoji}</span>
+                    <span>{ag.name}</span>
+                  </button>
+                ))}
               </div>
-            </div>
+            )}
+
+            {/* Pastilla del Agente Seleccionado en Desktop */}
+            {!isMobile && (
+              <div
+                className={`jrg-focused-agent-pill ${!drawerOpen ? "drawer-closed" : ""}`}
+              >
+                <span style={{ fontSize: "18px" }}>{selectedAgent.emoji}</span>
+                <div>
+                  <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
+                    {selectedAgent.name}
+                  </strong>
+                  <span style={{ fontSize: "11px", color: selectedAgent.color }}>
+                    {selectedAgent.role}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Tarjeta Flotante en Móvil para Abrir Panel del Agente */}
+            {isMobile && !drawerOpen && (
+              <div className="jrg-mobile-bottom-dock">
+                <div className="jrg-mobile-dock-card">
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span style={{ fontSize: "22px" }}>{selectedAgent.emoji}</span>
+                    <div>
+                      <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
+                        {selectedAgent.name}
+                      </strong>
+                      <span style={{ fontSize: "11px", color: selectedAgent.color }}>
+                        {selectedAgent.role}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    className="jrg-mobile-open-btn"
+                    onClick={() => setDrawerOpen(true)}
+                  >
+                    <FiMessageSquare /> Abrir Chat
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Escenario 3D con Three.js */}
             <Canvas
               shadows
-              camera={{ position: [14, 12, 14], fov: 42 }}
+              camera={{
+                position: isMobile ? [12, 16, 12] : [14, 12, 14],
+                fov: isMobile ? 54 : 42,
+              }}
               gl={{ antialias: true, alpha: false }}
             >
               <color attach="background" args={["#06090e"]} />
@@ -1006,8 +1083,8 @@ export default function AgentOrchestratorPage() {
                 position={[12, 20, 10]}
                 intensity={1.2}
                 castShadow
-                shadow-mapSize-width={2048}
-                shadow-mapSize-height={2048}
+                shadow-mapSize-width={1024}
+                shadow-mapSize-height={1024}
               />
               <pointLight position={[0, 6, 0]} intensity={0.8} color="#00f2fe" />
 
@@ -1015,11 +1092,12 @@ export default function AgentOrchestratorPage() {
                 enableDamping
                 dampingFactor={0.06}
                 maxPolarAngle={Math.PI / 2.1}
-                minDistance={5}
+                minDistance={4}
                 maxDistance={35}
+                enablePan={false}
               />
 
-              <CameraRig selectedAgentPos={selectedAgent.deskPos} />
+              <CameraRig selectedAgentPos={selectedAgent.deskPos} isMobile={isMobile} />
 
               {/* Suelo del Edificio con Rejilla y Acabado Mate */}
               <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
@@ -1066,7 +1144,11 @@ export default function AgentOrchestratorPage() {
                   isSelected={agent.id === selectedAgentId}
                   onClick={() => {
                     setSelectedAgentId(agent.id);
-                    setDrawerOpen(true);
+                    if (isMobile) {
+                      // En móvil, centrar y no bloquear de golpe la vista 3D a menos que el usuario pulse "Abrir Chat"
+                    } else {
+                      setDrawerOpen(true);
+                    }
                   }}
                 />
               ))}
@@ -1121,14 +1203,29 @@ export default function AgentOrchestratorPage() {
             DRAWER LATERAL (PANELES HERMES3D)
             ==================================================================== */}
         <aside className={`jrg-orchestrator-drawer ${!drawerOpen ? "closed" : ""}`}>
-          {/* Pestaña flotante para abrir/cerrar */}
-          <button
-            className="jrg-drawer-toggle-tab"
-            onClick={() => setDrawerOpen(!drawerOpen)}
-            title="Abrir/Cerrar Panel"
-          >
-            {drawerOpen ? <FiArrowLeft /> : <FiMessageSquare />}
-          </button>
+          {/* Pestaña flotante para abrir/cerrar en desktop */}
+          {!isMobile && (
+            <button
+              className="jrg-drawer-toggle-tab"
+              onClick={() => setDrawerOpen(!drawerOpen)}
+              title="Abrir/Cerrar Panel"
+            >
+              {drawerOpen ? <FiArrowLeft /> : <FiMessageSquare />}
+            </button>
+          )}
+
+          {/* Barra superior de cierre exclusiva para móvil dentro del drawer */}
+          <div className="jrg-drawer-mobile-header">
+            <span className="jrg-drawer-mobile-title">
+              {selectedAgent.emoji} {selectedAgent.name} • {selectedAgent.role}
+            </span>
+            <button
+              className="jrg-drawer-mobile-close-btn"
+              onClick={() => setDrawerOpen(false)}
+            >
+              <FiX style={{ verticalAlign: "middle", marginRight: "4px" }} /> Volver a Oficina 3D
+            </button>
+          </div>
 
           {/* Selector de Pestañas */}
           <div className="jrg-drawer-tabs">
@@ -1345,7 +1442,7 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* TAB 4: SKILLS MARKETPLACE (HERMES3D SKILLS) */}
+            {/* TAB 4: SKILLS MARKETPLACE */}
             {activeTab === "skills" && (
               <div className="jrg-skills-container">
                 <div className="jrg-skill-card">

@@ -11,7 +11,7 @@
   --jrg-purple: #8b5cf6;
   --jrg-amber: #f59e0b;
   --jrg-rose: #ec4899;
-  --jrg-glass-bg: rgba(10, 14, 23, 0.82);
+  --jrg-glass-bg: rgba(10, 14, 23, 0.88);
   --jrg-glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -19,6 +19,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background-color: var(--jrg-bg-dark);
   background-image: 
@@ -39,31 +40,31 @@
   z-index: 40;
   height: 64px;
   border-bottom: 1px solid rgba(0, 242, 254, 0.18);
-  background: rgba(7, 9, 14, 0.9);
+  background: rgba(7, 9, 14, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 20px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
 
 .jrg-header-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .jrg-back-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #94a3b8;
   text-decoration: none;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -79,11 +80,11 @@
 .jrg-brand-title-wrap {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
 }
 
 .jrg-brand-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.02em;
   background: linear-gradient(135deg, #ffffff 40%, #00f2fe 100%);
@@ -95,8 +96,8 @@
   font-size: 10px;
   font-family: 'Geist Mono', monospace;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  padding: 3px 8px;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
   border-radius: 999px;
   background: rgba(0, 242, 254, 0.12);
   border: 1px solid rgba(0, 242, 254, 0.35);
@@ -162,15 +163,15 @@
 .jrg-header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Jukebox Lo-Fi Player de Hermes3D */
 .jrg-jukebox-pill {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 14px;
+  gap: 8px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgba(139, 92, 246, 0.12);
   border: 1px solid rgba(139, 92, 246, 0.35);
@@ -192,7 +193,7 @@
   display: flex;
   align-items: flex-end;
   gap: 2px;
-  height: 14px;
+  height: 12px;
 }
 
 .jrg-eq-bar {
@@ -207,8 +208,8 @@
 .jrg-jukebox-pill.playing .jrg-eq-bar:nth-child(3) { animation: eqAnim 0.6s infinite alternate ease-in-out 0.4s; }
 
 @keyframes eqAnim {
-  0% { height: 4px; }
-  100% { height: 14px; }
+  0% { height: 3px; }
+  100% { height: 12px; }
 }
 
 .jrg-jukebox-label {
@@ -222,10 +223,10 @@
   background: rgba(15, 23, 42, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #94a3b8;
-  padding: 8px 14px;
+  padding: 6px 12px;
   font-size: 12px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -252,12 +253,13 @@
   inset: 0;
   z-index: 10;
   background: #06090e;
+  touch-action: none;
 }
 
 .jrg-canvas-controls-overlay {
   position: absolute;
-  top: 18px;
-  left: 20px;
+  top: 14px;
+  left: 14px;
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -265,21 +267,21 @@
 }
 
 .jrg-cam-btn {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(15, 23, 42, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cbd5e1;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 11.5px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
 }
 
 .jrg-cam-btn:hover {
@@ -288,7 +290,88 @@
   color: #00f2fe;
 }
 
-/* Tarjeta informativa del agente enfocado en 3D */
+/* Selector rápido de agentes para móvil flotando arriba */
+.jrg-mobile-agents-bar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  left: 12px;
+  z-index: 25;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.jrg-mobile-agents-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.jrg-mobile-agent-chip {
+  background: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.jrg-mobile-agent-chip.selected {
+  border-color: #00f2fe;
+  background: rgba(0, 242, 254, 0.2);
+  color: #00f2fe;
+}
+
+/* Tarjeta flotante en el móvil abajo para abrir el terminal */
+.jrg-mobile-bottom-dock {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jrg-mobile-dock-card {
+  background: rgba(10, 14, 23, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  padding: 12px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+}
+
+.jrg-mobile-open-btn {
+  background: #00f2fe;
+  color: #06090e;
+  border: none;
+  font-weight: 700;
+  font-size: 12.5px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Tarjeta informativa del agente enfocado en desktop */
 .jrg-focused-agent-pill {
   position: absolute;
   top: 18px;
@@ -320,7 +403,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .jrg-tactical-grid-card {
@@ -329,7 +413,7 @@
   background: rgba(13, 18, 30, 0.85);
   border: 1px solid rgba(0, 242, 254, 0.25);
   border-radius: 20px;
-  padding: 30px;
+  padding: 24px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
@@ -337,22 +421,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 14px;
+  padding-bottom: 12px;
 }
 
 .jrg-tactical-agents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
 }
 
 .jrg-tactical-agent-item {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 18px;
+  padding: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -391,7 +475,7 @@
   top: 24px;
   width: 40px;
   height: 48px;
-  background: rgba(10, 14, 23, 0.9);
+  background: rgba(10, 14, 23, 0.92);
   border: 1px solid rgba(0, 242, 254, 0.3);
   border-right: none;
   border-radius: 12px 0 0 12px;
@@ -409,14 +493,49 @@
   color: #ffffff;
 }
 
+/* Barra superior de cierre exclusiva para móvil dentro del drawer */
+.jrg-drawer-mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(6, 9, 14, 0.95);
+}
+
+.jrg-drawer-mobile-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jrg-drawer-mobile-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #00f2fe;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 /* Pestañas del Drawer (Hermes3D Tabs) */
 .jrg-drawer-tabs {
   display: flex;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(6, 9, 14, 0.6);
-  padding: 6px 12px 0 12px;
+  padding: 6px 10px 0 10px;
   gap: 4px;
   overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.jrg-drawer-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .jrg-tab-item {
@@ -424,13 +543,13 @@
   border: none;
   border-bottom: 2px solid transparent;
   color: #94a3b8;
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 10px 12px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
@@ -461,7 +580,7 @@
 }
 
 .jrg-agent-header-card {
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.02);
   display: flex;
@@ -470,25 +589,25 @@
 }
 
 .jrg-agent-avatar-badge {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 20px;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .jrg-agent-info h3 {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   margin: 0 0 2px 0;
   color: #ffffff;
 }
 
 .jrg-agent-info p {
-  font-size: 12px;
+  font-size: 11.5px;
   color: #94a3b8;
   margin: 0;
 }
@@ -496,17 +615,17 @@
 /* Chat Messages */
 .jrg-chat-messages {
   flex: 1;
-  padding: 20px;
+  padding: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .jrg-chat-msg {
   display: flex;
   flex-direction: column;
-  max-width: 85%;
+  max-width: 88%;
   animation: fadeIn 0.25s ease-out;
 }
 
@@ -519,10 +638,10 @@
 }
 
 .jrg-msg-bubble {
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: 14px;
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .jrg-chat-msg.user .jrg-msg-bubble {
@@ -539,7 +658,7 @@
 }
 
 .jrg-msg-author {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   color: #64748b;
   margin-bottom: 4px;
@@ -548,19 +667,24 @@
 /* Quick Prompts Pills */
 .jrg-quick-prompts {
   display: flex;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: 6px;
+  padding: 8px 16px;
   overflow-x: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: none;
+}
+
+.jrg-quick-prompts::-webkit-scrollbar {
+  display: none;
 }
 
 .jrg-quick-prompt-btn {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #cbd5e1;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
-  padding: 5px 10px;
+  padding: 5px 9px;
   border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
@@ -575,20 +699,20 @@
 
 /* Chat Input Bar */
 .jrg-chat-input-bar {
-  padding: 14px 20px;
+  padding: 12px 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(6, 9, 14, 0.8);
+  background: rgba(6, 9, 14, 0.85);
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .jrg-chat-input {
   flex: 1;
   background: rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  border-radius: 10px;
   color: #ffffff;
-  padding: 10px 16px;
+  padding: 9px 14px;
   font-size: 13px;
   outline: none;
   transition: border-color 0.2s ease;
@@ -604,9 +728,9 @@
   border: none;
   color: #06090e;
   font-weight: 700;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -622,25 +746,25 @@
 
 /* --- TAB 2: KANBAN PIPELINE --- */
 .jrg-kanban-container {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .jrg-kanban-col {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: 12px;
+  padding: 12px;
 }
 
 .jrg-kanban-col-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
-  font-size: 12.5px;
+  margin-bottom: 10px;
+  font-size: 12px;
   font-weight: 700;
   color: #94a3b8;
   letter-spacing: 0.05em;
@@ -650,9 +774,9 @@
 .jrg-kanban-card {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
+  border-radius: 9px;
+  padding: 10px;
+  margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -663,17 +787,17 @@
 }
 
 .jrg-task-title {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #f1f5f9;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .jrg-task-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 10.5px;
 }
 
 .jrg-task-assignee {
@@ -682,9 +806,9 @@
 }
 
 .jrg-task-priority {
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
 }
 
@@ -702,30 +826,30 @@
 
 /* --- TAB 3: LEADS / CRM ENGINE --- */
 .jrg-leads-container {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .jrg-lead-search-bar {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 8px 14px;
+  padding: 8px 12px;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 12.5px;
   outline: none;
 }
 
 .jrg-lead-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: 11px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
   transition: all 0.2s ease;
 }
 
@@ -741,13 +865,13 @@
 }
 
 .jrg-lead-name {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: #ffffff;
 }
 
 .jrg-lead-location {
-  font-size: 11px;
+  font-size: 10.5px;
   color: #94a3b8;
 }
 
@@ -761,12 +885,12 @@
 .jrg-whatsapp-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: #25d366;
   color: #ffffff;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 11.5px;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -780,7 +904,7 @@
 
 .jrg-demo-preview-link {
   color: #00f2fe;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   text-decoration: none;
 }
@@ -789,50 +913,50 @@
   text-decoration: underline;
 }
 
-/* --- TAB 4: SKILLS MARKETPLACE (HERMES3D SKILLS) --- */
+/* --- TAB 4: SKILLS MARKETPLACE --- */
 .jrg-skills-container {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .jrg-skill-card {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: 11px;
+  padding: 12px;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: flex-start;
 }
 
 .jrg-skill-icon {
-  font-size: 24px;
-  padding: 8px;
-  border-radius: 10px;
+  font-size: 22px;
+  padding: 6px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
 }
 
 .jrg-skill-details h4 {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
-  margin: 0 0 4px 0;
+  margin: 0 0 3px 0;
   color: #ffffff;
 }
 
 .jrg-skill-details p {
-  font-size: 12px;
+  font-size: 11.5px;
   color: #94a3b8;
-  margin: 0 0 8px 0;
-  line-height: 1.4;
+  margin: 0 0 6px 0;
+  line-height: 1.35;
 }
 
 .jrg-skill-tag {
   display: inline-block;
-  font-size: 10px;
+  font-size: 9.5px;
   font-family: monospace;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   background: rgba(0, 242, 254, 0.12);
   color: #00f2fe;
@@ -841,34 +965,34 @@
 
 /* --- TAB 5: TELEMETRÍA & ROI --- */
 .jrg-telemetry-container {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .jrg-kpi-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .jrg-kpi-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 12px;
-  padding: 14px;
+  border-radius: 11px;
+  padding: 12px;
 }
 
 .jrg-kpi-num {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: #00f2fe;
   margin-bottom: 2px;
 }
 
 .jrg-kpi-label {
-  font-size: 11px;
+  font-size: 10.5px;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -880,19 +1004,56 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Mobile */
+/* ====================================================
+   OPTIMIZACIONES MÓVIL ESPECÍFICAS (< 900px)
+   ==================================================== */
 @media (max-width: 900px) {
   .jrg-orchestrator-header {
-    padding: 0 14px;
-    height: 56px;
+    padding: 0 12px;
+    height: 54px;
   }
+  
+  .jrg-brand-title {
+    font-size: 14px;
+  }
+
+  .jrg-brand-badge {
+    display: none;
+  }
+
   .jrg-floor-selector {
     display: none;
   }
-  .jrg-orchestrator-drawer {
-    width: 100vw;
+
+  .jrg-jukebox-pill {
+    padding: 4px 8px;
   }
+
+  .jrg-jukebox-label {
+    display: none;
+  }
+
+  .jrg-canvas-controls-overlay {
+    display: none;
+  }
+
   .jrg-focused-agent-pill {
     display: none;
+  }
+
+  /* El drawer en móvil pasa a ocupar toda la pantalla cuando se abre explícitamente */
+  .jrg-orchestrator-drawer {
+    width: 100vw;
+    border-left: none;
+  }
+
+  /* Ocultamos la pestaña lateral flotante en móvil para que no se salga */
+  .jrg-drawer-toggle-tab {
+    display: none;
+  }
+
+  /* Mostramos la barra superior para volver a la oficina 3D */
+  .jrg-drawer-mobile-header {
+    display: flex;
   }
 }
