@@ -1041,7 +1041,7 @@ function CEOAvatar({
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
       {/* Monograma / Tag Flotante del CEO */}
-      <Html position={[0, 2.05, 0]} center distanceFactor={8} style={{ pointerEvents: "none" }}>
+      <Html position={[0, 2.30, 0]} center distanceFactor={8} style={{ pointerEvents: "none" }}>
         <div className="hm-ceo-tag">
           <span className="hm-ceo-badge">CEO</span>
           <span className="hm-ceo-name">JAKES RODRIGUEZ</span>
