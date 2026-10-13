@@ -17,10 +17,15 @@ import {
   FiX,
   FiRotateCcw,
   FiChevronLeft,
-  FiChevronRight
+  FiChevronRight,
+  FiSearch,
+  FiCamera
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import DubaiPenthouse from "./DubaiPenthouse3D";
+import LeadFinderModal, { LeadMasterRecord } from "../components/LeadFinderModal";
+import LEADS_MASTER_DATA from "../data/leadsMasterData.json";
+import DEMOS_DATA from "../data/demosData.json";
 import "./AgentOrchestratorPage.css";
 
 // ============================================================================
@@ -134,393 +139,15 @@ const JRG_AGENTS: Agent[] = [
 ];
 
 // ============================================================================
-// 2. LEADS REALES DE JRG AGENCY (3-LEADS / GOIERRI & ALTO UROLA)
+// 2. BASE DE DATOS MAESTRA DE LEADS B2B (2.541 COMERCIOS - GOIERRI & ALTO UROLA)
 // ============================================================================
 
-interface LeadRecord {
-  id: number;
-  nombre: string;
-  municipio: string;
-  categoria: string;
-  telefono: string;
-  reviews: number;
-  rating: number;
-  slug: string;
-  demoUrl: string;
-  mensaje: string;
-}
-
-const JRG_REAL_LEADS: LeadRecord[] = [
-  // 1-6: ZUMARRAGA
-  {
-    id: 640,
-    nombre: "Restaurante Ezkiotarra",
-    municipio: "Zumarraga",
-    categoria: "Restaurante & Asador",
-    telefono: "943 72 29 64",
-    reviews: 331,
-    rating: 4.4,
-    slug: "restaurante-ezkiotarra-zumarraga",
-    demoUrl: "/demo/restaurante-ezkiotarra-zumarraga",
-    mensaje: "Kaixo Restaurante Ezkiotarra! Soy Jakes de JRG Agency aquí en Urretxu. Vuestras reseñas en Google son excelentes pero no tenéis carta interactiva para móvil. Os preparé una demo en vivo: https://www.jrgagency.eus/demo/restaurante-ezkiotarra-zumarraga",
-  },
-  {
-    id: 667,
-    nombre: "Urzubi Taberna",
-    municipio: "Zumarraga",
-    categoria: "Bar de Tapas & Pintxos",
-    telefono: "943 55 95 04",
-    reviews: 252,
-    rating: 4.5,
-    slug: "urzubi-taberna-zumarraga",
-    demoUrl: "/demo/urzubi-taberna-zumarraga",
-    mensaje: "Kaixo Urzubi Taberna! Os contacta Jakes de JRG Agency. Vuestros pintxos destacan en la comarca; os preparé un escaparate digital ultrarrápido para smartphone.",
-  },
-  {
-    id: 601,
-    nombre: "Talleres Garagartza",
-    municipio: "Zumarraga",
-    categoria: "Automoción & Chapa",
-    telefono: "943 72 18 20",
-    reviews: 84,
-    rating: 4.7,
-    slug: "talleres-garagartza-zumarraga",
-    demoUrl: "/demo/talleres-garagartza-zumarraga",
-    mensaje: "Kaixo Talleres Garagartza! Tenéis una valoración de 4.7 pero sin sistema de cita previa online. Desde JRG os preparamos un boceto web para captar revisiones.",
-  },
-  {
-    id: 615,
-    nombre: "Peluquería Ana & Bea",
-    municipio: "Zumarraga",
-    categoria: "Estética & Imagen",
-    telefono: "943 72 31 15",
-    reviews: 68,
-    rating: 4.8,
-    slug: "peluqueria-ana-bea-zumarraga",
-    demoUrl: "/demo/peluqueria-ana-bea-zumarraga",
-    mensaje: "Kaixo Ana & Bea! Os escribe Jakes de JRG Agency. Vuestra puntuación en Google es casi perfecta; os diseñamos una web con reserva de cita por WhatsApp en 1 toque.",
-  },
-  {
-    id: 622,
-    nombre: "Café Bar Alexander",
-    municipio: "Zumarraga",
-    categoria: "Cafetería & Desayunos",
-    telefono: "943 72 11 02",
-    reviews: 195,
-    rating: 4.3,
-    slug: "cafe-bar-alexander-zumarraga",
-    demoUrl: "/demo/cafe-bar-alexander-zumarraga",
-    mensaje: "Kaixo Café Bar Alexander! Desde JRG Agency os dejamos un prototipo digital de carta móvil de desayunos y combinados para vuestra clientela habitual.",
-  },
-  {
-    id: 633,
-    nombre: "Farmacia Kortabarria",
-    municipio: "Zumarraga",
-    categoria: "Salud & Farmacia",
-    telefono: "943 72 12 30",
-    reviews: 48,
-    rating: 4.9,
-    slug: "farmacia-kortabarria-zumarraga",
-    demoUrl: "/demo/farmacia-kortabarria-zumarraga",
-    mensaje: "Kaixo Farmacia Kortabarria! Os preparamos un portal de horarios de guardia y catálogo de dermocosmética para facilitar consultas rápidas a los vecinos.",
-  },
-
-  // 7-12: LEGAZPI
-  {
-    id: 32,
-    nombre: "Bar Oilarra",
-    municipio: "Legazpi",
-    categoria: "Bar & Pintxos",
-    telefono: "605 76 49 16",
-    reviews: 291,
-    rating: 4.5,
-    slug: "bar-oilarra-legazpi",
-    demoUrl: "/demo/bar-oilarra-legazpi",
-    mensaje: "Kaixo Bar Oilarra! Soy Jakes de JRG Agency. Vuestra puntuación en Google es fantástica, pero falta carta móvil y reservas online. Podéis revisar esta demo lista en 48h.",
-  },
-  {
-    id: 54,
-    nombre: "Estanko Laubide",
-    municipio: "Legazpi",
-    categoria: "Estanco & Prensa",
-    telefono: "943 73 12 49",
-    reviews: 574,
-    rating: 4.4,
-    slug: "estanko-laubide-legazpi",
-    demoUrl: "/demo/estanko-laubide-legazpi",
-    mensaje: "Kaixo Estanko Laubide! Soy Jakes de JRG Agency en Urretxu. Os he preparado un boceto móvil rápido para consulta de horarios, loterías y productos.",
-  },
-  {
-    id: 20,
-    nombre: "Azpikoetxe Jatetxea",
-    municipio: "Legazpi",
-    categoria: "Restaurante Asador",
-    telefono: "943 73 13 87",
-    reviews: 238,
-    rating: 4.4,
-    slug: "azpikoetxe-jatetxea-legazpi",
-    demoUrl: "/demo/azpikoetxe-jatetxea-legazpi",
-    mensaje: "Kaixo Azpikoetxe Jatetxea! Desde JRG Agency os preparamos una propuesta de web y carta digital de asador optimizada para comensales de la comarca.",
-  },
-  {
-    id: 45,
-    nombre: "Carnicería Alcelay",
-    municipio: "Legazpi",
-    categoria: "Comercio Tradicional",
-    telefono: "943 73 01 22",
-    reviews: 54,
-    rating: 4.9,
-    slug: "carniceria-alcelay-legazpi",
-    demoUrl: "/demo/carniceria-alcelay-legazpi",
-    mensaje: "Kaixo Carnicería Alcelay! Vuestro producto local es de primera calidad; os diseñamos un catálogo para encargo de pedidos cárnicos por WhatsApp.",
-  },
-  {
-    id: 58,
-    nombre: "Talleres Bikuña",
-    municipio: "Legazpi",
-    categoria: "Mecánica & Neumáticos",
-    telefono: "943 73 21 00",
-    reviews: 72,
-    rating: 4.6,
-    slug: "talleres-bikuna-legazpi",
-    demoUrl: "/demo/talleres-bikuna-legazpi",
-    mensaje: "Kaixo Talleres Bikuña! Os presentamos una web para solicitar cambio de neumáticos y cita de revisión ITV sin esperas telefónicas.",
-  },
-  {
-    id: 63,
-    nombre: "Bar Kukue",
-    municipio: "Legazpi",
-    categoria: "Café & Copas",
-    telefono: "943 73 34 50",
-    reviews: 142,
-    rating: 4.2,
-    slug: "bar-kukue-legazpi",
-    demoUrl: "/demo/bar-kukue-legazpi",
-    mensaje: "Kaixo Bar Kukue! Os hemos elaborado una carta digital de cócteles y raciones para consultar escaneando un código QR en mesa.",
-  },
-
-  // 13-18: URRETXU
-  {
-    id: 112,
-    nombre: "Asesoría Goierri",
-    municipio: "Urretxu",
-    categoria: "Servicios Profesionales",
-    telefono: "943 72 45 10",
-    reviews: 42,
-    rating: 4.8,
-    slug: "asesoria-goierri-urretxu",
-    demoUrl: "/demo/asesoria-goierri-urretxu",
-    mensaje: "Kaixo Asesoría Goierri! Desde JRG Agency os hemos preparado un portal de captación de empresas y solicitudes Kit Digital.",
-  },
-  {
-    id: 118,
-    nombre: "Bar Aldapa",
-    municipio: "Urretxu",
-    categoria: "Pintxos & Terraza",
-    telefono: "943 72 05 88",
-    reviews: 185,
-    rating: 4.4,
-    slug: "bar-aldapa-urretxu",
-    demoUrl: "/demo/bar-aldapa-urretxu",
-    mensaje: "Kaixo Bar Aldapa! Vuestra terraza y ambiente son un referente en Urretxu; os creamos un menú web para móvil sin PDFs pesados.",
-  },
-  {
-    id: 125,
-    nombre: "Óptica Iparragirre",
-    municipio: "Urretxu",
-    categoria: "Salud Visual & Óptica",
-    telefono: "943 72 19 80",
-    reviews: 52,
-    rating: 4.9,
-    slug: "optica-iparragirre-urretxu",
-    demoUrl: "/demo/optica-iparragirre-urretxu",
-    mensaje: "Kaixo Óptica Iparragirre! Diseñamos un prototipo de reserva de graduación de vista y catálogo de monturas para vuestros pacientes locales.",
-  },
-  {
-    id: 130,
-    nombre: "Ogiberri Urretxu",
-    municipio: "Urretxu",
-    categoria: "Panadería & Pastelería",
-    telefono: "943 72 09 14",
-    reviews: 110,
-    rating: 4.3,
-    slug: "ogiberri-urretxu",
-    demoUrl: "/demo/ogiberri-urretxu",
-    mensaje: "Kaixo Ogiberri! Tenéis un gran flujo diario; os mostramos una página ágil para encargo de tartas y catering de celebraciones.",
-  },
-  {
-    id: 142,
-    nombre: "Fisioterapia Urola",
-    municipio: "Urretxu",
-    categoria: "Salud & Bienestar",
-    telefono: "943 72 50 20",
-    reviews: 64,
-    rating: 4.9,
-    slug: "fisioterapia-urola-urretxu",
-    demoUrl: "/demo/fisioterapia-urola-urretxu",
-    mensaje: "Kaixo Fisioterapia Urola! Os preparamos un formulario de solicitud de cita y catálogo de tratamientos para acelerar reservas.",
-  },
-  {
-    id: 150,
-    nombre: "Electricidad Telleria",
-    municipio: "Urretxu",
-    categoria: "Instalaciones & Energía",
-    telefono: "943 72 30 05",
-    reviews: 38,
-    rating: 4.7,
-    slug: "electricidad-telleria-urretxu",
-    demoUrl: "/demo/electricidad-telleria-urretxu",
-    mensaje: "Kaixo Electricidad Telleria! Prototipamos una web para solicitar presupuestos de autoconsumo solar e iluminación en Gipuzkoa.",
-  },
-
-  // 19-24: BEASAIN
-  {
-    id: 205,
-    nombre: "Restaurante Dolarea",
-    municipio: "Beasain",
-    categoria: "Hotel Gastronómico",
-    telefono: "943 88 98 88",
-    reviews: 512,
-    rating: 4.5,
-    slug: "restaurante-dolarea-beasain",
-    demoUrl: "/demo/restaurante-dolarea-beasain",
-    mensaje: "Kaixo Dolarea Jatetxea! Referente absoluto en Goierri. Os preparamos una propuesta de carga ultrarrápida para vuestra carta y eventos.",
-  },
-  {
-    id: 214,
-    nombre: "Cafetería Basakana",
-    municipio: "Beasain",
-    categoria: "Café & Desayunos",
-    telefono: "943 88 12 40",
-    reviews: 210,
-    rating: 4.4,
-    slug: "cafeteria-basakana-beasain",
-    demoUrl: "/demo/cafeteria-basakana-beasain",
-    mensaje: "Kaixo Cafetería Basakana! Desde JRG Agency os dejamos una carta digital diseñada para los clientes que desayunan en Beasain a diario.",
-  },
-  {
-    id: 228,
-    nombre: "Talleres Loinaz",
-    municipio: "Beasain",
-    categoria: "Automoción & Taller",
-    telefono: "943 88 20 15",
-    reviews: 96,
-    rating: 4.6,
-    slug: "talleres-loinaz-beasain",
-    demoUrl: "/demo/talleres-loinaz-beasain",
-    mensaje: "Kaixo Talleres Loinaz! Os diseñamos una web clara para agendar revisiones pre-ITV y cambio de aceite directamente por WhatsApp.",
-  },
-  {
-    id: 235,
-    nombre: "Clínica Dental Goierri",
-    municipio: "Beasain",
-    categoria: "Odontología Avanzada",
-    telefono: "943 88 45 30",
-    reviews: 88,
-    rating: 4.8,
-    slug: "clinica-dental-goierri-beasain",
-    demoUrl: "/demo/clinica-dental-goierri-beasain",
-    mensaje: "Kaixo Clínica Dental Goierri! Tenéis una reputación impecable; os presentamos una web elegante para captar primeras consultas gratuitas.",
-  },
-  {
-    id: 242,
-    nombre: "Bar Arrese",
-    municipio: "Beasain",
-    categoria: "Pintxos Tradicionales",
-    telefono: "943 88 01 20",
-    reviews: 230,
-    rating: 4.3,
-    slug: "bar-arrese-beasain",
-    demoUrl: "/demo/bar-arrese-beasain",
-    mensaje: "Kaixo Bar Arrese! Vuestra barra de pintxos es histórica en Beasain; os preparamos un menú digital interactivo para smartphones.",
-  },
-  {
-    id: 250,
-    nombre: "Imprenta Lasa",
-    municipio: "Beasain",
-    categoria: "Diseño & Artes Gráficas",
-    telefono: "943 88 15 60",
-    reviews: 45,
-    rating: 4.7,
-    slug: "imprenta-lasa-beasain",
-    demoUrl: "/demo/imprenta-lasa-beasain",
-    mensaje: "Kaixo Imprenta Lasa! Os presentamos un portal web moderno para recepción de archivos de imprenta y cotización ágil a empresas.",
-  },
-
-  // 25-30: ORDIZIA
-  {
-    id: 301,
-    nombre: "Bar Olano Jatetxea",
-    municipio: "Ordizia",
-    categoria: "Hostelería & Pintxos",
-    telefono: "943 88 16 70",
-    reviews: 380,
-    rating: 4.4,
-    slug: "bar-olano-ordizia",
-    demoUrl: "/demo/bar-olano-ordizia",
-    mensaje: "Kaixo Bar Olano! Un icono en la plaza de Ordizia. Os hemos diseñado una carta digital moderna para turistas y comensales del mercado.",
-  },
-  {
-    id: 312,
-    nombre: "Quesos Idiazabal Delikatuz",
-    municipio: "Ordizia",
-    categoria: "Artesanía Gastronómica",
-    telefono: "943 88 22 90",
-    reviews: 140,
-    rating: 4.8,
-    slug: "quesos-idiazabal-ordizia",
-    demoUrl: "/demo/quesos-idiazabal-ordizia",
-    mensaje: "Kaixo Delikatuz Ordizia! Vuestro queso Idiazabal merece una tienda escaparate digital internacional con pasarela de pedidos directos.",
-  },
-  {
-    id: 320,
-    nombre: "Peluquería Goierri",
-    municipio: "Ordizia",
-    categoria: "Estética & Barbería",
-    telefono: "943 88 33 10",
-    reviews: 76,
-    rating: 4.9,
-    slug: "peluqueria-goierri-ordizia",
-    demoUrl: "/demo/peluqueria-goierri-ordizia",
-    mensaje: "Kaixo Barbería Goierri! Vuestro servicio es impecable; os mostramos un sistema de cita web por calendario para evitar colas.",
-  },
-  {
-    id: 328,
-    nombre: "Farmacia Plaza Nagusia",
-    municipio: "Ordizia",
-    categoria: "Salud & Dermocosmética",
-    telefono: "943 88 05 50",
-    reviews: 62,
-    rating: 4.8,
-    slug: "farmacia-plaza-nagusia-ordizia",
-    demoUrl: "/demo/farmacia-plaza-nagusia-ordizia",
-    mensaje: "Kaixo Farmacia Plaza Nagusia! Os dejamos una propuesta web para consulta de promociones de salud y productos de puericultura.",
-  },
-  {
-    id: 335,
-    nombre: "Asesoría Larrarte",
-    municipio: "Ordizia",
-    categoria: "Fiscal & Laboral",
-    telefono: "943 88 70 80",
-    reviews: 50,
-    rating: 4.8,
-    slug: "asesoria-larrarte-ordizia",
-    demoUrl: "/demo/asesoria-larrarte-ordizia",
-    mensaje: "Kaixo Asesoría Larrarte! Os facilitamos un prototipo web de captación de autónomos y gestión de subvenciones públicas de Gipuzkoa.",
-  },
-  {
-    id: 345,
-    nombre: "Deportes Aranzabal",
-    municipio: "Ordizia",
-    categoria: "Comercio & Deporte",
-    telefono: "943 88 09 30",
-    reviews: 85,
-    rating: 4.6,
-    slug: "deportes-aranzabal-ordizia",
-    demoUrl: "/demo/deportes-aranzabal-ordizia",
-    mensaje: "Kaixo Deportes Aranzabal! Os presentamos un escaparate digital de calzado de montaña y running para los deportistas del valle.",
-  },
-];
+export type { LeadMasterRecord };
+const JRG_ALL_LEADS: LeadMasterRecord[] = LEADS_MASTER_DATA as LeadMasterRecord[];
+const AVAILABLE_DEMOS: Record<string, boolean> = Object.keys(DEMOS_DATA).reduce(
+  (acc, slug) => ({ ...acc, [slug]: true }),
+  {}
+);
 
 // ============================================================================
 // 3. TAREAS KANBAN (HERMES3D TASK PIPELINE)
@@ -750,6 +377,7 @@ export default function AgentOrchestratorPage() {
     }
   }, [leadStatuses]);
 
+  const [isLeadFinderOpen, setIsLeadFinderOpen] = useState<boolean>(false);
   const [selectedMunicipality, setSelectedMunicipality] = useState<string>("Todos");
   const [newTaskInput, setNewTaskInput] = useState<string>("");
   const [newTaskAssignee, setNewTaskAssignee] = useState<string>("Aitor");
@@ -770,13 +398,13 @@ export default function AgentOrchestratorPage() {
     "jrg-aitor": [
       {
         role: "assistant",
-        text: "⚡ Kaixo Jakes! Soy Aitor, Director de Operaciones en JRG Agency. Coordinamos la flota de 5 agentes y el pipeline de 30 leads auditados en Goierri y Alto Urola. ¿Qué objetivo marcamos en el tablero?",
+        text: "⚡ Kaixo Jakes! Soy Aitor, Director de Operaciones en JRG Agency. Coordinamos la flota de 5 agentes y el pipeline de 2.541 leads auditados en Goierri y Alto Urola. ¿Qué objetivo marcamos en el tablero?",
       },
     ],
     "jrg-maider": [
       {
         role: "assistant",
-        text: "🎯 Aupa Jakes! Soy Maider, Scout de Inteligencia. He finalizado el rastreo de Google Maps en Zumarraga, Legazpi, Urretxu, Beasain y Ordizia: 30 negocios clave con teléfono directo y más de 200 reseñas.",
+        text: "🎯 Aupa Jakes! Soy Maider, Scout de Inteligencia. Base de datos B2B completa: 2.541 negocios verificados en Gipuzkoa, 335 fotos reales de Google Maps y más de 2.280 teléfonos directos. Pulsa [ LEADS • 2.541 ] para abrir la consola completa.",
       },
     ],
     "jrg-iker": [
@@ -827,9 +455,9 @@ export default function AgentOrchestratorPage() {
       { label: "Prioridades Semana", prompt: "¿Cuáles son las 3 prioridades operativas de la agencia hoy?" },
     ],
     "jrg-maider": [
-      { label: "Top Leads Zumarraga", prompt: "Maider, lístame los comercios de Zumarraga con más de 200 reseñas sin web." },
-      { label: "Scrapear Beasain", prompt: "Maider, ¿qué nichos comerciales ofrecen mayor oportunidad en Beasain y Ordizia?" },
-      { label: "Hostelería Urretxu", prompt: "¿Qué bares y asadores de Urretxu y Zumarraga carecen de carta interactiva para móvil?" },
+      { label: "Lead Finder (2.541)", prompt: "Maider, ¿cuántos comercios tenemos en Beasain, Zumarraga y Ordizia?" },
+      { label: "Fotos Google Maps", prompt: "Maider, lístame los comercios que tienen fotos reales de fachada en Google Maps." },
+      { label: "Filtro Reseñas >50", prompt: "¿Cuáles son los 10 comercios con mayor número de reseñas en la comarca?" },
     ],
     "jrg-iker": [
       { label: "Pitch Ezkiotarra", prompt: "Iker, redacta el mensaje de WhatsApp para el Restaurante Ezkiotarra." },
@@ -870,21 +498,21 @@ export default function AgentOrchestratorPage() {
 
       if (selectedAgentId === "jrg-aitor") {
         if (lower.includes("prospecc") || lower.includes("plan")) {
-          reply = "Estrategia fijada: Maider rastrea 30 comercios cualificados en Goierri, Iker prepara el mensaje con el hook local de Gipuzkoa y Unai tiene los entornos web listos. Contactamos en bloques de 10 por día.";
+          reply = "Estrategia fijada: Maider rastrea los 2.541 comercios en Goierri, Iker prepara el mensaje con el hook local de Gipuzkoa y Unai tiene los entornos web listos. Contactamos en bloques de 10 por día.";
         } else if (lower.includes("kit digital") || lower.includes("subvenc") || lower.includes("3.000")) {
           reply = "Las microempresas y autónomos (0-3 trabajadores) en Euskadi disponen de hasta 3.000€ a fondo perdido por Red.es (Segmento III). Nuestra solución web + SEO local cubre el 100% sin adelanto de caja.";
         } else if (lower.includes("prioridad")) {
-          reply = "Prioridades del día: 1) Activar contacto WhatsApp con los 6 restaurantes top de Zumarraga; 2) Validar demos web de Urretxu; 3) Hacer seguimiento de las propuestas de Kit Digital enviadas en Beasain.";
+          reply = "Prioridades del día: 1) Prospección de restaurantes top con más de 200 reseñas; 2) Validar demos web de Urretxu; 3) Hacer seguimiento de las propuestas de Kit Digital enviadas en Beasain.";
         } else {
           reply = `Recibido, Jakes. Integrado en el panel de control de JRG Agency. He coordinado al equipo para ejecutarlo de inmediato.`;
         }
       } else if (selectedAgentId === "jrg-maider") {
         if (lower.includes("zumarraga")) {
-          reply = `En Zumarraga destacan Restaurante Ezkiotarra (331 reseñas, 4.4★) y Urzubi Taberna (252 reseñas, 4.5★). Ambos tienen volumen masivo de clientes y carecen de carta interactiva para smartphone.`;
+          reply = `En Zumarraga tenemos 293 comercios indexados. Destacan Restaurante Ezkiotarra (331 reseñas, 4.4★) y Urzubi Taberna (252 reseñas, 4.5★) con fotos de fachada extraídas de Google Maps en el Lead Finder.`;
         } else if (lower.includes("beasain") || lower.includes("ordizia")) {
-          reply = `En Beasain y Ordizia hemos localizado 12 oportunidades inmediatas: talleres mecánicos, clínicas dentales y asadores con más de 150 opiniones en Google Maps pero sin web moderna responsive.`;
+          reply = `En Beasain (463 comercios) y Ordizia (278 comercios) hemos localizado oportunidades prioritarias como Restaurante Dolarea, Bar Usurbe y Quesos Idiazabal Delikatuz con teléfono directo.`;
         } else {
-          reply = `Base de datos actualizada: 30 comercios verificados en Goierri y Alto Urola. Tienes los teléfonos móviles de los propietarios listos en la pestaña de Leads CRM.`;
+          reply = `Base de datos de inteligencia completada: 2.541 comercios auditados en Goierri y Alto Urola, con 335 fotos de fachada reales de Google Maps y más de 2.280 teléfonos de contacto listos para WhatsApp. Tienes el Lead Finder completo disponible en el botón superior [ LEADS • 2.541 ].`;
         }
       } else if (selectedAgentId === "jrg-iker") {
         if (lower.includes("ezkiotarra")) {
@@ -904,7 +532,7 @@ export default function AgentOrchestratorPage() {
         }
       } else {
         if (lower.includes("roi") || lower.includes("impacto") || lower.includes("simul")) {
-          reply = `Cálculo de retorno: Contactando a los 30 comercios con un ticket medio de 850€ y un ratio de cierre prudente del 15% (4-5 clientes), generamos +3.825€ de facturación y ahorramos al cliente ~135 horas de gestión.`;
+          reply = `Cálculo de retorno: Contactando a los comercios con un ticket medio de 850€ y un ratio de cierre prudente del 15%, generamos +3.825€ de facturación mensual y ahorramos al cliente ~135 horas de gestión.`;
         } else if (lower.includes("kit digital") || lower.includes("bono")) {
           reply = `El Kit Digital otorga hasta 3.000€ a fondo perdido para autónomos y pymes de 0 a 3 trabajadores. El cliente no tiene que poner dinero de su bolsillo y la agencia cobra directamente de Red.es.`;
         } else {
@@ -975,7 +603,7 @@ export default function AgentOrchestratorPage() {
 
   // Filtrado de Leads por Municipio y Búsqueda de Texto
   const filteredLeads = useMemo(() => {
-    let list = JRG_REAL_LEADS;
+    let list = JRG_ALL_LEADS;
     if (selectedMunicipality !== "Todos") {
       list = list.filter((l) => l.municipio.toLowerCase() === selectedMunicipality.toLowerCase());
     }
@@ -985,7 +613,8 @@ export default function AgentOrchestratorPage() {
         (l) =>
           l.nombre.toLowerCase().includes(q) ||
           l.municipio.toLowerCase().includes(q) ||
-          l.categoria.toLowerCase().includes(q)
+          l.categoria.toLowerCase().includes(q) ||
+          l.sector.toLowerCase().includes(q)
       );
     }
     return list;
@@ -1029,6 +658,18 @@ export default function AgentOrchestratorPage() {
             }}
           >
             <FiTrello /> [ KANBAN ]
+          </button>
+          <button
+            className="hm-btn-kanban"
+            onClick={() => setIsLeadFinderOpen(true)}
+            title="Abrir Lead Finder Console (2.541 Comercios de Gipuzkoa)"
+            style={{
+              background: isLeadFinderOpen ? "#ffffff" : "rgba(255, 255, 255, 0.08)",
+              color: isLeadFinderOpen ? "#090a0f" : "#ffffff",
+              borderColor: isLeadFinderOpen ? "#ffffff" : "rgba(255, 255, 255, 0.18)"
+            }}
+          >
+            <FiSearch /> [ LEADS • 2.541 ]
           </button>
         </div>
 
@@ -1136,12 +777,10 @@ export default function AgentOrchestratorPage() {
         <span>5 AGENTES | PIPELINE ACTIVO</span>
         <button
           className="hm-console-btn"
-          onClick={() => {
-            setActiveTab("leads");
-            setDrawerOpen(true);
-          }}
+          onClick={() => setIsLeadFinderOpen(true)}
+          title="Abrir Consola Completa Lead Finder"
         >
-          LEADS ({filteredLeads.length})
+          LEADS ({JRG_ALL_LEADS.length})
         </button>
         <button
           className="hm-console-btn"
@@ -1421,20 +1060,29 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* TAB 3: LEADS & CRM ENGINE (REAL DATA DE GIPUZKOA) */}
+            {/* TAB 3: LEADS & CRM ENGINE (BASE DE DATOS COMPLETA DE GIPUZKOA) */}
             {activeTab === "leads" && (
               <div className="jrg-leads-container">
+                {/* Botón Destacado para Expandir Consola Completa */}
+                <button
+                  className="jrg-lf-drawer-banner-btn"
+                  onClick={() => setIsLeadFinderOpen(true)}
+                  title="Abrir la consola completa de inteligencia de leads"
+                >
+                  <FiMaximize2 /> ABRIR LEAD FINDER ({JRG_ALL_LEADS.length} LEADS)
+                </button>
+
                 <input
                   type="text"
                   className="jrg-lead-search-bar"
-                  placeholder="Buscar por negocio o categoría (Ezkiotarra, Garagartza...)"
+                  placeholder="Buscar por negocio, calle o categoría..."
                   value={leadSearch}
                   onChange={(e) => setLeadSearch(e.target.value)}
                 />
 
                 {/* Filtro por Municipio con Píldoras */}
                 <div className="jrg-lead-filter-pills">
-                  {["Todos", "Zumarraga", "Legazpi", "Urretxu", "Beasain", "Ordizia"].map((muni) => (
+                  {["Todos", "Beasain", "Zumarraga", "Ordizia", "Legazpi", "Urretxu", "Lazkao", "Idiazabal"].map((muni) => (
                     <button
                       key={`muni-${muni}`}
                       className={`jrg-lead-filter-btn ${selectedMunicipality === muni ? "active" : ""}`}
@@ -1446,21 +1094,53 @@ export default function AgentOrchestratorPage() {
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11px", color: "var(--jrg-gray-400)", padding: "2px 2px" }}>
-                  <span>{filteredLeads.length} DE {JRG_REAL_LEADS.length} COMERCIOS AUDITADOS</span>
+                  <span>{filteredLeads.length} DE {JRG_ALL_LEADS.length} COMERCIOS AUDITADOS</span>
                   <span>{selectedMunicipality === "Todos" ? "GIPUZKOA COMPLETO" : selectedMunicipality.toUpperCase()}</span>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {filteredLeads.map((lead) => {
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {filteredLeads.slice(0, 30).map((lead) => {
                     const status = leadStatuses[lead.id] || "nuevo";
-                    const cleanPhone = lead.telefono.replace(/\D/g, "");
+                    const cleanPhone = lead.telefono ? lead.telefono.replace(/\D/g, "") : "";
+                    const slug = `${lead.nombre.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${lead.municipio.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.replace(/-+/g, "-");
+                    const hasDemo = Boolean(AVAILABLE_DEMOS[slug]);
+
                     return (
                       <div key={lead.id} className="jrg-lead-card">
+                        {/* Miniatura de Fachada / Google Maps */}
+                        <div
+                          className="jrg-lead-thumb-wrap"
+                          onClick={() => setIsLeadFinderOpen(true)}
+                          title="Haz clic para ver expediente completo"
+                        >
+                          <img
+                            src={lead.heroImage}
+                            alt={lead.nombre}
+                            className="jrg-lead-thumb-img"
+                            loading="lazy"
+                          />
+                          {lead.hasRealPhoto ? (
+                            <span className="jrg-lead-thumb-badge">
+                              <FiCamera /> GMaps Real
+                            </span>
+                          ) : (
+                            <span className="jrg-lead-thumb-badge">
+                              {lead.categoria}
+                            </span>
+                          )}
+                        </div>
+
                         <div className="jrg-lead-header">
-                          <span className="jrg-lead-name">{lead.nombre}</span>
+                          <span
+                            className="jrg-lead-name"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => setIsLeadFinderOpen(true)}
+                          >
+                            {lead.nombre}
+                          </span>
                           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                             <span className="jrg-lead-location">
-                              {lead.municipio} • {lead.rating} ★ ({lead.reviews})
+                              {lead.municipio} {lead.reviews > 0 && `• ${lead.rating.toFixed(1)} ★ (${lead.reviews})`}
                             </span>
                             <button
                               className={`jrg-lead-status-pill ${status}`}
@@ -1471,30 +1151,63 @@ export default function AgentOrchestratorPage() {
                             </button>
                           </div>
                         </div>
+
                         <div className="jrg-lead-info-row">
-                          {lead.categoria} • Tel: <strong>{lead.telefono}</strong>
+                          {lead.categoria} {lead.telefono ? `• Tel: ${lead.telefono}` : "• Sin teléfono"}
                         </div>
+
                         <div className="jrg-lead-footer">
-                          <Link
-                            to={lead.demoUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="jrg-demo-preview-link"
-                          >
-                            Ver Demo Web <FiExternalLink style={{ verticalAlign: "middle" }} />
-                          </Link>
-                          <a
-                            href={`https://wa.me/34${cleanPhone}?text=${encodeURIComponent(lead.mensaje)}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="jrg-whatsapp-btn"
-                          >
-                            <FaWhatsapp /> Contactar
-                          </a>
+                          {hasDemo ? (
+                            <Link
+                              to={`/demo/${slug}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="jrg-demo-preview-link"
+                            >
+                              Ver Demo Web <FiExternalLink style={{ verticalAlign: "middle" }} />
+                            </Link>
+                          ) : (
+                            <button
+                              className="jrg-demo-preview-link"
+                              onClick={() => setIsLeadFinderOpen(true)}
+                            >
+                              Ver Dossier <FiExternalLink style={{ verticalAlign: "middle" }} />
+                            </button>
+                          )}
+
+                          {cleanPhone ? (
+                            <a
+                              href={`https://wa.me/34${cleanPhone}?text=${encodeURIComponent(lead.pitch)}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="jrg-whatsapp-btn"
+                            >
+                              <FaWhatsapp /> Contactar
+                            </a>
+                          ) : (
+                            <button className="jrg-whatsapp-btn" style={{ opacity: 0.4, cursor: "not-allowed" }} disabled>
+                              <FaWhatsapp /> Sin Tel
+                            </button>
+                          )}
                         </div>
                       </div>
                     );
                   })}
+
+                  {filteredLeads.length > 30 && (
+                    <button
+                      className="jrg-lf-drawer-banner-btn"
+                      style={{
+                        background: "#161722",
+                        color: "#ffffff",
+                        borderColor: "rgba(255, 255, 255, 0.16)",
+                        marginTop: "4px"
+                      }}
+                      onClick={() => setIsLeadFinderOpen(true)}
+                    >
+                      Ver los {filteredLeads.length - 30} comercios restantes en Lead Finder »
+                    </button>
+                  )}
                 </div>
               </div>
             )}
@@ -1780,6 +1493,25 @@ export default function AgentOrchestratorPage() {
           </div>
         )}
       </div>
+
+      {/* ====================================================================
+          LEAD FINDER INTELLIGENCE CONSOLE (MODAL / OVERLAY HUD FULLSCREEN)
+          ==================================================================== */}
+      <LeadFinderModal
+        isOpen={isLeadFinderOpen}
+        onClose={() => setIsLeadFinderOpen(false)}
+        leads={JRG_ALL_LEADS}
+        leadStatuses={leadStatuses}
+        onToggleStatus={toggleLeadStatus}
+        onConsultAgent={(agentId, prompt) => {
+          setSelectedAgentId(agentId);
+          setActiveTab("chat");
+          setDrawerOpen(true);
+          handleSendMessage(prompt);
+        }}
+        availableDemos={AVAILABLE_DEMOS}
+      />
     </div>
   );
 }
+
