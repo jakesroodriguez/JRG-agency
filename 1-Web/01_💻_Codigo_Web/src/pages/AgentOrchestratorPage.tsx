@@ -52,10 +52,10 @@ const JRG_AGENTS: Agent[] = [
     status: "working",
     deskPos: [0, 0, -3.2],
     rotation: 0,
-    color: "#00f2fe",
-    clothingColor: "#1e293b",
-    hairColor: "#1e1e24",
-    emoji: "⚡",
+    color: "#ffffff",
+    clothingColor: "#181920",
+    hairColor: "#111218",
+    emoji: "AT",
     description: "Coordina la estrategia comercial, supervisa la asignación de metas y gestiona la entrega de proyectos en Gipuzkoa.",
     currentTask: "Supervisando el sprint semanal de digitalización para Goierri y Alto Urola.",
     speechText: "Kaixo! El pipeline de Goierri está activo. 30 leads prioritarios detectados hoy.",
@@ -69,10 +69,10 @@ const JRG_AGENTS: Agent[] = [
     status: "working",
     deskPos: [-4.2, 0, -0.5],
     rotation: Math.PI / 4,
-    color: "#10b981",
-    clothingColor: "#065f46",
-    hairColor: "#92400e",
-    emoji: "🎯",
+    color: "#e4e4e7",
+    clothingColor: "#22232a",
+    hairColor: "#27272a",
+    emoji: "MD",
     description: "Rastrea negocios locales en Google Maps e Instagram sin página web o con portales anticuados.",
     currentTask: "Extrayendo fichas en Zumarraga y Legazpi con más de 200 reseñas.",
     speechText: "Scraping completado en Zumarraga: 14 comercios sin menú responsive.",
@@ -86,10 +86,10 @@ const JRG_AGENTS: Agent[] = [
     status: "thinking",
     deskPos: [-2.2, 0, 2.5],
     rotation: -Math.PI / 6,
-    color: "#8b5cf6",
-    clothingColor: "#581c87",
-    hairColor: "#27272a",
-    emoji: "🧠",
+    color: "#cbd5e1",
+    clothingColor: "#27272a",
+    hairColor: "#181920",
+    emoji: "IK",
     description: "Genera argumentos de venta personalizados para WhatsApp y email marketing con alto ratio de respuesta.",
     currentTask: "Personalizando plantilla de contacto directo para restaurantes y bares locales.",
     speechText: "Mensaje listo para Restaurante Ezkiotarra con enlace a su demo interactiva.",
@@ -103,10 +103,10 @@ const JRG_AGENTS: Agent[] = [
     status: "working",
     deskPos: [4.2, 0, -0.5],
     rotation: -Math.PI / 4,
-    color: "#f59e0b",
-    clothingColor: "#78350f",
-    hairColor: "#3f3f46",
-    emoji: "💻",
+    color: "#a1a1aa",
+    clothingColor: "#16171d",
+    hairColor: "#27272a",
+    emoji: "UN",
     description: "Desarrolla arquitecturas web de ultra alta velocidad (React + Vite) e integraciones con n8n y WhatsApp API.",
     currentTask: "Optimizando tiempos de carga bajo 1 segundo en los bocetos digitales para clientes.",
     speechText: "Deploy en Vercel completado con 100/100 en Google Lighthouse.",
@@ -120,10 +120,10 @@ const JRG_AGENTS: Agent[] = [
     status: "online",
     deskPos: [2.2, 0, 2.5],
     rotation: Math.PI / 6,
-    color: "#ec4899",
-    clothingColor: "#831843",
-    hairColor: "#713f12",
-    emoji: "📊",
+    color: "#d4d4d8",
+    clothingColor: "#24252f",
+    hairColor: "#3f3f46",
+    emoji: "EL",
     description: "Calcula métricas de conversión, ahorro en costes para clientes y oportunidades en subvenciones Kit Digital.",
     currentTask: "Auditoría de retorno de inversión: ahorro de 142 horas mensuales estimado.",
     speechText: "Telemetría actualizada: tasa de apertura de WhatsApp proyectada en 38%.",
@@ -553,14 +553,18 @@ export default function AgentOrchestratorPage() {
   return (
     <div className="jrg-orchestrator-root">
       {/* ====================================================================
-          BARRA SUPERIOR HERMES3D HUD (TOP BAR)
+          BARRA SUPERIOR HERMES HUD (MONOCROMO NEGRO, BLANCO Y GRIS)
           ==================================================================== */}
       <div className="hm-hud-top-bar">
-        {/* Izquierda: Volver a Web + Botón KANBAN BOARD */}
+        {/* Izquierda: Volver a Web + Brand Logo Oficial + Botón KANBAN */}
         <div className="hm-hud-left">
           <Link to="/" className="hm-icon-btn" title="Volver a la Web Principal">
             <FiArrowLeft />
           </Link>
+          <div className="hm-hud-brand-pill">
+            <img src="/logoJRG.png" alt="JRG" className="hm-hud-brand-logo" />
+            <span className="hm-hud-brand-title">JRG AGENCY</span>
+          </div>
           <button
             className="hm-btn-kanban"
             onClick={() => {
@@ -568,11 +572,11 @@ export default function AgentOrchestratorPage() {
               setDrawerOpen(true);
             }}
           >
-            <FiTrello /> [ KANBAN BOARD ]
+            <FiTrello /> [ KANBAN ]
           </button>
         </div>
 
-        {/* Centro: JRG HEADQUARTERS Dorado + Píldora de Agentes */}
+        {/* Centro: JRG HEADQUARTERS + Píldora de Agentes Monocromo */}
         <div className="hm-hud-center">
           <div className="hm-hq-title">JRG HEADQUARTERS</div>
           <div className="hm-agents-pill">
@@ -582,21 +586,20 @@ export default function AgentOrchestratorPage() {
                   key={`hud-ag-${ag.id}`}
                   className="hm-agent-avatar-circle"
                   style={{
-                    background: ag.color,
                     outline: ag.id === selectedAgentId ? "2px solid #ffffff" : "none",
                   }}
                   onClick={() => setSelectedAgentId(ag.id)}
                   title={`${ag.name} (${ag.role})`}
                 >
-                  {ag.name[0]}
+                  {ag.emoji}
                 </div>
               ))}
             </div>
-            <span className="hm-count-label">AGENTS {agents.length}/{agents.length}</span>
+            <span className="hm-count-label">5/5 ONLINE</span>
           </div>
         </div>
 
-        {/* Derecha: + ADD, Status Conectado, Lo-Fi Audio, y Vista 2D/3D */}
+        {/* Derecha: + ADD Tarea, Status Conectado, Lo-Fi Audio, y Vista 2D/3D */}
         <div className="hm-hud-right">
           <button
             className="hm-icon-btn"
@@ -609,7 +612,7 @@ export default function AgentOrchestratorPage() {
             <FiPlus />
           </button>
           <div className="hm-btn-connected">
-            <span className="hm-dot-green" />
+            <span className="hm-dot-white" />
             <span>JRG-AGENT • CONECTADO</span>
           </div>
           <button
@@ -617,7 +620,7 @@ export default function AgentOrchestratorPage() {
             onClick={handleToggleJukebox}
             title={isJukeboxPlaying ? "Detener Lo-Fi Beats" : "Reproducir Lo-Fi Beats"}
           >
-            {isJukeboxPlaying ? <FiVolume2 color="#8b5cf6" /> : <FiVolumeX color="#94a3b8" />}
+            {isJukeboxPlaying ? <FiVolume2 color="#ffffff" /> : <FiVolumeX color="#71717a" />}
           </button>
           {isMobile ? (
             <button
@@ -639,7 +642,7 @@ export default function AgentOrchestratorPage() {
         </div>
       </div>
 
-      {/* Pestañas Verticales del Margen Derecho (Hermes Side Tabs) */}
+      {/* Pestañas Verticales del Margen Derecho */}
       <div className="hm-side-dock">
         <button
           className="hm-side-tab"
@@ -654,9 +657,9 @@ export default function AgentOrchestratorPage() {
             setActiveTab("skills");
             setDrawerOpen(true);
           }}
-          title="Ver Catálogo de Habilidades y Servicios"
+          title="Ver Capacidades de la Agencia"
         >
-          MARKETPLACE
+          CAPACIDADES
         </button>
         <button
           className="hm-side-tab"
@@ -664,17 +667,17 @@ export default function AgentOrchestratorPage() {
             setActiveTab("telemetry");
             setDrawerOpen(true);
           }}
-          title="Ver Telemetría y ROI"
+          title="Ver Rendimiento y ROI"
         >
-          ANALYTICS
+          RENDIMIENTO
         </button>
       </div>
 
-      {/* Consola de Eventos Inferior Izquierda */}
-      <div className="hm-event-console">
-        <span className="hm-dot-green" />
-        <span className="hm-console-title">AGENT EVENT CONSOLE</span>
-        <span>AGENTS 5 | EVENTS 12/12</span>
+      {/* Consola de Eventos Inferior */}
+      <div className={`hm-event-console ${!drawerOpen ? "drawer-closed" : ""}`}>
+        <span className="hm-dot-white" />
+        <span className="hm-console-title">AGENT OPS</span>
+        <span>5 AGENTES | PIPELINE ACTIVO</span>
         <button
           className="hm-console-btn"
           onClick={() => {
@@ -682,7 +685,7 @@ export default function AgentOrchestratorPage() {
             setDrawerOpen(true);
           }}
         >
-          LEADS ({JRG_REAL_LEADS.length})
+          LEADS ({filteredLeads.length})
         </button>
         <button
           className="hm-console-btn"
@@ -691,7 +694,7 @@ export default function AgentOrchestratorPage() {
             setDrawerOpen(true);
           }}
         >
-          ACTIVOS: 5
+          TERMINAL
         </button>
       </div>
 
@@ -703,9 +706,9 @@ export default function AgentOrchestratorPage() {
             setActiveTab("chat");
             setDrawerOpen(true);
           }}
-          title="Abrir Terminal de Comunicación con los Agentes"
+          title="Abrir Terminal de Comunicación"
         >
-          <FiMessageSquare /> CHAT
+          <FiMessageSquare /> TERMINAL
         </button>
       )}
 
@@ -713,110 +716,11 @@ export default function AgentOrchestratorPage() {
           CUERPO PRINCIPAL DEL ORQUESTADOR
           ==================================================================== */}
       <div className="jrg-orchestrator-body">
-        {viewMode === "3d" ? (
-          <div className="jrg-canvas-container">
-            {/* Selector Rápido de Agentes para Móvil (Barra Superior Flotante bajo el HUD) */}
-            {isMobile && !drawerOpen && (
-              <div className="jrg-mobile-agents-bar" style={{ top: "68px" }}>
-                {agents.map((ag) => (
-                  <button
-                    key={`mob-chip-${ag.id}`}
-                    className={`jrg-mobile-agent-chip ${ag.id === selectedAgentId ? "selected" : ""}`}
-                    onClick={() => setSelectedAgentId(ag.id)}
-                  >
-                    <span>{ag.emoji}</span>
-                    <span>{ag.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Tarjeta Flotante en Móvil para Abrir Panel del Agente */}
-            {isMobile && !drawerOpen && (
-              <div className="jrg-mobile-bottom-dock">
-                <div className="jrg-mobile-dock-card">
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span style={{ fontSize: "22px" }}>{selectedAgent.emoji}</span>
-                    <div>
-                      <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
-                        {selectedAgent.name}
-                      </strong>
-                      <span style={{ fontSize: "11px", color: selectedAgent.color }}>
-                        {selectedAgent.role}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    className="jrg-mobile-open-btn"
-                    onClick={() => setDrawerOpen(true)}
-                  >
-                    <FiMessageSquare /> Abrir Chat
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Escenario 3D Hermes Daylight Isometric HQ */}
-            <HermesOffice
-              agents={agents}
-              selectedId={selectedAgentId}
-              focusId={selectedAgentId}
-              isMobile={isMobile}
-              onSelect={(id) => {
-                setSelectedAgentId(id);
-              }}
-            />
-          </div>
-        ) : (
-          /* ====================================================================
-              VISTA TÁCTICA 2D (HERMES 2D MODE)
-              ==================================================================== */
-          <div className="jrg-tactical-view">
-            <div className="jrg-tactical-grid-card">
-              <div className="jrg-tactical-header">
-                <div>
-                  <h2 style={{ margin: 0, fontSize: "18px", color: "#ffffff" }}>
-                    Tablero Táctico de Agentes JRG
-                  </h2>
-                  <p style={{ margin: "4px 0 0 0", fontSize: "12px", color: "#94a3b8" }}>
-                    Distribución en tiempo real de operaciones en Gipuzkoa
-                  </p>
-                </div>
-                <span className="jrg-brand-badge">ESTADO: 100% OPERATIVO</span>
-              </div>
-
-              <div className="jrg-tactical-agents-grid">
-                {agents.map((agent) => (
-                  <div
-                    key={agent.id}
-                    className={`jrg-tactical-agent-item ${agent.id === selectedAgentId ? "selected" : ""}`}
-                    onClick={() => {
-                      setSelectedAgentId(agent.id);
-                      setDrawerOpen(true);
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                      <span style={{ fontSize: "24px" }}>{agent.emoji}</span>
-                      <div>
-                        <strong style={{ fontSize: "14px", color: "#ffffff" }}>{agent.name}</strong>
-                        <div style={{ fontSize: "11px", color: agent.color }}>{agent.role}</div>
-                      </div>
-                    </div>
-                    <p style={{ fontSize: "12px", color: "#cbd5e1", margin: "6px 0 0 0", lineHeight: 1.4 }}>
-                      {agent.currentTask}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* ====================================================================
-            DRAWER LATERAL (PANELES HERMES3D)
+            PANEL DE CONTROL LATERAL (DOCK IZQUIERDO - 100% MONOCROMO)
             ==================================================================== */}
         <aside className={`jrg-orchestrator-drawer ${!drawerOpen ? "closed" : ""}`}>
-          {/* Pestaña flotante para abrir/cerrar en desktop */}
+          {/* Pestaña flotante para abrir/cerrar en desktop (en el lateral derecho del panel) */}
           {!isMobile && (
             <button
               className="jrg-drawer-toggle-tab"
@@ -830,24 +734,34 @@ export default function AgentOrchestratorPage() {
           {/* Barra superior de cierre exclusiva para móvil dentro del drawer */}
           <div className="jrg-drawer-mobile-header">
             <span className="jrg-drawer-mobile-title">
-              {selectedAgent.emoji} {selectedAgent.name} • {selectedAgent.role}
+              <img src="/logoJRG.png" alt="JRG" style={{ width: 22, height: 22, borderRadius: "50%", background: "#fff" }} />
+              <span>{selectedAgent.name} • {selectedAgent.role}</span>
             </span>
             <button
               className="jrg-drawer-mobile-close-btn"
               onClick={() => setDrawerOpen(false)}
             >
-              <FiX style={{ verticalAlign: "middle", marginRight: "4px" }} /> Volver a Oficina 3D
+              <FiX style={{ verticalAlign: "middle", marginRight: "4px" }} /> Oficina 3D
             </button>
           </div>
 
-          {/* Selector de Pestañas */}
+          {/* Cabecera de Marca Oficial JRG en el Panel */}
+          <div className="jrg-sidebar-header">
+            <div className="jrg-sidebar-brand">
+              <img src="/logoJRG.png" alt="JRG Agency" className="jrg-sidebar-logo" />
+              <div>
+                <span className="jrg-sidebar-title">JRG AGENCY</span>
+                <span className="jrg-sidebar-subtitle">AGENT ORCHESTRATION</span>
+              </div>
+            </div>
+            <div className="jrg-sidebar-status">
+              <span className="jrg-mono-pulse-dot" />
+              <span>5 AGENTES</span>
+            </div>
+          </div>
+
+          {/* Selector de Pestañas Segmentado */}
           <div className="jrg-drawer-tabs">
-            <button
-              className={`jrg-tab-item ${activeTab === "chat" ? "active" : ""}`}
-              onClick={() => setActiveTab("chat")}
-            >
-              <FiMessageSquare /> Terminal
-            </button>
             <button
               className={`jrg-tab-item ${activeTab === "kanban" ? "active" : ""}`}
               onClick={() => setActiveTab("kanban")}
@@ -855,16 +769,22 @@ export default function AgentOrchestratorPage() {
               <FiTrello /> Kanban
             </button>
             <button
+              className={`jrg-tab-item ${activeTab === "chat" ? "active" : ""}`}
+              onClick={() => setActiveTab("chat")}
+            >
+              <FiMessageSquare /> Terminal
+            </button>
+            <button
               className={`jrg-tab-item ${activeTab === "leads" ? "active" : ""}`}
               onClick={() => setActiveTab("leads")}
             >
-              <FiUsers /> Leads ({JRG_REAL_LEADS.length})
+              <FiUsers /> Leads <span className="jrg-tab-counter">{filteredLeads.length}</span>
             </button>
             <button
               className={`jrg-tab-item ${activeTab === "skills" ? "active" : ""}`}
               onClick={() => setActiveTab("skills")}
             >
-              <FiTool /> Skills
+              <FiTool /> Capacidades
             </button>
             <button
               className={`jrg-tab-item ${activeTab === "telemetry" ? "active" : ""}`}
@@ -875,16 +795,70 @@ export default function AgentOrchestratorPage() {
           </div>
 
           <div className="jrg-drawer-content">
-            {/* TAB 1: TERMINAL & CHAT EN VIVO */}
+            {/* TAB 1: KANBAN PIPELINE */}
+            {activeTab === "kanban" && (
+              <div className="jrg-kanban-container">
+                {/* Input para Nueva Tarea */}
+                <div className="jrg-kanban-input-bar">
+                  <input
+                    type="text"
+                    className="jrg-kanban-input"
+                    placeholder="Nueva tarea para la flota de agentes..."
+                    value={newTaskInput}
+                    onChange={(e) => setNewTaskInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
+                  />
+                  <button className="jrg-kanban-add-btn" onClick={handleAddTask}>
+                    <FiPlus /> Añadir
+                  </button>
+                </div>
+
+                {(["in_progress", "review", "done", "backlog"] as const).map((statusKey) => {
+                  const colTasks = tasks.filter((t) => t.status === statusKey);
+                  const labels = {
+                    in_progress: "En Ejecución",
+                    review: "En Revisión",
+                    done: "Finalizadas",
+                    backlog: "Cola de Tareas",
+                  };
+                  return (
+                    <div key={statusKey} className="jrg-kanban-col">
+                      <div className="jrg-kanban-col-header">
+                        <div className="jrg-col-title-wrap">
+                          <span className={`jrg-col-dot ${statusKey}`} />
+                          <span>{labels[statusKey]}</span>
+                        </div>
+                        <span className="jrg-col-count-badge">{colTasks.length}</span>
+                      </div>
+                      {colTasks.map((task) => (
+                        <div key={task.id} className="jrg-kanban-card">
+                          <div className="jrg-task-title">{task.title}</div>
+                          <div className="jrg-task-meta">
+                            <div className="jrg-task-assignee-badge">
+                              <span className="jrg-assignee-initials">
+                                {task.assignee.slice(0, 2).toUpperCase()}
+                              </span>
+                              <span>@{task.assignee}</span>
+                            </div>
+                            <span className={`jrg-task-priority ${task.priority}`}>
+                              {task.priority === "high" ? "ALTA" : task.priority === "medium" ? "MEDIA" : "BAJA"}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* TAB 2: TERMINAL / CHAT EJECUTIVO */}
             {activeTab === "chat" && (
               <div className="jrg-chat-container">
                 {/* Cabecera del Agente Actual */}
                 <div className="jrg-agent-header-card">
                   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                    <div
-                      className="jrg-agent-avatar-badge"
-                      style={{ background: `${selectedAgent.color}22`, borderColor: selectedAgent.color }}
-                    >
+                    <div className="jrg-agent-avatar-badge">
                       {selectedAgent.emoji}
                     </div>
                     <div className="jrg-agent-info">
@@ -892,10 +866,7 @@ export default function AgentOrchestratorPage() {
                       <p>{selectedAgent.role}</p>
                     </div>
                   </div>
-                  <span
-                    className="jrg-brand-badge"
-                    style={{ borderColor: selectedAgent.color, color: selectedAgent.color }}
-                  >
+                  <span className="jrg-agent-status-tag">
                     {selectedAgent.status.toUpperCase()}
                   </span>
                 </div>
@@ -913,8 +884,8 @@ export default function AgentOrchestratorPage() {
                   {isTyping && (
                     <div className="jrg-chat-msg assistant">
                       <span className="jrg-msg-author">{selectedAgent.name}</span>
-                      <div className="jrg-msg-bubble" style={{ color: "#00f2fe" }}>
-                        ⚡ {selectedAgent.name} está procesando...
+                      <div className="jrg-msg-bubble" style={{ color: "#a1a1aa" }}>
+                        ● Procesando solicitud en tiempo real...
                       </div>
                     </div>
                   )}
@@ -926,19 +897,19 @@ export default function AgentOrchestratorPage() {
                     className="jrg-quick-prompt-btn"
                     onClick={() => handleSendMessage("Analiza los mejores comercios en Zumarraga")}
                   >
-                    📍 Leads Zumarraga
+                    Leads Zumarraga
                   </button>
                   <button
                     className="jrg-quick-prompt-btn"
                     onClick={() => handleSendMessage("¿Cómo paquetizamos el Kit Digital para hostelería?")}
                   >
-                    💼 Kit Digital 3.000€
+                    Kit Digital 3.000€
                   </button>
                   <button
                     className="jrg-quick-prompt-btn"
                     onClick={() => handleSendMessage("Prepara el mensaje para Restaurante Ezkiotarra")}
                   >
-                    📱 Pitch WhatsApp
+                    Pitch WhatsApp
                   </button>
                 </div>
 
@@ -959,55 +930,6 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* TAB 2: TABLERO KANBAN */}
-            {activeTab === "kanban" && (
-              <div className="jrg-kanban-container">
-                {/* Input para Nueva Tarea */}
-                <div style={{ display: "flex", gap: "8px", marginBottom: "8px" }}>
-                  <input
-                    type="text"
-                    className="jrg-chat-input"
-                    placeholder="Nueva tarea para el equipo..."
-                    value={newTaskInput}
-                    onChange={(e) => setNewTaskInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
-                  />
-                  <button className="jrg-send-btn" onClick={handleAddTask}>
-                    <FiPlus />
-                  </button>
-                </div>
-
-                {(["in_progress", "review", "done", "backlog"] as const).map((statusKey) => {
-                  const colTasks = tasks.filter((t) => t.status === statusKey);
-                  const labels = {
-                    in_progress: "🔥 En Proceso",
-                    review: "👀 En Revisión",
-                    done: "✅ Completadas",
-                    backlog: "📥 Backlog",
-                  };
-                  return (
-                    <div key={statusKey} className="jrg-kanban-col">
-                      <div className="jrg-kanban-col-header">
-                        <span>{labels[statusKey]}</span>
-                        <span>{colTasks.length}</span>
-                      </div>
-                      {colTasks.map((task) => (
-                        <div key={task.id} className="jrg-kanban-card">
-                          <div className="jrg-task-title">{task.title}</div>
-                          <div className="jrg-task-meta">
-                            <span className="jrg-task-assignee">@{task.assignee}</span>
-                            <span className={`jrg-task-priority ${task.priority}`}>
-                              {task.priority.toUpperCase()}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
             {/* TAB 3: LEADS & CRM ENGINE (REAL DATA) */}
             {activeTab === "leads" && (
               <div className="jrg-leads-container">
@@ -1025,11 +947,11 @@ export default function AgentOrchestratorPage() {
                       <div className="jrg-lead-header">
                         <span className="jrg-lead-name">{lead.nombre}</span>
                         <span className="jrg-lead-location">
-                          📍 {lead.municipio} • ⭐ {lead.rating} ({lead.reviews})
+                          {lead.municipio} • {lead.rating} ★ ({lead.reviews})
                         </span>
                       </div>
-                      <div style={{ fontSize: "12px", color: "#94a3b8" }}>
-                        Categoría: <strong style={{ color: "#e2e8f0" }}>{lead.categoria}</strong> • Tel: {lead.telefono}
+                      <div className="jrg-lead-info-row">
+                        {lead.categoria} • Tel: <strong>{lead.telefono}</strong>
                       </div>
                       <div className="jrg-lead-footer">
                         <Link
@@ -1055,42 +977,50 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* TAB 4: SKILLS MARKETPLACE */}
+            {/* TAB 4: CAPACIDADES / SKILLS MARKETPLACE */}
             {activeTab === "skills" && (
               <div className="jrg-skills-container">
                 <div className="jrg-skill-card">
-                  <span className="jrg-skill-icon">🛰️</span>
+                  <div className="jrg-skill-badge-icon">
+                    <FiUsers />
+                  </div>
                   <div className="jrg-skill-details">
                     <h4>Google Maps Intelligence Scraper</h4>
-                    <p>Extrae nombres, teléfonos móviles, calificaciones y estado del sitio web de negocios en el País Vasco.</p>
-                    <span className="jrg-skill-tag">Asignado a: Maider</span>
+                    <p>Extracción de comercios, números de contacto y diagnóstico de páginas web en Gipuzkoa.</p>
+                    <span className="jrg-skill-tag">Asignado: Maider</span>
                   </div>
                 </div>
 
                 <div className="jrg-skill-card">
-                  <span className="jrg-skill-icon">💬</span>
+                  <div className="jrg-skill-badge-icon">
+                    <FiMessageSquare />
+                  </div>
                   <div className="jrg-skill-details">
                     <h4>WhatsApp Conversion Copy Engine</h4>
-                    <p>Redacta argumentos breves de alta persuasión adaptados a comercios locales y hostelería.</p>
-                    <span className="jrg-skill-tag">Asignado a: Iker</span>
+                    <p>Redacción de propuestas personalizadas con enlace a demos interactivas en vivo.</p>
+                    <span className="jrg-skill-tag">Asignado: Iker</span>
                   </div>
                 </div>
 
                 <div className="jrg-skill-card">
-                  <span className="jrg-skill-icon">⚡</span>
+                  <div className="jrg-skill-badge-icon">
+                    <FiLayers />
+                  </div>
                   <div className="jrg-skill-details">
                     <h4>Vite & Three.js 48h Prototyper</h4>
-                    <p>Compila y despliega bocetos interactivos con subdominio y código limpio listos para presentar al cliente.</p>
-                    <span className="jrg-skill-tag">Asignado a: Unai</span>
+                    <p>Arquitectura web ultra rápida (menos de 1s de carga) lista para despliegue y validación con cliente.</p>
+                    <span className="jrg-skill-tag">Asignado: Unai</span>
                   </div>
                 </div>
 
                 <div className="jrg-skill-card">
-                  <span className="jrg-skill-icon">💶</span>
+                  <div className="jrg-skill-badge-icon">
+                    <FiTool />
+                  </div>
                   <div className="jrg-skill-details">
                     <h4>Kit Digital ROI & Subsidies Auditor</h4>
-                    <p>Verifica y tramita bonos de hasta 3.000€ en digitalización para autónomos y micropymes.</p>
-                    <span className="jrg-skill-tag">Asignado a: Elena</span>
+                    <p>Tramitación y auditoría de bonos digitales del Segmento III hasta 3.000€ a fondo perdido.</p>
+                    <span className="jrg-skill-tag">Asignado: Elena</span>
                   </div>
                 </div>
               </div>
@@ -1114,22 +1044,126 @@ export default function AgentOrchestratorPage() {
                   </div>
                   <div className="jrg-kpi-card">
                     <div className="jrg-kpi-num">+4.800€</div>
-                    <div className="jrg-kpi-label">Oportunidad Mensual</div>
+                    <div className="jrg-kpi-label">Impacto Facturación Mensual</div>
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255,255,255,0.03)", padding: "16px", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <h4 style={{ margin: "0 0 8px 0", color: "#00f2fe", fontSize: "13px" }}>
-                    ⚡ Eficiencia de la Flota de Agentes
-                  </h4>
-                  <p style={{ margin: 0, fontSize: "12px", color: "#cbd5e1", lineHeight: 1.5 }}>
-                    La combinación de prospección automatizada, desarrollo ágil en 48 horas y mensajes de WhatsApp personalizados reduce el ciclo de venta promedio de 14 días a solo 48 horas.
+                <div className="jrg-telemetry-summary-card">
+                  <h4>Eficiencia Operativa</h4>
+                  <p>
+                    El pipeline sincronizado de prospección automatizada, maquetación web en 48 horas y contacto directo reduce el ciclo comercial de 14 días a 48 horas.
                   </p>
                 </div>
               </div>
             )}
           </div>
         </aside>
+
+        {/* ====================================================================
+            ESCENARIO 3D O VISTA TÁCTICA 2D
+            ==================================================================== */}
+        {viewMode === "3d" ? (
+          <div className="jrg-canvas-container">
+            {/* Selector Rápido de Agentes para Móvil (Barra Superior Flotante) */}
+            {isMobile && !drawerOpen && (
+              <div className="jrg-mobile-agents-bar" style={{ top: "68px" }}>
+                {agents.map((ag) => (
+                  <button
+                    key={`mob-chip-${ag.id}`}
+                    className={`jrg-mobile-agent-chip ${ag.id === selectedAgentId ? "selected" : ""}`}
+                    onClick={() => setSelectedAgentId(ag.id)}
+                  >
+                    <span>{ag.emoji}</span>
+                    <span>{ag.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Tarjeta Flotante en Móvil para Abrir Panel del Agente */}
+            {isMobile && !drawerOpen && (
+              <div className="jrg-mobile-bottom-dock">
+                <div className="jrg-mobile-dock-card">
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div className="jrg-assignee-initials" style={{ width: 28, height: 28, fontSize: 11 }}>
+                      {selectedAgent.emoji}
+                    </div>
+                    <div>
+                      <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
+                        {selectedAgent.name}
+                      </strong>
+                      <span style={{ fontSize: "11px", color: "#a1a1aa" }}>
+                        {selectedAgent.role}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    className="jrg-mobile-open-btn"
+                    onClick={() => setDrawerOpen(true)}
+                  >
+                    <FiMessageSquare /> Abrir Panel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Escenario 3D Hermes Daylight Isometric HQ */}
+            <HermesOffice
+              agents={agents}
+              selectedId={selectedAgentId}
+              focusId={selectedAgentId}
+              isMobile={isMobile}
+              onSelect={(id) => {
+                setSelectedAgentId(id);
+              }}
+            />
+          </div>
+        ) : (
+          /* ====================================================================
+              VISTA TÁCTICA 2D (HERMES 2D MODE)
+              ==================================================================== */
+          <div className="jrg-tactical-view">
+            <div className="jrg-tactical-grid-card">
+              <div className="jrg-tactical-header">
+                <div>
+                  <h2 style={{ margin: 0, fontSize: "16px", color: "#ffffff" }}>
+                    Tablero Táctico de Agentes JRG
+                  </h2>
+                  <p style={{ margin: "4px 0 0 0", fontSize: "11.5px", color: "#71717a" }}>
+                    Distribución en tiempo real de operaciones en Gipuzkoa
+                  </p>
+                </div>
+                <span className="jrg-sidebar-status">100% OPERATIVO</span>
+              </div>
+
+              <div className="jrg-tactical-agents-grid">
+                {agents.map((agent) => (
+                  <div
+                    key={agent.id}
+                    className={`jrg-tactical-agent-item ${agent.id === selectedAgentId ? "selected" : ""}`}
+                    onClick={() => {
+                      setSelectedAgentId(agent.id);
+                      setDrawerOpen(true);
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+                      <span className="jrg-assignee-initials" style={{ width: 26, height: 26, fontSize: 11 }}>
+                        {agent.emoji}
+                      </span>
+                      <div>
+                        <strong style={{ fontSize: "13px", color: "#ffffff" }}>{agent.name}</strong>
+                        <div style={{ fontSize: "11px", color: "#a1a1aa" }}>{agent.role}</div>
+                      </div>
+                    </div>
+                    <p style={{ fontSize: "12px", color: "#d4d4d8", margin: "6px 0 0 0", lineHeight: 1.45 }}>
+                      {agent.currentTask}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

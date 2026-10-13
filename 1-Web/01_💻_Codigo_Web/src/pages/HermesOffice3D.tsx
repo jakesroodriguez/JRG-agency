@@ -185,8 +185,8 @@ function Floor({
 }) {
   const tex = useMemo(() => {
     if (kind === "parquet") return makeParquet(w, d);
-    if (kind === "gym") return makeGrid(w, d, "#23252b", "#2e3138");
-    return makeGrid(w, d, "#150f2c", "#7a3df0");
+    if (kind === "gym") return makeGrid(w, d, "#202127", "#2b2d35");
+    return makeGrid(w, d, "#12141a", "#2a2d36");
   }, [kind, w, d]);
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[cx, 0.01, cz]} receiveShadow>
@@ -650,9 +650,16 @@ export default function HermesOffice({
         ))}
       </Suspense>
 
-      {/* Rótulo neón JRG en la pared norte */}
+      {/* Rótulo arquitectónico JRG en la pared norte */}
       <Html position={[-3, 1.9, -6.8]} center distanceFactor={11} style={{ pointerEvents: "none" }}>
-        <div className="hm-neon-sign">JRG AGENCY · HQ</div>
+        <div className="hm-neon-sign">
+          <img
+            src="/logoJRG.png"
+            alt="JRG"
+            style={{ width: "18px", height: "18px", borderRadius: "50%", background: "#fff", display: "inline-block" }}
+          />
+          <span>JRG AGENCY · HQ</span>
+        </div>
       </Html>
     </Canvas>
   );
