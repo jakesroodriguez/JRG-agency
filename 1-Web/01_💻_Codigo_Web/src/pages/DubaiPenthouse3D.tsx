@@ -778,31 +778,47 @@ function CEOAvatar({
 }) {
   const gltf = useGLTF("/models/ceo_avatar.glb");
   const clone = useMemo(() => {
-    const sceneClone = SkeletonUtils.clone(gltf.scene);
-    sceneClone.traverse((o) => {
-      if ((o as THREE.Mesh).isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-      }
-    });
-    return sceneClone;
-  }, [gltf.scene]);
+    try {
+      if (!gltf || !gltf.scene) return new THREE.Group();
+      const sceneClone = SkeletonUtils.clone(gltf.scene);
+      sceneClone.traverse((o) => {
+        if ((o as THREE.Mesh).isMesh) {
+          o.castShadow = true;
+          o.receiveShadow = true;
+        }
+      });
+      return sceneClone;
+    } catch {
+      return gltf?.scene ? gltf.scene.clone(true) : new THREE.Group();
+    }
+  }, [gltf]);
 
-  const mixer = useMemo(() => new THREE.AnimationMixer(clone), [clone]);
+  const mixer = useMemo(() => {
+    try {
+      return new THREE.AnimationMixer(clone);
+    } catch {
+      return null;
+    }
+  }, [clone]);
 
   useEffect(() => {
-    const idleClip = THREE.AnimationClip.findByName(gltf.animations, "Idle");
-    const walkClip = THREE.AnimationClip.findByName(gltf.animations, "Walk");
+    if (!mixer || !gltf.animations || gltf.animations.length === 0) return;
+    try {
+      const idleClip = THREE.AnimationClip.findByName(gltf.animations, "Idle");
+      const walkClip = THREE.AnimationClip.findByName(gltf.animations, "Walk");
 
-    const idleAction = idleClip ? mixer.clipAction(idleClip) : null;
-    const walkAction = walkClip ? mixer.clipAction(walkClip) : null;
+      const idleAction = idleClip ? mixer.clipAction(idleClip) : null;
+      const walkAction = walkClip ? mixer.clipAction(walkClip) : null;
 
-    if (isMoving && walkAction) {
-      walkAction.reset().fadeIn(0.15).play();
-      if (idleAction) idleAction.fadeOut(0.15);
-    } else if (idleAction) {
-      idleAction.reset().fadeIn(0.2).play();
-      if (walkAction) walkAction.fadeOut(0.2);
+      if (isMoving && walkAction) {
+        walkAction.reset().fadeIn(0.15).play();
+        if (idleAction) idleAction.fadeOut(0.15);
+      } else if (idleAction) {
+        idleAction.reset().fadeIn(0.2).play();
+        if (walkAction) walkAction.fadeOut(0.2);
+      }
+    } catch {
+      // Guard against animation errors
     }
 
     return () => {
@@ -811,7 +827,7 @@ function CEOAvatar({
   }, [mixer, gltf.animations, isMoving]);
 
   useFrame((_, delta) => {
-    mixer.update(delta);
+    if (mixer) mixer.update(delta);
   });
 
   return (
@@ -1324,29 +1340,33 @@ export default function DubaiPenthouse({
           }}
         />
 
-        {/* Avatar 3D del CEO (Jakes) en Tercera Persona */}
         <Suspense fallback={null}>
-          <CEOAvatar
-            position={playerPos}
-            rotationY={playerRot}
-            isMoving={isPlayerMoving}
-          />
-        </Suspense>
+          {/* Avatar 3D del CEO (Jakes) en Tercera Persona */}
+          <Safe>
+            <CEOAvatar
+              position={playerPos}
+              rotationY={playerRot}
+              isMoving={isPlayerMoving}
+            />
+          </Safe>
 
-        {/* 123 Rascacielos de Dubai Creados en Blender 5.2 */}
-        <DubaiSkyline />
+          {/* 123 Rascacielos de Dubai Creados en Blender 5.2 */}
+          <Safe>
+            <DubaiSkyline />
+          </Safe>
 
-        {/* Estructura Arquitectónica Penthouse con Techo Abierto */}
-        <PenthouseArchitecture />
+          {/* Estructura Arquitectónica Penthouse con Techo Abierto */}
+          <PenthouseArchitecture />
 
-        {/* Mobiliario y Agentes Humanos Ejecutivos */}
-        <Suspense fallback={null}>
-          <PenthouseFurniture
-            agents={agents}
-            selectedId={selectedId}
-            nearAgentId={nearAgentId}
-            onSelect={onSelect}
-          />
+          {/* Mobiliario y Agentes Humanos Ejecutivos */}
+          <Safe>
+            <PenthouseFurniture
+              agents={agents}
+              selectedId={selectedId}
+              nearAgentId={nearAgentId}
+              onSelect={onSelect}
+            />
+          </Safe>
         </Suspense>
 
         {/* Rótulo Arquitectónico JRG en la Penthouse */}

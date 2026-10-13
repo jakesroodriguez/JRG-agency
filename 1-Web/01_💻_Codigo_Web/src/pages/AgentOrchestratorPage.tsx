@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
 import { Link } from "react-router-dom";
 import {
   FiMessageSquare,
@@ -1432,19 +1432,27 @@ export default function AgentOrchestratorPage() {
             )}
 
             {/* Escenario 3D Dubai Penthouse Piso 60 HQ */}
-            <DubaiPenthouse
-              agents={agents}
-              selectedId={selectedAgentId}
-              focusId={selectedAgentId}
-              isMobile={isMobile}
-              drawerOpen={drawerOpen}
-              onSelect={(id) => {
-                setSelectedAgentId(id);
-                if (isMobile) {
-                  setDrawerOpen(true);
-                }
-              }}
-            />
+            <Suspense
+              fallback={
+                <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#08090f", color: "#a1a1aa", fontFamily: "var(--font-mono, monospace)", fontSize: "13px" }}>
+                  <span>CARGANDO ENTORNO DUBAI 3D...</span>
+                </div>
+              }
+            >
+              <DubaiPenthouse
+                agents={agents}
+                selectedId={selectedAgentId}
+                focusId={selectedAgentId}
+                isMobile={isMobile}
+                drawerOpen={drawerOpen}
+                onSelect={(id) => {
+                  setSelectedAgentId(id);
+                  if (isMobile) {
+                    setDrawerOpen(true);
+                  }
+                }}
+              />
+            </Suspense>
           </div>
         ) : (
           /* ====================================================================
