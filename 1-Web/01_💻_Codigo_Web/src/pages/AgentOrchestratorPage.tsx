@@ -1,8 +1,5 @@
-import { useState, useRef, useMemo, useEffect, Suspense, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Text, Billboard } from "@react-three/drei";
-import * as THREE from "three";
 import {
   FiMessageSquare,
   FiTrello,
@@ -20,6 +17,7 @@ import {
   FiX
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import HermesOffice from "./HermesOffice3D";
 import "./AgentOrchestratorPage.css";
 
 // ============================================================================
@@ -384,372 +382,11 @@ class WebAudioLoFiSynth {
 
 const loFiSynth = new WebAudioLoFiSynth();
 
-// ============================================================================
-// 5. COMPONENTES 3D: MOBILIARIO RETRO DE HERMES3D
-// ============================================================================
-
-// Puesto de Trabajo con Monitor CRT y Silla
-function WorkstationDesk({
-  position,
-  rotation = 0,
-  agentColor,
-  screenCodeColor = "#00f2fe",
-}: {
-  position: [number, number, number];
-  rotation?: number;
-  agentColor: string;
-  screenCodeColor?: string;
-}) {
-  return (
-    <group position={position} rotation={[0, rotation, 0]}>
-      {/* Mesa de Madera Robusta */}
-      <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.8, 0.08, 1.0]} />
-        <meshStandardMaterial color="#332219" roughness={0.7} metalness={0.1} />
-      </mesh>
-
-      {/* Patas Metálicas de la Mesa */}
-      {[-0.8, 0.8].map((x, i) =>
-        [-0.4, 0.4].map((z, j) => (
-          <mesh key={`leg-${i}-${j}`} position={[x, 0.36, z]} castShadow>
-            <cylinderGeometry args={[0.03, 0.03, 0.72, 12]} />
-            <meshStandardMaterial color="#111827" metalness={0.8} roughness={0.3} />
-          </mesh>
-        ))
-      )}
-
-      {/* Monitor CRT / Pantalla Principal */}
-      <group position={[0, 1.05, -0.22]}>
-        {/* Soporte */}
-        <mesh position={[0, -0.24, 0]}>
-          <cylinderGeometry args={[0.08, 0.12, 0.16, 12]} />
-          <meshStandardMaterial color="#1f2937" metalness={0.7} />
-        </mesh>
-        {/* Carcasa */}
-        <mesh castShadow>
-          <boxGeometry args={[0.9, 0.54, 0.08]} />
-          <meshStandardMaterial color="#0f172a" roughness={0.5} />
-        </mesh>
-        {/* Pantalla con brillo (Terminal de Código) */}
-        <mesh position={[0, 0, 0.045]}>
-          <planeGeometry args={[0.82, 0.46]} />
-          <meshBasicMaterial color={screenCodeColor} />
-        </mesh>
-      </group>
-
-      {/* Teclado y Ratón en la Mesa */}
-      <mesh position={[0, 0.77, 0.18]}>
-        <boxGeometry args={[0.55, 0.02, 0.18]} />
-        <meshStandardMaterial color="#1e293b" />
-      </mesh>
-      <mesh position={[0.42, 0.77, 0.18]}>
-        <boxGeometry args={[0.1, 0.02, 0.14]} />
-        <meshStandardMaterial color="#334155" />
-      </mesh>
-
-      {/* Taza de Café con Logo JRG */}
-      <mesh position={[-0.6, 0.82, 0.2]}>
-        <cylinderGeometry args={[0.06, 0.05, 0.12, 12]} />
-        <meshStandardMaterial color={agentColor} roughness={0.3} />
-      </mesh>
-
-      {/* Silla Ergonómica de Oficina */}
-      <group position={[0, 0, 0.72]}>
-        <mesh position={[0, 0.48, 0]}>
-          <boxGeometry args={[0.55, 0.08, 0.5]} />
-          <meshStandardMaterial color="#1e293b" roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 0.82, 0.22]}>
-          <boxGeometry args={[0.52, 0.6, 0.08]} />
-          <meshStandardMaterial color="#0f172a" roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 0.22, 0]}>
-          <cylinderGeometry args={[0.04, 0.04, 0.44, 8]} />
-          <meshStandardMaterial color="#000000" metalness={0.9} />
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
-// Planta Decorativa en Maceta de Terracota
-function PottedPlant({ position }: { position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      <mesh position={[0, 0.25, 0]} castShadow>
-        <cylinderGeometry args={[0.26, 0.18, 0.5, 16]} />
-        <meshStandardMaterial color="#854d0e" roughness={0.9} />
-      </mesh>
-      <mesh position={[0, 0.65, 0]} castShadow>
-        <sphereGeometry args={[0.38, 12, 12]} />
-        <meshStandardMaterial color="#15803d" roughness={0.7} />
-      </mesh>
-      <mesh position={[0.12, 0.95, 0.05]} castShadow>
-        <sphereGeometry args={[0.28, 12, 12]} />
-        <meshStandardMaterial color="#16a34a" roughness={0.6} />
-      </mesh>
-    </group>
-  );
-}
-
-// Zona Lounge con Sofá y Mesa de Café
-function LoungeCorner({ position }: { position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      {/* Sofá de Espera JRG */}
-      <group position={[0, 0, 0]}>
-        <mesh position={[0, 0.38, 0]} castShadow>
-          <boxGeometry args={[2.2, 0.3, 0.8]} />
-          <meshStandardMaterial color="#0284c7" roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 0.72, -0.35]} castShadow>
-          <boxGeometry args={[2.2, 0.55, 0.22]} />
-          <meshStandardMaterial color="#0369a1" roughness={0.8} />
-        </mesh>
-      </group>
-      {/* Mesa de Café Baja */}
-      <mesh position={[0, 0.22, 1.1]} castShadow>
-        <boxGeometry args={[1.4, 0.14, 0.6]} />
-        <meshStandardMaterial color="#1e293b" metalness={0.4} />
-      </mesh>
-    </group>
-  );
-}
-
-// Máquina de Café & Dispensador de Agua (Break Room)
-function CoffeeCorner({ position }: { position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      <mesh position={[0, 0.45, 0]} castShadow>
-        <boxGeometry args={[1.2, 0.9, 0.6]} />
-        <meshStandardMaterial color="#1e293b" roughness={0.5} />
-      </mesh>
-      <mesh position={[-0.25, 1.08, 0]} castShadow>
-        <boxGeometry args={[0.42, 0.36, 0.38]} />
-        <meshStandardMaterial color="#ef4444" metalness={0.6} roughness={0.3} />
-      </mesh>
-      <mesh position={[0.32, 1.25, 0]} castShadow>
-        <cylinderGeometry args={[0.16, 0.16, 0.55, 16]} />
-        <meshStandardMaterial color="#38bdf8" transparent opacity={0.7} />
-      </mesh>
-    </group>
-  );
-}
-
-// Letrero Neón Iluminado en la Pared
-function NeonWallSign({ text, position }: { text: string; position: [number, number, number] }) {
-  return (
-    <group position={position}>
-      <Billboard follow lockX={false} lockY={false} lockZ={false}>
-        <Text
-          fontSize={0.48}
-          color="#00f2fe"
-          anchorX="center"
-          anchorY="middle"
-          outlineWidth={0.03}
-          outlineColor="#003b46"
-        >
-          {text}
-        </Text>
-      </Billboard>
-    </group>
-  );
-}
-
-// ============================================================================
-// 6. AGENTE 3D ANIMADO CON BURBUJA DE DIÁLOGO (HERMES3D ENGINE)
-// ============================================================================
-
-function VoxelAgentAvatar({
-  agent,
-  isSelected,
-  onClick,
-}: {
-  agent: Agent;
-  isSelected: boolean;
-  onClick: () => void;
-}) {
-  const groupRef = useRef<THREE.Group>(null);
-  const leftArmRef = useRef<THREE.Group>(null);
-  const rightArmRef = useRef<THREE.Group>(null);
-  const headRef = useRef<THREE.Group>(null);
-
-  // Animación suave de respiración y tipeo en el escritorio
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    if (groupRef.current) {
-      groupRef.current.position.y = Math.sin(t * 2 + agent.deskPos[0]) * 0.02;
-    }
-    if (leftArmRef.current && rightArmRef.current) {
-      leftArmRef.current.rotation.x = -1.2 + Math.sin(t * 8 + 1) * 0.12;
-      rightArmRef.current.rotation.x = -1.2 + Math.sin(t * 8 + 3) * 0.12;
-    }
-    if (headRef.current && isSelected) {
-      headRef.current.rotation.y = Math.sin(t * 1.5) * 0.15;
-    }
-  });
-
-  return (
-    <group
-      position={[agent.deskPos[0], 0, agent.deskPos[2] + 0.65]}
-      rotation={[0, agent.rotation + Math.PI, 0]}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick();
-      }}
-    >
-      {/* Aro de Estado Pulsante en el Suelo */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
-        <ringGeometry args={[0.55, 0.65, 32]} />
-        <meshBasicMaterial
-          color={agent.color}
-          transparent
-          opacity={isSelected ? 0.9 : 0.4}
-        />
-      </mesh>
-
-      {/* Modelo del Personaje Voxel */}
-      <group ref={groupRef} position={[0, 0.42, 0]}>
-        {/* Piernas */}
-        <mesh position={[-0.12, -0.15, 0]}>
-          <boxGeometry args={[0.14, 0.4, 0.16]} />
-          <meshStandardMaterial color="#0f172a" />
-        </mesh>
-        <mesh position={[0.12, -0.15, 0]}>
-          <boxGeometry args={[0.14, 0.4, 0.16]} />
-          <meshStandardMaterial color="#0f172a" />
-        </mesh>
-
-        {/* Torso / Ropa de Identidad JRG */}
-        <mesh position={[0, 0.22, 0]} castShadow>
-          <boxGeometry args={[0.42, 0.48, 0.26]} />
-          <meshStandardMaterial color={agent.clothingColor} roughness={0.7} />
-        </mesh>
-
-        {/* Cabeza */}
-        <group ref={headRef} position={[0, 0.62, 0]}>
-          <mesh castShadow>
-            <boxGeometry args={[0.34, 0.34, 0.32]} />
-            <meshStandardMaterial color="#ffd8b3" roughness={0.8} />
-          </mesh>
-          {/* Cabello */}
-          <mesh position={[0, 0.14, -0.02]}>
-            <boxGeometry args={[0.36, 0.16, 0.34]} />
-            <meshStandardMaterial color={agent.hairColor} roughness={0.9} />
-          </mesh>
-          {/* Ojos */}
-          <mesh position={[-0.08, 0.02, 0.17]}>
-            <boxGeometry args={[0.05, 0.05, 0.02]} />
-            <meshBasicMaterial color="#111827" />
-          </mesh>
-          <mesh position={[0.08, 0.02, 0.17]}>
-            <boxGeometry args={[0.05, 0.05, 0.02]} />
-            <meshBasicMaterial color="#111827" />
-          </mesh>
-        </group>
-
-        {/* Brazos articulados */}
-        <group ref={leftArmRef} position={[-0.26, 0.36, 0]}>
-          <mesh position={[0, -0.18, 0.1]}>
-            <boxGeometry args={[0.11, 0.38, 0.13]} />
-            <meshStandardMaterial color={agent.clothingColor} />
-          </mesh>
-        </group>
-        <group ref={rightArmRef} position={[0.26, 0.36, 0]}>
-          <mesh position={[0, -0.18, 0.1]}>
-            <boxGeometry args={[0.11, 0.38, 0.13]} />
-            <meshStandardMaterial color={agent.clothingColor} />
-          </mesh>
-        </group>
-      </group>
-
-      {/* Cartel Holográfico Flotante (Nameplate) */}
-      <Billboard position={[0, 1.85, 0]}>
-        <Text
-          fontSize={0.24}
-          color="#ffffff"
-          anchorX="center"
-          anchorY="middle"
-          outlineWidth={0.03}
-          outlineColor="#020617"
-        >
-          {`${agent.emoji} ${agent.name}`}
-        </Text>
-        <Text
-          position={[0, -0.18, 0]}
-          fontSize={0.14}
-          color={agent.color}
-          anchorX="center"
-          anchorY="middle"
-          outlineWidth={0.02}
-          outlineColor="#020617"
-        >
-          {agent.role}
-        </Text>
-      </Billboard>
-
-      {/* Burbuja de Diálogo 3D Estilo Hermes3D */}
-      <Billboard position={[0, 2.35, 0]}>
-        <group>
-          <mesh position={[0, 0, -0.01]}>
-            <planeGeometry args={[2.4, 0.52]} />
-            <meshBasicMaterial color="#06090e" transparent opacity={0.9} />
-          </mesh>
-          <mesh position={[0, 0, -0.02]}>
-            <planeGeometry args={[2.44, 0.56]} />
-            <meshBasicMaterial color={agent.color} />
-          </mesh>
-          <Text
-            maxWidth={2.2}
-            fontSize={0.12}
-            color="#f8fafc"
-            anchorX="center"
-            anchorY="middle"
-            lineHeight={1.2}
-          >
-            {agent.speechText}
-          </Text>
-        </group>
-      </Billboard>
-    </group>
-  );
-}
-
-// Controlador de Cámara Suave
-function CameraRig({
-  selectedAgentPos,
-  isMobile,
-}: {
-  selectedAgentPos: [number, number, number] | null;
-  isMobile: boolean;
-}) {
-  const { camera } = useThree();
-
-  useFrame(() => {
-    if (selectedAgentPos) {
-      const offsetX = isMobile ? 3.5 : 4;
-      const offsetY = isMobile ? 6.5 : 5;
-      const offsetZ = isMobile ? 5.5 : 6;
-      const targetVec = new THREE.Vector3(
-        selectedAgentPos[0] + offsetX,
-        selectedAgentPos[1] + offsetY,
-        selectedAgentPos[2] + offsetZ
-      );
-      camera.position.lerp(targetVec, 0.04);
-    }
-  });
-
-  return null;
-}
-
-// ============================================================================
-// 7. COMPONENTE PRINCIPAL DEL ORQUESTADOR (VISTA COMPLETA)
-// ============================================================================
+// (Mobiliario y entorno 3D implementados en HermesOffice3D.tsx)
 
 export default function AgentOrchestratorPage() {
   const [agents] = useState<Agent[]>(JRG_AGENTS);
   const [selectedAgentId, setSelectedAgentId] = useState<string>("jrg-aitor");
-  const [activeFloor, setActiveFloor] = useState<1 | 2 | 3>(1);
   const [activeTab, setActiveTab] = useState<"chat" | "kanban" | "leads" | "skills" | "telemetry">("chat");
   const [viewMode, setViewMode] = useState<"3d" | "tactical">("3d");
 
@@ -916,83 +553,161 @@ export default function AgentOrchestratorPage() {
   return (
     <div className="jrg-orchestrator-root">
       {/* ====================================================================
-          HEADER SUPERIOR (ESTILO HERMES3D)
+          BARRA SUPERIOR HERMES3D HUD (TOP BAR)
           ==================================================================== */}
-      <header className="jrg-orchestrator-header">
-        <div className="jrg-header-brand">
-          <Link to="/" className="jrg-back-link">
-            <FiArrowLeft /> Web
+      <div className="hm-hud-top-bar">
+        {/* Izquierda: Volver a Web + Botón KANBAN BOARD */}
+        <div className="hm-hud-left">
+          <Link to="/" className="hm-icon-btn" title="Volver a la Web Principal">
+            <FiArrowLeft />
           </Link>
-          <div className="jrg-brand-title-wrap">
-            <span className="jrg-brand-title">JRG Agency</span>
-            <span className="jrg-brand-badge">
-              <span className="jrg-live-pulse-dot" />
-              5/5 AGENTES HQ
-            </span>
+          <button
+            className="hm-btn-kanban"
+            onClick={() => {
+              setActiveTab("kanban");
+              setDrawerOpen(true);
+            }}
+          >
+            <FiTrello /> [ KANBAN BOARD ]
+          </button>
+        </div>
+
+        {/* Centro: JRG HEADQUARTERS Dorado + Píldora de Agentes */}
+        <div className="hm-hud-center">
+          <div className="hm-hq-title">JRG HEADQUARTERS</div>
+          <div className="hm-agents-pill">
+            <div className="hm-agent-dots">
+              {agents.map((ag) => (
+                <div
+                  key={`hud-ag-${ag.id}`}
+                  className="hm-agent-avatar-circle"
+                  style={{
+                    background: ag.color,
+                    outline: ag.id === selectedAgentId ? "2px solid #ffffff" : "none",
+                  }}
+                  onClick={() => setSelectedAgentId(ag.id)}
+                  title={`${ag.name} (${ag.role})`}
+                >
+                  {ag.name[0]}
+                </div>
+              ))}
+            </div>
+            <span className="hm-count-label">AGENTS {agents.length}/{agents.length}</span>
           </div>
         </div>
 
-        {/* Selector de Piso / Departamento de Hermes3D */}
-        <div className="jrg-floor-selector">
+        {/* Derecha: + ADD, Status Conectado, Lo-Fi Audio, y Vista 2D/3D */}
+        <div className="hm-hud-right">
           <button
-            className={`jrg-floor-btn ${activeFloor === 1 ? "active" : ""}`}
-            onClick={() => setActiveFloor(1)}
+            className="hm-icon-btn"
+            title="Crear Nueva Tarea"
+            onClick={() => {
+              setActiveTab("kanban");
+              setDrawerOpen(true);
+            }}
           >
-            🏢 Piso 1: Dirección & ROI
+            <FiPlus />
           </button>
+          <div className="hm-btn-connected">
+            <span className="hm-dot-green" />
+            <span>JRG-AGENT • CONECTADO</span>
+          </div>
           <button
-            className={`jrg-floor-btn ${activeFloor === 2 ? "active" : ""}`}
-            onClick={() => setActiveFloor(2)}
-          >
-            🎯 Piso 2: Leads & Ventas
-          </button>
-          <button
-            className={`jrg-floor-btn ${activeFloor === 3 ? "active" : ""}`}
-            onClick={() => setActiveFloor(3)}
-          >
-            💻 Piso 3: Tech Lab & Dev
-          </button>
-        </div>
-
-        {/* Controles del Header: Jukebox & Vista */}
-        <div className="jrg-header-right">
-          <div
-            className={`jrg-jukebox-pill ${isJukeboxPlaying ? "playing" : ""}`}
+            className="hm-icon-btn"
             onClick={handleToggleJukebox}
-            title="Hermes Lo-Fi Beats Player"
+            title={isJukeboxPlaying ? "Detener Lo-Fi Beats" : "Reproducir Lo-Fi Beats"}
           >
             {isJukeboxPlaying ? <FiVolume2 color="#8b5cf6" /> : <FiVolumeX color="#94a3b8" />}
-            <div className="jrg-equalizer-bars">
-              <span className="jrg-eq-bar" />
-              <span className="jrg-eq-bar" />
-              <span className="jrg-eq-bar" />
-            </div>
-            <span className="jrg-jukebox-label">
-              {isJukeboxPlaying ? "LO-FI: ON" : "LO-FI"}
-            </span>
-          </div>
-
-          {/* En móvil: botón directo para abrir/cerrar panel vs oficina 3D */}
+          </button>
           {isMobile ? (
             <button
-              className="jrg-view-toggle-btn"
+              className="hm-icon-btn"
               onClick={() => setDrawerOpen(!drawerOpen)}
-              style={{ color: drawerOpen ? "#00f2fe" : "#ffffff", borderColor: drawerOpen ? "#00f2fe" : "rgba(255,255,255,0.15)" }}
+              title={drawerOpen ? "Ver Oficina 3D" : "Abrir Panel"}
             >
               {drawerOpen ? <FiMaximize2 /> : <FiMessageSquare />}
-              {drawerOpen ? "Oficina 3D" : "Panel"}
             </button>
           ) : (
             <button
-              className="jrg-view-toggle-btn"
+              className="hm-icon-btn"
               onClick={() => setViewMode(viewMode === "3d" ? "tactical" : "3d")}
+              title={viewMode === "3d" ? "Ver Tablero Táctico 2D" : "Ver Oficina 3D"}
             >
               <FiLayers />
-              {viewMode === "3d" ? "Vista 2D" : "Vista 3D"}
             </button>
           )}
         </div>
-      </header>
+      </div>
+
+      {/* Pestañas Verticales del Margen Derecho (Hermes Side Tabs) */}
+      <div className="hm-side-dock">
+        <button
+          className="hm-side-tab"
+          onClick={() => setSelectedAgentId("jrg-aitor")}
+          title="Centrar en el Cuartel General"
+        >
+          OPEN HQ
+        </button>
+        <button
+          className="hm-side-tab"
+          onClick={() => {
+            setActiveTab("skills");
+            setDrawerOpen(true);
+          }}
+          title="Ver Catálogo de Habilidades y Servicios"
+        >
+          MARKETPLACE
+        </button>
+        <button
+          className="hm-side-tab"
+          onClick={() => {
+            setActiveTab("telemetry");
+            setDrawerOpen(true);
+          }}
+          title="Ver Telemetría y ROI"
+        >
+          ANALYTICS
+        </button>
+      </div>
+
+      {/* Consola de Eventos Inferior Izquierda */}
+      <div className="hm-event-console">
+        <span className="hm-dot-green" />
+        <span className="hm-console-title">AGENT EVENT CONSOLE</span>
+        <span>AGENTS 5 | EVENTS 12/12</span>
+        <button
+          className="hm-console-btn"
+          onClick={() => {
+            setActiveTab("leads");
+            setDrawerOpen(true);
+          }}
+        >
+          LEADS ({JRG_REAL_LEADS.length})
+        </button>
+        <button
+          className="hm-console-btn"
+          onClick={() => {
+            setActiveTab("chat");
+            setDrawerOpen(true);
+          }}
+        >
+          ACTIVOS: 5
+        </button>
+      </div>
+
+      {/* Botón CHAT Flotante Inferior Derecho */}
+      {!drawerOpen && (
+        <button
+          className="hm-btn-chat"
+          onClick={() => {
+            setActiveTab("chat");
+            setDrawerOpen(true);
+          }}
+          title="Abrir Terminal de Comunicación con los Agentes"
+        >
+          <FiMessageSquare /> CHAT
+        </button>
+      )}
 
       {/* ====================================================================
           CUERPO PRINCIPAL DEL ORQUESTADOR
@@ -1000,19 +715,9 @@ export default function AgentOrchestratorPage() {
       <div className="jrg-orchestrator-body">
         {viewMode === "3d" ? (
           <div className="jrg-canvas-container">
-            {/* Controles de Cámara Flotantes en Desktop */}
-            <div className="jrg-canvas-controls-overlay">
-              <button
-                className="jrg-cam-btn"
-                onClick={() => setSelectedAgentId("jrg-aitor")}
-              >
-                <FiMaximize2 /> Centrar en Aitor
-              </button>
-            </div>
-
-            {/* Selector Rápido de Agentes para Móvil (Barra Superior Flotante) */}
+            {/* Selector Rápido de Agentes para Móvil (Barra Superior Flotante bajo el HUD) */}
             {isMobile && !drawerOpen && (
-              <div className="jrg-mobile-agents-bar">
+              <div className="jrg-mobile-agents-bar" style={{ top: "68px" }}>
                 {agents.map((ag) => (
                   <button
                     key={`mob-chip-${ag.id}`}
@@ -1023,23 +728,6 @@ export default function AgentOrchestratorPage() {
                     <span>{ag.name}</span>
                   </button>
                 ))}
-              </div>
-            )}
-
-            {/* Pastilla del Agente Seleccionado en Desktop */}
-            {!isMobile && (
-              <div
-                className={`jrg-focused-agent-pill ${!drawerOpen ? "drawer-closed" : ""}`}
-              >
-                <span style={{ fontSize: "18px" }}>{selectedAgent.emoji}</span>
-                <div>
-                  <strong style={{ fontSize: "13px", color: "#ffffff", display: "block" }}>
-                    {selectedAgent.name}
-                  </strong>
-                  <span style={{ fontSize: "11px", color: selectedAgent.color }}>
-                    {selectedAgent.role}
-                  </span>
-                </div>
               </div>
             )}
 
@@ -1068,91 +756,16 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* Escenario 3D con Three.js */}
-            <Canvas
-              shadows
-              camera={{
-                position: isMobile ? [12, 16, 12] : [14, 12, 14],
-                fov: isMobile ? 54 : 42,
+            {/* Escenario 3D Hermes Daylight Isometric HQ */}
+            <HermesOffice
+              agents={agents}
+              selectedId={selectedAgentId}
+              focusId={selectedAgentId}
+              isMobile={isMobile}
+              onSelect={(id) => {
+                setSelectedAgentId(id);
               }}
-              gl={{ antialias: true, alpha: false }}
-            >
-              <color attach="background" args={["#06090e"]} />
-              <ambientLight intensity={0.65} />
-              <directionalLight
-                position={[12, 20, 10]}
-                intensity={1.2}
-                castShadow
-                shadow-mapSize-width={1024}
-                shadow-mapSize-height={1024}
-              />
-              <pointLight position={[0, 6, 0]} intensity={0.8} color="#00f2fe" />
-
-              <OrbitControls
-                enableDamping
-                dampingFactor={0.06}
-                maxPolarAngle={Math.PI / 2.1}
-                minDistance={4}
-                maxDistance={35}
-                enablePan={false}
-              />
-
-              <CameraRig selectedAgentPos={selectedAgent.deskPos} isMobile={isMobile} />
-
-              {/* Suelo del Edificio con Rejilla y Acabado Mate */}
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
-                <planeGeometry args={[26, 22]} />
-                <meshStandardMaterial color="#0b0f19" roughness={0.85} metalness={0.2} />
-              </mesh>
-
-              {/* Alfombra Central de la Oficina */}
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]} receiveShadow>
-                <planeGeometry args={[16, 12]} />
-                <meshStandardMaterial color="#0f172a" roughness={0.9} />
-              </mesh>
-
-              {/* Rótulo de Neón en la Pared de Fondo */}
-              <NeonWallSign text="JRG AGENCY // AI AGENT WORKFORCE" position={[0, 4.2, -6.8]} />
-
-              {/* Mobiliario de la Oficina Hermes3D */}
-              <Suspense fallback={null}>
-                {agents.map((agent) => (
-                  <WorkstationDesk
-                    key={`desk-${agent.id}`}
-                    position={agent.deskPos}
-                    rotation={agent.rotation}
-                    agentColor={agent.color}
-                    screenCodeColor={agent.color}
-                  />
-                ))}
-
-                {/* Decoración del Cuartel General */}
-                <PottedPlant position={[-6.2, 0, -4.5]} />
-                <PottedPlant position={[6.2, 0, -4.5]} />
-                <PottedPlant position={[-6.2, 0, 4.5]} />
-                <PottedPlant position={[6.2, 0, 4.5]} />
-
-                <CoffeeCorner position={[-6.5, 0, 0]} />
-                <LoungeCorner position={[0, 0, 5.2]} />
-              </Suspense>
-
-              {/* Agentes Humanos Voxels Interactivos */}
-              {agents.map((agent) => (
-                <VoxelAgentAvatar
-                  key={agent.id}
-                  agent={agent}
-                  isSelected={agent.id === selectedAgentId}
-                  onClick={() => {
-                    setSelectedAgentId(agent.id);
-                    if (isMobile) {
-                      // En móvil, centrar y no bloquear de golpe la vista 3D a menos que el usuario pulse "Abrir Chat"
-                    } else {
-                      setDrawerOpen(true);
-                    }
-                  }}
-                />
-              ))}
-            </Canvas>
+            />
           </div>
         ) : (
           /* ====================================================================

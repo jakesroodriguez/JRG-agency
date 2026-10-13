@@ -1057,3 +1057,388 @@
     display: flex;
   }
 }
+
+/* ====================================================
+   HERMES3D HERO AESTHETIC CLONE CLASSES
+   ==================================================== */
+
+/* Placas de nombre de los agentes 3D (Hermes3D Nameplates) */
+.hm-plate {
+  background: rgba(18, 17, 16, 0.94);
+  border: 1px solid rgba(90, 85, 78, 0.6);
+  border-left: 3px solid #00f2fe;
+  padding: 5px 9px;
+  border-radius: 5px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 100px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.hm-plate.selected {
+  border-color: #00f2fe;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.5), 0 4px 14px rgba(0,0,0,0.8);
+  transform: scale(1.05);
+}
+
+.hm-plate-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.hm-plate-name {
+  font-weight: 800;
+  font-size: 11.5px;
+  color: #f5f5f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.hm-plate-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #eab308;
+  box-shadow: 0 0 6px #eab308;
+}
+
+.hm-plate-dot.working {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.hm-plate-dot.thinking {
+  background: #8b5cf6;
+  box-shadow: 0 0 6px #8b5cf6;
+}
+
+.hm-plate-sub {
+  font-size: 9.5px;
+  color: #a1a1aa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  white-space: nowrap;
+  max-width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Rótulo de Neón HQ en la pared */
+.hm-neon-sign {
+  font-family: 'Geist Mono', monospace, sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  color: #d4b478;
+  letter-spacing: 3px;
+  background: rgba(20, 18, 15, 0.9);
+  padding: 5px 16px;
+  border: 1px solid rgba(212, 180, 120, 0.7);
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(212, 180, 120, 0.35);
+  user-select: none;
+}
+
+/* --- OVERLAY HUD ESTILO HERMES3D HERO --- */
+
+.hm-hud-top-bar {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.hm-hud-top-bar > * {
+  pointer-events: auto;
+}
+
+.hm-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hm-btn-kanban {
+  background: rgba(18, 25, 38, 0.92);
+  border: 1px solid rgba(56, 86, 130, 0.8);
+  color: #9bb7e0;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+
+.hm-btn-kanban:hover {
+  background: rgba(28, 42, 68, 0.95);
+  border-color: #60a5fa;
+  color: #ffffff;
+}
+
+.hm-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(18, 17, 16, 0.9);
+  border: 1px solid rgba(70, 65, 58, 0.7);
+  color: #d4b478;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hm-icon-btn:hover {
+  border-color: #d4b478;
+  background: rgba(30, 28, 24, 0.95);
+}
+
+/* Cluster Central: Titulo Dorado + Píldora de Agentes */
+.hm-hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hm-hq-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #d4b478;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hm-agents-pill {
+  background: rgba(22, 20, 18, 0.92);
+  border: 1px solid rgba(70, 65, 58, 0.8);
+  border-radius: 999px;
+  padding: 4px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.hm-agent-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hm-agent-avatar-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+  color: #050608;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.hm-agent-avatar-circle:hover {
+  transform: scale(1.15);
+}
+
+.hm-count-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #d4b478;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Controles Derecha */
+.hm-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hm-btn-connected {
+  background: rgba(16, 28, 22, 0.92);
+  border: 1px solid rgba(38, 92, 54, 0.8);
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.hm-dot-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+}
+
+/* Pestañas Verticales del Margen Derecho (Hermes3D Side Tabs) */
+.hm-side-dock {
+  position: absolute;
+  right: 0;
+  top: 120px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hm-side-tab {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background: rgba(18, 17, 16, 0.92);
+  border: 1px solid rgba(70, 65, 58, 0.8);
+  border-left: none;
+  color: #d4b478;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 14px 6px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 3px 0 12px rgba(0,0,0,0.5);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hm-side-tab:hover, .hm-side-tab.active {
+  background: rgba(35, 30, 24, 0.98);
+  border-color: #d4b478;
+  color: #ffffff;
+  padding-left: 10px;
+}
+
+/* Consola de Eventos Inferior Izquierda (Hermes3D Event Console) */
+.hm-event-console {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 25;
+  background: rgba(18, 17, 16, 0.94);
+  border: 1px solid rgba(70, 65, 58, 0.8);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #a1a1aa;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+}
+
+.hm-console-title {
+  color: #d4b478;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.hm-console-btn {
+  background: rgba(30, 28, 24, 0.8);
+  border: 1px solid rgba(70, 65, 58, 0.7);
+  color: #cbd5e1;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: monospace;
+  transition: all 0.15s ease;
+}
+
+.hm-console-btn:hover {
+  border-color: #d4b478;
+  color: #ffffff;
+}
+
+/* Botón CHAT Inferior Derecho (Hermes3D Chat Button) */
+.hm-btn-chat {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 25;
+  background: rgba(18, 17, 16, 0.94);
+  border: 1px solid #d4b478;
+  color: #d4b478;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+  font-family: monospace;
+  transition: all 0.2s ease;
+}
+
+.hm-btn-chat:hover {
+  background: rgba(212, 180, 120, 0.15);
+  box-shadow: 0 0 16px rgba(212, 180, 120, 0.4);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .hm-hud-top-bar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+  .hm-btn-kanban {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+  .hm-hq-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  .hm-agents-pill {
+    padding: 3px 8px;
+  }
+  .hm-btn-connected {
+    display: none;
+  }
+  .hm-side-dock {
+    display: none;
+  }
+  .hm-event-console {
+    display: none;
+  }
+  .hm-btn-chat {
+    bottom: 80px;
+    right: 14px;
+  }
+}
+
