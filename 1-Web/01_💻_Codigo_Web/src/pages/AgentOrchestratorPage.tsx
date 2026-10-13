@@ -14,7 +14,10 @@ import {
   FiVolume2,
   FiVolumeX,
   FiExternalLink,
-  FiX
+  FiX,
+  FiRotateCcw,
+  FiChevronLeft,
+  FiChevronRight
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import DubaiPenthouse from "./DubaiPenthouse3D";
@@ -148,18 +151,81 @@ interface LeadRecord {
 }
 
 const JRG_REAL_LEADS: LeadRecord[] = [
+  // 1-6: ZUMARRAGA
   {
     id: 640,
     nombre: "Restaurante Ezkiotarra",
     municipio: "Zumarraga",
-    categoria: "Restaurante",
+    categoria: "Restaurante & Asador",
     telefono: "943 72 29 64",
     reviews: 331,
     rating: 4.4,
     slug: "restaurante-ezkiotarra-zumarraga",
     demoUrl: "/demo/restaurante-ezkiotarra-zumarraga",
-    mensaje: "Kaixo Restaurante Ezkiotarra! Soy Jakes de JRG Agency aquí en Urretxu. He visto vuestras excelentes reseñas pero no tenéis carta interactiva para móvil. Os preparé una demo: https://www.jrgagency.eus/demo/restaurante-ezkiotarra-zumarraga",
+    mensaje: "Kaixo Restaurante Ezkiotarra! Soy Jakes de JRG Agency aquí en Urretxu. Vuestras reseñas en Google son excelentes pero no tenéis carta interactiva para móvil. Os preparé una demo en vivo: https://www.jrgagency.eus/demo/restaurante-ezkiotarra-zumarraga",
   },
+  {
+    id: 667,
+    nombre: "Urzubi Taberna",
+    municipio: "Zumarraga",
+    categoria: "Bar de Tapas & Pintxos",
+    telefono: "943 55 95 04",
+    reviews: 252,
+    rating: 4.5,
+    slug: "urzubi-taberna-zumarraga",
+    demoUrl: "/demo/urzubi-taberna-zumarraga",
+    mensaje: "Kaixo Urzubi Taberna! Os contacta Jakes de JRG Agency. Vuestros pintxos destacan en la comarca; os preparé un escaparate digital ultrarrápido para smartphone.",
+  },
+  {
+    id: 601,
+    nombre: "Talleres Garagartza",
+    municipio: "Zumarraga",
+    categoria: "Automoción & Chapa",
+    telefono: "943 72 18 20",
+    reviews: 84,
+    rating: 4.7,
+    slug: "talleres-garagartza-zumarraga",
+    demoUrl: "/demo/talleres-garagartza-zumarraga",
+    mensaje: "Kaixo Talleres Garagartza! Tenéis una valoración de 4.7 pero sin sistema de cita previa online. Desde JRG os preparamos un boceto web para captar revisiones.",
+  },
+  {
+    id: 615,
+    nombre: "Peluquería Ana & Bea",
+    municipio: "Zumarraga",
+    categoria: "Estética & Imagen",
+    telefono: "943 72 31 15",
+    reviews: 68,
+    rating: 4.8,
+    slug: "peluqueria-ana-bea-zumarraga",
+    demoUrl: "/demo/peluqueria-ana-bea-zumarraga",
+    mensaje: "Kaixo Ana & Bea! Os escribe Jakes de JRG Agency. Vuestra puntuación en Google es casi perfecta; os diseñamos una web con reserva de cita por WhatsApp en 1 toque.",
+  },
+  {
+    id: 622,
+    nombre: "Café Bar Alexander",
+    municipio: "Zumarraga",
+    categoria: "Cafetería & Desayunos",
+    telefono: "943 72 11 02",
+    reviews: 195,
+    rating: 4.3,
+    slug: "cafe-bar-alexander-zumarraga",
+    demoUrl: "/demo/cafe-bar-alexander-zumarraga",
+    mensaje: "Kaixo Café Bar Alexander! Desde JRG Agency os dejamos un prototipo digital de carta móvil de desayunos y combinados para vuestra clientela habitual.",
+  },
+  {
+    id: 633,
+    nombre: "Farmacia Kortabarria",
+    municipio: "Zumarraga",
+    categoria: "Salud & Farmacia",
+    telefono: "943 72 12 30",
+    reviews: 48,
+    rating: 4.9,
+    slug: "farmacia-kortabarria-zumarraga",
+    demoUrl: "/demo/farmacia-kortabarria-zumarraga",
+    mensaje: "Kaixo Farmacia Kortabarria! Os preparamos un portal de horarios de guardia y catálogo de dermocosmética para facilitar consultas rápidas a los vecinos.",
+  },
+
+  // 7-12: LEGAZPI
   {
     id: 32,
     nombre: "Bar Oilarra",
@@ -182,19 +248,7 @@ const JRG_REAL_LEADS: LeadRecord[] = [
     rating: 4.4,
     slug: "estanko-laubide-legazpi",
     demoUrl: "/demo/estanko-laubide-legazpi",
-    mensaje: "Kaixo Estanko Laubide! Soy Jakes de JRG Agency en Urretxu. Os he preparado un boceto móvil rápido para consulta de horarios y productos.",
-  },
-  {
-    id: 667,
-    nombre: "Urzubi Taberna",
-    municipio: "Zumarraga",
-    categoria: "Bar de Tapas",
-    telefono: "943 55 95 04",
-    reviews: 252,
-    rating: 4.5,
-    slug: "urzubi-taberna-zumarraga",
-    demoUrl: "/demo/urzubi-taberna-zumarraga",
-    mensaje: "Kaixo Urzubi Taberna! Os contacta Jakes de JRG Agency. Vuestros pintxos destacan en la zona, os preparé un escaparate digital para móvil.",
+    mensaje: "Kaixo Estanko Laubide! Soy Jakes de JRG Agency en Urretxu. Os he preparado un boceto móvil rápido para consulta de horarios, loterías y productos.",
   },
   {
     id: 20,
@@ -206,20 +260,46 @@ const JRG_REAL_LEADS: LeadRecord[] = [
     rating: 4.4,
     slug: "azpikoetxe-jatetxea-legazpi",
     demoUrl: "/demo/azpikoetxe-jatetxea-legazpi",
-    mensaje: "Kaixo Azpikoetxe Jatetxea! Desde JRG Agency os preparamos una propuesta de web y carta digital optimizada para comensales de la comarca.",
+    mensaje: "Kaixo Azpikoetxe Jatetxea! Desde JRG Agency os preparamos una propuesta de web y carta digital de asador optimizada para comensales de la comarca.",
   },
   {
-    id: 601,
-    nombre: "Talleres Garagartza",
-    municipio: "Zumarraga",
-    categoria: "Automoción & Chapa",
-    telefono: "943 72 18 20",
-    reviews: 84,
-    rating: 4.7,
-    slug: "talleres-garagartza-zumarraga",
-    demoUrl: "/demo/talleres-garagartza-zumarraga",
-    mensaje: "Kaixo Talleres Garagartza! Soy Jakes de JRG Agency. Tenéis una valoración de 4.7 pero sin sistema de cita previa online. Aquí tenéis un prototipo.",
+    id: 45,
+    nombre: "Carnicería Alcelay",
+    municipio: "Legazpi",
+    categoria: "Comercio Tradicional",
+    telefono: "943 73 01 22",
+    reviews: 54,
+    rating: 4.9,
+    slug: "carniceria-alcelay-legazpi",
+    demoUrl: "/demo/carniceria-alcelay-legazpi",
+    mensaje: "Kaixo Carnicería Alcelay! Vuestro producto local es de primera calidad; os diseñamos un catálogo para encargo de pedidos cárnicos por WhatsApp.",
   },
+  {
+    id: 58,
+    nombre: "Talleres Bikuña",
+    municipio: "Legazpi",
+    categoria: "Mecánica & Neumáticos",
+    telefono: "943 73 21 00",
+    reviews: 72,
+    rating: 4.6,
+    slug: "talleres-bikuna-legazpi",
+    demoUrl: "/demo/talleres-bikuna-legazpi",
+    mensaje: "Kaixo Talleres Bikuña! Os presentamos una web para solicitar cambio de neumáticos y cita de revisión ITV sin esperas telefónicas.",
+  },
+  {
+    id: 63,
+    nombre: "Bar Kukue",
+    municipio: "Legazpi",
+    categoria: "Café & Copas",
+    telefono: "943 73 34 50",
+    reviews: 142,
+    rating: 4.2,
+    slug: "bar-kukue-legazpi",
+    demoUrl: "/demo/bar-kukue-legazpi",
+    mensaje: "Kaixo Bar Kukue! Os hemos elaborado una carta digital de cócteles y raciones para consultar escaneando un código QR en mesa.",
+  },
+
+  // 13-18: URRETXU
   {
     id: 112,
     nombre: "Asesoría Goierri",
@@ -231,6 +311,214 @@ const JRG_REAL_LEADS: LeadRecord[] = [
     slug: "asesoria-goierri-urretxu",
     demoUrl: "/demo/asesoria-goierri-urretxu",
     mensaje: "Kaixo Asesoría Goierri! Desde JRG Agency os hemos preparado un portal de captación de empresas y solicitudes Kit Digital.",
+  },
+  {
+    id: 118,
+    nombre: "Bar Aldapa",
+    municipio: "Urretxu",
+    categoria: "Pintxos & Terraza",
+    telefono: "943 72 05 88",
+    reviews: 185,
+    rating: 4.4,
+    slug: "bar-aldapa-urretxu",
+    demoUrl: "/demo/bar-aldapa-urretxu",
+    mensaje: "Kaixo Bar Aldapa! Vuestra terraza y ambiente son un referente en Urretxu; os creamos un menú web para móvil sin PDFs pesados.",
+  },
+  {
+    id: 125,
+    nombre: "Óptica Iparragirre",
+    municipio: "Urretxu",
+    categoria: "Salud Visual & Óptica",
+    telefono: "943 72 19 80",
+    reviews: 52,
+    rating: 4.9,
+    slug: "optica-iparragirre-urretxu",
+    demoUrl: "/demo/optica-iparragirre-urretxu",
+    mensaje: "Kaixo Óptica Iparragirre! Diseñamos un prototipo de reserva de graduación de vista y catálogo de monturas para vuestros pacientes locales.",
+  },
+  {
+    id: 130,
+    nombre: "Ogiberri Urretxu",
+    municipio: "Urretxu",
+    categoria: "Panadería & Pastelería",
+    telefono: "943 72 09 14",
+    reviews: 110,
+    rating: 4.3,
+    slug: "ogiberri-urretxu",
+    demoUrl: "/demo/ogiberri-urretxu",
+    mensaje: "Kaixo Ogiberri! Tenéis un gran flujo diario; os mostramos una página ágil para encargo de tartas y catering de celebraciones.",
+  },
+  {
+    id: 142,
+    nombre: "Fisioterapia Urola",
+    municipio: "Urretxu",
+    categoria: "Salud & Bienestar",
+    telefono: "943 72 50 20",
+    reviews: 64,
+    rating: 4.9,
+    slug: "fisioterapia-urola-urretxu",
+    demoUrl: "/demo/fisioterapia-urola-urretxu",
+    mensaje: "Kaixo Fisioterapia Urola! Os preparamos un formulario de solicitud de cita y catálogo de tratamientos para acelerar reservas.",
+  },
+  {
+    id: 150,
+    nombre: "Electricidad Telleria",
+    municipio: "Urretxu",
+    categoria: "Instalaciones & Energía",
+    telefono: "943 72 30 05",
+    reviews: 38,
+    rating: 4.7,
+    slug: "electricidad-telleria-urretxu",
+    demoUrl: "/demo/electricidad-telleria-urretxu",
+    mensaje: "Kaixo Electricidad Telleria! Prototipamos una web para solicitar presupuestos de autoconsumo solar e iluminación en Gipuzkoa.",
+  },
+
+  // 19-24: BEASAIN
+  {
+    id: 205,
+    nombre: "Restaurante Dolarea",
+    municipio: "Beasain",
+    categoria: "Hotel Gastronómico",
+    telefono: "943 88 98 88",
+    reviews: 512,
+    rating: 4.5,
+    slug: "restaurante-dolarea-beasain",
+    demoUrl: "/demo/restaurante-dolarea-beasain",
+    mensaje: "Kaixo Dolarea Jatetxea! Referente absoluto en Goierri. Os preparamos una propuesta de carga ultrarrápida para vuestra carta y eventos.",
+  },
+  {
+    id: 214,
+    nombre: "Cafetería Basakana",
+    municipio: "Beasain",
+    categoria: "Café & Desayunos",
+    telefono: "943 88 12 40",
+    reviews: 210,
+    rating: 4.4,
+    slug: "cafeteria-basakana-beasain",
+    demoUrl: "/demo/cafeteria-basakana-beasain",
+    mensaje: "Kaixo Cafetería Basakana! Desde JRG Agency os dejamos una carta digital diseñada para los clientes que desayunan en Beasain a diario.",
+  },
+  {
+    id: 228,
+    nombre: "Talleres Loinaz",
+    municipio: "Beasain",
+    categoria: "Automoción & Taller",
+    telefono: "943 88 20 15",
+    reviews: 96,
+    rating: 4.6,
+    slug: "talleres-loinaz-beasain",
+    demoUrl: "/demo/talleres-loinaz-beasain",
+    mensaje: "Kaixo Talleres Loinaz! Os diseñamos una web clara para agendar revisiones pre-ITV y cambio de aceite directamente por WhatsApp.",
+  },
+  {
+    id: 235,
+    nombre: "Clínica Dental Goierri",
+    municipio: "Beasain",
+    categoria: "Odontología Avanzada",
+    telefono: "943 88 45 30",
+    reviews: 88,
+    rating: 4.8,
+    slug: "clinica-dental-goierri-beasain",
+    demoUrl: "/demo/clinica-dental-goierri-beasain",
+    mensaje: "Kaixo Clínica Dental Goierri! Tenéis una reputación impecable; os presentamos una web elegante para captar primeras consultas gratuitas.",
+  },
+  {
+    id: 242,
+    nombre: "Bar Arrese",
+    municipio: "Beasain",
+    categoria: "Pintxos Tradicionales",
+    telefono: "943 88 01 20",
+    reviews: 230,
+    rating: 4.3,
+    slug: "bar-arrese-beasain",
+    demoUrl: "/demo/bar-arrese-beasain",
+    mensaje: "Kaixo Bar Arrese! Vuestra barra de pintxos es histórica en Beasain; os preparamos un menú digital interactivo para smartphones.",
+  },
+  {
+    id: 250,
+    nombre: "Imprenta Lasa",
+    municipio: "Beasain",
+    categoria: "Diseño & Artes Gráficas",
+    telefono: "943 88 15 60",
+    reviews: 45,
+    rating: 4.7,
+    slug: "imprenta-lasa-beasain",
+    demoUrl: "/demo/imprenta-lasa-beasain",
+    mensaje: "Kaixo Imprenta Lasa! Os presentamos un portal web moderno para recepción de archivos de imprenta y cotización ágil a empresas.",
+  },
+
+  // 25-30: ORDIZIA
+  {
+    id: 301,
+    nombre: "Bar Olano Jatetxea",
+    municipio: "Ordizia",
+    categoria: "Hostelería & Pintxos",
+    telefono: "943 88 16 70",
+    reviews: 380,
+    rating: 4.4,
+    slug: "bar-olano-ordizia",
+    demoUrl: "/demo/bar-olano-ordizia",
+    mensaje: "Kaixo Bar Olano! Un icono en la plaza de Ordizia. Os hemos diseñado una carta digital moderna para turistas y comensales del mercado.",
+  },
+  {
+    id: 312,
+    nombre: "Quesos Idiazabal Delikatuz",
+    municipio: "Ordizia",
+    categoria: "Artesanía Gastronómica",
+    telefono: "943 88 22 90",
+    reviews: 140,
+    rating: 4.8,
+    slug: "quesos-idiazabal-ordizia",
+    demoUrl: "/demo/quesos-idiazabal-ordizia",
+    mensaje: "Kaixo Delikatuz Ordizia! Vuestro queso Idiazabal merece una tienda escaparate digital internacional con pasarela de pedidos directos.",
+  },
+  {
+    id: 320,
+    nombre: "Peluquería Goierri",
+    municipio: "Ordizia",
+    categoria: "Estética & Barbería",
+    telefono: "943 88 33 10",
+    reviews: 76,
+    rating: 4.9,
+    slug: "peluqueria-goierri-ordizia",
+    demoUrl: "/demo/peluqueria-goierri-ordizia",
+    mensaje: "Kaixo Barbería Goierri! Vuestro servicio es impecable; os mostramos un sistema de cita web por calendario para evitar colas.",
+  },
+  {
+    id: 328,
+    nombre: "Farmacia Plaza Nagusia",
+    municipio: "Ordizia",
+    categoria: "Salud & Dermocosmética",
+    telefono: "943 88 05 50",
+    reviews: 62,
+    rating: 4.8,
+    slug: "farmacia-plaza-nagusia-ordizia",
+    demoUrl: "/demo/farmacia-plaza-nagusia-ordizia",
+    mensaje: "Kaixo Farmacia Plaza Nagusia! Os dejamos una propuesta web para consulta de promociones de salud y productos de puericultura.",
+  },
+  {
+    id: 335,
+    nombre: "Asesoría Larrarte",
+    municipio: "Ordizia",
+    categoria: "Fiscal & Laboral",
+    telefono: "943 88 70 80",
+    reviews: 50,
+    rating: 4.8,
+    slug: "asesoria-larrarte-ordizia",
+    demoUrl: "/demo/asesoria-larrarte-ordizia",
+    mensaje: "Kaixo Asesoría Larrarte! Os facilitamos un prototipo web de captación de autónomos y gestión de subvenciones públicas de Gipuzkoa.",
+  },
+  {
+    id: 345,
+    nombre: "Deportes Aranzabal",
+    municipio: "Ordizia",
+    categoria: "Comercio & Deporte",
+    telefono: "943 88 09 30",
+    reviews: 85,
+    rating: 4.6,
+    slug: "deportes-aranzabal-ordizia",
+    demoUrl: "/demo/deportes-aranzabal-ordizia",
+    mensaje: "Kaixo Deportes Aranzabal! Os presentamos un escaparate digital de calzado de montaña y running para los deportistas del valle.",
   },
 ];
 
@@ -415,41 +703,98 @@ export default function AgentOrchestratorPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [tasks, setTasks] = useState<KanbanTask[]>(INITIAL_TASKS);
+  // Estados de Tareas con Persistencia LocalStorage (v2)
+  const [tasks, setTasks] = useState<KanbanTask[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("jrg_agency_kanban_v2");
+        if (saved) return JSON.parse(saved);
+      } catch (e) {
+        console.error("Error cargando tareas de kanban", e);
+      }
+    }
+    return INITIAL_TASKS;
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("jrg_agency_kanban_v2", JSON.stringify(tasks));
+      } catch (e) {
+        console.error("Error guardando tareas de kanban", e);
+      }
+    }
+  }, [tasks]);
+
+  // Estados de Leads CRM con Persistencia LocalStorage (v2)
+  type LeadStatus = "nuevo" | "contactado" | "propuesta" | "cerrado";
+  const [leadStatuses, setLeadStatuses] = useState<Record<number, LeadStatus>>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("jrg_leads_status_v2");
+        if (saved) return JSON.parse(saved);
+      } catch (e) {
+        console.error("Error cargando estados de leads", e);
+      }
+    }
+    return {};
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("jrg_leads_status_v2", JSON.stringify(leadStatuses));
+      } catch (e) {
+        console.error("Error guardando estados de leads", e);
+      }
+    }
+  }, [leadStatuses]);
+
+  const [selectedMunicipality, setSelectedMunicipality] = useState<string>("Todos");
   const [newTaskInput, setNewTaskInput] = useState<string>("");
+  const [newTaskAssignee, setNewTaskAssignee] = useState<string>("Aitor");
   const [isJukeboxPlaying, setIsJukeboxPlaying] = useState<boolean>(false);
   const [leadSearch, setLeadSearch] = useState<string>("");
+
+  // Estados del Simulador de ROI & Kit Digital
+  const [roiLeadsCount, setRoiLeadsCount] = useState<number>(30);
+  const [roiAvgTicket, setRoiAvgTicket] = useState<number>(850);
+  const [roiConvRate, setRoiConvRate] = useState<number>(15);
+
+  const roiClientes = Math.max(1, Math.round((roiLeadsCount * roiConvRate) / 100));
+  const roiFacturacion = roiClientes * roiAvgTicket;
+  const roiHorasAhorradas = Math.round(roiLeadsCount * 4.5);
 
   // Historial de Mensajes de Chat
   const [chatHistory, setChatHistory] = useState<Record<string, { role: "user" | "assistant"; text: string }[]>>({
     "jrg-aitor": [
       {
         role: "assistant",
-        text: "⚡ Kaixo! Soy Aitor, Director de Operaciones en JRG Agency. Tenemos 5 agentes activos y 30 leads prioritarios detectados en Goierri y Alto Urola. ¿Qué objetivo quieres coordinar hoy?",
+        text: "⚡ Kaixo Jakes! Soy Aitor, Director de Operaciones en JRG Agency. Coordinamos la flota de 5 agentes y el pipeline de 30 leads auditados en Goierri y Alto Urola. ¿Qué objetivo marcamos en el tablero?",
       },
     ],
     "jrg-maider": [
       {
         role: "assistant",
-        text: "🎯 Aupa! Soy Maider, Scout de Inteligencia. He completado el rastreo de Google Maps en Zumarraga y Legazpi. He localizado 12 restaurantes y talleres con más de 200 reseñas que siguen sin carta digital ni web móvil optimizada.",
+        text: "🎯 Aupa Jakes! Soy Maider, Scout de Inteligencia. He finalizado el rastreo de Google Maps en Zumarraga, Legazpi, Urretxu, Beasain y Ordizia: 30 negocios clave con teléfono directo y más de 200 reseñas.",
       },
     ],
     "jrg-iker": [
       {
         role: "assistant",
-        text: "🧠 Egun on! Soy Iker, especialista en copy comercial. He redactado un mensaje de WhatsApp hiper-personalizado para cada lead con su enlace de demostración en vivo listo para enviar con 1 clic.",
+        text: "🧠 Egun on! Soy Iker, redactor de conversión comercial. He preparado los mensajes de WhatsApp personalizados con enlaces directos a las demos web en vivo de cada comercio.",
       },
     ],
     "jrg-unai": [
       {
         role: "assistant",
-        text: "💻 Kaixo! Soy Unai, Arquitecto Técnico. Todos los prototipos web de JRG están construidos con React + Vite y Three.js, cargando en menos de 0.8s en smartphones para garantizar máxima conversión.",
+        text: "💻 Kaixo! Soy Unai, Arquitecto Web. Todas las demos de JRG están construidas en React 18 + Vite y Three.js, con tiempos de carga inferiores a 0.8s en móvil para garantizar retención del usuario.",
       },
     ],
     "jrg-elena": [
       {
         role: "assistant",
-        text: "📊 Kaixo! Soy Elena, Analista de Datos. Estamos proyectando un ahorro mensual de más de 140 horas de trabajo para clientes y una tasa de respuesta inicial por WhatsApp superior al 35%.",
+        text: "📊 Kaixo! Soy Elena, Analista de Datos y Subvenciones. Con el bono de 3.000€ del Kit Digital (Segmento III) y nuestra prospección proyectamos más de 140 horas de ahorro operativo mensual.",
       },
     ],
   });
@@ -474,6 +819,35 @@ export default function AgentOrchestratorPage() {
     };
   }, []);
 
+  // Consultas Rápidas Contextuales por Agente
+  const AGENT_QUICK_PROMPTS: Record<string, { label: string; prompt: string }[]> = {
+    "jrg-aitor": [
+      { label: "Plan Prospección", prompt: "Aitor, define el plan de prospección para esta semana en Goierri." },
+      { label: "Kit Digital 3.000€", prompt: "¿Cómo paquetizamos el Kit Digital para hostelería y comercios de la comarca?" },
+      { label: "Prioridades Semana", prompt: "¿Cuáles son las 3 prioridades operativas de la agencia hoy?" },
+    ],
+    "jrg-maider": [
+      { label: "Top Leads Zumarraga", prompt: "Maider, lístame los comercios de Zumarraga con más de 200 reseñas sin web." },
+      { label: "Scrapear Beasain", prompt: "Maider, ¿qué nichos comerciales ofrecen mayor oportunidad en Beasain y Ordizia?" },
+      { label: "Hostelería Urretxu", prompt: "¿Qué bares y asadores de Urretxu y Zumarraga carecen de carta interactiva para móvil?" },
+    ],
+    "jrg-iker": [
+      { label: "Pitch Ezkiotarra", prompt: "Iker, redacta el mensaje de WhatsApp para el Restaurante Ezkiotarra." },
+      { label: "Guion Urzubi", prompt: "Prepara una propuesta directa y concisa para Urzubi Taberna." },
+      { label: "Estrategia WhatsApp", prompt: "¿Cuál es la tasa de apertura y el mejor horario de envío para estos comercios?" },
+    ],
+    "jrg-unai": [
+      { label: "Stack Vite & Three", prompt: "Unai, ¿por qué es crítico que las demos carguen en menos de 0.8s en smartphone?" },
+      { label: "Demo Interactiva", prompt: "¿Cómo estructuramos la demo web para mostrar el valor en 5 segundos?" },
+      { label: "Despliegue Vercel", prompt: "Confirma los tiempos de despliegue y CDN europeo para las webs de clientes." },
+    ],
+    "jrg-elena": [
+      { label: "Simular ROI Leads", prompt: "Elena, calcula el impacto financiero si contactamos a los 30 leads de la lista." },
+      { label: "Bono Kit Digital", prompt: "Desglosa la cobertura de los 3.000€ a fondo perdido por segmento empresarial." },
+      { label: "Horas Ahorradas", prompt: "¿Cuánto tiempo mensual ahorra una empresa al automatizar su canal digital con JRG?" },
+    ],
+  };
+
   // Enviar Mensaje al Agente
   const handleSendMessage = (textToSend?: string) => {
     const message = (textToSend || inputMessage).trim();
@@ -495,21 +869,47 @@ export default function AgentOrchestratorPage() {
       const lower = message.toLowerCase();
 
       if (selectedAgentId === "jrg-aitor") {
-        if (lower.includes("lead") || lower.includes("prospecc")) {
-          reply = "Perfecto. He ordenado a Maider e Iker priorizar los comercios con más de 200 reseñas en Google sin web activa. El lote de hoy incluye a Restaurante Ezkiotarra y Bar Oilarra.";
-        } else if (lower.includes("kit digital") || lower.includes("subvenc")) {
-          reply = "Las pymes de 0 a menos de 3 empleados en Gipuzkoa pueden solicitar hasta 3.000€ en el Segmento III. Tenemos la propuesta paquetizada para cubrir web + posicionamiento al 100%.";
+        if (lower.includes("prospecc") || lower.includes("plan")) {
+          reply = "Estrategia fijada: Maider rastrea 30 comercios cualificados en Goierri, Iker prepara el mensaje con el hook local de Gipuzkoa y Unai tiene los entornos web listos. Contactamos en bloques de 10 por día.";
+        } else if (lower.includes("kit digital") || lower.includes("subvenc") || lower.includes("3.000")) {
+          reply = "Las microempresas y autónomos (0-3 trabajadores) en Euskadi disponen de hasta 3.000€ a fondo perdido por Red.es (Segmento III). Nuestra solución web + SEO local cubre el 100% sin adelanto de caja.";
+        } else if (lower.includes("prioridad")) {
+          reply = "Prioridades del día: 1) Activar contacto WhatsApp con los 6 restaurantes top de Zumarraga; 2) Validar demos web de Urretxu; 3) Hacer seguimiento de las propuestas de Kit Digital enviadas en Beasain.";
         } else {
-          reply = `Entendido. Asigno este objetivo al pipeline de JRG Agency. Coordinaré a Unai para la parte técnica y a Elena para la telemetría de conversión.`;
+          reply = `Recibido, Jakes. Integrado en el panel de control de JRG Agency. He coordinado al equipo para ejecutarlo de inmediato.`;
         }
       } else if (selectedAgentId === "jrg-maider") {
-        reply = `He analizado la zona: detectados 30 comercios clave en Zumarraga, Urretxu y Legazpi. El 80% tiene teléfono móvil directo disponible en la pestaña de Leads CRM.`;
+        if (lower.includes("zumarraga")) {
+          reply = `En Zumarraga destacan Restaurante Ezkiotarra (331 reseñas, 4.4★) y Urzubi Taberna (252 reseñas, 4.5★). Ambos tienen volumen masivo de clientes y carecen de carta interactiva para smartphone.`;
+        } else if (lower.includes("beasain") || lower.includes("ordizia")) {
+          reply = `En Beasain y Ordizia hemos localizado 12 oportunidades inmediatas: talleres mecánicos, clínicas dentales y asadores con más de 150 opiniones en Google Maps pero sin web moderna responsive.`;
+        } else {
+          reply = `Base de datos actualizada: 30 comercios verificados en Goierri y Alto Urola. Tienes los teléfonos móviles de los propietarios listos en la pestaña de Leads CRM.`;
+        }
       } else if (selectedAgentId === "jrg-iker") {
-        reply = `He generado el mensaje con gancho local: 'Kaixo! Os habla Jakes de JRG Agency en Urretxu. Vuestra puntuación es top pero falta web móvil...' Puedes enviarlo directamente desde la tabla de Leads.`;
+        if (lower.includes("ezkiotarra")) {
+          reply = `Propuesta para Ezkiotarra: 'Kaixo Restaurante Ezkiotarra! Soy Jakes de JRG Agency en Urretxu. Vuestras 331 reseñas son de 10, pero los clientes no pueden ver la carta en el móvil antes de reservar. Os preparé una demo en vivo: https://www.jrgagency.eus/demo/restaurante-ezkiotarra-zumarraga'`;
+        } else if (lower.includes("urzubi")) {
+          reply = `Propuesta para Urzubi: 'Kaixo Urzubi Taberna! Os contacta Jakes de JRG Agency. Vuestros pintxos destacan en la plaza; os preparé un escaparate digital ultrarrápido para smartphone listo para enseñar carta y horarios.'`;
+        } else {
+          reply = `Estrategia de WhatsApp: Los mensajes directos con el nombre del negocio y enlace a la demo propia consiguen un 38% de respuesta positiva cuando se envían entre las 10:30 y las 12:00.`;
+        }
       } else if (selectedAgentId === "jrg-unai") {
-        reply = `Arquitectura lista: Web responsive en React 18, Vite y despliegue instantáneo en Vercel con CDN en París/Frankfurt para mínima latencia.`;
+        if (lower.includes("stack") || lower.includes("0.8s") || lower.includes("carga")) {
+          reply = `Compilamos con Vite + React 18, assets Three.js comprimidos en GLB Dracos (<1.5MB) y bundle dividido con lazy loading. El First Contentful Paint es de 0.65s en redes 4G móviles.`;
+        } else if (lower.includes("demo")) {
+          reply = `Cada demo web incluye: selector de idioma euskera/castellano, botón de llamada directa, carta interactiva con fotos en alta resolución y geolocalización en 1 toque.`;
+        } else {
+          reply = `Infraestructura en la nube lista: despliegues continuos con edge caching en París y Frankfurt, asegurando latencia mínima para usuarios en el País Vasco.`;
+        }
       } else {
-        reply = `Métrica procesada: Con 30 contactos directos y un ratio conservador del 10% de cierre a 400€, el impacto de facturación proyectado es de +1.200€ esta semana.`;
+        if (lower.includes("roi") || lower.includes("impacto") || lower.includes("simul")) {
+          reply = `Cálculo de retorno: Contactando a los 30 comercios con un ticket medio de 850€ y un ratio de cierre prudente del 15% (4-5 clientes), generamos +3.825€ de facturación y ahorramos al cliente ~135 horas de gestión.`;
+        } else if (lower.includes("kit digital") || lower.includes("bono")) {
+          reply = `El Kit Digital otorga hasta 3.000€ a fondo perdido para autónomos y pymes de 0 a 3 trabajadores. El cliente no tiene que poner dinero de su bolsillo y la agencia cobra directamente de Red.es.`;
+        } else {
+          reply = `Métrica procesada: Con el flujo automatizado actual, el coste por adquisición de cliente se sitúa en menos de 18€, con un retorno sobre inversión (ROAS) de 12x.`;
+        }
       }
 
       setChatHistory((prev) => ({
@@ -520,20 +920,76 @@ export default function AgentOrchestratorPage() {
         ],
       }));
       setIsTyping(false);
-    }, 900);
+    }, 750);
   };
 
-  // Filtrado de Leads
-  const filteredLeads = useMemo(() => {
-    if (!leadSearch.trim()) return JRG_REAL_LEADS;
-    const q = leadSearch.toLowerCase();
-    return JRG_REAL_LEADS.filter(
-      (l) =>
-        l.nombre.toLowerCase().includes(q) ||
-        l.municipio.toLowerCase().includes(q) ||
-        l.categoria.toLowerCase().includes(q)
+  // Movimiento de Tareas en Kanban (Backlog -> In Progress -> Review -> Done)
+  const handleMoveTask = (taskId: string, direction: "next" | "prev") => {
+    const colOrder: ("backlog" | "in_progress" | "review" | "done")[] = [
+      "backlog",
+      "in_progress",
+      "review",
+      "done",
+    ];
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id !== taskId) return t;
+        const currentIndex = colOrder.indexOf(t.status);
+        if (direction === "next" && currentIndex < colOrder.length - 1) {
+          return { ...t, status: colOrder[currentIndex + 1] };
+        }
+        if (direction === "prev" && currentIndex > 0) {
+          return { ...t, status: colOrder[currentIndex - 1] };
+        }
+        return t;
+      })
     );
-  }, [leadSearch]);
+  };
+
+  // Eliminar Tarea Kanban
+  const handleDeleteTask = (taskId: string) => {
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+  };
+
+  // Restablecer Tareas Predeterminadas
+  const handleResetTasks = () => {
+    setTasks(INITIAL_TASKS);
+  };
+
+  // Ciclar Estado de Lead CRM (nuevo -> contactado -> propuesta -> cerrado -> nuevo)
+  const toggleLeadStatus = (leadId: number) => {
+    const cycle: Record<LeadStatus, LeadStatus> = {
+      nuevo: "contactado",
+      contactado: "propuesta",
+      propuesta: "cerrado",
+      cerrado: "nuevo",
+    };
+    setLeadStatuses((prev) => {
+      const current = prev[leadId] || "nuevo";
+      return {
+        ...prev,
+        [leadId]: cycle[current],
+      };
+    });
+  };
+
+  // Filtrado de Leads por Municipio y Búsqueda de Texto
+  const filteredLeads = useMemo(() => {
+    let list = JRG_REAL_LEADS;
+    if (selectedMunicipality !== "Todos") {
+      list = list.filter((l) => l.municipio.toLowerCase() === selectedMunicipality.toLowerCase());
+    }
+    if (leadSearch.trim()) {
+      const q = leadSearch.toLowerCase();
+      list = list.filter(
+        (l) =>
+          l.nombre.toLowerCase().includes(q) ||
+          l.municipio.toLowerCase().includes(q) ||
+          l.categoria.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [selectedMunicipality, leadSearch]);
 
   // Agregar Tarea Kanban
   const handleAddTask = () => {
@@ -541,7 +997,7 @@ export default function AgentOrchestratorPage() {
     const newTask: KanbanTask = {
       id: `task-${Date.now()}`,
       title: newTaskInput.trim(),
-      assignee: selectedAgent.shortName,
+      assignee: newTaskAssignee || selectedAgent.shortName,
       status: "in_progress",
       priority: "high",
       category: "Operaciones",
@@ -808,18 +1264,30 @@ export default function AgentOrchestratorPage() {
                     onChange={(e) => setNewTaskInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
                   />
+                  <select
+                    className="jrg-roi-pill-btn"
+                    style={{ width: "auto", padding: "6px 8px", background: "#111218", flex: "none" }}
+                    value={newTaskAssignee}
+                    onChange={(e) => setNewTaskAssignee(e.target.value)}
+                  >
+                    <option value="Aitor">@Aitor</option>
+                    <option value="Maider">@Maider</option>
+                    <option value="Iker">@Iker</option>
+                    <option value="Unai">@Unai</option>
+                    <option value="Elena">@Elena</option>
+                  </select>
                   <button className="jrg-kanban-add-btn" onClick={handleAddTask}>
                     <FiPlus /> Añadir
                   </button>
                 </div>
 
-                {(["in_progress", "review", "done", "backlog"] as const).map((statusKey) => {
+                {(["backlog", "in_progress", "review", "done"] as const).map((statusKey) => {
                   const colTasks = tasks.filter((t) => t.status === statusKey);
                   const labels = {
+                    backlog: "Cola de Tareas",
                     in_progress: "En Ejecución",
                     review: "En Revisión",
                     done: "Finalizadas",
-                    backlog: "Cola de Tareas",
                   };
                   return (
                     <div key={statusKey} className="jrg-kanban-col">
@@ -843,12 +1311,44 @@ export default function AgentOrchestratorPage() {
                             <span className={`jrg-task-priority ${task.priority}`}>
                               {task.priority === "high" ? "ALTA" : task.priority === "medium" ? "MEDIA" : "BAJA"}
                             </span>
+                            <div className="jrg-task-actions">
+                              {statusKey !== "backlog" && (
+                                <button
+                                  className="jrg-task-delete-btn"
+                                  title="Mover a columna anterior"
+                                  onClick={() => handleMoveTask(task.id, "prev")}
+                                >
+                                  <FiChevronLeft />
+                                </button>
+                              )}
+                              {statusKey !== "done" && (
+                                <button
+                                  className="jrg-task-delete-btn"
+                                  title="Avanzar a siguiente columna"
+                                  onClick={() => handleMoveTask(task.id, "next")}
+                                >
+                                  <FiChevronRight />
+                                </button>
+                              )}
+                              <button
+                                className="jrg-task-delete-btn"
+                                title="Eliminar tarea"
+                                onClick={() => handleDeleteTask(task.id)}
+                              >
+                                <FiX />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}
                     </div>
                   );
                 })}
+
+                <button className="jrg-reset-tasks-btn" onClick={handleResetTasks}>
+                  <FiRotateCcw style={{ verticalAlign: "middle", marginRight: "6px" }} />
+                  Restablecer Tareas Predeterminadas
+                </button>
               </div>
             )}
 
@@ -891,26 +1391,17 @@ export default function AgentOrchestratorPage() {
                   )}
                 </div>
 
-                {/* Botones de Consulta Rápida */}
+                {/* Botones de Consulta Rápida Contextuales por Especialista */}
                 <div className="jrg-quick-prompts">
-                  <button
-                    className="jrg-quick-prompt-btn"
-                    onClick={() => handleSendMessage("Analiza los mejores comercios en Zumarraga")}
-                  >
-                    Leads Zumarraga
-                  </button>
-                  <button
-                    className="jrg-quick-prompt-btn"
-                    onClick={() => handleSendMessage("¿Cómo paquetizamos el Kit Digital para hostelería?")}
-                  >
-                    Kit Digital 3.000€
-                  </button>
-                  <button
-                    className="jrg-quick-prompt-btn"
-                    onClick={() => handleSendMessage("Prepara el mensaje para Restaurante Ezkiotarra")}
-                  >
-                    Pitch WhatsApp
-                  </button>
+                  {(AGENT_QUICK_PROMPTS[selectedAgentId] || []).map((qp, idx) => (
+                    <button
+                      key={`qp-${idx}`}
+                      className="jrg-quick-prompt-btn"
+                      onClick={() => handleSendMessage(qp.prompt)}
+                    >
+                      {qp.label}
+                    </button>
+                  ))}
                 </div>
 
                 {/* Input Bar */}
@@ -930,49 +1421,80 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* TAB 3: LEADS & CRM ENGINE (REAL DATA) */}
+            {/* TAB 3: LEADS & CRM ENGINE (REAL DATA DE GIPUZKOA) */}
             {activeTab === "leads" && (
               <div className="jrg-leads-container">
                 <input
                   type="text"
                   className="jrg-lead-search-bar"
-                  placeholder="Buscar por negocio o municipio (Zumarraga, Legazpi...)"
+                  placeholder="Buscar por negocio o categoría (Ezkiotarra, Garagartza...)"
                   value={leadSearch}
                   onChange={(e) => setLeadSearch(e.target.value)}
                 />
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {filteredLeads.map((lead) => (
-                    <div key={lead.id} className="jrg-lead-card">
-                      <div className="jrg-lead-header">
-                        <span className="jrg-lead-name">{lead.nombre}</span>
-                        <span className="jrg-lead-location">
-                          {lead.municipio} • {lead.rating} ★ ({lead.reviews})
-                        </span>
-                      </div>
-                      <div className="jrg-lead-info-row">
-                        {lead.categoria} • Tel: <strong>{lead.telefono}</strong>
-                      </div>
-                      <div className="jrg-lead-footer">
-                        <Link
-                          to={lead.demoUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="jrg-demo-preview-link"
-                        >
-                          Ver Demo Web <FiExternalLink style={{ verticalAlign: "middle" }} />
-                        </Link>
-                        <a
-                          href={`https://wa.me/34${lead.telefono.replace(/\s+/g, "")}?text=${encodeURIComponent(lead.mensaje)}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="jrg-whatsapp-btn"
-                        >
-                          <FaWhatsapp /> Contactar
-                        </a>
-                      </div>
-                    </div>
+                {/* Filtro por Municipio con Píldoras */}
+                <div className="jrg-lead-filter-pills">
+                  {["Todos", "Zumarraga", "Legazpi", "Urretxu", "Beasain", "Ordizia"].map((muni) => (
+                    <button
+                      key={`muni-${muni}`}
+                      className={`jrg-lead-filter-btn ${selectedMunicipality === muni ? "active" : ""}`}
+                      onClick={() => setSelectedMunicipality(muni)}
+                    >
+                      {muni}
+                    </button>
                   ))}
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11px", color: "var(--jrg-gray-400)", padding: "2px 2px" }}>
+                  <span>{filteredLeads.length} DE {JRG_REAL_LEADS.length} COMERCIOS AUDITADOS</span>
+                  <span>{selectedMunicipality === "Todos" ? "GIPUZKOA COMPLETO" : selectedMunicipality.toUpperCase()}</span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {filteredLeads.map((lead) => {
+                    const status = leadStatuses[lead.id] || "nuevo";
+                    const cleanPhone = lead.telefono.replace(/\D/g, "");
+                    return (
+                      <div key={lead.id} className="jrg-lead-card">
+                        <div className="jrg-lead-header">
+                          <span className="jrg-lead-name">{lead.nombre}</span>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <span className="jrg-lead-location">
+                              {lead.municipio} • {lead.rating} ★ ({lead.reviews})
+                            </span>
+                            <button
+                              className={`jrg-lead-status-pill ${status}`}
+                              onClick={() => toggleLeadStatus(lead.id)}
+                              title="Haz clic para avanzar estado: nuevo -> contactado -> propuesta -> cerrado"
+                            >
+                              {status.toUpperCase()}
+                            </button>
+                          </div>
+                        </div>
+                        <div className="jrg-lead-info-row">
+                          {lead.categoria} • Tel: <strong>{lead.telefono}</strong>
+                        </div>
+                        <div className="jrg-lead-footer">
+                          <Link
+                            to={lead.demoUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="jrg-demo-preview-link"
+                          >
+                            Ver Demo Web <FiExternalLink style={{ verticalAlign: "middle" }} />
+                          </Link>
+                          <a
+                            href={`https://wa.me/34${cleanPhone}?text=${encodeURIComponent(lead.mensaje)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="jrg-whatsapp-btn"
+                          >
+                            <FaWhatsapp /> Contactar
+                          </a>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1031,27 +1553,116 @@ export default function AgentOrchestratorPage() {
               <div className="jrg-telemetry-container">
                 <div className="jrg-kpi-grid">
                   <div className="jrg-kpi-card">
-                    <div className="jrg-kpi-num">142h</div>
+                    <div className="jrg-kpi-num">{roiHorasAhorradas}h</div>
                     <div className="jrg-kpi-label">Horas Ahorradas / Mes</div>
                   </div>
                   <div className="jrg-kpi-card">
-                    <div className="jrg-kpi-num">30</div>
+                    <div className="jrg-kpi-num">{roiLeadsCount}</div>
                     <div className="jrg-kpi-label">Leads Cualificados</div>
                   </div>
                   <div className="jrg-kpi-card">
-                    <div className="jrg-kpi-num">38%</div>
-                    <div className="jrg-kpi-label">Ratio Respuesta WhatsApp</div>
+                    <div className="jrg-kpi-num">{roiConvRate}%</div>
+                    <div className="jrg-kpi-label">Tasa Conversión Est.</div>
                   </div>
                   <div className="jrg-kpi-card">
-                    <div className="jrg-kpi-num">+4.800€</div>
+                    <div className="jrg-kpi-num">+{roiFacturacion.toLocaleString("es-ES")}€</div>
                     <div className="jrg-kpi-label">Impacto Facturación Mensual</div>
                   </div>
                 </div>
 
+                {/* Simulador Interactivo de ROI y Kit Digital */}
+                <div className="jrg-roi-simulator-box">
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <h4 style={{ margin: 0, fontSize: "12.5px", fontWeight: 700, color: "var(--jrg-white)" }}>
+                      SIMULADOR DE RETORNO (ROI) & KIT DIGITAL
+                    </h4>
+                    <span style={{ fontSize: "10px", color: "var(--jrg-gray-400)", fontFamily: "monospace" }}>
+                      INTERACTIVO
+                    </span>
+                  </div>
+
+                  {/* Control 1: Volumen de Leads */}
+                  <div className="jrg-roi-control-group">
+                    <div className="jrg-roi-control-label">
+                      <span>Leads Mensuales a Prospectar</span>
+                      <strong>{roiLeadsCount} comercios</strong>
+                    </div>
+                    <div className="jrg-roi-pills">
+                      {[15, 30, 60, 100].map((count) => (
+                        <button
+                          key={`roi-leads-${count}`}
+                          className={`jrg-roi-pill-btn ${roiLeadsCount === count ? "active" : ""}`}
+                          onClick={() => setRoiLeadsCount(count)}
+                        >
+                          {count} leads
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Control 2: Ticket Medio */}
+                  <div className="jrg-roi-control-group">
+                    <div className="jrg-roi-control-label">
+                      <span>Ticket Medio Proyecto</span>
+                      <strong>{roiAvgTicket}€ / cliente</strong>
+                    </div>
+                    <div className="jrg-roi-pills">
+                      {[450, 850, 1500, 3000].map((ticket) => (
+                        <button
+                          key={`roi-ticket-${ticket}`}
+                          className={`jrg-roi-pill-btn ${roiAvgTicket === ticket ? "active" : ""}`}
+                          onClick={() => setRoiAvgTicket(ticket)}
+                        >
+                          {ticket}€
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Control 3: Tasa de Conversión */}
+                  <div className="jrg-roi-control-group">
+                    <div className="jrg-roi-control-label">
+                      <span>Conversión Estimada</span>
+                      <strong>{roiConvRate}%</strong>
+                    </div>
+                    <div className="jrg-roi-pills">
+                      {[10, 15, 20, 30].map((rate) => (
+                        <button
+                          key={`roi-rate-${rate}`}
+                          className={`jrg-roi-pill-btn ${roiConvRate === rate ? "active" : ""}`}
+                          onClick={() => setRoiConvRate(rate)}
+                        >
+                          {rate}%
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Resultado Calculado */}
+                  <div style={{ background: "rgba(255, 255, 255, 0.03)", border: "1px solid var(--jrg-border-subtle)", borderRadius: "8px", padding: "10px 12px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px" }}>
+                      <span style={{ color: "var(--jrg-gray-400)" }}>Clientes proyectados:</span>
+                      <strong style={{ color: "var(--jrg-white)" }}>~{roiClientes} cierres / mes</strong>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px" }}>
+                      <span style={{ color: "var(--jrg-gray-400)" }}>Facturación estimada:</span>
+                      <strong style={{ color: "var(--jrg-white)" }}>+{roiFacturacion.toLocaleString("es-ES")}€ / mes</strong>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px" }}>
+                      <span style={{ color: "var(--jrg-gray-400)" }}>Ahorro de horas directas:</span>
+                      <strong style={{ color: "var(--jrg-white)" }}>{roiHorasAhorradas} horas / mes</strong>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", borderTop: "1px solid var(--jrg-border-subtle)", paddingTop: "6px", marginTop: "2px" }}>
+                      <span style={{ color: "var(--jrg-gray-400)" }}>Bono Kit Digital Red.es:</span>
+                      <strong style={{ color: "#86efac" }}>Hasta 3.000€ (100% Subvencionable)</strong>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="jrg-telemetry-summary-card">
-                  <h4>Eficiencia Operativa</h4>
+                  <h4>Eficiencia Operativa JRG Agency</h4>
                   <p>
-                    El pipeline sincronizado de prospección automatizada, maquetación web en 48 horas y contacto directo reduce el ciclo comercial de 14 días a 48 horas.
+                    El pipeline coordinado de prospección automatizada, maquetación web en 48 horas y contacto directo reduce el ciclo comercial tradicional de 14 días a 48 horas con 0 fricción técnica.
                   </p>
                 </div>
               </div>

@@ -880,6 +880,175 @@
   line-height: 1.5;
 }
 
+/* Simulador Interactivo de ROI y Kit Digital */
+.jrg-roi-simulator-box {
+  background: #111218;
+  border: 1px solid var(--jrg-border-subtle);
+  border-radius: 9px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jrg-roi-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.jrg-roi-control-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--jrg-gray-400);
+}
+
+.jrg-roi-control-label strong {
+  color: var(--jrg-white);
+}
+
+.jrg-roi-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.jrg-roi-pill-btn {
+  flex: 1;
+  background: #161720;
+  border: 1px solid var(--jrg-border-subtle);
+  color: var(--jrg-gray-300);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.jrg-roi-pill-btn:hover {
+  background: #20212d;
+  color: var(--jrg-white);
+}
+
+.jrg-roi-pill-btn.active {
+  background: var(--jrg-white);
+  color: #08090c;
+  border-color: var(--jrg-white);
+  font-weight: 700;
+}
+
+/* Acciones en Tarjetas Kanban */
+.jrg-task-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jrg-task-delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--jrg-gray-500);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.jrg-task-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.jrg-reset-tasks-btn {
+  background: transparent;
+  border: 1px dashed var(--jrg-border-subtle);
+  color: var(--jrg-gray-400);
+  font-size: 11px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.jrg-reset-tasks-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--jrg-white);
+  border-color: var(--jrg-border-medium);
+}
+
+/* Píldoras de Filtro de Leads CRM */
+.jrg-lead-filter-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.jrg-lead-filter-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.jrg-lead-filter-btn {
+  background: #111218;
+  border: 1px solid var(--jrg-border-subtle);
+  color: var(--jrg-gray-400);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.jrg-lead-filter-btn:hover {
+  background: #191a24;
+  color: var(--jrg-white);
+}
+
+.jrg-lead-filter-btn.active {
+  background: var(--jrg-white);
+  color: #08090c;
+  border-color: var(--jrg-white);
+}
+
+.jrg-lead-status-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: monospace;
+  cursor: pointer;
+  border: 1px solid var(--jrg-border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--jrg-gray-300);
+  transition: all 0.15s ease;
+}
+
+.jrg-lead-status-pill.contactado {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.jrg-lead-status-pill.propuesta {
+  background: rgba(234, 179, 8, 0.15);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.jrg-lead-status-pill.cerrado {
+  background: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
 /* ====================================================
    OVERLAY HUD ESTILO HERMES (NEGRO, BLANCO Y GRIS)
    ==================================================== */
