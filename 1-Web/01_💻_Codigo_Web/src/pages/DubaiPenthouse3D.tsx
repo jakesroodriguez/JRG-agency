@@ -502,6 +502,134 @@ function FloorHalo({
   );
 }
 
+// ============================================================================
+// 6. PERFILES DE IDENTIDAD VISUAL, ESTILO Y CINEMÁTICA POR AGENTE JRG
+// ============================================================================
+
+interface AgentVisualProfile {
+  scale: number;
+  yOffset: number;
+  shirtColor: string;
+  shirtRoughness: number;
+  shirtMetalness: number;
+  pantColor: string;
+  pantRoughness: number;
+  shoeColor: string;
+  soleColor: string;
+  hairColor: string;
+  hairRoughness: number;
+  skinColor: string;
+  screenColor: string;
+  screenEmissive: string;
+  screenIntensity: number;
+  typingSpeed: number;
+  roleBadge: string;
+  badgeColor: string;
+}
+
+const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
+  "jrg-aitor": {
+    scale: 0.125, // Porte de líder directivo (~1.90m)
+    yOffset: -0.15,
+    shirtColor: "#0b0c10", // Traje sastre negro medianoche de corte italiano
+    shirtRoughness: 0.45,
+    shirtMetalness: 0.28,
+    pantColor: "#14151c",
+    pantRoughness: 0.65,
+    shoeColor: "#040407", // Oxford negro charol
+    soleColor: "#27272a",
+    hairColor: "#090a0f", // Pelo negro azabache engominado
+    hairRoughness: 0.6,
+    skinColor: "#e5b993",
+    screenColor: "#161720",
+    screenEmissive: "#f59e0b", // Terminal financiera ámbar / gold
+    screenIntensity: 1.3,
+    typingSpeed: 0.85, // Pausado, seguro y autoritario
+    roleBadge: "CEO & DIRECTOR",
+    badgeColor: "#f59e0b",
+  },
+  "jrg-maider": {
+    scale: 0.118, // Femenina ejecutiva tech (~1.74m)
+    yOffset: -0.16,
+    shirtColor: "#e4e4e7", // Blazer sastre marfil / blanco roto con cuello oscuro
+    shirtRoughness: 0.6,
+    shirtMetalness: 0.1,
+    pantColor: "#27272a",
+    pantRoughness: 0.75,
+    shoeColor: "#18181b",
+    soleColor: "#f4f4f5",
+    hairColor: "#3e2723", // Castaño chocolate elegante con brillo
+    hairRoughness: 0.5,
+    skinColor: "#fad7bc", // Tono claro natural
+    screenColor: "#082f49",
+    screenEmissive: "#06b6d4", // Matriz de scraping / OSINT cian neón
+    screenIntensity: 1.6,
+    typingSpeed: 1.38, // Ráfagas rápidas de extracción de datos
+    roleBadge: "LEAD SCOUT",
+    badgeColor: "#06b6d4",
+  },
+  "jrg-iker": {
+    scale: 0.122, // Copywriter y ventas (~1.80m)
+    yOffset: -0.155,
+    shirtColor: "#1e293b", // Sobrecamisa índigo oscuro / creative lead
+    shirtRoughness: 0.8,
+    shirtMetalness: 0.05,
+    pantColor: "#0f172a",
+    pantRoughness: 0.8,
+    shoeColor: "#181920",
+    soleColor: "#ffffff",
+    hairColor: "#1c1917", // Pelo castaño oscuro texturizado
+    hairRoughness: 0.75,
+    skinColor: "#dfb08c",
+    screenColor: "#064e3b",
+    screenEmissive: "#22c55e", // WhatsApp engine verde esmeralda
+    screenIntensity: 1.3,
+    typingSpeed: 0.98, // Cadencia creativa con pausas
+    roleBadge: "PITCH & COPY",
+    badgeColor: "#22c55e",
+  },
+  "jrg-unai": {
+    scale: 0.124, // Tech Architect (~1.84m)
+    yOffset: -0.155,
+    shirtColor: "#18181b", // Tech crewneck grafito con ribetes
+    shirtRoughness: 0.85,
+    shirtMetalness: 0.15,
+    pantColor: "#09090b",
+    pantRoughness: 0.85,
+    shoeColor: "#27272a",
+    soleColor: "#09090b",
+    hairColor: "#18181b", // Degradado oscuro
+    hairRoughness: 0.8,
+    skinColor: "#e5b89a",
+    screenColor: "#1e1b4b",
+    screenEmissive: "#3b82f6", // IDE VS Code azul eléctrico
+    screenIntensity: 1.8,
+    typingSpeed: 1.52, // Programación ultra-rápida
+    roleBadge: "TECH ARCHITECT",
+    badgeColor: "#3b82f6",
+  },
+  "jrg-elena": {
+    scale: 0.119, // Data & Growth Analyst (~1.75m)
+    yOffset: -0.16,
+    shirtColor: "#1a1d2e", // Traje azul noche elegante de finanzas
+    shirtRoughness: 0.55,
+    shirtMetalness: 0.22,
+    pantColor: "#11131f",
+    pantRoughness: 0.75,
+    shoeColor: "#0d0e17",
+    soleColor: "#fde047",
+    hairColor: "#1c1410", // Morena con acabado satinado
+    hairRoughness: 0.45,
+    skinColor: "#f7d2b5",
+    screenColor: "#451a03",
+    screenEmissive: "#f59e0b", // Dashboard de ROI & métricas Kit Digital
+    screenIntensity: 1.4,
+    typingSpeed: 0.92, // Precisión analítica
+    roleBadge: "GROWTH & ROI",
+    badgeColor: "#f59e0b",
+  },
+};
+
 function RiggedCorporateAgent({
   agent,
   pos,
@@ -509,6 +637,7 @@ function RiggedCorporateAgent({
   isNear,
   isSelected,
   onSelect,
+  ceoPos,
 }: {
   agent: Agent;
   pos: [number, number, number];
@@ -516,62 +645,82 @@ function RiggedCorporateAgent({
   isNear: boolean;
   isSelected: boolean;
   onSelect: () => void;
+  ceoPos?: [number, number, number];
 }) {
   const gltf = useGLTF("/models/agent_rigged.glb");
+  const profile = AGENT_PROFILES[agent.id] || AGENT_PROFILES["jrg-aitor"];
 
   const clone = useMemo(() => {
-    const sceneClone = SkeletonUtils.clone(gltf.scene);
-    sceneClone.traverse((o) => {
-      if ((o as THREE.Mesh).isMesh) {
-        const mesh = o as THREE.Mesh;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        const name = (mesh.name || "").toLowerCase();
+    try {
+      const sceneClone = SkeletonUtils.clone(gltf.scene);
+      sceneClone.traverse((o) => {
+        if ((o as THREE.Mesh).isMesh) {
+          const mesh = o as THREE.Mesh;
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          const name = (mesh.name || "").toLowerCase();
 
-        // 1. Traje y camisa ejecutiva sastre monocroma (según agente)
-        if (name.includes("shirt") || name.includes("cube.002")) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: agent.clothingColor,
-            roughness: 0.72,
-            metalness: 0.15,
-          });
+          // 1. Traje y chaqueta sastre personalizado
+          if (name.includes("shirt") || name.includes("cube.002")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.shirtColor,
+              roughness: profile.shirtRoughness,
+              metalness: profile.shirtMetalness,
+            });
+          }
+          // 2. Pantalón de vestir específico
+          else if (name.includes("pant")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.pantColor,
+              roughness: profile.pantRoughness,
+              metalness: 0.08,
+            });
+          }
+          // 3. Calzado ejecutivo de piel
+          else if (name.includes("shoe")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.shoeColor,
+              roughness: 0.28,
+              metalness: 0.35,
+            });
+          }
+          // 4. Suela de zapatos
+          else if (name.includes("sole")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.soleColor,
+              roughness: 0.4,
+            });
+          }
+          // 5. Cabello estilizado con su tono exacto
+          else if (name.includes("hair")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.hairColor,
+              roughness: profile.hairRoughness,
+            });
+          }
+          // 6. Piel (Manos, cuello, cabeza)
+          else if (name.includes("hand") || name.includes("neck") || name.includes("ear")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.skinColor,
+              roughness: 0.55,
+            });
+          }
+          // 7. Pantalla de portátil temática por rol
+          else if (name.includes("screen") || name.includes("glass")) {
+            mesh.material = new THREE.MeshStandardMaterial({
+              color: profile.screenColor,
+              emissive: profile.screenEmissive,
+              emissiveIntensity: profile.screenIntensity,
+              roughness: 0.15,
+            });
+          }
         }
-        // 2. Pantalón de vestir oscuro
-        else if (name.includes("pant")) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: "#0a0b10",
-            roughness: 0.82,
-            metalness: 0.08,
-          });
-        }
-        // 3. Calzado ejecutivo de piel
-        else if (name.includes("shoe") || name.includes("sole")) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: "#06070a",
-            roughness: 0.32,
-            metalness: 0.28,
-          });
-        }
-        // 4. Cabello estilizado
-        else if (name.includes("hair")) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: agent.hairColor,
-            roughness: 0.85,
-          });
-        }
-        // 5. Laptop con emisión de pantalla LED suave
-        else if (name.includes("screen") || name.includes("glass")) {
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: "#181a24",
-            emissive: "#60a5fa",
-            emissiveIntensity: 0.4,
-            roughness: 0.2,
-          });
-        }
-      }
-    });
-    return sceneClone;
-  }, [gltf.scene, agent.clothingColor, agent.hairColor]);
+      });
+      return sceneClone;
+    } catch {
+      return gltf.scene.clone(true);
+    }
+  }, [gltf.scene, profile]);
 
   const mixer = useMemo(() => new THREE.AnimationMixer(clone), [clone]);
 
@@ -579,34 +728,57 @@ function RiggedCorporateAgent({
     const typingClip = THREE.AnimationClip.findByName(gltf.animations, "typing");
     if (typingClip) {
       const action = mixer.clipAction(typingClip);
-      // Variación sutil de velocidad para evitar sincronización robótica entre puestos
-      action.timeScale = 0.92 + (agent.floor % 3) * 0.06;
+      // Dinámica reactiva: cuando el CEO habla con ellos, reducen el ritmo para atenderlo
+      const speed = isSelected
+        ? profile.typingSpeed * 0.35
+        : isNear
+        ? profile.typingSpeed * 0.65
+        : profile.typingSpeed;
+      action.timeScale = speed;
       action.play();
     }
 
     const blinkClip = THREE.AnimationClip.findByName(gltf.animations, "Blink");
     if (blinkClip) {
       const action = mixer.clipAction(blinkClip);
-      action.timeScale = 0.85;
+      action.timeScale = 0.8 + (agent.floor % 3) * 0.12;
       action.play();
+    }
+
+    if (isNear) {
+      const browClip = THREE.AnimationClip.findByName(gltf.animations, "browup");
+      if (browClip) {
+        const action = mixer.clipAction(browClip);
+        action.setLoop(THREE.LoopOnce, 1);
+        action.clampWhenFinished = true;
+        action.play();
+      }
     }
 
     return () => {
       mixer.stopAllAction();
     };
-  }, [mixer, gltf.animations, agent.floor]);
+  }, [mixer, gltf.animations, profile.typingSpeed, isNear, isSelected, agent.floor]);
 
-  // Actualización de animaciones y seguimiento de cabeza cinemático hacia el CEO
+  // Seguimiento de cabeza cinemático hacia el CEO (Jakes) al aproximarse
   useFrame((state, delta) => {
     mixer.update(delta);
 
     const head = clone.getObjectByName("spine006") || clone.getObjectByName("head");
     if (head) {
-      if (isNear) {
-        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, 0.42, 0.08);
+      if (ceoPos && (isNear || isSelected)) {
+        // Calcular ángulo exacto hacia la posición del CEO en la penthouse
+        const dx = ceoPos[0] - pos[0];
+        const dz = ceoPos[2] - (pos[2] + 0.7);
+        const worldAngle = Math.atan2(dx, dz);
+        const relAngle = worldAngle - (rot + Math.PI);
+        const clampedY = THREE.MathUtils.clamp(relAngle, -1.2, 1.2);
+        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, clampedY, 0.08);
+        head.rotation.x = THREE.MathUtils.lerp(head.rotation.x, -0.15, 0.08); // mira hacia arriba al CEO
       } else {
         const t = state.clock.getElapsedTime();
-        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, Math.sin(t * 1.1 + agent.floor) * 0.12, 0.05);
+        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, Math.sin(t * 1.2 + agent.floor) * 0.08, 0.05);
+        head.rotation.x = THREE.MathUtils.lerp(head.rotation.x, 0.14, 0.05); // mira la pantalla
       }
     }
   });
@@ -622,7 +794,7 @@ function RiggedCorporateAgent({
         onSelect={onSelect}
       />
 
-      {/* Modelo Humanoide Riggeado y Animado de Blender */}
+      {/* Modelo Humanoide Escala Completa y Personalizado */}
       <group
         position={[pos[0], pos[1], pos[2] + 0.7]}
         rotation={[0, rot + Math.PI, 0]}
@@ -631,7 +803,7 @@ function RiggedCorporateAgent({
           onSelect();
         }}
       >
-        <primitive object={clone} scale={0.078} position={[0, -0.22, 0]} />
+        <primitive object={clone} scale={profile.scale} position={[0, profile.yOffset, 0]} />
       </group>
     </group>
   );
@@ -640,7 +812,7 @@ function RiggedCorporateAgent({
 useGLTF.preload("/models/agent_rigged.glb");
 
 // ============================================================================
-// 7. MOBILIARIO DE ALTO NIVEL
+// 7. MOBILIARIO DE ALTO NIVEL & ESTACIONES TEMÁTICAS PERSONALIZADAS
 // ============================================================================
 
 function PenthouseFurniture({
@@ -648,43 +820,89 @@ function PenthouseFurniture({
   selectedId,
   nearAgentId,
   onSelect,
+  ceoPos,
 }: {
   agents: Agent[];
   selectedId: string;
   nearAgentId: string | null;
   onSelect: (id: string) => void;
+  ceoPos?: [number, number, number];
 }) {
   return (
     <>
-      {/* Despacho del CEO con Mesa de Nogal */}
+      {/* Despacho del CEO con Mesa de Nogal y Detalles Presidenciales */}
       <group position={[-7.0, 0, -3.5]}>
         <Prop name="deskCorner" width={2.8} pos={[0, 0, 0]} rot={0} />
         <Prop name="chairDesk" width={0.9} pos={[0, 0, 0.8]} rot={Math.PI} />
         <Prop name="computerScreen" width={1.2} pos={[0, 0.75, -0.3]} rot={0} />
         <Prop name="lampRoundFloor" width={0.6} pos={[-1.6, 0, -0.8]} />
         <Prop name="bookcaseClosed" width={2.0} pos={[-4.5, 0, -0.5]} rot={Math.PI / 2} />
+
+        {/* Accesorios Despacho CEO Aitor: Reloj/Trofeo dorado & espresso */}
+        <mesh position={[-0.95, 0.78, 0.15]}>
+          <cylinderGeometry args={[0.045, 0.055, 0.16, 16]} />
+          <meshStandardMaterial color="#fbbf24" metalness={0.9} roughness={0.15} />
+        </mesh>
+        <mesh position={[0.65, 0.78, 0.1]}>
+          <cylinderGeometry args={[0.035, 0.03, 0.07, 12]} />
+          <meshStandardMaterial color="#09090b" roughness={0.3} />
+        </mesh>
       </group>
 
       {/* Estaciones de Trabajo de los Especialistas */}
       <Safe>
-        <Prop name="desk" width={2.0} pos={[-2.5, 0, -3.8]} rot={0} />
-        <Prop name="chairDesk" width={0.8} pos={[-2.5, 0, -3.1]} rot={Math.PI} />
-        <Prop name="computerScreen" width={0.85} pos={[-2.5, 0.75, -4.1]} rot={0} />
+        {/* Estación Maider: Scraping & Lead Intel */}
+        <group position={[-2.5, 0, -3.8]}>
+          <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
+          <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
+          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
+          {/* Monitor secundario vertical de terminal de datos */}
+          <mesh position={[0.65, 1.05, -0.22]} rotation={[0, -0.25, 0]}>
+            <boxGeometry args={[0.30, 0.50, 0.03]} />
+            <meshStandardMaterial color="#082f49" emissive="#06b6d4" emissiveIntensity={1.4} />
+          </mesh>
+        </group>
 
-        <Prop name="desk" width={2.0} pos={[1.8, 0, -3.8]} rot={0} />
-        <Prop name="chairDesk" width={0.8} pos={[1.8, 0, -3.1]} rot={Math.PI} />
-        <Prop name="computerScreen" width={0.85} pos={[1.8, 0.75, -4.1]} rot={0} />
+        {/* Estación Iker: Copywriting & WhatsApp Sales */}
+        <group position={[1.8, 0, -3.8]}>
+          <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
+          <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
+          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
+          {/* Auriculares de estudio sobre la mesa */}
+          <group position={[0.62, 0.77, -0.12]} rotation={[0, 0.35, 0]}>
+            <mesh>
+              <torusGeometry args={[0.065, 0.016, 8, 24, Math.PI]} />
+              <meshStandardMaterial color="#1e293b" metalness={0.7} roughness={0.3} />
+            </mesh>
+          </group>
+        </group>
 
-        <Prop name="desk" width={2.0} pos={[-2.5, 0, -0.6]} rot={0} />
-        <Prop name="chairDesk" width={0.8} pos={[-2.5, 0, 0.1]} rot={Math.PI} />
-        <Prop name="computerScreen" width={0.85} pos={[-2.5, 0.75, -0.9]} rot={0} />
+        {/* Estación Unai: Tech Lab & Arquitectura Web */}
+        <group position={[-2.5, 0, -0.6]}>
+          <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
+          <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
+          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
+          {/* Teclado mecánico con brillo RGB sutil */}
+          <mesh position={[0, 0.76, 0.02]}>
+            <boxGeometry args={[0.38, 0.018, 0.12]} />
+            <meshStandardMaterial color="#09090b" emissive="#3b82f6" emissiveIntensity={0.6} />
+          </mesh>
+        </group>
 
-        <Prop name="desk" width={2.0} pos={[1.8, 0, -0.6]} rot={0} />
-        <Prop name="chairDesk" width={0.8} pos={[1.8, 0, 0.1]} rot={Math.PI} />
-        <Prop name="computerScreen" width={0.85} pos={[1.8, 0.75, -0.9]} rot={0} />
+        {/* Estación Elena: Analítica & Subvenciones Kit Digital */}
+        <group position={[1.8, 0, -0.6]}>
+          <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
+          <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
+          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
+          {/* Tablet financiera con gráfico de barras ROI */}
+          <mesh position={[0.55, 0.765, 0.05]} rotation={[-Math.PI / 2, 0, 0.12]}>
+            <planeGeometry args={[0.22, 0.30]} />
+            <meshStandardMaterial color="#451a03" emissive="#f59e0b" emissiveIntensity={1.1} />
+          </mesh>
+        </group>
       </Safe>
 
-      {/* Personajes Humanos Ejecutivos Riggeados y Animados de Blender */}
+      {/* Personajes Humanos Ejecutivos Riggeados, Escala Grande y Animados */}
       {agents.map((ag) => {
         const layout = PENTHOUSE_LAYOUT[ag.id];
         if (!layout) return null;
@@ -697,6 +915,7 @@ function PenthouseFurniture({
               isNear={nearAgentId === ag.id}
               isSelected={selectedId === ag.id}
               onSelect={() => onSelect(ag.id)}
+              ceoPos={ceoPos}
             />
           </Safe>
         );
@@ -736,7 +955,7 @@ function PenthouseFurniture({
         return (
           <group key={`station-${ag.id}`} position={layout.pos}>
             <Html
-              position={[0, 1.8, 0]}
+              position={[0, 2.05, 0]}
               center
               distanceFactor={8.5}
               zIndexRange={[20, 0]}
@@ -1365,6 +1584,7 @@ export default function DubaiPenthouse({
               selectedId={selectedId}
               nearAgentId={nearAgentId}
               onSelect={onSelect}
+              ceoPos={playerPos}
             />
           </Safe>
         </Suspense>
