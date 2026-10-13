@@ -9,6 +9,7 @@ const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const DemoPreview = lazy(() => import("./pages/DemoPreview"));
+const AgentOrchestratorPage = lazy(() => import("./pages/AgentOrchestratorPage"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -78,6 +79,22 @@ const App = () => {
           element={
             <Suspense fallback={<div style={{ minHeight: '100vh', background: '#0d1117', color: '#8b949e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cargando boceto digital...</div>}>
               <DemoPreview />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/agentes"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#07090e', color: '#00f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace' }}>⚡ Iniciando Sistema de Agentes JRG...</div>}>
+              <AgentOrchestratorPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/orquestador"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#07090e', color: '#00f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace' }}>⚡ Iniciando Sistema de Agentes JRG...</div>}>
+              <AgentOrchestratorPage />
             </Suspense>
           }
         />
