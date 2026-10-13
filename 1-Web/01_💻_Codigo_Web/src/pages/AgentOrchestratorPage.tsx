@@ -17,7 +17,7 @@ import {
   FiX
 } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import HermesOffice from "./HermesOffice3D";
+import DubaiPenthouse from "./DubaiPenthouse3D";
 import "./AgentOrchestratorPage.css";
 
 // ============================================================================
@@ -1107,8 +1107,8 @@ export default function AgentOrchestratorPage() {
               </div>
             )}
 
-            {/* Escenario 3D Hermes Daylight Isometric HQ */}
-            <HermesOffice
+            {/* Escenario 3D Dubai Penthouse Piso 60 HQ */}
+            <DubaiPenthouse
               agents={agents}
               selectedId={selectedAgentId}
               focusId={selectedAgentId}
