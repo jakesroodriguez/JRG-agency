@@ -44,3 +44,7 @@ video.mp4
 2-Modelo 3D/
 3-Leads/
 4-Maps/
+.claude/
+.venv/
+kes/
+skills-lock.json

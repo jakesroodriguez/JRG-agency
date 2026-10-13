@@ -89,10 +89,17 @@ p          { text-wrap: pretty;  }
   border-radius: 16px;
 }
 
-html,
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
 body {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: transparent;
+  min-height: 100vh;
 }
 
 /* Allow scrolling on mobile */

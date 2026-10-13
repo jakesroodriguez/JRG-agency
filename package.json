@@ -5,6 +5,8 @@
     "install": "npm --prefix \"1-Web/01_💻_Codigo_Web\" install",
     "build": "npm --prefix \"1-Web/01_💻_Codigo_Web\" run build",
     "dev": "npm --prefix \"1-Web/01_💻_Codigo_Web\" run dev",
-    "preview": "npm --prefix \"1-Web/01_💻_Codigo_Web\" run preview"
+    "preview": "npm --prefix \"1-Web/01_💻_Codigo_Web\" run preview",
+    "orquestador": "npm --prefix \"5-Orquestador_Agentes_3D\" run dev",
+    "orchestrator": "npm --prefix \"5-Orquestador_Agentes_3D\" run dev"
   }
 }

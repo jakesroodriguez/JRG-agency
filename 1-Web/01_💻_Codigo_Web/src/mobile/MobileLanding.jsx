@@ -501,22 +501,14 @@ import { initSplineRobot } from './splineRobot';
         <div 
           ref={containerRef} 
           className="container-scroll-outer"
-          style={{ perspective: isMobile ? 'none' : '1000px' }}
         >
           <div 
             className="container-scroll-header"
-            style={{ 
-              transform: isMobile ? 'none' : `translateY(${translateY}px)`,
-              opacity: isMobile ? 1 : Math.min(1, scrollProgress * 1.5)
-            }}
           >
             {titleComponent}
           </div>
           <div 
             className={plainCard ? "container-scroll-card-plain" : "container-scroll-card"}
-            style={{ 
-              transform: isMobile ? 'none' : `rotateX(${rotateX}deg) scale(${scale})`,
-            }}
           >
             <div className={plainCard ? "" : "container-scroll-card-inner"}>
               {children}
@@ -1164,7 +1156,12 @@ import { initSplineRobot } from './splineRobot';
       const [email, setEmail] = useState('');
       const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
       const [lang, setLang] = useState(() => localStorage.getItem('jakes_lang') || 'es');
-      const [isNavExpanded, setIsNavExpanded] = useState(false);
+      const [isNavExpanded, setIsNavExpanded] = useState(() => {
+        if (typeof window !== 'undefined') {
+          return window.innerWidth > 900;
+        }
+        return false;
+      });
       const [bootProgress, setBootProgress] = useState(0);
       const [bootStage, setBootStage] = useState(0);
       const [isBootExiting, setIsBootExiting] = useState(false);
@@ -1235,13 +1232,21 @@ import { initSplineRobot } from './splineRobot';
           }
         };
 
+        const handleResize = () => {
+          if (window.innerWidth > 900) {
+            setIsNavExpanded(true);
+          }
+        };
+
         window.addEventListener('mousemove', handleGlobalMouse);
         window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleResize);
         updateFavicon();
 
         return () => {
           window.removeEventListener('mousemove', handleGlobalMouse);
           window.removeEventListener('scroll', handleScroll);
+          window.removeEventListener('resize', handleResize);
         };
       }, []);
 
@@ -1466,7 +1471,11 @@ import { initSplineRobot } from './splineRobot';
           {isNavExpanded && (
             <div
               className="nav-dock-backdrop"
-              onClick={() => setIsNavExpanded(false)}
+              onClick={() => {
+                if (window.innerWidth <= 900) {
+                  setIsNavExpanded(false);
+                }
+              }}
               aria-hidden="true"
             />
           )}
@@ -1474,7 +1483,11 @@ import { initSplineRobot } from './splineRobot';
           {/* NAV — Liquid Glass Island */}
           <nav className={`nav-dock ${isNavExpanded ? 'expanded' : ''}`} aria-label="Navegación principal">
             <div className="nav-dock-inner">
-              <a href="#" className="nav-dock-brand" aria-label={lang === 'es' ? 'Volver al inicio' : lang === 'eu' ? 'Itzuli hasierara' : 'Back to top'} onClick={() => setIsNavExpanded(false)}>
+              <a href="#" className="nav-dock-brand" aria-label={lang === 'es' ? 'Volver al inicio' : lang === 'eu' ? 'Itzuli hasierara' : 'Back to top'} onClick={() => {
+                if (window.innerWidth <= 900) {
+                  setIsNavExpanded(false);
+                }
+              }}>
                 <span className="nav-dock-icon" aria-hidden="true">
                   <img src="/logoJRG.png" alt="Logo JRG" className="nav-dock-logo-img" style={{ width: 44, height: 44, objectFit: 'contain', borderRadius: '50%' }} loading="lazy" decoding="async" />
                 </span>
@@ -1530,6 +1543,10 @@ import { initSplineRobot } from './splineRobot';
                   particleColor="#3b82f6" 
                 />
               </div>
+
+              <p className="hero-lead">
+                {t.heroSubtitle} <span className="hero-lead-highlight">{t.heroSubtitleEm}</span>
+              </p>
 
               <div className="hero-actions">
                 <a href="#contact" className="btn-primary btn-primary--wide" onClick={(e) => {
@@ -2230,18 +2247,6 @@ import { initSplineRobot } from './splineRobot';
               </button>
             </div>
           </footer>
-          
-          {/* Rotating Text Ring */}
-          <div className="rotating-text-ring" aria-hidden="true">
-            <svg viewBox="0 0 200 200" width="120" height="120">
-              <path id="textPath" d="M 100, 100 m -60, 0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0" fill="none" />
-              <text>
-                <textPath href="#textPath" startOffset="0">
-                  OPEN TO WORK • SCROLL DOWN • LET'S TALK • 
-                </textPath>
-              </text>
-            </svg>
-          </div>
         </div>
       </div>
     );
