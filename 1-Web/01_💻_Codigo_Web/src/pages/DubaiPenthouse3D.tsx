@@ -2,7 +2,7 @@ import { Component, Suspense, useMemo, useRef, useState, useEffect, type ReactNo
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import { SkeletonUtils, type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { Agent } from "./AgentOrchestratorPage";
 
 // ============================================================================
@@ -501,125 +501,220 @@ function PenthouseArchitecture() {
 }
 
 // ============================================================================
-// 6. PERSONAJES HUMANOS EJECUTIVOS RIGGEADOS Y SENTADOS
+// 6. PERSONAJES HUMANOS EJECUTIVOS RIGGEADOS Y HALOS DE SUELO BIOMÉTRICOS
 // ============================================================================
 
-function ExecutiveAgentFigure({
-  agent,
+function FloorHalo({
   pos,
-  rot = 0,
   isNear,
+  isSelected,
+  initials,
+  onSelect,
 }: {
-  agent: Agent;
   pos: [number, number, number];
-  rot?: number;
   isNear: boolean;
+  isSelected: boolean;
+  initials: string;
+  onSelect: () => void;
 }) {
-  const headRef = useRef<THREE.Group>(null);
-  const leftArmRef = useRef<THREE.Group>(null);
-  const rightArmRef = useRef<THREE.Group>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    const seed = agent.floor * 1.7;
-
-    // Brazos tecleando suavemente
-    if (leftArmRef.current && rightArmRef.current) {
-      leftArmRef.current.rotation.x = -0.7 + Math.sin(t * 12 + seed) * 0.12;
-      rightArmRef.current.rotation.x = -0.7 + Math.cos(t * 12 + seed) * 0.12;
-    }
-
-    // Giro de cabeza hacia el CEO cuando está cerca
-    if (headRef.current) {
-      if (isNear) {
-        headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, 0.45, 0.08);
-      } else {
-        headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, Math.sin(t * 1.2 + seed) * 0.18, 0.05);
+    if (ringRef.current) {
+      const mat = ringRef.current.material as THREE.MeshBasicMaterial;
+      if (mat) {
+        const baseOpacity = isSelected ? 0.95 : isNear ? 0.8 : 0.22;
+        const pulse = Math.sin(t * 3.5) * 0.08;
+        mat.opacity = THREE.MathUtils.lerp(mat.opacity, baseOpacity + (isNear || isSelected ? pulse : 0), 0.1);
       }
     }
   });
 
   return (
-    <group position={[pos[0], pos[1], pos[2] + 0.65]} rotation={[0, rot, 0]}>
-      {/* Piernas con pantalón de vestir */}
-      {[-0.14, 0.14].map((x, i) => (
-        <group key={`leg-${i}`} position={[x, 0.28, 0]}>
-          <mesh position={[0, 0, -0.16]}>
-            <boxGeometry args={[0.13, 0.14, 0.32]} />
-            <meshStandardMaterial color={agent.clothingColor} />
-          </mesh>
-          <mesh position={[0, -0.16, -0.32]}>
-            <boxGeometry args={[0.13, 0.26, 0.14]} />
-            <meshStandardMaterial color={agent.clothingColor} />
-          </mesh>
-          <mesh position={[0, -0.28, -0.36]}>
-            <boxGeometry args={[0.14, 0.08, 0.2]} />
-            <meshStandardMaterial color="#09090b" roughness={0.3} />
-          </mesh>
-        </group>
-      ))}
-
-      {/* Torso con traje sastre y corbata fina */}
-      <mesh position={[0, 0.75, 0]} castShadow>
-        <boxGeometry args={[0.44, 0.54, 0.26]} />
-        <meshStandardMaterial color={agent.clothingColor} roughness={0.8} />
-      </mesh>
-      {/* Camisa blanca ejecutiva visible en el cuello */}
-      <mesh position={[0, 0.95, 0.1]}>
-        <boxGeometry args={[0.14, 0.16, 0.08]} />
-        <meshStandardMaterial color="#ffffff" />
+    <group position={[pos[0], 0.006, pos[2] + 0.7]}>
+      {/* Anillo exterior concéntrico */}
+      <mesh
+        ref={ringRef}
+        rotation={[-Math.PI / 2, 0, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect();
+        }}
+      >
+        <ringGeometry args={[1.05, 1.15, 48]} />
+        <meshBasicMaterial color={isSelected ? "#ffffff" : isNear ? "#e4e4e7" : "#71717a"} transparent opacity={0.3} />
       </mesh>
 
-      {/* Cabeza humana estilizada */}
-      <group ref={headRef} position={[0, 1.25, 0]}>
-        <mesh castShadow>
-          <boxGeometry args={[0.32, 0.34, 0.32]} />
-          <meshStandardMaterial color="#fcd34d" roughness={0.5} />
-        </mesh>
-        <mesh position={[0, 0.14, 0]}>
-          <boxGeometry args={[0.34, 0.14, 0.34]} />
-          <meshStandardMaterial color={agent.hairColor} roughness={0.9} />
-        </mesh>
-        <mesh position={[0, 0.02, -0.13]}>
-          <boxGeometry args={[0.34, 0.24, 0.12]} />
-          <meshStandardMaterial color={agent.hairColor} roughness={0.9} />
-        </mesh>
-        {/* Ojos */}
-        <mesh position={[-0.08, 0.02, 0.165]}>
-          <boxGeometry args={[0.05, 0.05, 0.02]} />
-          <meshBasicMaterial color="#0f172a" />
-        </mesh>
-        <mesh position={[0.08, 0.02, 0.165]}>
-          <boxGeometry args={[0.05, 0.05, 0.02]} />
-          <meshBasicMaterial color="#0f172a" />
-        </mesh>
-      </group>
+      {/* Anillo interior fino */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.78, 0.82, 36]} />
+        <meshBasicMaterial color={isSelected || isNear ? "#ffffff" : "#52525b"} transparent opacity={isSelected ? 0.8 : isNear ? 0.5 : 0.15} />
+      </mesh>
 
-      {/* Brazos tecleando en el escritorio */}
-      <group ref={leftArmRef} position={[-0.28, 0.85, 0]}>
-        <mesh position={[0, -0.22, -0.18]} castShadow>
-          <boxGeometry args={[0.12, 0.42, 0.12]} />
-          <meshStandardMaterial color={agent.clothingColor} />
-        </mesh>
-        <mesh position={[0, -0.42, -0.32]}>
-          <boxGeometry args={[0.1, 0.1, 0.14]} />
-          <meshStandardMaterial color="#fcd34d" />
-        </mesh>
-      </group>
+      {/* Monograma de iniciales sobre el mármol */}
+      <Html
+        position={[0, 0.01, 0]}
+        center
+        distanceFactor={8}
+        transform
+        rotation={[-Math.PI / 2, 0, 0]}
+        style={{ pointerEvents: "none" }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-mono, monospace)",
+            fontSize: "12px",
+            fontWeight: 800,
+            letterSpacing: "3px",
+            color: isSelected ? "#ffffff" : isNear ? "#f4f4f5" : "rgba(255, 255, 255, 0.35)",
+            textShadow: isSelected || isNear ? "0 0 12px rgba(255, 255, 255, 0.9)" : "none",
+            userSelect: "none",
+          }}
+        >
+          {initials}
+        </div>
+      </Html>
+    </group>
+  );
+}
 
-      <group ref={rightArmRef} position={[0.28, 0.85, 0]}>
-        <mesh position={[0, -0.22, -0.18]} castShadow>
-          <boxGeometry args={[0.12, 0.42, 0.12]} />
-          <meshStandardMaterial color={agent.clothingColor} />
-        </mesh>
-        <mesh position={[0, -0.42, -0.32]}>
-          <boxGeometry args={[0.1, 0.1, 0.14]} />
-          <meshStandardMaterial color="#fcd34d" />
-        </mesh>
+function RiggedCorporateAgent({
+  agent,
+  pos,
+  rot = 0,
+  isNear,
+  isSelected,
+  onSelect,
+}: {
+  agent: Agent;
+  pos: [number, number, number];
+  rot?: number;
+  isNear: boolean;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  const gltf = useGLTF("/models/agent_rigged.glb");
+
+  const clone = useMemo(() => {
+    const sceneClone = SkeletonUtils.clone(gltf.scene);
+    sceneClone.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) {
+        const mesh = o as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        const name = (mesh.name || "").toLowerCase();
+
+        // 1. Traje y camisa ejecutiva sastre monocroma (según agente)
+        if (name.includes("shirt") || name.includes("cube.002")) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: agent.clothingColor,
+            roughness: 0.72,
+            metalness: 0.15,
+          });
+        }
+        // 2. Pantalón de vestir oscuro
+        else if (name.includes("pant")) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: "#0a0b10",
+            roughness: 0.82,
+            metalness: 0.08,
+          });
+        }
+        // 3. Calzado ejecutivo de piel
+        else if (name.includes("shoe") || name.includes("sole")) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: "#06070a",
+            roughness: 0.32,
+            metalness: 0.28,
+          });
+        }
+        // 4. Cabello estilizado
+        else if (name.includes("hair")) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: agent.hairColor,
+            roughness: 0.85,
+          });
+        }
+        // 5. Laptop con emisión de pantalla LED suave
+        else if (name.includes("screen") || name.includes("glass")) {
+          mesh.material = new THREE.MeshStandardMaterial({
+            color: "#181a24",
+            emissive: "#60a5fa",
+            emissiveIntensity: 0.4,
+            roughness: 0.2,
+          });
+        }
+      }
+    });
+    return sceneClone;
+  }, [gltf.scene, agent.clothingColor, agent.hairColor]);
+
+  const mixer = useMemo(() => new THREE.AnimationMixer(clone), [clone]);
+
+  useEffect(() => {
+    const typingClip = THREE.AnimationClip.findByName(gltf.animations, "typing");
+    if (typingClip) {
+      const action = mixer.clipAction(typingClip);
+      // Variación sutil de velocidad para evitar sincronización robótica entre puestos
+      action.timeScale = 0.92 + (agent.floor % 3) * 0.06;
+      action.play();
+    }
+
+    const blinkClip = THREE.AnimationClip.findByName(gltf.animations, "Blink");
+    if (blinkClip) {
+      const action = mixer.clipAction(blinkClip);
+      action.timeScale = 0.85;
+      action.play();
+    }
+
+    return () => {
+      mixer.stopAllAction();
+    };
+  }, [mixer, gltf.animations, agent.floor]);
+
+  // Actualización de animaciones y seguimiento de cabeza cinemático hacia el CEO
+  useFrame((state, delta) => {
+    mixer.update(delta);
+
+    const head = clone.getObjectByName("spine006") || clone.getObjectByName("head");
+    if (head) {
+      if (isNear) {
+        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, 0.42, 0.08);
+      } else {
+        const t = state.clock.getElapsedTime();
+        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, Math.sin(t * 1.1 + agent.floor) * 0.12, 0.05);
+      }
+    }
+  });
+
+  return (
+    <group>
+      {/* Halo Biométrico en el Suelo */}
+      <FloorHalo
+        pos={pos}
+        isNear={isNear}
+        isSelected={isSelected}
+        initials={agent.emoji}
+        onSelect={onSelect}
+      />
+
+      {/* Modelo Humanoide Riggeado y Animado de Blender */}
+      <group
+        position={[pos[0], pos[1], pos[2] + 0.7]}
+        rotation={[0, rot + Math.PI, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          onSelect();
+        }}
+      >
+        <primitive object={clone} scale={0.078} position={[0, -0.22, 0]} />
       </group>
     </group>
   );
 }
+
+useGLTF.preload("/models/agent_rigged.glb");
 
 // ============================================================================
 // 7. MOBILIARIO DE ALTO NIVEL
@@ -666,18 +761,21 @@ function PenthouseFurniture({
         <Prop name="computerScreen" width={0.85} pos={[1.8, 0.75, -0.9]} rot={0} />
       </Safe>
 
-      {/* Personajes Humanos Ejecutivos Trabajando en cada Puesto */}
+      {/* Personajes Humanos Ejecutivos Riggeados y Animados de Blender */}
       {agents.map((ag) => {
         const layout = PENTHOUSE_LAYOUT[ag.id];
         if (!layout) return null;
         return (
-          <ExecutiveAgentFigure
-            key={`fig-${ag.id}`}
-            agent={ag}
-            pos={layout.pos}
-            rot={layout.rot}
-            isNear={nearAgentId === ag.id}
-          />
+          <Safe key={`fig-${ag.id}`}>
+            <RiggedCorporateAgent
+              agent={ag}
+              pos={layout.pos}
+              rot={layout.rot}
+              isNear={nearAgentId === ag.id}
+              isSelected={selectedId === ag.id}
+              onSelect={() => onSelect(ag.id)}
+            />
+          </Safe>
         );
       })}
 
