@@ -1819,3 +1819,99 @@
   color: #08090c;
   transform: scale(0.94);
 }
+
+/* ============================================================================
+   TERCERA PERSONA CEO & MIRA DE RATÓN (HUD ESTÉTICO)
+   ============================================================================ */
+
+.hm-ceo-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(9, 10, 15, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hm-ceo-badge {
+  background: #ffffff;
+  color: #090a0f;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.hm-ceo-name {
+  color: #f4f4f5;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono, monospace);
+}
+
+/* Retícula / Mira Central de Tercera Persona */
+.jrg-aim-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.jrg-aim-crosshair .cross-dot {
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.jrg-aim-crosshair::before,
+.jrg-aim-crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.jrg-aim-crosshair::before {
+  width: 14px;
+  height: 1px;
+}
+
+.jrg-aim-crosshair::after {
+  width: 1px;
+  height: 14px;
+}
+
+/* Píldora de Instrucción de Mira / Ratón */
+.jrg-mouse-aim-hint {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  background: rgba(14, 15, 22, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: #d4d4d8;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.4px;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}

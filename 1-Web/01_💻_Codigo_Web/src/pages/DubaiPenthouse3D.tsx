@@ -1,6 +1,6 @@
 import { Component, Suspense, useMemo, useRef, useState, useEffect, type ReactNode, type RefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
+import { Html, OrbitControls, useGLTF, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { SkeletonUtils, type OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { Agent } from "./AgentOrchestratorPage";
@@ -164,42 +164,6 @@ function makeTerracePavement(w: number, d: number): THREE.CanvasTexture {
   return t;
 }
 
-function makeSkyscraperWindows(): THREE.CanvasTexture {
-  const c = document.createElement("canvas");
-  c.width = 128;
-  c.height = 256;
-  const g = c.getContext("2d")!;
-
-  g.fillStyle = "#06070a";
-  g.fillRect(0, 0, 128, 256);
-
-  const rows = 32;
-  const cols = 16;
-  const rw = 128 / cols;
-  const rh = 256 / rows;
-
-  const lightColors = [
-    "rgba(255, 235, 175, 0.85)",
-    "rgba(220, 235, 255, 0.80)",
-    "rgba(255, 255, 255, 0.90)",
-    "rgba(200, 220, 240, 0.40)",
-  ];
-
-  for (let r = 0; r < rows; r++) {
-    for (let col = 0; col < cols; col++) {
-      if (Math.random() > 0.45) {
-        g.fillStyle = lightColors[Math.floor(Math.random() * lightColors.length)];
-        g.fillRect(col * rw + 1.5, r * rh + 1.5, rw - 3, rh - 3);
-      }
-    }
-  }
-
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(2, 6);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
 
 function makeHighwayTraffic(colorStr: string): THREE.CanvasTexture {
   const c = document.createElement("canvas");
@@ -279,108 +243,46 @@ function Prop({
 // ============================================================================
 
 function DubaiSkyline() {
-  const windowTex = useMemo(() => makeSkyscraperWindows(), []);
+  const gltf = useGLTF("/models/dubai_cityscape.glb");
   const trafficNorthTex = useMemo(() => makeHighwayTraffic("rgba(255, 235, 160, 0.95)"), []);
   const trafficSouthTex = useMemo(() => makeHighwayTraffic("rgba(244, 63, 94, 0.95)"), []);
   const beaconLightRef = useRef<THREE.PointLight>(null);
-  const beaconMeshRef = useRef<THREE.Mesh>(null);
 
-  const towerCount = 38;
-  const instancedRef = useRef<THREE.InstancedMesh>(null);
-
-  useMemo(() => {
-    if (!instancedRef.current) return;
-    const dummy = new THREE.Object3D();
-
-    for (let i = 0; i < towerCount; i++) {
-      const angle = -Math.PI * 0.8 + (i / towerCount) * Math.PI * 1.6;
-      const radius = 55 + (i % 5) * 14;
-      const x = Math.sin(angle) * radius;
-      const z = Math.cos(angle) * radius - 8;
-
-      const height = 35 + (i % 7) * 14 + (i % 3) * 18;
-      const w = 6 + (i % 4) * 2.5;
-      const d = 6 + (i % 3) * 2.5;
-
-      dummy.position.set(x, height / 2 - 16, z);
-      dummy.scale.set(w, height, d);
-      dummy.rotation.y = angle + 0.2;
-      dummy.updateMatrix();
-
-      instancedRef.current.setMatrixAt(i, dummy.matrix);
-    }
-    instancedRef.current.instanceMatrix.needsUpdate = true;
-  }, [towerCount]);
-
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     // Tráfico vehicular animado fluido en ambas direcciones
     trafficNorthTex.offset.x -= delta * 0.42;
     trafficSouthTex.offset.x += delta * 0.38;
 
-    // Baliza de aviación parpadeante en la cúspide del Burj Khalifa
-    const t = state.clock.getElapsedTime();
+    // Baliza de aviación parpadeante en la cúspide
+    const t = performance.now() * 0.001;
     const isFlash = Math.sin(t * 3.8) > 0.3;
     if (beaconLightRef.current) {
       beaconLightRef.current.intensity = isFlash ? 3.5 : 0.2;
-    }
-    if (beaconMeshRef.current) {
-      const mat = beaconMeshRef.current.material as THREE.MeshBasicMaterial;
-      if (mat) mat.color.setHex(isFlash ? 0xff2222 : 0x550000);
     }
   });
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 38 Rascacielos con InstancedMesh */}
-      <instancedMesh ref={instancedRef} args={[undefined, undefined, towerCount]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial
-          color="#0c0d14"
-          roughness={0.4}
-          metalness={0.8}
-          emissiveMap={windowTex}
-          emissive="#ffffff"
-          emissiveIntensity={0.8}
-        />
-      </instancedMesh>
+      {/* 123 Torres y Rascacielos Creados con Blender 5.2 */}
+      <primitive object={gltf.scene} scale={1.25} position={[0, -4, 0]} />
 
-      {/* Silueta Icónica del Burj Khalifa */}
-      <group position={[18, -16, -65]} rotation-y={0.3}>
-        <mesh position={[0, 25, 0]}>
-          <cylinderGeometry args={[4.5, 6.5, 50, 16]} />
-          <meshStandardMaterial color="#0f111a" metalness={0.85} roughness={0.2} emissive="#ffe89c" emissiveMap={windowTex} emissiveIntensity={0.6} />
-        </mesh>
-        <mesh position={[0, 60, 0]}>
-          <cylinderGeometry args={[3.2, 4.5, 30, 16]} />
-          <meshStandardMaterial color="#11131f" metalness={0.85} roughness={0.2} emissive="#ffe89c" emissiveMap={windowTex} emissiveIntensity={0.7} />
-        </mesh>
-        <mesh position={[0, 85, 0]}>
-          <cylinderGeometry args={[1.8, 3.2, 25, 14]} />
-          <meshStandardMaterial color="#141724" metalness={0.9} roughness={0.15} emissive="#ffe89c" emissiveMap={windowTex} emissiveIntensity={0.8} />
-        </mesh>
-        <mesh position={[0, 110, 0]}>
-          <cylinderGeometry args={[0.2, 1.8, 35, 12]} />
-          <meshStandardMaterial color="#e2e8f0" metalness={0.95} roughness={0.1} />
-        </mesh>
-        <mesh ref={beaconMeshRef} position={[0, 128, 0]}>
-          <sphereGeometry args={[0.6, 12, 12]} />
-          <meshBasicMaterial color="#ef4444" />
-        </mesh>
-        <pointLight ref={beaconLightRef} position={[0, 128, 0]} color="#ef4444" intensity={2.5} distance={50} />
-      </group>
+      {/* Baliza roja de aviación en la torre principal */}
+      <pointLight ref={beaconLightRef} position={[28, 125, -75]} color="#ef4444" intensity={2.5} distance={140} />
 
       {/* Estelas de tráfico fluido en Sheikh Zayed Road */}
-      <mesh position={[0, -15.5, -35]} rotation={[-Math.PI / 2, 0, -0.2]}>
-        <planeGeometry args={[140, 0.45]} />
+      <mesh position={[0, -18.5, -42]} rotation={[-Math.PI / 2, 0, -0.2]}>
+        <planeGeometry args={[260, 0.6]} />
         <meshBasicMaterial map={trafficNorthTex} transparent opacity={0.95} color="#ffe082" />
       </mesh>
-      <mesh position={[0, -15.5, -36]} rotation={[-Math.PI / 2, 0, -0.2]}>
-        <planeGeometry args={[140, 0.45]} />
+      <mesh position={[0, -18.5, -44]} rotation={[-Math.PI / 2, 0, -0.2]}>
+        <planeGeometry args={[260, 0.6]} />
         <meshBasicMaterial map={trafficSouthTex} transparent opacity={0.95} color="#ff3b50" />
       </mesh>
     </group>
   );
 }
+
+useGLTF.preload("/models/dubai_cityscape.glb");
 
 // ============================================================================
 // 5. ESTRUCTURA ARQUITECTÓNICA DE LA PENTHOUSE
@@ -491,11 +393,32 @@ function PenthouseArchitecture() {
         <meshStandardMaterial color="#101117" roughness={0.85} />
       </mesh>
 
-      {/* Techo con Iluminación LED */}
-      <mesh position={[0, 3.75, -1]}>
-        <boxGeometry args={[24, 0.15, 16]} />
-        <meshStandardMaterial color="#0c0d12" roughness={0.9} />
-      </mesh>
+      {/* Pérgola Arquitectónica de Techo Abierto (Open-Air Penthouse hacia los Rascacielos) */}
+      <group position={[0, 3.8, -1]}>
+        {/* Vigas estructurales perimetrales oscuras */}
+        <mesh position={[0, 0, -8]}>
+          <boxGeometry args={[24.2, 0.22, 0.28]} />
+          <meshStandardMaterial color="#16171f" metalness={0.9} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0, 8]}>
+          <boxGeometry args={[24.2, 0.22, 0.28]} />
+          <meshStandardMaterial color="#16171f" metalness={0.9} roughness={0.2} />
+        </mesh>
+        {/* Vigas transversales estilizadas */}
+        {[-10, -5, 0, 5, 10].map((bx) => (
+          <mesh key={`beam-${bx}`} position={[bx, 0.05, 0]}>
+            <boxGeometry args={[0.2, 0.18, 16]} />
+            <meshStandardMaterial color="#12131a" metalness={0.85} roughness={0.3} />
+          </mesh>
+        ))}
+        {/* Líneas LED suaves en las vigas */}
+        {[-8, -3, 3, 8].map((lx) => (
+          <mesh key={`led-${lx}`} position={[lx, -0.05, 0]}>
+            <boxGeometry args={[0.06, 0.02, 14]} />
+            <meshBasicMaterial color="#ffffff" />
+          </mesh>
+        ))}
+      </group>
     </group>
   );
 }
@@ -841,16 +764,87 @@ function PenthouseFurniture({
 }
 
 // ============================================================================
-// 8. CONTROLADOR DE NAVEGACIÓN Y CÁMARA (MODO CEO FIRST-PERSON & WAYPOINTS)
+// 7.5 AVATAR 3D DEL CEO (JAKES) EN TERCERA PERSONA (CREADO EN BLENDER 5.2)
 // ============================================================================
 
-function NavigationController({
+function CEOAvatar({
+  position,
+  rotationY,
+  isMoving,
+}: {
+  position: [number, number, number];
+  rotationY: number;
+  isMoving: boolean;
+}) {
+  const gltf = useGLTF("/models/ceo_avatar.glb");
+  const clone = useMemo(() => {
+    const sceneClone = SkeletonUtils.clone(gltf.scene);
+    sceneClone.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) {
+        o.castShadow = true;
+        o.receiveShadow = true;
+      }
+    });
+    return sceneClone;
+  }, [gltf.scene]);
+
+  const mixer = useMemo(() => new THREE.AnimationMixer(clone), [clone]);
+
+  useEffect(() => {
+    const idleClip = THREE.AnimationClip.findByName(gltf.animations, "Idle");
+    const walkClip = THREE.AnimationClip.findByName(gltf.animations, "Walk");
+
+    const idleAction = idleClip ? mixer.clipAction(idleClip) : null;
+    const walkAction = walkClip ? mixer.clipAction(walkClip) : null;
+
+    if (isMoving && walkAction) {
+      walkAction.reset().fadeIn(0.15).play();
+      if (idleAction) idleAction.fadeOut(0.15);
+    } else if (idleAction) {
+      idleAction.reset().fadeIn(0.2).play();
+      if (walkAction) walkAction.fadeOut(0.2);
+    }
+
+    return () => {
+      mixer.stopAllAction();
+    };
+  }, [mixer, gltf.animations, isMoving]);
+
+  useFrame((_, delta) => {
+    mixer.update(delta);
+  });
+
+  return (
+    <group position={position} rotation={[0, rotationY, 0]}>
+      {/* Monograma / Tag Flotante del CEO */}
+      <Html position={[0, 2.05, 0]} center distanceFactor={8} style={{ pointerEvents: "none" }}>
+        <div className="hm-ceo-tag">
+          <span className="hm-ceo-badge">CEO</span>
+          <span className="hm-ceo-name">JAKES RODRIGUEZ</span>
+        </div>
+      </Html>
+
+      {/* Modelo Humanoide 3D del CEO Exportado de Blender 5.2 */}
+      <primitive object={clone} scale={1.0} position={[0, 0, 0]} />
+    </group>
+  );
+}
+
+useGLTF.preload("/models/ceo_avatar.glb");
+
+// ============================================================================
+// 8. CONTROLADOR DE TERCERA PERSONA (WASD + MIRA DE RATÓN + WAYPOINTS)
+// ============================================================================
+
+function ThirdPersonController({
   navMode,
   activeWaypoint,
   controls,
   agents,
   onNearAgent,
   mobileInput,
+  mouseDelta,
+  onUpdatePlayer,
 }: {
   navMode: "walk" | "orbit";
   activeWaypoint: Waypoint | null;
@@ -858,14 +852,18 @@ function NavigationController({
   agents: Agent[];
   onNearAgent: (agentId: string | null) => void;
   mobileInput: { forward: boolean; backward: boolean; left: boolean; right: boolean };
+  mouseDelta: RefObject<{ x: number; y: number }>;
+  onUpdatePlayer: (pos: [number, number, number], rot: number, moving: boolean) => void;
 }) {
   const keys = useRef({ forward: false, backward: false, left: false, right: false });
-  const walkTime = useRef(0);
-  const targetCamPos = useMemo(() => new THREE.Vector3(-7.0, 1.72, -3.5), []);
-  const targetLookAt = useMemo(() => new THREE.Vector3(-7.0, 1.2, -6.5), []);
+  const playerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -3.5));
+  const playerRot = useRef<number>(0);
+  const yaw = useRef<number>(Math.PI);
+  const pitch = useRef<number>(0.12);
   const isNavigatingRef = useRef(false);
+  const targetPlayerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -3.5));
 
-  // Escuchar teclado para caminar en Modo CEO
+  // Escuchar teclado para caminar en Tercera Persona (W, A, S, D)
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code === "KeyW" || e.code === "ArrowUp") { keys.current.forward = true; isNavigatingRef.current = false; }
@@ -887,84 +885,129 @@ function NavigationController({
     };
   }, []);
 
-  // Sincronizar destino si cambia el Waypoint activo
+  // Teletransporte / Waypoint seleccionado
   useEffect(() => {
     if (activeWaypoint) {
-      targetCamPos.set(...activeWaypoint.pos);
-      targetLookAt.set(...activeWaypoint.target);
+      targetPlayerPos.current.set(activeWaypoint.pos[0], 0, activeWaypoint.pos[2]);
+      const dx = activeWaypoint.target[0] - activeWaypoint.pos[0];
+      const dz = activeWaypoint.target[2] - activeWaypoint.pos[2];
+      yaw.current = Math.atan2(dx, dz);
       isNavigatingRef.current = true;
     }
-  }, [activeWaypoint, targetCamPos, targetLookAt]);
+  }, [activeWaypoint]);
 
   useFrame((state, delta) => {
     const c = controls.current;
-    if (!c) return;
 
-    // 1. MODO TELETRANSPORTE ACTIVO CON CURVA SUAVE LERP
+    // 1. MODO ÓRBITA / VISTA AÉREA
+    if (navMode === "orbit") {
+      if (c) {
+        c.enabled = true;
+      }
+      onUpdatePlayer(
+        [playerPos.current.x, playerPos.current.y, playerPos.current.z],
+        playerRot.current,
+        false
+      );
+      return;
+    }
+
+    // 2. MODO TERCERA PERSONA CEO (WASD + MIRA DE RATÓN)
+    if (c) {
+      c.enabled = false; // Desactivar OrbitControls para control total de cámara de acción
+    }
+
+    // Aplicar movimiento de ratón a la orientación de la mirada (yaw & pitch)
+    if (mouseDelta.current) {
+      if (mouseDelta.current.x !== 0 || mouseDelta.current.y !== 0) {
+        yaw.current -= mouseDelta.current.x * 0.0032;
+        pitch.current = THREE.MathUtils.clamp(
+          pitch.current - mouseDelta.current.y * 0.0028,
+          -0.35,
+          0.70
+        );
+        mouseDelta.current.x = 0;
+        mouseDelta.current.y = 0;
+      }
+    }
+
+    // Teletransporte suave si hay waypoint en progreso
     if (isNavigatingRef.current) {
-      c.object.position.lerp(targetCamPos, 0.08);
-      c.target.lerp(targetLookAt, 0.08);
-      c.update();
-
-      // Al completar el viaje al waypoint, liberar la cámara para permitir rotación u órbita libre
-      if (c.object.position.distanceTo(targetCamPos) < 0.06 && c.target.distanceTo(targetLookAt) < 0.06) {
-        c.object.position.copy(targetCamPos);
-        c.target.copy(targetLookAt);
-        c.update();
+      playerPos.current.lerp(targetPlayerPos.current, 0.12);
+      if (playerPos.current.distanceTo(targetPlayerPos.current) < 0.05) {
+        playerPos.current.copy(targetPlayerPos.current);
         isNavigatingRef.current = false;
       }
     }
-    // 2. MODO PASEO CEO (FIRST PERSON WALK)
-    else if (navMode === "walk") {
-      const camera = state.camera;
-      const fInput = (keys.current.forward || mobileInput.forward ? 1 : 0) - (keys.current.backward || mobileInput.backward ? 1 : 0);
-      const sInput = (keys.current.right || mobileInput.right ? 1 : 0) - (keys.current.left || mobileInput.left ? 1 : 0);
 
-      const isMoving = fInput !== 0 || sInput !== 0;
+    // Inputs de movimiento (Teclado WASD + Móvil D-Pad)
+    const fInput = (keys.current.forward || mobileInput.forward ? 1 : 0) - (keys.current.backward || mobileInput.backward ? 1 : 0);
+    const sInput = (keys.current.right || mobileInput.right ? 1 : 0) - (keys.current.left || mobileInput.left ? 1 : 0);
+    const isMoving = fInput !== 0 || sInput !== 0;
 
-      if (isMoving) {
-        // Dirección de la mirada horizontal
-        const dir = new THREE.Vector3();
-        camera.getWorldDirection(dir);
-        dir.y = 0;
-        dir.normalize();
+    if (isMoving && !isNavigatingRef.current) {
+      // Vector de dirección de movimiento relativo al ángulo de la mira (yaw)
+      const forwardVec = new THREE.Vector3(Math.sin(yaw.current), 0, Math.cos(yaw.current));
+      const rightVec = new THREE.Vector3(Math.cos(yaw.current), 0, -Math.sin(yaw.current));
+      const moveDir = forwardVec.multiplyScalar(fInput).add(rightVec.multiplyScalar(sInput)).normalize();
 
-        const side = new THREE.Vector3(-dir.z, 0, dir.x);
+      // Rotación suave del personaje hacia la dirección en la que camina
+      const targetAngle = Math.atan2(moveDir.x, moveDir.z);
+      let angleDiff = targetAngle - playerRot.current;
+      while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
+      while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
+      playerRot.current += angleDiff * Math.min(1, 14 * delta);
 
-        const moveSpeed = 4.8 * delta;
-        const moveVec = dir.clone().multiplyScalar(fInput * moveSpeed).add(side.multiplyScalar(sInput * moveSpeed));
+      // Desplazamiento con velocidad cinemática
+      const moveSpeed = 4.8 * delta;
+      const nextX = playerPos.current.x + moveDir.x * moveSpeed;
+      const nextZ = playerPos.current.z + moveDir.z * moveSpeed;
 
-        // Clamping perimetral de colisión en la Penthouse
-        const newX = camera.position.x + moveVec.x;
-        const newZ = camera.position.z + moveVec.z;
-
-        let minX = -10.5, maxX = 10.5, minZ = -7.5, maxZ = 5.0;
-        if (newZ > 5.0) {
-          minX = -5.5; maxX = 10.5; maxZ = 12.0; // Terraza y helipuerto
-        }
-
-        camera.position.x = THREE.MathUtils.clamp(newX, minX, maxX);
-        camera.position.z = THREE.MathUtils.clamp(newZ, minZ, maxZ);
-
-        c.target.x = THREE.MathUtils.clamp(c.target.x + moveVec.x, minX - 4, maxX + 4);
-        c.target.z = THREE.MathUtils.clamp(c.target.z + moveVec.z, minZ - 4, maxZ + 4);
-
-        // Head-bobbing sutil al caminar
-        walkTime.current += delta * 10.0;
-        camera.position.y = 1.72 + Math.sin(walkTime.current) * 0.02;
-      } else {
-        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.72, 0.1);
+      // Colisiones perimetrales de la Penthouse de Dubai
+      let minX = -10.5, maxX = 10.5, minZ = -7.5, maxZ = 5.0;
+      if (playerPos.current.z > 5.0 || nextZ > 5.0) {
+        minX = -5.5; maxX = 10.5; maxZ = 12.0; // Terraza panorámica y helipuerto
       }
-      c.update();
+
+      playerPos.current.x = THREE.MathUtils.clamp(nextX, minX, maxX);
+      playerPos.current.z = THREE.MathUtils.clamp(nextZ, minZ, maxZ);
     }
 
-    // 3. DETECTOR DE PROXIMIDAD A LOS AGENTES
+    // Posición y seguimiento de la cámara en Tercera Persona (Chase Camera)
+    const camDist = 3.3;
+    const targetLook = new THREE.Vector3(
+      playerPos.current.x,
+      playerPos.current.y + 1.35,
+      playerPos.current.z
+    );
+
+    const cosP = Math.cos(pitch.current);
+    const sinP = Math.sin(pitch.current);
+    const sinY = Math.sin(yaw.current);
+    const cosY = Math.cos(yaw.current);
+
+    const camX = targetLook.x - sinY * cosP * camDist;
+    const camY = targetLook.y + sinP * camDist + 0.35;
+    const camZ = targetLook.z - cosY * cosP * camDist;
+
+    const camDesiredPos = new THREE.Vector3(camX, camY, camZ);
+    state.camera.position.lerp(camDesiredPos, 0.18);
+    state.camera.lookAt(targetLook.x, targetLook.y + 0.15, targetLook.z);
+
+    // Actualizar estado del avatar hacia el padre
+    onUpdatePlayer(
+      [playerPos.current.x, playerPos.current.y, playerPos.current.z],
+      playerRot.current,
+      isMoving
+    );
+
+    // Detección de proximidad con los agentes ejecutivos
     let closestId: string | null = null;
     let closestDist = 999;
     for (const ag of agents) {
       const layout = PENTHOUSE_LAYOUT[ag.id];
       if (layout) {
-        const dist = Math.hypot(state.camera.position.x - layout.pos[0], state.camera.position.z - layout.pos[2]);
+        const dist = Math.hypot(playerPos.current.x - layout.pos[0], playerPos.current.z - layout.pos[2]);
         if (dist < 2.4 && dist < closestDist) {
           closestDist = dist;
           closestId = ag.id;
@@ -978,7 +1021,7 @@ function NavigationController({
 }
 
 // ============================================================================
-// 9. ESCENA EXPORTADA: PENTHOUSE PRESIDENCIAL DE DUBAI (FASES 1 Y 2)
+// 9. ESCENA EXPORTADA: PENTHOUSE PRESIDENCIAL DE DUBAI (TERCERA PERSONA)
 // ============================================================================
 
 export default function DubaiPenthouse({
@@ -997,10 +1040,78 @@ export default function DubaiPenthouse({
   onSelect: (id: string) => void;
 }) {
   const controls = useRef<OrbitControlsImpl>(null);
+  const canvasContainerRef = useRef<HTMLDivElement>(null);
   const [navMode, setNavMode] = useState<"walk" | "orbit">("walk");
   const [activeWaypoint, setActiveWaypoint] = useState<Waypoint | null>(DUBAI_WAYPOINTS[0]);
   const [nearAgentId, setNearAgentId] = useState<string | null>(null);
   const [mobileInput, setMobileInput] = useState({ forward: false, backward: false, left: false, right: false });
+
+  // Estado del Avatar 3D del CEO
+  const [playerPos, setPlayerPos] = useState<[number, number, number]>([-7.0, 0, -3.5]);
+  const [playerRot, setPlayerRot] = useState<number>(0);
+  const [isPlayerMoving, setIsPlayerMoving] = useState<boolean>(false);
+
+  // Estados de control con ratón y Pointer Lock
+  const [isPointerLocked, setIsPointerLocked] = useState<boolean>(false);
+  const mouseDelta = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const isMouseDownRef = useRef<boolean>(false);
+  const lastMousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Escuchar eventos de ratón para control de mira (Mouse Aim)
+  useEffect(() => {
+    const handlePointerLockChange = () => {
+      const container = canvasContainerRef.current;
+      const isLocked = !!container && document.pointerLockElement === container.querySelector("canvas");
+      setIsPointerLocked(isLocked);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (document.pointerLockElement) {
+        mouseDelta.current.x += e.movementX;
+        mouseDelta.current.y += e.movementY;
+      } else if (isMouseDownRef.current) {
+        // Modo arrastre de ratón sin bloqueo de puntero
+        const dx = e.clientX - lastMousePos.current.x;
+        const dy = e.clientY - lastMousePos.current.y;
+        lastMousePos.current = { x: e.clientX, y: e.clientY };
+        mouseDelta.current.x += dx;
+        mouseDelta.current.y += dy;
+      }
+    };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (e.button === 0 || e.button === 2) {
+        isMouseDownRef.current = true;
+        lastMousePos.current = { x: e.clientX, y: e.clientY };
+      }
+    };
+
+    const handleMouseUp = () => {
+      isMouseDownRef.current = false;
+    };
+
+    document.addEventListener("pointerlockchange", handlePointerLockChange);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("pointerlockchange", handlePointerLockChange);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  // Solicitar Pointer Lock al hacer clic en el canvas
+  const handleCanvasClick = () => {
+    if (navMode === "walk" && canvasContainerRef.current) {
+      const canvasEl = canvasContainerRef.current.querySelector("canvas");
+      if (canvasEl && document.pointerLockElement !== canvasEl) {
+        canvasEl.requestPointerLock?.();
+      }
+    }
+  };
 
   // Cuando se selecciona un agente en el UI exterior o drawer, viajar automáticamente a su puesto
   useEffect(() => {
@@ -1027,13 +1138,18 @@ export default function DubaiPenthouse({
   const nearAgent = useMemo(() => agents.find((a) => a.id === nearAgentId), [agents, nearAgentId]);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      {/* BARRA DE NAVEGACIÓN Y WAYPOINTS (FASE 1 & 2) */}
+    <div
+      ref={canvasContainerRef}
+      style={{ position: "relative", width: "100%", height: "100%", cursor: navMode === "walk" ? "crosshair" : "default" }}
+      onClick={handleCanvasClick}
+    >
+      {/* BARRA DE NAVEGACIÓN Y WAYPOINTS */}
       <div className={`jrg-waypoints-dock ${!drawerOpen ? "drawer-closed" : ""}`}>
-        {/* Selector de Modo: Paseo CEO vs Vista Aérea */}
+        {/* Selector de Modo: Tercera Persona CEO vs Vista Aérea */}
         <button
           className="jrg-mode-toggle-pill"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             const nextMode = navMode === "walk" ? "orbit" : "walk";
             setNavMode(nextMode);
             if (nextMode === "orbit") {
@@ -1049,9 +1165,9 @@ export default function DubaiPenthouse({
               setActiveWaypoint(DUBAI_WAYPOINTS[0]);
             }
           }}
-          title={navMode === "walk" ? "Cambiar a Vista Aérea Órbita" : "Cambiar a Paseo CEO Primera Persona"}
+          title={navMode === "walk" ? "Cambiar a Vista Aérea Órbita" : "Cambiar a Tercera Persona CEO"}
         >
-          {navMode === "walk" ? "🚶 MODO CEO" : "🛸 VISTA AÉREA"}
+          {navMode === "walk" ? "🎮 3ª PERSONA" : "🛸 VISTA AÉREA"}
         </button>
 
         {/* Píldoras de Teletransporte a los 7 Waypoints */}
@@ -1059,7 +1175,8 @@ export default function DubaiPenthouse({
           <button
             key={`wp-${wp.id}`}
             className={`jrg-waypoint-btn ${activeWaypoint?.id === wp.id ? "active" : ""}`}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setActiveWaypoint(wp);
               if (wp.agentId) onSelect(wp.agentId);
             }}
@@ -1069,11 +1186,30 @@ export default function DubaiPenthouse({
         ))}
       </div>
 
+      {/* RETÍCULA / MIRA DE ACCIÓN EN TERCERA PERSONA */}
+      {navMode === "walk" && (
+        <>
+          <div className="jrg-aim-crosshair">
+            <span className="cross-dot" />
+          </div>
+          {!isMobile && (
+            <div className="jrg-mouse-aim-hint">
+              {isPointerLocked
+                ? "🎯 MIRA ACTIVA (ESC para liberar ratón)"
+                : "🎯 HAZ CLIC PARA ACTIVAR LA MIRA / ARRASTRA EL RATÓN (WASD para caminar)"}
+            </div>
+          )}
+        </>
+      )}
+
       {/* PASTILLA FLOTANTE DE INTERACCIÓN POR PROXIMIDAD */}
       {nearAgent && (
         <div
           className="jrg-proximity-bubble"
-          onClick={() => onSelect(nearAgent.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect(nearAgent.id);
+          }}
           title="Hablar con este especialista"
         >
           <span className="jrg-proximity-badge">{isMobile ? "TOCAR" : "PULSA 'E'"}</span>
@@ -1081,7 +1217,7 @@ export default function DubaiPenthouse({
         </div>
       )}
 
-      {/* D-PAD TÁCTIL PARA MODO CEO EN MÓVIL */}
+      {/* D-PAD TÁCTIL PARA MÓVIL EN TERCERA PERSONA */}
       {isMobile && navMode === "walk" && (
         <div className="jrg-mobile-dpad">
           <button
@@ -1117,15 +1253,15 @@ export default function DubaiPenthouse({
         </div>
       )}
 
-      {/* CANVAS THREE.JS DE LA PENTHOUSE */}
+      {/* CANVAS THREE.JS DE LA PENTHOUSE DE DUBAI */}
       <Canvas
         shadows
         dpr={[1, isMobile ? 1.5 : 2]}
         camera={{
           position: [-7.0, 1.72, -3.5],
-          fov: isMobile ? 54 : 44,
+          fov: isMobile ? 54 : 48,
           near: 0.1,
-          far: 300,
+          far: 450,
         }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {
@@ -1134,57 +1270,76 @@ export default function DubaiPenthouse({
         }}
       >
         <color attach="background" args={["#08090f"]} />
-        <fog attach="fog" args={["#08090f", 45, 200]} />
+        <fog attach="fog" args={["#08090f", 60, 280]} />
 
-        {/* Iluminación Arquitectónica */}
-        <ambientLight intensity={0.4} color="#181b28" />
-        <hemisphereLight args={["#222538", "#0d0e14", 0.6]} />
+        {/* Cielo Estrellado Sobre la Penthouse sin Techo */}
+        <Stars radius={180} depth={60} count={3500} factor={4} saturation={0} fade speed={1.2} />
+
+        {/* Iluminación Arquitectónica de Alta Gama */}
+        <ambientLight intensity={0.45} color="#181b28" />
+        <hemisphereLight args={["#222538", "#0d0e14", 0.65]} />
 
         <directionalLight
-          position={[16, 24, 12]}
+          position={[16, 28, 12]}
           intensity={1.8}
           color="#fff5e8"
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
-          shadow-camera-left={-20}
-          shadow-camera-right={20}
-          shadow-camera-top={20}
-          shadow-camera-bottom={-20}
+          shadow-camera-left={-22}
+          shadow-camera-right={22}
+          shadow-camera-top={22}
+          shadow-camera-bottom={-22}
           shadow-camera-near={1}
-          shadow-camera-far={80}
+          shadow-camera-far={90}
           shadow-bias={-0.0004}
         />
-        <directionalLight position={[-15, 8, -25]} intensity={0.9} color="#9ec4ff" />
+        <directionalLight position={[-15, 12, -25]} intensity={0.9} color="#9ec4ff" />
 
-        {/* Controles de Órbita / Primera Persona */}
+        {/* Controles de Órbita (Activos únicamente en modo Vista Aérea) */}
         <OrbitControls
           ref={controls}
           enableDamping
           dampingFactor={0.06}
           enablePan={false}
-          minDistance={navMode === "walk" ? 0.1 : 3}
+          minDistance={3}
           maxDistance={45}
-          maxPolarAngle={navMode === "walk" ? Math.PI / 1.95 : Math.PI / 2.05}
+          maxPolarAngle={Math.PI / 2.05}
           target={[-7.0, 1.2, -6.5]}
         />
 
-        <NavigationController
+        {/* Controlador en Tercera Persona con WASD y Mira de Ratón */}
+        <ThirdPersonController
           navMode={navMode}
           activeWaypoint={activeWaypoint}
           controls={controls}
           agents={agents}
           onNearAgent={setNearAgentId}
           mobileInput={mobileInput}
+          mouseDelta={mouseDelta}
+          onUpdatePlayer={(pos, rot, moving) => {
+            setPlayerPos(pos);
+            setPlayerRot(rot);
+            setIsPlayerMoving(moving);
+          }}
         />
 
-        {/* Skyline Nocturno de Dubai */}
+        {/* Avatar 3D del CEO (Jakes) en Tercera Persona */}
+        <Suspense fallback={null}>
+          <CEOAvatar
+            position={playerPos}
+            rotationY={playerRot}
+            isMoving={isPlayerMoving}
+          />
+        </Suspense>
+
+        {/* 123 Rascacielos de Dubai Creados en Blender 5.2 */}
         <DubaiSkyline />
 
-        {/* Estructura Arquitectónica Penthouse */}
+        {/* Estructura Arquitectónica Penthouse con Techo Abierto */}
         <PenthouseArchitecture />
 
-        {/* Mobiliario y Agentes Humanos */}
+        {/* Mobiliario y Agentes Humanos Ejecutivos */}
         <Suspense fallback={null}>
           <PenthouseFurniture
             agents={agents}
