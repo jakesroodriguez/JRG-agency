@@ -1183,7 +1183,7 @@ function ThirdPersonController({
     if (isMoving && !isNavigatingRef.current) {
       // Vector de dirección de movimiento relativo al ángulo de la mira (yaw)
       const forwardVec = new THREE.Vector3(Math.sin(yaw.current), 0, Math.cos(yaw.current));
-      const rightVec = new THREE.Vector3(Math.cos(yaw.current), 0, -Math.sin(yaw.current));
+      const rightVec = new THREE.Vector3(-Math.cos(yaw.current), 0, Math.sin(yaw.current));
       const moveDir = forwardVec.multiplyScalar(fInput).add(rightVec.multiplyScalar(sInput)).normalize();
 
       // Rotación suave del personaje hacia la dirección en la que camina
