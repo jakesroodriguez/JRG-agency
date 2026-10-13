@@ -26,8 +26,8 @@ export const DUBAI_WAYPOINTS: Waypoint[] = [
     id: "ceo",
     name: "Despacho Presidencial",
     shortLabel: "CEO Desk",
-    pos: [-7.0, 1.72, -3.5],
-    target: [-7.0, 1.2, -6.5],
+    pos: [-7.0, 1.72, -1.8],
+    target: [-7.0, 1.2, -3.5],
     agentId: "jrg-aitor",
     tag: "DESPACHO CEO",
   },
@@ -530,7 +530,7 @@ interface AgentVisualProfile {
 const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
   "jrg-aitor": {
     scale: 0.125, // Porte de líder directivo (~1.90m)
-    yOffset: -0.15,
+    yOffset: -0.04,
     shirtColor: "#0b0c10", // Traje sastre negro medianoche de corte italiano
     shirtRoughness: 0.45,
     shirtMetalness: 0.28,
@@ -550,7 +550,7 @@ const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
   },
   "jrg-maider": {
     scale: 0.118, // Femenina ejecutiva tech (~1.74m)
-    yOffset: -0.16,
+    yOffset: -0.04,
     shirtColor: "#e4e4e7", // Blazer sastre marfil / blanco roto con cuello oscuro
     shirtRoughness: 0.6,
     shirtMetalness: 0.1,
@@ -570,7 +570,7 @@ const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
   },
   "jrg-iker": {
     scale: 0.122, // Copywriter y ventas (~1.80m)
-    yOffset: -0.155,
+    yOffset: -0.04,
     shirtColor: "#1e293b", // Sobrecamisa índigo oscuro / creative lead
     shirtRoughness: 0.8,
     shirtMetalness: 0.05,
@@ -590,7 +590,7 @@ const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
   },
   "jrg-unai": {
     scale: 0.124, // Tech Architect (~1.84m)
-    yOffset: -0.155,
+    yOffset: -0.04,
     shirtColor: "#18181b", // Tech crewneck grafito con ribetes
     shirtRoughness: 0.85,
     shirtMetalness: 0.15,
@@ -610,7 +610,7 @@ const AGENT_PROFILES: Record<string, AgentVisualProfile> = {
   },
   "jrg-elena": {
     scale: 0.119, // Data & Growth Analyst (~1.75m)
-    yOffset: -0.16,
+    yOffset: -0.04,
     shirtColor: "#1a1d2e", // Traje azul noche elegante de finanzas
     shirtRoughness: 0.55,
     shirtMetalness: 0.22,
@@ -728,43 +728,36 @@ function RiggedCorporateAgent({
     const typingClip = THREE.AnimationClip.findByName(gltf.animations, "typing");
     if (typingClip) {
       const action = mixer.clipAction(typingClip);
-      // Dinámica reactiva: cuando el CEO habla con ellos, reducen el ritmo para atenderlo
+      action.setLoop(THREE.LoopRepeat, Infinity);
       const speed = isSelected
-        ? profile.typingSpeed * 0.35
+        ? profile.typingSpeed * 0.4
         : isNear
-        ? profile.typingSpeed * 0.65
+        ? profile.typingSpeed * 0.7
         : profile.typingSpeed;
       action.timeScale = speed;
-      action.play();
+      if (!action.isRunning()) action.play();
     }
 
     const blinkClip = THREE.AnimationClip.findByName(gltf.animations, "Blink");
     if (blinkClip) {
       const action = mixer.clipAction(blinkClip);
+      action.setLoop(THREE.LoopRepeat, Infinity);
       action.timeScale = 0.8 + (agent.floor % 3) * 0.12;
-      action.play();
+      if (!action.isRunning()) action.play();
     }
+  }, [mixer, gltf.animations, profile.typingSpeed, isNear, isSelected, agent.floor]);
 
-    if (isNear) {
-      const browClip = THREE.AnimationClip.findByName(gltf.animations, "browup");
-      if (browClip) {
-        const action = mixer.clipAction(browClip);
-        action.setLoop(THREE.LoopOnce, 1);
-        action.clampWhenFinished = true;
-        action.play();
-      }
-    }
-
+  useEffect(() => {
     return () => {
       mixer.stopAllAction();
     };
-  }, [mixer, gltf.animations, profile.typingSpeed, isNear, isSelected, agent.floor]);
+  }, [mixer]);
 
   // Seguimiento de cabeza cinemático hacia el CEO (Jakes) al aproximarse
   useFrame((state, delta) => {
     mixer.update(delta);
 
-    const head = clone.getObjectByName("spine006") || clone.getObjectByName("head");
+    const head = clone.getObjectByName("spine.006") || clone.getObjectByName("spine006") || clone.getObjectByName("head");
     if (head) {
       if (ceoPos && (isNear || isSelected)) {
         // Calcular ángulo exacto hacia la posición del CEO en la penthouse
@@ -834,16 +827,16 @@ function PenthouseFurniture({
       <group position={[-7.0, 0, -3.5]}>
         <Prop name="deskCorner" width={2.8} pos={[0, 0, 0]} rot={0} />
         <Prop name="chairDesk" width={0.9} pos={[0, 0, 0.8]} rot={Math.PI} />
-        <Prop name="computerScreen" width={1.2} pos={[0, 0.75, -0.3]} rot={0} />
+        <Prop name="computerScreen" width={1.2} pos={[0, 1.05, -0.3]} rot={0} />
         <Prop name="lampRoundFloor" width={0.6} pos={[-1.6, 0, -0.8]} />
         <Prop name="bookcaseClosed" width={2.0} pos={[-4.5, 0, -0.5]} rot={Math.PI / 2} />
 
         {/* Accesorios Despacho CEO Aitor: Reloj/Trofeo dorado & espresso */}
-        <mesh position={[-0.95, 0.78, 0.15]}>
+        <mesh position={[-0.95, 1.13, 0.15]}>
           <cylinderGeometry args={[0.045, 0.055, 0.16, 16]} />
           <meshStandardMaterial color="#fbbf24" metalness={0.9} roughness={0.15} />
         </mesh>
-        <mesh position={[0.65, 0.78, 0.1]}>
+        <mesh position={[0.65, 1.085, 0.1]}>
           <cylinderGeometry args={[0.035, 0.03, 0.07, 12]} />
           <meshStandardMaterial color="#09090b" roughness={0.3} />
         </mesh>
@@ -855,9 +848,8 @@ function PenthouseFurniture({
         <group position={[-2.5, 0, -3.8]}>
           <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
           <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
-          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
           {/* Monitor secundario vertical de terminal de datos */}
-          <mesh position={[0.65, 1.05, -0.22]} rotation={[0, -0.25, 0]}>
+          <mesh position={[0.65, 1.35, -0.22]} rotation={[0, -0.25, 0]}>
             <boxGeometry args={[0.30, 0.50, 0.03]} />
             <meshStandardMaterial color="#082f49" emissive="#06b6d4" emissiveIntensity={1.4} />
           </mesh>
@@ -867,9 +859,8 @@ function PenthouseFurniture({
         <group position={[1.8, 0, -3.8]}>
           <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
           <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
-          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
           {/* Auriculares de estudio sobre la mesa */}
-          <group position={[0.62, 0.77, -0.12]} rotation={[0, 0.35, 0]}>
+          <group position={[0.62, 1.06, -0.12]} rotation={[0, 0.35, 0]}>
             <mesh>
               <torusGeometry args={[0.065, 0.016, 8, 24, Math.PI]} />
               <meshStandardMaterial color="#1e293b" metalness={0.7} roughness={0.3} />
@@ -881,9 +872,8 @@ function PenthouseFurniture({
         <group position={[-2.5, 0, -0.6]}>
           <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
           <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
-          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
           {/* Teclado mecánico con brillo RGB sutil */}
-          <mesh position={[0, 0.76, 0.02]}>
+          <mesh position={[0, 1.055, 0.02]}>
             <boxGeometry args={[0.38, 0.018, 0.12]} />
             <meshStandardMaterial color="#09090b" emissive="#3b82f6" emissiveIntensity={0.6} />
           </mesh>
@@ -893,9 +883,8 @@ function PenthouseFurniture({
         <group position={[1.8, 0, -0.6]}>
           <Prop name="desk" width={2.0} pos={[0, 0, 0]} rot={0} />
           <Prop name="chairDesk" width={0.8} pos={[0, 0, 0.7]} rot={Math.PI} />
-          <Prop name="computerScreen" width={0.85} pos={[0, 0.75, -0.3]} rot={0} />
           {/* Tablet financiera con gráfico de barras ROI */}
-          <mesh position={[0.55, 0.765, 0.05]} rotation={[-Math.PI / 2, 0, 0.12]}>
+          <mesh position={[0.55, 1.055, 0.05]} rotation={[-Math.PI / 2, 0, 0.12]}>
             <planeGeometry args={[0.22, 0.30]} />
             <meshStandardMaterial color="#451a03" emissive="#f59e0b" emissiveIntensity={1.1} />
           </mesh>
@@ -1091,34 +1080,66 @@ function ThirdPersonController({
   onUpdatePlayer: (pos: [number, number, number], rot: number, moving: boolean) => void;
 }) {
   const keys = useRef({ forward: false, backward: false, left: false, right: false });
-  const playerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -3.5));
+  const playerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -1.8));
   const playerRot = useRef<number>(0);
   const yaw = useRef<number>(Math.PI);
   const pitch = useRef<number>(0.12);
   const isNavigatingRef = useRef(false);
-  const targetPlayerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -3.5));
+  const targetPlayerPos = useRef<THREE.Vector3>(new THREE.Vector3(-7.0, 0, -1.8));
 
-  // Escuchar teclado para caminar en Tercera Persona (W, A, S, D)
+  // Escuchar teclado para caminar en Tercera Persona (W, A, S, D y Flechas)
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "KeyW" || e.code === "ArrowUp") { keys.current.forward = true; isNavigatingRef.current = false; }
-      if (e.code === "KeyS" || e.code === "ArrowDown") { keys.current.backward = true; isNavigatingRef.current = false; }
-      if (e.code === "KeyA" || e.code === "ArrowLeft") { keys.current.left = true; isNavigatingRef.current = false; }
-      if (e.code === "KeyD" || e.code === "ArrowRight") { keys.current.right = true; isNavigatingRef.current = false; }
+      const targetTag = (e.target as HTMLElement)?.tagName?.toLowerCase();
+      if (targetTag === "input" || targetTag === "textarea") return;
+
+      const key = (e.key || "").toLowerCase();
+      const code = e.code || "";
+      let handled = false;
+
+      if (code === "KeyW" || key === "w" || code === "ArrowUp") {
+        keys.current.forward = true;
+        isNavigatingRef.current = false;
+        handled = true;
+      }
+      if (code === "KeyS" || key === "s" || code === "ArrowDown") {
+        keys.current.backward = true;
+        isNavigatingRef.current = false;
+        handled = true;
+      }
+      if (code === "KeyA" || key === "a" || code === "ArrowLeft") {
+        keys.current.left = true;
+        isNavigatingRef.current = false;
+        handled = true;
+      }
+      if (code === "KeyD" || key === "d" || code === "ArrowRight") {
+        keys.current.right = true;
+        isNavigatingRef.current = false;
+        handled = true;
+      }
+
+      if (handled && navMode === "walk") {
+        // Evitar scroll con flechas mientras se camina
+        if (code.startsWith("Arrow")) e.preventDefault();
+      }
     };
+
     const onKeyUp = (e: KeyboardEvent) => {
-      if (e.code === "KeyW" || e.code === "ArrowUp") keys.current.forward = false;
-      if (e.code === "KeyS" || e.code === "ArrowDown") keys.current.backward = false;
-      if (e.code === "KeyA" || e.code === "ArrowLeft") keys.current.left = false;
-      if (e.code === "KeyD" || e.code === "ArrowRight") keys.current.right = false;
+      const key = (e.key || "").toLowerCase();
+      const code = e.code || "";
+      if (code === "KeyW" || key === "w" || code === "ArrowUp") keys.current.forward = false;
+      if (code === "KeyS" || key === "s" || code === "ArrowDown") keys.current.backward = false;
+      if (code === "KeyA" || key === "a" || code === "ArrowLeft") keys.current.left = false;
+      if (code === "KeyD" || key === "d" || code === "ArrowRight") keys.current.right = false;
     };
+
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
     };
-  }, []);
+  }, [navMode]);
 
   // Teletransporte / Waypoint seleccionado
   useEffect(() => {
@@ -1282,7 +1303,7 @@ export default function DubaiPenthouse({
   const [mobileInput, setMobileInput] = useState({ forward: false, backward: false, left: false, right: false });
 
   // Estado del Avatar 3D del CEO
-  const [playerPos, setPlayerPos] = useState<[number, number, number]>([-7.0, 0, -3.5]);
+  const [playerPos, setPlayerPos] = useState<[number, number, number]>([-7.0, 0, -1.8]);
   const [playerRot, setPlayerRot] = useState<number>(0);
   const [isPlayerMoving, setIsPlayerMoving] = useState<boolean>(false);
 
@@ -1493,7 +1514,7 @@ export default function DubaiPenthouse({
         shadows
         dpr={[1, isMobile ? 1.5 : 2]}
         camera={{
-          position: [-7.0, 1.72, -3.5],
+          position: [-7.0, 1.72, -1.8],
           fov: isMobile ? 54 : 48,
           near: 0.1,
           far: 450,
