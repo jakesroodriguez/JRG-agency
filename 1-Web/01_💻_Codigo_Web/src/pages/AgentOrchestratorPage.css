@@ -1371,6 +1371,135 @@
   cursor: pointer;
 }
 
+/* ====================================================
+   FASE 2: BARRA DE WAYPOINTS & CONTROLADOR DEL CEO
+   ==================================================== */
+.jrg-waypoints-dock {
+  position: absolute;
+  top: 68px;
+  left: 490px;
+  z-index: 24;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.jrg-waypoints-dock.drawer-closed {
+  left: 20px;
+}
+
+.jrg-waypoints-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.jrg-waypoint-btn {
+  background: rgba(14, 15, 20, 0.94);
+  border: 1px solid var(--jrg-border-subtle);
+  color: var(--jrg-gray-300);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.jrg-waypoint-btn:hover {
+  background: #20212a;
+  border-color: var(--jrg-border-medium);
+  color: var(--jrg-white);
+  transform: translateY(-1px);
+}
+
+.jrg-waypoint-btn.active {
+  background: var(--jrg-white);
+  color: #08090c;
+  border-color: var(--jrg-white);
+}
+
+.jrg-mode-toggle-pill {
+  background: rgba(14, 15, 20, 0.94);
+  border: 1px solid var(--jrg-border-medium);
+  color: var(--jrg-white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.jrg-mode-toggle-pill:hover {
+  background: #22232d;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Pastilla Flotante de Interacción por Proximidad */
+.jrg-proximity-bubble {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 28;
+  background: rgba(12, 13, 17, 0.96);
+  border: 1px solid var(--jrg-white);
+  color: var(--jrg-white);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  animation: pulseFloat 2s infinite ease-in-out;
+}
+
+.jrg-proximity-badge {
+  background: var(--jrg-white);
+  color: #08090c;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+@keyframes pulseFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+/* Botones de acción en tarjetas Kanban */
+.jrg-task-advance-btn {
+  background: transparent;
+  border: 1px solid var(--jrg-border-subtle);
+  color: var(--jrg-gray-400);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jrg-task-advance-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--jrg-white);
+  border-color: var(--jrg-border-medium);
+}
+
 @media (max-width: 900px) {
   .jrg-orchestrator-drawer {
     width: 100vw;
@@ -1396,4 +1525,65 @@
     bottom: 80px;
     right: 14px;
   }
+  .jrg-waypoints-dock {
+    left: 12px !important;
+    right: 12px;
+    top: 56px;
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .jrg-proximity-bubble {
+    bottom: 140px;
+    font-size: 11px;
+    padding: 8px 14px;
+    max-width: calc(100vw - 28px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+/* D-Pad Táctil Virtual para Modo CEO en Móvil */
+.jrg-mobile-dpad {
+  position: absolute;
+  bottom: 84px;
+  left: 14px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.jrg-dpad-row {
+  display: flex;
+  gap: 4px;
+}
+
+.jrg-dpad-btn {
+  width: 44px;
+  height: 44px;
+  background: rgba(14, 15, 20, 0.9);
+  border: 1px solid var(--jrg-border-medium);
+  border-radius: 10px;
+  color: var(--jrg-white);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  transition: all 0.1s ease;
+}
+
+.jrg-dpad-btn:active {
+  background: var(--jrg-white);
+  color: #08090c;
+  transform: scale(0.94);
 }

@@ -1,4 +1,4 @@
-import { Component, Suspense, useMemo, useRef, type ReactNode, type RefObject } from "react";
+import { Component, Suspense, useMemo, useRef, useState, useEffect, type ReactNode, type RefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -11,6 +11,80 @@ import type { Agent } from "./AgentOrchestratorPage";
 
 const MODEL = (n: string) => `/office-assets/models/furniture/${n}.glb`;
 
+export interface Waypoint {
+  id: string;
+  name: string;
+  shortLabel: string;
+  pos: [number, number, number];
+  target: [number, number, number];
+  agentId?: string;
+  tag: string;
+}
+
+export const DUBAI_WAYPOINTS: Waypoint[] = [
+  {
+    id: "ceo",
+    name: "Despacho Presidencial",
+    shortLabel: "CEO Desk",
+    pos: [-7.0, 1.72, -3.5],
+    target: [-7.0, 1.2, -6.5],
+    agentId: "jrg-aitor",
+    tag: "DESPACHO CEO",
+  },
+  {
+    id: "maider",
+    name: "Estación Maider (Scraping)",
+    shortLabel: "Maider",
+    pos: [-2.5, 1.72, -2.4],
+    target: [-2.5, 1.1, -4.1],
+    agentId: "jrg-maider",
+    tag: "LEAD INTEL",
+  },
+  {
+    id: "iker",
+    name: "Estación Iker (Copywriting)",
+    shortLabel: "Iker",
+    pos: [1.8, 1.72, -2.4],
+    target: [1.8, 1.1, -4.1],
+    agentId: "jrg-iker",
+    tag: "COPY SALES",
+  },
+  {
+    id: "unai",
+    name: "Estación Unai (Tech Lab)",
+    shortLabel: "Unai",
+    pos: [-2.5, 1.72, 0.8],
+    target: [-2.5, 1.1, -0.9],
+    agentId: "jrg-unai",
+    tag: "TECH DEV",
+  },
+  {
+    id: "elena",
+    name: "Estación Elena (Data / ROI)",
+    shortLabel: "Elena",
+    pos: [1.8, 1.72, 0.8],
+    target: [1.8, 1.1, -0.9],
+    agentId: "jrg-elena",
+    tag: "DATA / ROI",
+  },
+  {
+    id: "boardroom",
+    name: "Sala de Juntas VIP",
+    shortLabel: "Juntas VIP",
+    pos: [7.5, 1.72, -3.5],
+    target: [7.5, 1.1, -5.2],
+    tag: "BOARDROOM",
+  },
+  {
+    id: "terrace",
+    name: "Mirador Dubai & Helipuerto",
+    shortLabel: "Terraza Dubai",
+    pos: [4.5, 1.72, 7.5],
+    target: [4.5, 1.5, 25.0],
+    tag: "PISO 60 VIEW",
+  },
+];
+
 export const PENTHOUSE_LAYOUT: Record<string, { pos: [number, number, number]; rot: number; label: string }> = {
   "jrg-aitor": { pos: [-7.0, 0, -3.5], rot: 0, label: "Despacho Presidencial (CEO / Ops)" },
   "jrg-maider": { pos: [-2.5, 0, -3.8], rot: 0, label: "Estación de Inteligencia & Scraping" },
@@ -20,20 +94,17 @@ export const PENTHOUSE_LAYOUT: Record<string, { pos: [number, number, number]; r
 };
 
 // ============================================================================
-// 2. GENERADORES DE TEXTURAS PROCEDURALES PBR DE ALTO RENDIMIENTO
+// 2. GENERADORES DE TEXTURAS PROCEDURALES PBR
 // ============================================================================
 
-// Mármol Nero Marquina para el suelo interior
 function makeNeroMarquina(w: number, d: number): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = c.height = 512;
   const g = c.getContext("2d")!;
 
-  // Base oscura profunda
   g.fillStyle = "#0c0d12";
   g.fillRect(0, 0, 512, 512);
 
-  // Vetas orgánicas de cuarzo blanco translúcido
   g.strokeStyle = "rgba(220, 225, 235, 0.12)";
   g.lineWidth = 1.8;
   g.beginPath();
@@ -55,7 +126,6 @@ function makeNeroMarquina(w: number, d: number): THREE.CanvasTexture {
   g.bezierCurveTo(140, 320, 340, 420, 512, 380);
   g.stroke();
 
-  // Junta de baldosas de 2m x 2m
   g.strokeStyle = "rgba(0, 0, 0, 0.45)";
   g.lineWidth = 2;
   g.strokeRect(0, 0, 512, 512);
@@ -68,21 +138,18 @@ function makeNeroMarquina(w: number, d: number): THREE.CanvasTexture {
   return t;
 }
 
-// Pavimento de losas exteriores para la terraza volada
 function makeTerracePavement(w: number, d: number): THREE.CanvasTexture {
   const c = document.createElement("canvas");
-  c.width = c.height = 256;
+  c.width = 256;
   const g = c.getContext("2d")!;
 
   g.fillStyle = "#161720";
   g.fillRect(0, 0, 256, 256);
 
-  // Cuadrícula de losas de hormigón arquitectónico
   g.strokeStyle = "rgba(8, 9, 14, 0.85)";
   g.lineWidth = 3;
   g.strokeRect(1, 1, 254, 254);
 
-  // Micro-textura de grano de piedra
   g.fillStyle = "rgba(255, 255, 255, 0.02)";
   for (let i = 0; i < 400; i++) {
     const rx = Math.random() * 256;
@@ -97,7 +164,6 @@ function makeTerracePavement(w: number, d: number): THREE.CanvasTexture {
   return t;
 }
 
-// Textura de ventanas iluminadas para los rascacielos lejanos de Dubai
 function makeSkyscraperWindows(): THREE.CanvasTexture {
   const c = document.createElement("canvas");
   c.width = 128;
@@ -113,10 +179,10 @@ function makeSkyscraperWindows(): THREE.CanvasTexture {
   const rh = 256 / rows;
 
   const lightColors = [
-    "rgba(255, 235, 175, 0.85)", // Dorado Dubai cálido
-    "rgba(220, 235, 255, 0.80)", // Blanco frío moderno
-    "rgba(255, 255, 255, 0.90)", // Blanco puro
-    "rgba(200, 220, 240, 0.40)", // Tenue
+    "rgba(255, 235, 175, 0.85)",
+    "rgba(220, 235, 255, 0.80)",
+    "rgba(255, 255, 255, 0.90)",
+    "rgba(200, 220, 240, 0.40)",
   ];
 
   for (let r = 0; r < rows; r++) {
@@ -135,8 +201,30 @@ function makeSkyscraperWindows(): THREE.CanvasTexture {
   return t;
 }
 
+function makeHighwayTraffic(colorStr: string): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = 512;
+  c.height = 32;
+  const g = c.getContext("2d")!;
+  g.fillStyle = "rgba(0, 0, 0, 0)";
+  g.fillRect(0, 0, 512, 32);
+
+  for (let i = 0; i < 36; i++) {
+    const x = (i * 14.5) % 500;
+    const len = 8 + (i % 5) * 6;
+    g.fillStyle = colorStr;
+    g.fillRect(x, 10, len, 12);
+  }
+
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = THREE.RepeatWrapping;
+  t.wrapT = THREE.ClampToEdgeWrapping;
+  t.repeat.set(6, 1);
+  return t;
+}
+
 // ============================================================================
-// 3. UTILIDADES DE MODELOS GLB Y BOUNDARY SAFE
+// 3. UTILIDADES DE MODELOS GLB
 // ============================================================================
 
 function useFitted(url: string, width: number) {
@@ -187,13 +275,16 @@ function Prop({
 }
 
 // ============================================================================
-// 4. SKYLINE PROCEDURAL DE DUBAI (BURJ KHALIFA, 36 TORRES Y AUTOPISTAS)
+// 4. SKYLINE PROCEDURAL DE DUBAI (BURJ KHALIFA, 38 RASCACIELOS Y AUTOPISTAS)
 // ============================================================================
 
 function DubaiSkyline() {
   const windowTex = useMemo(() => makeSkyscraperWindows(), []);
+  const trafficNorthTex = useMemo(() => makeHighwayTraffic("rgba(255, 235, 160, 0.95)"), []);
+  const trafficSouthTex = useMemo(() => makeHighwayTraffic("rgba(244, 63, 94, 0.95)"), []);
+  const beaconLightRef = useRef<THREE.PointLight>(null);
+  const beaconMeshRef = useRef<THREE.Mesh>(null);
 
-  // Generación geométrica de 36 rascacielos lejanos con 1 solo InstancedMesh
   const towerCount = 38;
   const instancedRef = useRef<THREE.InstancedMesh>(null);
 
@@ -221,34 +312,27 @@ function DubaiSkyline() {
     instancedRef.current.instanceMatrix.needsUpdate = true;
   }, [towerCount]);
 
-  // Autopistas animadas con estelas de luz continua
-  const highwayMaterialNorth = useMemo(
-    () =>
-      new THREE.MeshBasicMaterial({
-        color: "#ffe082",
-        transparent: true,
-        opacity: 0.85,
-      }),
-    []
-  );
+  useFrame((state, delta) => {
+    // Tráfico vehicular animado fluido en ambas direcciones
+    trafficNorthTex.offset.x -= delta * 0.42;
+    trafficSouthTex.offset.x += delta * 0.38;
 
-  const highwayMaterialSouth = useMemo(
-    () =>
-      new THREE.MeshBasicMaterial({
-        color: "#ff3b50",
-        transparent: true,
-        opacity: 0.85,
-      }),
-    []
-  );
+    // Baliza de aviación parpadeante en la cúspide del Burj Khalifa
+    const t = state.clock.getElapsedTime();
+    const isFlash = Math.sin(t * 3.8) > 0.3;
+    if (beaconLightRef.current) {
+      beaconLightRef.current.intensity = isFlash ? 3.5 : 0.2;
+    }
+    if (beaconMeshRef.current) {
+      const mat = beaconMeshRef.current.material as THREE.MeshBasicMaterial;
+      if (mat) mat.color.setHex(isFlash ? 0xff2222 : 0x550000);
+    }
+  });
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 36 Rascacielos agrupados en 1 solo Draw Call */}
-      <instancedMesh
-        ref={instancedRef}
-        args={[undefined, undefined, towerCount]}
-      >
+      {/* 38 Rascacielos con InstancedMesh */}
+      <instancedMesh ref={instancedRef} args={[undefined, undefined, towerCount]}>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial
           color="#0c0d14"
@@ -260,9 +344,8 @@ function DubaiSkyline() {
         />
       </instancedMesh>
 
-      {/* Silueta Icónica del Burj Khalifa (Noroeste) */}
+      {/* Silueta Icónica del Burj Khalifa */}
       <group position={[18, -16, -65]} rotation-y={0.3}>
-        {/* Niveles escalonados cilíndricos */}
         <mesh position={[0, 25, 0]}>
           <cylinderGeometry args={[4.5, 6.5, 50, 16]} />
           <meshStandardMaterial color="#0f111a" metalness={0.85} roughness={0.2} emissive="#ffe89c" emissiveMap={windowTex} emissiveIntensity={0.6} />
@@ -275,35 +358,63 @@ function DubaiSkyline() {
           <cylinderGeometry args={[1.8, 3.2, 25, 14]} />
           <meshStandardMaterial color="#141724" metalness={0.9} roughness={0.15} emissive="#ffe89c" emissiveMap={windowTex} emissiveIntensity={0.8} />
         </mesh>
-        {/* Aguja central iluminada */}
         <mesh position={[0, 110, 0]}>
           <cylinderGeometry args={[0.2, 1.8, 35, 12]} />
           <meshStandardMaterial color="#e2e8f0" metalness={0.95} roughness={0.1} />
         </mesh>
-        {/* Baliza roja aeronáutica parpadeante */}
-        <mesh position={[0, 128, 0]}>
+        <mesh ref={beaconMeshRef} position={[0, 128, 0]}>
           <sphereGeometry args={[0.6, 12, 12]} />
           <meshBasicMaterial color="#ef4444" />
         </mesh>
-        <pointLight position={[0, 128, 0]} color="#ef4444" intensity={2.5} distance={40} />
+        <pointLight ref={beaconLightRef} position={[0, 128, 0]} color="#ef4444" intensity={2.5} distance={50} />
       </group>
 
-      {/* Estelas de tráfico de Sheikh Zayed Road por debajo de la ciudad */}
+      {/* Estelas de tráfico fluido en Sheikh Zayed Road */}
       <mesh position={[0, -15.5, -35]} rotation={[-Math.PI / 2, 0, -0.2]}>
         <planeGeometry args={[140, 0.45]} />
-        <primitive object={highwayMaterialNorth} attach="material" />
+        <meshBasicMaterial map={trafficNorthTex} transparent opacity={0.95} color="#ffe082" />
       </mesh>
       <mesh position={[0, -15.5, -36]} rotation={[-Math.PI / 2, 0, -0.2]}>
         <planeGeometry args={[140, 0.45]} />
-        <primitive object={highwayMaterialSouth} attach="material" />
+        <meshBasicMaterial map={trafficSouthTex} transparent opacity={0.95} color="#ff3b50" />
       </mesh>
     </group>
   );
 }
 
 // ============================================================================
-// 5. ESTRUCTURA ARQUITECTÓNICA DE LA PENTHOUSE (MÁRMOL, VENTANALES Y TERRAZA)
+// 5. ESTRUCTURA ARQUITECTÓNICA DE LA PENTHOUSE
 // ============================================================================
+
+function HelipadBeacons() {
+  const groupRef = useRef<THREE.Group>(null);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (groupRef.current) {
+      groupRef.current.children.forEach((child, i) => {
+        const pulse = 0.4 + 0.6 * Math.sin(t * 3.5 + i * 0.78);
+        const mesh = child as THREE.Mesh;
+        if (mesh && mesh.material) {
+          (mesh.material as THREE.MeshBasicMaterial).opacity = Math.max(0.2, pulse);
+        }
+      });
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+        const a = (i / 8) * Math.PI * 2;
+        return (
+          <mesh key={`beacon-${i}`} position={[Math.cos(a) * 3.3, 0.03, Math.sin(a) * 3.3]}>
+            <cylinderGeometry args={[0.07, 0.07, 0.07, 8]} />
+            <meshBasicMaterial color="#f59e0b" transparent opacity={0.85} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+}
 
 function PenthouseArchitecture() {
   const marbleTex = useMemo(() => makeNeroMarquina(24, 18), []);
@@ -311,34 +422,24 @@ function PenthouseArchitecture() {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Suelo Interior: Mármol Negro Nero Marquina Pulido */}
+      {/* Suelo Interior: Mármol Negro Nero Marquina */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, -1]} receiveShadow>
         <planeGeometry args={[24, 16]} />
-        <meshStandardMaterial
-          map={marbleTex}
-          roughness={0.14}
-          metalness={0.16}
-        />
+        <meshStandardMaterial map={marbleTex} roughness={0.14} metalness={0.16} />
       </mesh>
 
-      {/* 2. Suelo Exterior: Terraza Voladiza & Mirador Panorámico */}
+      {/* Suelo Exterior: Terraza Voladiza */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[2.5, 0.005, 8.5]} receiveShadow>
         <planeGeometry args={[19, 9]} />
-        <meshStandardMaterial
-          map={terraceTex}
-          roughness={0.4}
-          metalness={0.2}
-        />
+        <meshStandardMaterial map={terraceTex} roughness={0.4} metalness={0.2} />
       </mesh>
 
-      {/* 3. Helipuerto Privado en la Terraza Exterior */}
+      {/* Helipuerto Privado en la Terraza */}
       <group position={[4.5, 0.015, 8.5]}>
-        {/* Anillo exterior blanco del helipuerto */}
         <mesh rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[3.2, 3.4, 36]} />
           <meshBasicMaterial color="#ffffff" transparent opacity={0.85} />
         </mesh>
-        {/* Letra "H" estilizada en el helipuerto */}
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-0.9, 0, 0]}>
           <planeGeometry args={[0.35, 2.2]} />
           <meshBasicMaterial color="#ffffff" />
@@ -351,52 +452,27 @@ function PenthouseArchitecture() {
           <planeGeometry args={[1.6, 0.35]} />
           <meshBasicMaterial color="#ffffff" />
         </mesh>
-        {/* Balizas perimetrales de seguridad en el helipuerto */}
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-          const a = (i / 8) * Math.PI * 2;
-          return (
-            <mesh key={`beacon-${i}`} position={[Math.cos(a) * 3.3, 0.03, Math.sin(a) * 3.3]}>
-              <cylinderGeometry args={[0.06, 0.06, 0.06, 8]} />
-              <meshBasicMaterial color="#ffc107" />
-            </mesh>
-          );
-        })}
+        <HelipadBeacons />
       </group>
 
-      {/* 4. Barandillas de Vidrio Estructural en la Terraza (Vistas a Dubai) */}
+      {/* Barandillas de Vidrio en la Terraza */}
       <group position={[2.5, 0.6, 13.0]}>
         <mesh>
           <boxGeometry args={[19, 1.2, 0.05]} />
-          <meshPhysicalMaterial
-            color="#ffffff"
-            transparent
-            opacity={0.3}
-            roughness={0.05}
-            transmission={0.9}
-            ior={1.5}
-          />
+          <meshPhysicalMaterial color="#ffffff" transparent opacity={0.3} roughness={0.05} transmission={0.9} ior={1.5} />
         </mesh>
-        {/* Rodapié de fijación en acero inoxidable */}
         <mesh position={[0, -0.55, 0]}>
           <boxGeometry args={[19, 0.1, 0.1]} />
           <meshStandardMaterial color="#27272a" metalness={0.9} roughness={0.2} />
         </mesh>
       </group>
 
-      {/* 5. Ventanales Panorámicos Suelo a Techo de la Penthouse */}
-      {/* Fachada Norte Panorámica (Skyline) */}
+      {/* Ventanales Panorámicos Fachada Norte */}
       <group position={[0, 1.8, -8.9]}>
         <mesh>
           <boxGeometry args={[24, 3.6, 0.06]} />
-          <meshPhysicalMaterial
-            color="#181a24"
-            transparent
-            opacity={0.25}
-            roughness={0.08}
-            transmission={0.88}
-          />
+          <meshPhysicalMaterial color="#181a24" transparent opacity={0.25} roughness={0.08} transmission={0.88} />
         </mesh>
-        {/* Montantes verticales de titanio oscuro */}
         {[-8, -4, 0, 4, 8].map((x) => (
           <mesh key={`mullion-${x}`} position={[x, 0, 0]}>
             <boxGeometry args={[0.12, 3.6, 0.16]} />
@@ -405,19 +481,17 @@ function PenthouseArchitecture() {
         ))}
       </group>
 
-      {/* 6. Paredes Interiores de Lujo (Madera Flotante y Rodapié Negro) */}
-      {/* Pared Trasera Sur (Lobby / Pasillo) */}
+      {/* Paredes Interiores de Lujo */}
       <mesh position={[-6.0, 1.8, 6.9]}>
         <boxGeometry args={[12, 3.6, 0.28]} />
         <meshStandardMaterial color="#121319" roughness={0.8} />
       </mesh>
-      {/* Pared Lateral Oeste */}
       <mesh position={[-12.0, 1.8, -1.0]}>
         <boxGeometry args={[0.28, 3.6, 16]} />
         <meshStandardMaterial color="#101117" roughness={0.85} />
       </mesh>
 
-      {/* 7. Techo Moderno con Iluminación LED Empotrada */}
+      {/* Techo con Iluminación LED */}
       <mesh position={[0, 3.75, -1]}>
         <boxGeometry args={[24, 0.15, 16]} />
         <meshStandardMaterial color="#0c0d12" roughness={0.9} />
@@ -427,21 +501,144 @@ function PenthouseArchitecture() {
 }
 
 // ============================================================================
-// 6. MOBILIARIO DE ALTO NIVEL (PRESIDENCIAL & TRADING FLOOR DE AGENTES)
+// 6. PERSONAJES HUMANOS EJECUTIVOS RIGGEADOS Y SENTADOS
+// ============================================================================
+
+function ExecutiveAgentFigure({
+  agent,
+  pos,
+  rot = 0,
+  isNear,
+}: {
+  agent: Agent;
+  pos: [number, number, number];
+  rot?: number;
+  isNear: boolean;
+}) {
+  const headRef = useRef<THREE.Group>(null);
+  const leftArmRef = useRef<THREE.Group>(null);
+  const rightArmRef = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    const seed = agent.floor * 1.7;
+
+    // Brazos tecleando suavemente
+    if (leftArmRef.current && rightArmRef.current) {
+      leftArmRef.current.rotation.x = -0.7 + Math.sin(t * 12 + seed) * 0.12;
+      rightArmRef.current.rotation.x = -0.7 + Math.cos(t * 12 + seed) * 0.12;
+    }
+
+    // Giro de cabeza hacia el CEO cuando está cerca
+    if (headRef.current) {
+      if (isNear) {
+        headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, 0.45, 0.08);
+      } else {
+        headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, Math.sin(t * 1.2 + seed) * 0.18, 0.05);
+      }
+    }
+  });
+
+  return (
+    <group position={[pos[0], pos[1], pos[2] + 0.65]} rotation={[0, rot, 0]}>
+      {/* Piernas con pantalón de vestir */}
+      {[-0.14, 0.14].map((x, i) => (
+        <group key={`leg-${i}`} position={[x, 0.28, 0]}>
+          <mesh position={[0, 0, -0.16]}>
+            <boxGeometry args={[0.13, 0.14, 0.32]} />
+            <meshStandardMaterial color={agent.clothingColor} />
+          </mesh>
+          <mesh position={[0, -0.16, -0.32]}>
+            <boxGeometry args={[0.13, 0.26, 0.14]} />
+            <meshStandardMaterial color={agent.clothingColor} />
+          </mesh>
+          <mesh position={[0, -0.28, -0.36]}>
+            <boxGeometry args={[0.14, 0.08, 0.2]} />
+            <meshStandardMaterial color="#09090b" roughness={0.3} />
+          </mesh>
+        </group>
+      ))}
+
+      {/* Torso con traje sastre y corbata fina */}
+      <mesh position={[0, 0.75, 0]} castShadow>
+        <boxGeometry args={[0.44, 0.54, 0.26]} />
+        <meshStandardMaterial color={agent.clothingColor} roughness={0.8} />
+      </mesh>
+      {/* Camisa blanca ejecutiva visible en el cuello */}
+      <mesh position={[0, 0.95, 0.1]}>
+        <boxGeometry args={[0.14, 0.16, 0.08]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+
+      {/* Cabeza humana estilizada */}
+      <group ref={headRef} position={[0, 1.25, 0]}>
+        <mesh castShadow>
+          <boxGeometry args={[0.32, 0.34, 0.32]} />
+          <meshStandardMaterial color="#fcd34d" roughness={0.5} />
+        </mesh>
+        <mesh position={[0, 0.14, 0]}>
+          <boxGeometry args={[0.34, 0.14, 0.34]} />
+          <meshStandardMaterial color={agent.hairColor} roughness={0.9} />
+        </mesh>
+        <mesh position={[0, 0.02, -0.13]}>
+          <boxGeometry args={[0.34, 0.24, 0.12]} />
+          <meshStandardMaterial color={agent.hairColor} roughness={0.9} />
+        </mesh>
+        {/* Ojos */}
+        <mesh position={[-0.08, 0.02, 0.165]}>
+          <boxGeometry args={[0.05, 0.05, 0.02]} />
+          <meshBasicMaterial color="#0f172a" />
+        </mesh>
+        <mesh position={[0.08, 0.02, 0.165]}>
+          <boxGeometry args={[0.05, 0.05, 0.02]} />
+          <meshBasicMaterial color="#0f172a" />
+        </mesh>
+      </group>
+
+      {/* Brazos tecleando en el escritorio */}
+      <group ref={leftArmRef} position={[-0.28, 0.85, 0]}>
+        <mesh position={[0, -0.22, -0.18]} castShadow>
+          <boxGeometry args={[0.12, 0.42, 0.12]} />
+          <meshStandardMaterial color={agent.clothingColor} />
+        </mesh>
+        <mesh position={[0, -0.42, -0.32]}>
+          <boxGeometry args={[0.1, 0.1, 0.14]} />
+          <meshStandardMaterial color="#fcd34d" />
+        </mesh>
+      </group>
+
+      <group ref={rightArmRef} position={[0.28, 0.85, 0]}>
+        <mesh position={[0, -0.22, -0.18]} castShadow>
+          <boxGeometry args={[0.12, 0.42, 0.12]} />
+          <meshStandardMaterial color={agent.clothingColor} />
+        </mesh>
+        <mesh position={[0, -0.42, -0.32]}>
+          <boxGeometry args={[0.1, 0.1, 0.14]} />
+          <meshStandardMaterial color="#fcd34d" />
+        </mesh>
+      </group>
+    </group>
+  );
+}
+
+// ============================================================================
+// 7. MOBILIARIO DE ALTO NIVEL
 // ============================================================================
 
 function PenthouseFurniture({
   agents,
   selectedId,
+  nearAgentId,
   onSelect,
 }: {
   agents: Agent[];
   selectedId: string;
+  nearAgentId: string | null;
   onSelect: (id: string) => void;
 }) {
   return (
     <>
-      {/* 1. Despacho del CEO (Aitor / Jakes) con Mesa de Nogal y Vistas al Skyline */}
+      {/* Despacho del CEO con Mesa de Nogal */}
       <group position={[-7.0, 0, -3.5]}>
         <Prop name="deskCorner" width={2.8} pos={[0, 0, 0]} rot={0} />
         <Prop name="chairDesk" width={0.9} pos={[0, 0, 0.8]} rot={Math.PI} />
@@ -450,7 +647,7 @@ function PenthouseFurniture({
         <Prop name="bookcaseClosed" width={2.0} pos={[-4.5, 0, -0.5]} rot={Math.PI / 2} />
       </group>
 
-      {/* 2. Estaciones de Trabajo de los 4 Especialistas (Maider, Iker, Unai, Elena) */}
+      {/* Estaciones de Trabajo de los Especialistas */}
       <Safe>
         <Prop name="desk" width={2.0} pos={[-2.5, 0, -3.8]} rot={0} />
         <Prop name="chairDesk" width={0.8} pos={[-2.5, 0, -3.1]} rot={Math.PI} />
@@ -469,7 +666,22 @@ function PenthouseFurniture({
         <Prop name="computerScreen" width={0.85} pos={[1.8, 0.75, -0.9]} rot={0} />
       </Safe>
 
-      {/* 3. Sala de Juntas VIP (Boardroom con Mesa Redonda de Mármol) */}
+      {/* Personajes Humanos Ejecutivos Trabajando en cada Puesto */}
+      {agents.map((ag) => {
+        const layout = PENTHOUSE_LAYOUT[ag.id];
+        if (!layout) return null;
+        return (
+          <ExecutiveAgentFigure
+            key={`fig-${ag.id}`}
+            agent={ag}
+            pos={layout.pos}
+            rot={layout.rot}
+            isNear={nearAgentId === ag.id}
+          />
+        );
+      })}
+
+      {/* Sala de Juntas VIP */}
       <Safe>
         <Prop name="tableRound" width={2.8} pos={[7.5, 0, -3.5]} />
         {[0, 1.25, 2.5, 3.75, 5.0].map((a) => (
@@ -483,7 +695,7 @@ function PenthouseFurniture({
         ))}
       </Safe>
 
-      {/* 4. Lounge Ejecutivo & Barra de Champagne */}
+      {/* Lounge Ejecutivo & Barra */}
       <Safe>
         <Prop name="loungeSofa" width={2.6} pos={[-7.0, 0, 3.5]} rot={0} />
         <Prop name="tableCoffee" width={1.4} pos={[-7.0, 0, 2.1]} />
@@ -494,7 +706,7 @@ function PenthouseFurniture({
         <Prop name="pottedPlant" width={0.8} pos={[10.5, 0, -7.8]} />
       </Safe>
 
-      {/* 5. Placas de Identificación Monocromáticas de los Agentes */}
+      {/* Placas de Identificación Monocromáticas de los Agentes */}
       {agents.map((ag) => {
         const layout = PENTHOUSE_LAYOUT[ag.id];
         if (!layout) return null;
@@ -531,38 +743,144 @@ function PenthouseFurniture({
 }
 
 // ============================================================================
-// 7. RIG DE CÁMARA SUAVE Y TRANSICIONES CINEMÁTICAS
+// 8. CONTROLADOR DE NAVEGACIÓN Y CÁMARA (MODO CEO FIRST-PERSON & WAYPOINTS)
 // ============================================================================
 
-function CameraRig({
-  focus,
+function NavigationController({
+  navMode,
+  activeWaypoint,
   controls,
+  agents,
+  onNearAgent,
+  mobileInput,
 }: {
-  focus: [number, number, number] | null;
+  navMode: "walk" | "orbit";
+  activeWaypoint: Waypoint | null;
   controls: RefObject<OrbitControlsImpl>;
+  agents: Agent[];
+  onNearAgent: (agentId: string | null) => void;
+  mobileInput: { forward: boolean; backward: boolean; left: boolean; right: boolean };
 }) {
-  const goal = useMemo(() => new THREE.Vector3(), []);
+  const keys = useRef({ forward: false, backward: false, left: false, right: false });
+  const walkTime = useRef(0);
+  const targetCamPos = useMemo(() => new THREE.Vector3(-7.0, 1.72, -3.5), []);
+  const targetLookAt = useMemo(() => new THREE.Vector3(-7.0, 1.2, -6.5), []);
+  const isNavigatingRef = useRef(false);
 
-  useFrame(() => {
+  // Escuchar teclado para caminar en Modo CEO
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "KeyW" || e.code === "ArrowUp") { keys.current.forward = true; isNavigatingRef.current = false; }
+      if (e.code === "KeyS" || e.code === "ArrowDown") { keys.current.backward = true; isNavigatingRef.current = false; }
+      if (e.code === "KeyA" || e.code === "ArrowLeft") { keys.current.left = true; isNavigatingRef.current = false; }
+      if (e.code === "KeyD" || e.code === "ArrowRight") { keys.current.right = true; isNavigatingRef.current = false; }
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.code === "KeyW" || e.code === "ArrowUp") keys.current.forward = false;
+      if (e.code === "KeyS" || e.code === "ArrowDown") keys.current.backward = false;
+      if (e.code === "KeyA" || e.code === "ArrowLeft") keys.current.left = false;
+      if (e.code === "KeyD" || e.code === "ArrowRight") keys.current.right = false;
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, []);
+
+  // Sincronizar destino si cambia el Waypoint activo
+  useEffect(() => {
+    if (activeWaypoint) {
+      targetCamPos.set(...activeWaypoint.pos);
+      targetLookAt.set(...activeWaypoint.target);
+      isNavigatingRef.current = true;
+    }
+  }, [activeWaypoint, targetCamPos, targetLookAt]);
+
+  useFrame((state, delta) => {
     const c = controls.current;
     if (!c) return;
-    if (focus) {
-      goal.set(focus[0], 1.2, focus[2]);
-    } else {
-      goal.set(0, 0.6, 0);
+
+    // 1. MODO TELETRANSPORTE ACTIVO CON CURVA SUAVE LERP
+    if (isNavigatingRef.current) {
+      c.object.position.lerp(targetCamPos, 0.08);
+      c.target.lerp(targetLookAt, 0.08);
+      c.update();
+
+      // Al completar el viaje al waypoint, liberar la cámara para permitir rotación u órbita libre
+      if (c.object.position.distanceTo(targetCamPos) < 0.06 && c.target.distanceTo(targetLookAt) < 0.06) {
+        c.object.position.copy(targetCamPos);
+        c.target.copy(targetLookAt);
+        c.update();
+        isNavigatingRef.current = false;
+      }
     }
-    const d = goal.clone().sub(c.target).multiplyScalar(0.06);
-    if (d.lengthSq() < 1e-6) return;
-    c.target.add(d);
-    c.object.position.add(d);
-    c.update();
+    // 2. MODO PASEO CEO (FIRST PERSON WALK)
+    else if (navMode === "walk") {
+      const camera = state.camera;
+      const fInput = (keys.current.forward || mobileInput.forward ? 1 : 0) - (keys.current.backward || mobileInput.backward ? 1 : 0);
+      const sInput = (keys.current.right || mobileInput.right ? 1 : 0) - (keys.current.left || mobileInput.left ? 1 : 0);
+
+      const isMoving = fInput !== 0 || sInput !== 0;
+
+      if (isMoving) {
+        // Dirección de la mirada horizontal
+        const dir = new THREE.Vector3();
+        camera.getWorldDirection(dir);
+        dir.y = 0;
+        dir.normalize();
+
+        const side = new THREE.Vector3(-dir.z, 0, dir.x);
+
+        const moveSpeed = 4.8 * delta;
+        const moveVec = dir.clone().multiplyScalar(fInput * moveSpeed).add(side.multiplyScalar(sInput * moveSpeed));
+
+        // Clamping perimetral de colisión en la Penthouse
+        const newX = camera.position.x + moveVec.x;
+        const newZ = camera.position.z + moveVec.z;
+
+        let minX = -10.5, maxX = 10.5, minZ = -7.5, maxZ = 5.0;
+        if (newZ > 5.0) {
+          minX = -5.5; maxX = 10.5; maxZ = 12.0; // Terraza y helipuerto
+        }
+
+        camera.position.x = THREE.MathUtils.clamp(newX, minX, maxX);
+        camera.position.z = THREE.MathUtils.clamp(newZ, minZ, maxZ);
+
+        c.target.x = THREE.MathUtils.clamp(c.target.x + moveVec.x, minX - 4, maxX + 4);
+        c.target.z = THREE.MathUtils.clamp(c.target.z + moveVec.z, minZ - 4, maxZ + 4);
+
+        // Head-bobbing sutil al caminar
+        walkTime.current += delta * 10.0;
+        camera.position.y = 1.72 + Math.sin(walkTime.current) * 0.02;
+      } else {
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.72, 0.1);
+      }
+      c.update();
+    }
+
+    // 3. DETECTOR DE PROXIMIDAD A LOS AGENTES
+    let closestId: string | null = null;
+    let closestDist = 999;
+    for (const ag of agents) {
+      const layout = PENTHOUSE_LAYOUT[ag.id];
+      if (layout) {
+        const dist = Math.hypot(state.camera.position.x - layout.pos[0], state.camera.position.z - layout.pos[2]);
+        if (dist < 2.4 && dist < closestDist) {
+          closestDist = dist;
+          closestId = ag.id;
+        }
+      }
+    }
+    onNearAgent(closestId);
   });
 
   return null;
 }
 
 // ============================================================================
-// 8. ESCENA EXPORTADA: PENTHOUSE PRESIDENCIAL DE DUBAI (FASE 1)
+// 9. ESCENA EXPORTADA: PENTHOUSE PRESIDENCIAL DE DUBAI (FASES 1 Y 2)
 // ============================================================================
 
 export default function DubaiPenthouse({
@@ -570,100 +888,226 @@ export default function DubaiPenthouse({
   selectedId,
   focusId,
   isMobile,
+  drawerOpen = false,
   onSelect,
 }: {
   agents: Agent[];
   selectedId: string;
-  focusId: string | null;
+  focusId?: string | null;
   isMobile: boolean;
+  drawerOpen?: boolean;
   onSelect: (id: string) => void;
 }) {
   const controls = useRef<OrbitControlsImpl>(null);
-  const focus = focusId && PENTHOUSE_LAYOUT[focusId] ? PENTHOUSE_LAYOUT[focusId].pos : null;
+  const [navMode, setNavMode] = useState<"walk" | "orbit">("walk");
+  const [activeWaypoint, setActiveWaypoint] = useState<Waypoint | null>(DUBAI_WAYPOINTS[0]);
+  const [nearAgentId, setNearAgentId] = useState<string | null>(null);
+  const [mobileInput, setMobileInput] = useState({ forward: false, backward: false, left: false, right: false });
+
+  // Cuando se selecciona un agente en el UI exterior o drawer, viajar automáticamente a su puesto
+  useEffect(() => {
+    const targetAgentId = focusId || selectedId;
+    if (targetAgentId) {
+      const wp = DUBAI_WAYPOINTS.find((w) => w.agentId === targetAgentId);
+      if (wp) {
+        setActiveWaypoint(wp);
+      }
+    }
+  }, [focusId, selectedId]);
+
+  // Escuchar tecla 'E' para hablar con el agente cercano
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.code === "KeyE" || e.key === "e") && nearAgentId) {
+        onSelect(nearAgentId);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [nearAgentId, onSelect]);
+
+  const nearAgent = useMemo(() => agents.find((a) => a.id === nearAgentId), [agents, nearAgentId]);
 
   return (
-    <Canvas
-      shadows
-      dpr={[1, isMobile ? 1.5 : 2]}
-      camera={{
-        position: isMobile ? [18, 16, 18] : [14, 11, 14],
-        fov: isMobile ? 50 : 38,
-        near: 0.1,
-        far: 300,
-      }}
-      gl={{ antialias: true, powerPreference: "high-performance" }}
-      onCreated={({ gl }) => {
-        gl.toneMapping = THREE.ACESFilmicToneMapping;
-        gl.toneMappingExposure = 1.15;
-      }}
-    >
-      {/* Atmósfera crepuscular y niebla lejana de Dubai */}
-      <color attach="background" args={["#08090f"]} />
-      <fog attach="fog" args={["#08090f", 45, 200]} />
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      {/* BARRA DE NAVEGACIÓN Y WAYPOINTS (FASE 1 & 2) */}
+      <div className={`jrg-waypoints-dock ${!drawerOpen ? "drawer-closed" : ""}`}>
+        {/* Selector de Modo: Paseo CEO vs Vista Aérea */}
+        <button
+          className="jrg-mode-toggle-pill"
+          onClick={() => {
+            const nextMode = navMode === "walk" ? "orbit" : "walk";
+            setNavMode(nextMode);
+            if (nextMode === "orbit") {
+              setActiveWaypoint({
+                id: "orbit_overview",
+                name: "Vista Aérea Penthouse",
+                shortLabel: "Vista Aérea",
+                pos: [14, 11, 14],
+                target: [0, 1.0, 0],
+                tag: "AÉREA",
+              });
+            } else {
+              setActiveWaypoint(DUBAI_WAYPOINTS[0]);
+            }
+          }}
+          title={navMode === "walk" ? "Cambiar a Vista Aérea Órbita" : "Cambiar a Paseo CEO Primera Persona"}
+        >
+          {navMode === "walk" ? "🚶 MODO CEO" : "🛸 VISTA AÉREA"}
+        </button>
 
-      {/* Iluminación Arquitectónica de Lujo */}
-      <ambientLight intensity={0.4} color="#181b28" />
-      <hemisphereLight args={["#222538", "#0d0e14", 0.6]} />
+        {/* Píldoras de Teletransporte a los 7 Waypoints */}
+        {DUBAI_WAYPOINTS.map((wp) => (
+          <button
+            key={`wp-${wp.id}`}
+            className={`jrg-waypoint-btn ${activeWaypoint?.id === wp.id ? "active" : ""}`}
+            onClick={() => {
+              setActiveWaypoint(wp);
+              if (wp.agentId) onSelect(wp.agentId);
+            }}
+          >
+            <span>{wp.shortLabel}</span>
+          </button>
+        ))}
+      </div>
 
-      {/* Foco Principal de la Penthouse con Sombras Suaves */}
-      <directionalLight
-        position={[16, 24, 12]}
-        intensity={1.8}
-        color="#fff5e8"
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
-        shadow-camera-near={1}
-        shadow-camera-far={80}
-        shadow-bias={-0.0004}
-      />
-
-      {/* Luz Ambiental de los Ventanales (Reflejo del Skyline) */}
-      <directionalLight position={[-15, 8, -25]} intensity={0.9} color="#9ec4ff" />
-
-      {/* Controles Orbitales Adaptados */}
-      <OrbitControls
-        ref={controls}
-        enableDamping
-        dampingFactor={0.06}
-        enablePan={false}
-        minDistance={5}
-        maxDistance={45}
-        maxPolarAngle={Math.PI / 2.08}
-        target={[0, 0.6, 0]}
-      />
-      <CameraRig focus={focus} controls={controls} />
-
-      {/* 1. Skyline Nocturno de Dubai */}
-      <DubaiSkyline />
-
-      {/* 2. Estructura Arquitectónica de la Penthouse */}
-      <PenthouseArchitecture />
-
-      {/* 3. Mobiliario y Puestos de Agentes */}
-      <Suspense fallback={null}>
-        <PenthouseFurniture
-          agents={agents}
-          selectedId={selectedId}
-          onSelect={onSelect}
-        />
-      </Suspense>
-
-      {/* Rótulo Arquitectónico JRG en la Penthouse */}
-      <Html position={[-6.0, 3.2, 6.7]} center distanceFactor={10} style={{ pointerEvents: "none" }}>
-        <div className="hm-neon-sign">
-          <img
-            src="/logoJRG.png"
-            alt="JRG"
-            style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#fff" }}
-          />
-          <span>JRG AGENCY · DUBAI HQ</span>
+      {/* PASTILLA FLOTANTE DE INTERACCIÓN POR PROXIMIDAD */}
+      {nearAgent && (
+        <div
+          className="jrg-proximity-bubble"
+          onClick={() => onSelect(nearAgent.id)}
+          title="Hablar con este especialista"
+        >
+          <span className="jrg-proximity-badge">{isMobile ? "TOCAR" : "PULSA 'E'"}</span>
+          <span>Hablar con {nearAgent.name} ({nearAgent.role})</span>
         </div>
-      </Html>
-    </Canvas>
+      )}
+
+      {/* D-PAD TÁCTIL PARA MODO CEO EN MÓVIL */}
+      {isMobile && navMode === "walk" && (
+        <div className="jrg-mobile-dpad">
+          <button
+            className="jrg-dpad-btn up"
+            onTouchStart={(e) => { e.preventDefault(); setMobileInput((s) => ({ ...s, forward: true })); }}
+            onTouchEnd={() => setMobileInput((s) => ({ ...s, forward: false }))}
+          >
+            ▲
+          </button>
+          <div className="jrg-dpad-row">
+            <button
+              className="jrg-dpad-btn left"
+              onTouchStart={(e) => { e.preventDefault(); setMobileInput((s) => ({ ...s, left: true })); }}
+              onTouchEnd={() => setMobileInput((s) => ({ ...s, left: false }))}
+            >
+              ◄
+            </button>
+            <button
+              className="jrg-dpad-btn down"
+              onTouchStart={(e) => { e.preventDefault(); setMobileInput((s) => ({ ...s, backward: true })); }}
+              onTouchEnd={() => setMobileInput((s) => ({ ...s, backward: false }))}
+            >
+              ▼
+            </button>
+            <button
+              className="jrg-dpad-btn right"
+              onTouchStart={(e) => { e.preventDefault(); setMobileInput((s) => ({ ...s, right: true })); }}
+              onTouchEnd={() => setMobileInput((s) => ({ ...s, right: false }))}
+            >
+              ►
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* CANVAS THREE.JS DE LA PENTHOUSE */}
+      <Canvas
+        shadows
+        dpr={[1, isMobile ? 1.5 : 2]}
+        camera={{
+          position: [-7.0, 1.72, -3.5],
+          fov: isMobile ? 54 : 44,
+          near: 0.1,
+          far: 300,
+        }}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.15;
+        }}
+      >
+        <color attach="background" args={["#08090f"]} />
+        <fog attach="fog" args={["#08090f", 45, 200]} />
+
+        {/* Iluminación Arquitectónica */}
+        <ambientLight intensity={0.4} color="#181b28" />
+        <hemisphereLight args={["#222538", "#0d0e14", 0.6]} />
+
+        <directionalLight
+          position={[16, 24, 12]}
+          intensity={1.8}
+          color="#fff5e8"
+          castShadow
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+          shadow-camera-left={-20}
+          shadow-camera-right={20}
+          shadow-camera-top={20}
+          shadow-camera-bottom={-20}
+          shadow-camera-near={1}
+          shadow-camera-far={80}
+          shadow-bias={-0.0004}
+        />
+        <directionalLight position={[-15, 8, -25]} intensity={0.9} color="#9ec4ff" />
+
+        {/* Controles de Órbita / Primera Persona */}
+        <OrbitControls
+          ref={controls}
+          enableDamping
+          dampingFactor={0.06}
+          enablePan={false}
+          minDistance={navMode === "walk" ? 0.1 : 3}
+          maxDistance={45}
+          maxPolarAngle={navMode === "walk" ? Math.PI / 1.95 : Math.PI / 2.05}
+          target={[-7.0, 1.2, -6.5]}
+        />
+
+        <NavigationController
+          navMode={navMode}
+          activeWaypoint={activeWaypoint}
+          controls={controls}
+          agents={agents}
+          onNearAgent={setNearAgentId}
+          mobileInput={mobileInput}
+        />
+
+        {/* Skyline Nocturno de Dubai */}
+        <DubaiSkyline />
+
+        {/* Estructura Arquitectónica Penthouse */}
+        <PenthouseArchitecture />
+
+        {/* Mobiliario y Agentes Humanos */}
+        <Suspense fallback={null}>
+          <PenthouseFurniture
+            agents={agents}
+            selectedId={selectedId}
+            nearAgentId={nearAgentId}
+            onSelect={onSelect}
+          />
+        </Suspense>
+
+        {/* Rótulo Arquitectónico JRG en la Penthouse */}
+        <Html position={[-6.0, 3.2, 6.7]} center distanceFactor={10} style={{ pointerEvents: "none" }}>
+          <div className="hm-neon-sign">
+            <img
+              src="/logoJRG.png"
+              alt="JRG"
+              style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#fff" }}
+            />
+            <span>JRG AGENCY · DUBAI HQ</span>
+          </div>
+        </Html>
+      </Canvas>
+    </div>
   );
 }

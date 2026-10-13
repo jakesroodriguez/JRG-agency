@@ -1113,8 +1113,12 @@ export default function AgentOrchestratorPage() {
               selectedId={selectedAgentId}
               focusId={selectedAgentId}
               isMobile={isMobile}
+              drawerOpen={drawerOpen}
               onSelect={(id) => {
                 setSelectedAgentId(id);
+                if (isMobile) {
+                  setDrawerOpen(true);
+                }
               }}
             />
           </div>
