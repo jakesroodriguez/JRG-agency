@@ -23,8 +23,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "DESARROLLO WEB",
         bootMeta2: "PAÍS VASCO · 2026",
         availChip: "Disponible para nuevos proyectos",
-        heroSubtitle: "Creo experiencias digitales que combinan diseño de alto impacto, tecnología 3D y rendimiento real.",
-        heroSubtitleEm: "Tu próximo proyecto, hecho para destacar.",
+        heroSubtitle: "Agencia de Inteligencia Artificial & Desarrollo Web.",
+        heroSubtitleEm: "Automatizamos procesos y creamos experiencias de alto impacto.",
         btnTalk: "Hablemos de tu proyecto",
         btnWork: "Ver trabajos",
         services: "Skills & Habilidades",
@@ -88,8 +88,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "WEB DEVELOPMENT",
         bootMeta2: "BASQUE COUNTRY · 2026",
         availChip: "Available for new projects",
-        heroSubtitle: "I build digital experiences combining high-impact design, 3D technology, and real-world performance.",
-        heroSubtitleEm: "Your next project, designed to stand out.",
+        heroSubtitle: "Artificial Intelligence & Web Development Agency.",
+        heroSubtitleEm: "We automate business processes and build high-impact digital experiences.",
         btnTalk: "Let's talk about your project",
         btnWork: "View works",
         services: "Skills & Capabilities",
@@ -153,8 +153,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "WEB GARAPENA",
         bootMeta2: "EUSKADI · 2026",
         availChip: "Proiektu berrietarako erabilgarri",
-        heroSubtitle: "Inpaktu handiko diseinua, 3D teknologia eta errendimendu erreala uztartzen dituzten esperientzia digitalak sortzen ditut.",
-        heroSubtitleEm: "Zure hurrengo proiektua, nabarmentzeko egina.",
+        heroSubtitle: "Adimen Artifiziala eta Web Garapen Agentzia.",
+        heroSubtitleEm: "Prozesuak automatizatzen ditugu eta inpaktu handiko esperientziak sortzen ditugu.",
         btnTalk: "Hitz egin dezagun zure proiektuari buruz",
         btnWork: "Ikusi lanak",
         services: "Trebetasunak & Gaitasunak",
@@ -1545,7 +1545,8 @@ import { initSplineRobot } from './splineRobot';
               </div>
 
               <p className="hero-lead">
-                {t.heroSubtitle} <span className="hero-lead-highlight">{t.heroSubtitleEm}</span>
+                <span className="hero-lead-sub">{t.heroSubtitle}</span>
+                <span className="hero-lead-highlight">{t.heroSubtitleEm}</span>
               </p>
 
               <div className="hero-actions">

@@ -964,21 +964,53 @@ body.night .hero-right::after {
   white-space: nowrap;
 }
 
+.hero-lead,
 .hero-subtitle {
-  color: var(--text-secondary); /* Negro Suave (#2C3E50) */
-  font-size: clamp(1.12rem, 1.6vw, 1.32rem);
-  line-height: 1.8;
-  max-width: 44ch;
-  margin-bottom: 34px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+  color: #64748b;
+  max-width: 380px;
+  width: 100%;
+  margin: 0 auto 22px auto;
   text-align: center;
+  text-wrap: balance;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
+body.night .hero-lead,
+body.night .hero-subtitle {
+  color: #94a3b8;
+}
+
+.hero-lead-sub {
+  display: block;
+  font-weight: 450;
+  color: #64748b;
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+
+body.night .hero-lead-sub {
+  color: #94a3b8;
+}
+
+.hero-lead-highlight,
 .hero-subtitle-em {
-  display: inline-block;
-  margin-top: 8px;
-  color: var(--navy); /* Gris Oscuro (#212529) */
-  font-weight: 700;
+  display: block;
+  color: #0f172a;
+  font-weight: 600;
   font-size: 1.02em;
+  letter-spacing: -0.015em;
+  line-height: 1.45;
+}
+
+body.night .hero-lead-highlight,
+body.night .hero-subtitle-em {
+  color: #f8fafc;
 }
 
 .hero-actions {
@@ -7564,8 +7596,11 @@ body.night .nav-dock-expand-hint { color: rgba(226, 232, 240, 0.6); }
 /* ---- Hero Text ---- */
 body.night .hero-title,
 body.night .hero-brand-name { color: #f1f5f9 !important; text-shadow: 0 0 40px rgba(99,102,241,0.12); }
-body.night .hero-subtitle { color: rgba(226,232,240,0.75) !important; }
-body.night .hero-subtitle-em { color: #a78bfa !important; }
+body.night .hero-subtitle,
+body.night .hero-lead { color: #94a3b8 !important; }
+body.night .hero-lead-sub { color: #94a3b8 !important; }
+body.night .hero-subtitle-em,
+body.night .hero-lead-highlight { color: #f8fafc !important; }
 
 /* ---- Hero Chips & Badges ---- */
 body.night .hero-available-chip {
@@ -8535,21 +8570,29 @@ body.night hr {
   }
 
   .hero-lead {
-    font-size: 1.12rem !important;
-    line-height: 1.65 !important;
-    color: #475569 !important;
+    font-size: 1.15rem !important;
+    line-height: 1.6 !important;
     max-width: 520px !important;
     margin: 0 0 24px 0 !important;
     text-align: left !important;
   }
 
-  body.night .hero-lead {
+  .hero-lead-sub {
+    display: block;
+    font-weight: 450;
+    color: #475569 !important;
+    margin-bottom: 4px;
+  }
+
+  body.night .hero-lead-sub {
     color: #94a3b8 !important;
   }
 
   .hero-lead-highlight {
+    display: block;
     color: #0f172a !important;
     font-weight: 600 !important;
+    font-size: 1.12rem !important;
   }
 
   body.night .hero-lead-highlight {
