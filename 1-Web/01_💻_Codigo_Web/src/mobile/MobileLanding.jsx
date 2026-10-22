@@ -72,8 +72,8 @@ import { initSplineRobot } from './splineRobot';
         myGoogleTitle: "Mi perfil de Google",
         myGoogleDesc: "¿Te ha gustado trabajar conmigo? ¡Déjame una reseña en Google Maps y ayúdame a seguir creciendo!",
         myGoogleBtn: "Dejar una reseña",
-        seoTitle: "JRG Agency | Diseñador & Desarrollador Web Freelance en el País Vasco",
-        seoDesc: "Creador de páginas web y desarrollador freelance en el País Vasco (JRG Agency). Especialista en diseño web interactivo, SEO local y rendimiento.",
+        seoTitle: "Desarrollador Web en Urretxu y Gipuzkoa | JRG Agency",
+        seoDesc: "Desarrollador web freelance en Urretxu y Gipuzkoa (País Vasco). Jakes Rodriguez (JRG Agency): páginas web profesionales, SEO local y soluciones de IA.",
       },
       en: {
         bootTag: "SYSTEM V2.6 // JRG AGENCY",
@@ -137,8 +137,8 @@ import { initSplineRobot } from './splineRobot';
         myGoogleTitle: "My Google Profile",
         myGoogleDesc: "Did you enjoy working with me? Leave me a review on Google Maps and help me keep growing!",
         myGoogleBtn: "Leave a review",
-        seoTitle: "JRG Agency | Freelance Web Designer & Developer in the Basque Country",
-        seoDesc: "Website creator and freelance developer in the Basque Country (JRG Agency). Specialist in interactive web design, local SEO, and performance.",
+        seoTitle: "Web Developer in Urretxu & Gipuzkoa | JRG Agency",
+        seoDesc: "Freelance web developer in Urretxu and Gipuzkoa (Basque Country). Jakes Rodriguez (JRG Agency): high performance websites, local SEO, and AI solutions.",
       },
       eu: {
         bootTag: "SISTEMA V2.6 // JRG AGENCY",
@@ -202,8 +202,8 @@ import { initSplineRobot } from './splineRobot';
         myGoogleTitle: "Nire Google Profila",
         myGoogleDesc: "Nirekin lan egitea gustatu zaizu? Utzi iezadazu iritzia Google Maps-en eta lagundu hazten jarraitzen!",
         myGoogleBtn: "Iritzia utzi",
-        seoTitle: "JRG Agency | Web Diseinatzaile eta Garatzaile Freelancea Euskal Herrian",
-        seoDesc: "Webguneen sortzailea eta garatzaile freelancea Euskal Herrian (JRG Agency). Web diseinu interaktiboan, tokiko SEOan eta errendimenduan aditua.",
+        seoTitle: "Web Garatzailea Urretxun eta Gipuzkoan | JRG Agency",
+        seoDesc: "Web garatzaile freelancea Urretxun eta Gipuzkoan (JRG Agency). Webgune profesionalak, tokiko SEOa eta adimen artifiziala enpresentzat.",
       }
     };
 

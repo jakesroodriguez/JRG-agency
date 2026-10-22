@@ -1,15 +1,15 @@
 export const config = {
     developer: {
-        name: "JRG",
-        fullName: "JRG Agency",
-        founder: "JRG Agency",
-        title: "Arquitectura Web 3D & Experiencias Frontend de Alto Impacto",
-        description: "Estudio de diseño web y desarrollo interactivo de alto rendimiento en el País Vasco. Diseñamos sitios que cautivan a primera vista — rendimiento Lighthouse 100/100, animaciones cinemáticas con Three.js y código de vanguardia que transforma visitantes en clientes."
+        name: "Jakes Rodriguez",
+        fullName: "JRG Agency · Jakes Rodriguez",
+        founder: "Jakes Rodriguez",
+        title: "Desarrollador Web en Urretxu y Gipuzkoa | Inteligencia Artificial & Web 3D",
+        description: "Desarrollador web y consultor de inteligencia artificial en Urretxu, Zumarraga y Gipuzkoa (País Vasco). Desarrollo de páginas web profesionales de alto rendimiento (Lighthouse 100/100), diseño 3D interactivo y automatizaciones empresariales."
     },
     social: {
         github: "jakessrodriguezz",
         email: "jakessrodriguezz@gmail.com",
-        location: "Urretxu, País Vasco, España",
+        location: "Urretxu, Gipuzkoa, País Vasco, España",
         phone: "+34 613 44 81 85",
         whatsapp: "https://wa.me/34613448185"
     },
