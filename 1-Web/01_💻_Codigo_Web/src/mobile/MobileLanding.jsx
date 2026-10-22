@@ -23,8 +23,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "DESARROLLO WEB",
         bootMeta2: "PAÍS VASCO · 2026",
         availChip: "Disponible para nuevos proyectos",
-        heroSubtitle: "Agencia de Inteligencia Artificial & Desarrollo Web.",
-        heroSubtitleEm: "Automatizamos procesos y creamos experiencias de alto impacto.",
+        heroSubtitle: "Agencia de Inteligencia Artificial & Automatizaciones.",
+        heroSubtitleEm: "Especializados en diseño y desarrollo web de alto impacto.",
         btnTalk: "Hablemos de tu proyecto",
         btnWork: "Ver trabajos",
         services: "Skills & Habilidades",
@@ -88,8 +88,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "WEB DEVELOPMENT",
         bootMeta2: "BASQUE COUNTRY · 2026",
         availChip: "Available for new projects",
-        heroSubtitle: "Artificial Intelligence & Web Development Agency.",
-        heroSubtitleEm: "We automate business processes and build high-impact digital experiences.",
+        heroSubtitle: "Artificial Intelligence & Automation Agency.",
+        heroSubtitleEm: "Specialized in high-impact web design & development.",
         btnTalk: "Let's talk about your project",
         btnWork: "View works",
         services: "Skills & Capabilities",
@@ -153,8 +153,8 @@ import { initSplineRobot } from './splineRobot';
         bootMeta1: "WEB GARAPENA",
         bootMeta2: "EUSKADI · 2026",
         availChip: "Proiektu berrietarako erabilgarri",
-        heroSubtitle: "Adimen Artifiziala eta Web Garapen Agentzia.",
-        heroSubtitleEm: "Prozesuak automatizatzen ditugu eta inpaktu handiko esperientziak sortzen ditugu.",
+        heroSubtitle: "Adimen Artifiziala eta Automatizazio Agentzia.",
+        heroSubtitleEm: "Inpaktu handiko web garapenean eta diseinuan espezializatuak.",
         btnTalk: "Hitz egin dezagun zure proiektuari buruz",
         btnWork: "Ikusi lanak",
         services: "Trebetasunak & Gaitasunak",
@@ -1550,10 +1550,18 @@ import { initSplineRobot } from './splineRobot';
               </p>
 
               <div className="hero-actions">
-                <a href="#contact" className="btn-primary btn-primary--wide" onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}>
+                <a 
+                  href={`https://wa.me/34613448185?text=${encodeURIComponent(
+                    lang === 'en'
+                      ? 'Hi Jakes! I would like to work with you on a website.'
+                      : lang === 'eu'
+                      ? 'Kaixo Jakes! Zurekin lan egin nahi nuke webgune baterako.'
+                      : '¡Hola Jakes! Quiero trabajar contigo para una web.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary btn-primary--wide"
+                >
                   <span>{t.btnTalk}</span>
                   <i data-lucide="arrow-right" className="btn-arrow-icon" style={{ width: 16, height: 16 }}></i>
                 </a>

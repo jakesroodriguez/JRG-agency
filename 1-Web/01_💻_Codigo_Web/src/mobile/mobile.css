@@ -967,13 +967,9 @@ body.night .hero-right::after {
 .hero-lead,
 .hero-subtitle {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
-  line-height: 1.55;
-  letter-spacing: -0.015em;
-  color: #64748b;
-  max-width: 380px;
+  max-width: 400px;
   width: 100%;
-  margin: 0 auto 22px auto;
+  margin: 12px auto 26px auto;
   text-align: center;
   text-wrap: balance;
   -webkit-font-smoothing: antialiased;
@@ -988,9 +984,11 @@ body.night .hero-subtitle {
 
 .hero-lead-sub {
   display: block;
-  font-weight: 450;
+  font-size: clamp(0.88rem, 2.7vw, 0.96rem);
+  font-weight: 500;
   color: #64748b;
-  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
   line-height: 1.45;
 }
 
@@ -1001,16 +999,22 @@ body.night .hero-lead-sub {
 .hero-lead-highlight,
 .hero-subtitle-em {
   display: block;
-  color: #0f172a;
+  font-size: clamp(1.02rem, 3.2vw, 1.14rem);
   font-weight: 600;
-  font-size: 1.02em;
-  letter-spacing: -0.015em;
-  line-height: 1.45;
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+  color: #0f172a;
+  background: linear-gradient(180deg, #090d16 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 body.night .hero-lead-highlight,
 body.night .hero-subtitle-em {
   color: #f8fafc;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero-actions {
@@ -8294,15 +8298,16 @@ body.night hr {
   align-items: center;
   justify-content: center;
   margin-bottom: clamp(24px, 4vh, 36px);
+  perspective: 1000px;
 }
 
 .preloader-logo-glow {
   position: absolute;
   inset: -14px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(200, 200, 210, 0.06) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(200, 200, 210, 0.08) 50%, transparent 70%);
   filter: blur(16px);
-  animation: preloaderPulse 3.5s ease-in-out infinite alternate;
+  animation: preloaderPulse 3s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
@@ -8313,6 +8318,21 @@ body.night hr {
   object-fit: contain;
   border-radius: 50%;
   filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.65));
+  transform-style: preserve-3d;
+  animation: preloaderLogoFlip 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+@keyframes preloaderLogoFlip {
+  0% {
+    transform: perspective(800px) rotateY(0deg) scale(0.95);
+  }
+  50% {
+    transform: perspective(800px) rotateY(180deg) scale(1.05);
+  }
+  100% {
+    transform: perspective(800px) rotateY(360deg) scale(0.95);
+  }
 }
 
 /* Barra progresiva abajo del logo */
@@ -8422,6 +8442,7 @@ body.night hr {
     width: 96px;
     height: 96px;
     margin-bottom: 24px;
+    perspective: 800px;
   }
   .preloader-logo {
     width: 86px;
