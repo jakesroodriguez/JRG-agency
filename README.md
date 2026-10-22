@@ -1,58 +1,104 @@
 <p align="center">
-  <img src="./public/logoJRG.png" alt="JRG Agency Logo" width="220" />
+  <img src="1-Web/01_💻_Codigo_Web/public/og-image.jpg" alt="JRG Agency — Open Graph Banner" width="720" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
 </p>
 
-<h1 align="center">⚡ JRG Agency — Web Portfolio & Experiencias 3D</h1>
+<h1 align="center">✦ JRG AGENCY ✦</h1>
 
 <p align="center">
-  <strong>Desarrollo Web de Alto Rendimiento · Experiencias 3D Inmersivas · Diseño Vanguardista</strong><br>
-  <em>Desde Urretxu, País Vasco, España</em>
+  <strong>Agencia de Inteligencia Artificial • Desarrollo Web 3D • Automatización Empresarial</strong><br>
+  <em>Estudio digital de alto impacto fundado en Urretxu, País Vasco, España.</em>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React 18" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Three.js-WebGL-black?style=for-the-badge&logo=three.js" alt="Three.js" />
-  <img src="https://img.shields.io/badge/GSAP-ScrollTrigger-green?style=for-the-badge&logo=greensock" alt="GSAP" />
-  <img src="https://img.shields.io/badge/Vite-Bundler-646CFF?style=for-the-badge&logo=vite" alt="Vite" />
-  <img src="https://img.shields.io/badge/Lenis-Smooth_Scroll-orange?style=for-the-badge" alt="Lenis" />
+  <a href="https://www.jrgagency.eus"><img src="https://img.shields.io/badge/Website-jrgagency.eus-000000?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Sitio Web"></a>
+  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18" />
+  <img src="https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Three.js-WebGL-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" />
+  <img src="https://img.shields.io/badge/GSAP-ScrollTrigger-88CE02?style=for-the-badge&logo=greensock&logoColor=white" alt="GSAP" />
+  <img src="https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Vercel-Edge_Deploy-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
 ---
 
-## 🌟 Sobre JRG Agency
+## 🚀 Sobre JRG Agency
 
-Sitio web oficial y portafolio interactivo de **JRG Agency**, especializado en el diseño y desarrollo de aplicaciones web de alto rendimiento, interfaces interactivas de última generación y experiencias tridimensionales inmersivas en el navegador.
+**JRG Agency** es un estudio tecnológico y creativo enfocado en el desarrollo de experiencias digitales de vanguardia. Fusionamos diseño visual cinematográfico, narrativa tridimensional interactiva (WebGL/Three.js) y sistemas avanzados de **inteligencia artificial y automatización de procesos** para empresas, pymes y negocios locales en España.
 
----
-
-## ✨ Características Principales
-
-- 🎮 **Experiencia 3D Interactiva:** Integración avanzada de WebGL mediante **Three.js** y **React Three Fiber (@react-three/fiber, @react-three/drei)**, con iluminación dinámica, animaciones de entrada y modelos renderizados en tiempo real.
-- 🎬 **Animaciones Cinemáticas y Scroll Trigger:** Líneas de tiempo milimétricamente coreografiadas con **GSAP** y **ScrollTrigger**, con fijación de secciones (*pinning*) y transiciones de texto fluidas.
-- 🌊 **Smooth Scrolling Profesional:** Desplazamiento ultra suave impulsado por **Lenis**, sincronizado en tiempo real con los espaciadores dinámicos de GSAP.
-- 🌌 **Fondo Animado e Interactivo:** Canvas interactivo personalizado con efectos fluidos y estéticos.
-- 📱 **Diseño Totalmente Responsive:** Adaptabilidad completa para smartphones, tablets y pantallas de escritorio de alta resolución.
-- 💼 **Showcase de Proyectos y Trayectoria:** Secciones visuales dedicadas a proyectos destacados, trayectoria y stack técnico.
-- 📞 **Centro de Contacto Directo:** Acceso rápido a WhatsApp, Email corporativo, redes sociales y ubicación geográfica.
+- 🌐 **Sitio Web Oficial:** [https://www.jrgagency.eus](https://www.jrgagency.eus)
+- 📍 **Sede:** Urretxu, Gipuzkoa, País Vasco, España
+- ⚡ **Rendimiento:** Arquitectura optimizada para métricas Core Web Vitals y Lighthouse 100/100.
 
 ---
 
-## 🧰 Stack Tecnológico
+## 🛠️ Servicios Principales
 
-| Área | Tecnologías |
-| :--- | :--- |
-| **Frontend Core** | React 18, TypeScript, HTML5 Semántico, CSS3 Moderno |
-| **3D & Gráficos** | Three.js, React Three Fiber, Drei, WebGL Shaders |
-| **Animación & Física** | GSAP (GreenSock), ScrollTrigger, Lenis Smooth Scroll |
-| **Herramientas de Build** | Vite, Terser, ESLint |
-| **Analítica & Rendimiento** | Vercel Analytics, Speed Insights |
+### 1. 🤖 Automatizaciones e Inteligencia Artificial
+- Automatización integral de flujos de trabajo repetitivos y procesos de negocio.
+- Integración de APIs, webhooks, bases de datos y CRMs.
+- Chatbots conversacionales inteligentes para captación, reservas y soporte 24/7.
+
+### 2. 🧊 Desarrollo Web 3D & Interfaces Inmersivas
+- Experiencias tridimensionales interactivas en tiempo real impulsadas por **Three.js** y **React Three Fiber**.
+- Animaciones fluidas basadas en scroll sincronizadas milimétricamente con **GSAP ScrollTrigger** y **Lenis**.
+- Optimización de shaders y renderizado WebGL para compatibilidad total con dispositivos móviles.
+
+### 3. 🎯 SEO Técnico & Arquitectura Digital
+- Marcado semántico enriquecido con datos estructurados **Schema.org (JSON-LD)** para Google Search Console.
+- Indexación avanzada con mapas del sitio XML (`sitemap.xml`), directivas de robots (`robots.txt`) y canonicalización.
+- Tarjetas sociales **Open Graph** y **Twitter Cards** calibradas para previsualizaciones impecables en WhatsApp, Instagram, Telegram y Twitter/X.
 
 ---
 
-## 🚀 Instalación y Desarrollo Local
+## 📂 Portafolio de Proyectos Destacados
 
-Sigue estos pasos para clonar y ejecutar el proyecto en tu entorno local:
+| Proyecto | Sector / Tipo | Stack Tecnológico | Enlace |
+| :--- | :--- | :--- | :--- |
+| **Gure Trena** | Hostelería & Restauración | React, Vite, Tailwind CSS, Local SEO | [guretrenaurretxu.com](https://guretrenaurretxu.com/) |
+| **Urkulu Móviles** | Comercio & Soporte Técnico | React, TypeScript, Tailwind, WhatsApp API | [urkulumovilesurretxu.com](https://urkulumovilesurretxu.com/) |
+| **Otxaran Denda** | Moda & Comercio Local | HTML5, Tailwind CSS, Catálogo Interactivo | [otxaran-denda.vercel.app](https://otxaran-denda.vercel.app/) |
+| **JRG 3D Interactive Hub** | Experiencia WebGL 3D | Three.js, GSAP, WebGL, Lenis Scroll, TS | [jrgagency.eus](https://www.jrgagency.eus/) |
+| **RedoxChess AI** | Motor Neuronal en Navegador | Web Workers, Minimax, Stockfish Engine | [jrgagency.eus/play](https://www.jrgagency.eus/play) |
+
+---
+
+## 🏗️ Stack Tecnológico Completo
+
+```plaintext
+Frontend Core:       React 18.3 • TypeScript 5.5 • Vite 5.4 • Tailwind CSS 3.4
+3D & WebGL:          Three.js • @react-three/fiber • @react-three/drei • WebGL Shaders
+Animación & Scroll:  GSAP (ScrollTrigger) • Lenis Smooth Scroll • Lucide Icons
+Backend & Edge:      Edge Functions • EmailJS SDK • REST APIs
+SEO & Social:        Open Graph 1200x630 • Schema.org JSON-LD • XML Sitemap • robots.txt
+Deploy & CDN:        Vercel Edge Global Network • Cloudflare DNS
+```
+
+---
+
+## 📁 Estructura del Proyecto
+
+```plaintext
+JRG-agency/
+├── 1-Web/
+│   └── 01_💻_Codigo_Web/          # Aplicación Web principal (React + TypeScript + Vite)
+│       ├── public/                 # Assets públicos (sitemap.xml, robots.txt, og-image.jpg, 3D models)
+│       └── src/
+│           ├── components/         # Componentes UI, WebGL Three.js, Canvas y GSAP
+│           ├── pages/              # Vistas de la aplicación (Home, MyWorks, Contact, Play, Demo)
+│           ├── data/               # Modelos de datos y proyectos
+│           └── utils/              # Animaciones, tipografía y motores de física/ajedrez
+├── README.md                       # Documentación técnica principal
+└── vercel.json                     # Configuración de despliegue en Vercel Edge
+```
+
+---
+
+## 💻 Instalación y Desarrollo Local
+
+### Requisitos previos
+- **Node.js**: v18.0 o superior
+- **npm** o **pnpm**
 
 ### 1. Clonar el repositorio
 ```bash
@@ -60,18 +106,23 @@ git clone https://github.com/jakesroodriguez/JRG-agency.git
 cd JRG-agency
 ```
 
-### 2. Instalar dependencias
+### 2. Entrar en la carpeta del código web
+```bash
+cd "1-Web/01_💻_Codigo_Web"
+```
+
+### 3. Instalar dependencias
 ```bash
 npm install
 ```
 
-### 3. Iniciar el servidor de desarrollo
+### 4. Iniciar el entorno de desarrollo
 ```bash
 npm run dev
 ```
 Abre tu navegador en `http://localhost:5173/`.
 
-### 4. Compilar para producción
+### 5. Compilar para producción
 ```bash
 npm run build
 ```
@@ -79,40 +130,32 @@ Los archivos optimizados y empaquetados se generarán en la carpeta `dist/`.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🔍 Google Search Console & SEO Ready
 
-```plaintext
-├── public/                     # Recursos estáticos (logos, modelos 3D, texturas)
-├── src/
-│   ├── components/             # Componentes modulares de la interfaz
-│   │   ├── Character/          # Escena 3D, controladores de luces y animaciones
-│   │   ├── styles/             # Hojas de estilo CSS modulares
-│   │   ├── utils/              # Funciones auxiliares de GSAP, scroll y texto
-│   │   ├── About.tsx           # Sección sobre JRG Agency
-│   │   ├── Contact.tsx         # Pie de página y tarjetas de contacto
-│   │   ├── Landing.tsx         # Hero section principal
-│   │   ├── Navbar.tsx          # Barra de navegación interactiva y Lenis
-│   │   ├── WhatIDo.tsx         # Servicios y especialidades
-│   │   └── Work.tsx            # Galería horizontal de proyectos destacados
-│   ├── context/                # Proveedores de contexto (Loading, temas)
-│   ├── pages/                  # Vistas auxiliares
-│   ├── App.tsx                 # Componente raíz y enrutador
-│   └── main.tsx                # Punto de entrada de la aplicación
-├── package.json
-└── vite.config.ts
-```
+El repositorio incluye soporte nativo y automático para herramientas de rastreo:
+
+- **Sitemap XML:** `https://www.jrgagency.eus/sitemap.xml`
+- **Robots.txt:** `https://www.jrgagency.eus/robots.txt`
+- **Open Graph Image:** `https://www.jrgagency.eus/og-image.jpg` (1200 × 630 px, ~66 KB)
+- **JSON-LD:** Datos estructurados `Organization`, `ProfessionalService`, `LocalBusiness` y `WebSite`.
+
+Para registrar la web en **Google Search Console**:
+1. Accede a [Google Search Console](https://search.google.com/search-console).
+2. Añade la propiedad `https://www.jrgagency.eus`.
+3. En la sección **Sitemaps**, ingresa `sitemap.xml` y presiona **Enviar**.
 
 ---
 
-## 📬 Contacto y Canales
+## 📞 Contacto Directo
 
-- 📍 **Ubicación:** Urretxu, País Vasco, España
-- 📧 **Email:** [jakessrodriguezz@gmail.com](mailto:jakessrodriguezz@gmail.com)
+- 📍 **Ubicación:** Urretxu, Gipuzkoa, País Vasco, España
+- ✉️ **Email:** [jakessrodriguezz@gmail.com](mailto:jakessrodriguezz@gmail.com)
 - 📱 **WhatsApp / Teléfono:** [+34 613 44 81 85](https://wa.me/34613448185)
 - 🐙 **GitHub:** [@jakesroodriguez](https://github.com/jakesroodriguez)
+- 🌐 **Web:** [https://www.jrgagency.eus](https://www.jrgagency.eus)
 
 ---
 
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+<p align="center">
+  <sub>© 2026 JRG Agency. Todos los derechos reservados. Diseñado y desarrollado con excelencia técnica.</sub>
+</p>

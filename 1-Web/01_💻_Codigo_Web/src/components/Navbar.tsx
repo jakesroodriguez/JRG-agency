@@ -82,13 +82,13 @@ const Navbar = () => {
     requestAnimationFrame(raf);
 
     // Handle navigation links on all screen sizes
-    let links = document.querySelectorAll(".header ul a");
+    const links = document.querySelectorAll(".header ul a");
     links.forEach((elem) => {
-      let element = elem as HTMLAnchorElement;
+      const element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
         e.preventDefault();
-        let elem = e.currentTarget as HTMLAnchorElement;
-        let section = elem.getAttribute("data-href") || elem.getAttribute("href");
+        const elem = e.currentTarget as HTMLAnchorElement;
+        const section = elem.getAttribute("data-href") || elem.getAttribute("href");
         if (section) {
           const target = document.querySelector(section) as HTMLElement;
           if (target) {

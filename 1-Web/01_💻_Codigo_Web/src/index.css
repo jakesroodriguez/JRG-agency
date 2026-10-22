@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@300..700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: "Geist", sans-serif;
 
@@ -267,3 +271,30 @@ body {
     font-size: 40px;
   }
 }
+
+/* =========================================================
+   PRISMA CINEMATIC DESKTOP UTILITIES
+   ========================================================= */
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.prisma-scope {
+  font-family: 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  color: #E1E0CC;
+  background-color: #000000;
+  box-sizing: border-box;
+}
+
+.prisma-scope *, .prisma-scope *::before, .prisma-scope *::after {
+  box-sizing: border-box;
+}
+
+.prisma-scope .font-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+}

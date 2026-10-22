@@ -158,7 +158,7 @@ const Scene = () => {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, []);
+  }, [setLoading]);
 
   return (
     <div className="character-container">

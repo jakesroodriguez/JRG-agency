@@ -40,6 +40,9 @@ export interface LeadMasterRecord {
   heroImage: string;
   photos: string[];
   hasRealPhoto: boolean;
+  slug?: string;
+  demoUrl?: string;
+  hasDemo?: boolean;
 }
 
 interface LeadFinderModalProps {
@@ -807,11 +810,11 @@ export const LeadFinderModal: React.FC<LeadFinderModalProps> = ({
                             .replace(/[^a-z0-9]+/g, "-")
                             .replace(/^-+|-+$/g, "");
                         const slug1 = `${clean(activeDossierLead.nombre)}-${clean(activeDossierLead.municipio)}`;
-                        const matchSlug = availableDemos[slug1]
-                          ? slug1
-                          : Object.keys(availableDemos).find((k) =>
-                              k.includes(clean(activeDossierLead.nombre).slice(0, 10))
-                            );
+                        const matchSlug =
+                          activeDossierLead.slug ||
+                          (availableDemos[slug1] ? slug1 : Object.keys(availableDemos).find((k) =>
+                            k.includes(clean(activeDossierLead.nombre).slice(0, 10))
+                          ));
                         if (!matchSlug) return null;
                         return (
                           <a

@@ -21,7 +21,15 @@ export interface Waypoint {
   tag: string;
 }
 
-export const DUBAI_WAYPOINTS: Waypoint[] = [
+const DUBAI_WAYPOINTS: Waypoint[] = [
+  {
+    id: "superficial_overview",
+    name: "Vista Superficial (Oficinas Totales)",
+    shortLabel: "🏢 Superficial",
+    pos: [0, 16.5, 12.0],
+    target: [0, 0.8, -2.0],
+    tag: "PLANTA GENERAL",
+  },
   {
     id: "ceo",
     name: "Despacho Presidencial",
@@ -85,7 +93,7 @@ export const DUBAI_WAYPOINTS: Waypoint[] = [
   },
 ];
 
-export const PENTHOUSE_LAYOUT: Record<string, { pos: [number, number, number]; rot: number; label: string }> = {
+const PENTHOUSE_LAYOUT: Record<string, { pos: [number, number, number]; rot: number; label: string }> = {
   "jrg-aitor": { pos: [-7.0, 0, -3.5], rot: 0, label: "Despacho Presidencial (CEO / Ops)" },
   "jrg-maider": { pos: [-2.5, 0, -3.8], rot: 0, label: "Estación de Inteligencia & Scraping" },
   "jrg-iker": { pos: [1.8, 0, -3.8], rot: 0, label: "Estación de Copywriting & Ventas" },
@@ -393,32 +401,7 @@ function PenthouseArchitecture() {
         <meshStandardMaterial color="#101117" roughness={0.85} />
       </mesh>
 
-      {/* Pérgola Arquitectónica de Techo Abierto (Open-Air Penthouse hacia los Rascacielos) */}
-      <group position={[0, 3.8, -1]}>
-        {/* Vigas estructurales perimetrales oscuras */}
-        <mesh position={[0, 0, -8]}>
-          <boxGeometry args={[24.2, 0.22, 0.28]} />
-          <meshStandardMaterial color="#16171f" metalness={0.9} roughness={0.2} />
-        </mesh>
-        <mesh position={[0, 0, 8]}>
-          <boxGeometry args={[24.2, 0.22, 0.28]} />
-          <meshStandardMaterial color="#16171f" metalness={0.9} roughness={0.2} />
-        </mesh>
-        {/* Vigas transversales estilizadas */}
-        {[-10, -5, 0, 5, 10].map((bx) => (
-          <mesh key={`beam-${bx}`} position={[bx, 0.05, 0]}>
-            <boxGeometry args={[0.2, 0.18, 16]} />
-            <meshStandardMaterial color="#12131a" metalness={0.85} roughness={0.3} />
-          </mesh>
-        ))}
-        {/* Líneas LED suaves en las vigas */}
-        {[-8, -3, 3, 8].map((lx) => (
-          <mesh key={`led-${lx}`} position={[lx, -0.05, 0]}>
-            <boxGeometry args={[0.06, 0.02, 14]} />
-            <meshBasicMaterial color="#ffffff" />
-          </mesh>
-        ))}
-      </group>
+
     </group>
   );
 }
@@ -993,6 +976,46 @@ function CEOAvatar({
         if ((o as THREE.Mesh).isMesh) {
           o.castShadow = true;
           o.receiveShadow = true;
+          const mesh = o as THREE.Mesh;
+          if (mesh.material) {
+            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            mats.forEach((m) => {
+              const std = m as THREE.MeshStandardMaterial;
+              if (std.map) {
+                std.map.colorSpace = THREE.SRGBColorSpace;
+                std.color.set("#ffffff");
+                std.map.needsUpdate = true;
+              }
+              const name = (std.name || "").toLowerCase();
+              if (name.includes("pupil")) {
+                std.color.set("#020202");
+                std.roughness = 0.05;
+              } else if (name.includes("eye") && !name.includes("iris")) {
+                std.color.set("#f8f8fa");
+                std.roughness = 0.1;
+              } else if (name.includes("button")) {
+                std.color.set("#e5b32e");
+                std.metalness = 0.85;
+                std.roughness = 0.22;
+              } else if (name.includes("shoe_bottom")) {
+                std.color.set("#24140a");
+                std.roughness = 0.35;
+              } else if (name.includes("shoe_white")) {
+                std.color.set("#f4f4f7");
+                std.roughness = 0.35;
+              } else if (name.includes("teeth")) {
+                std.color.set("#fafaf4");
+                std.roughness = 0.15;
+              } else if (name.includes("flesh")) {
+                std.roughness = 0.46;
+              } else if (name.includes("gum") || name.includes("mouth")) {
+                std.color.set("#88202c");
+              } else if (name.includes("suit rougher")) {
+                std.color.set("#222838");
+              }
+              std.needsUpdate = true;
+            });
+          }
         }
       });
       return sceneClone;
@@ -1019,19 +1042,15 @@ function CEOAvatar({
       const walkAction = walkClip ? mixer.clipAction(walkClip) : null;
 
       if (isMoving && walkAction) {
-        walkAction.reset().fadeIn(0.15).play();
-        if (idleAction) idleAction.fadeOut(0.15);
+        walkAction.reset().fadeIn(0.2).play();
+        if (idleAction) idleAction.fadeOut(0.2);
       } else if (idleAction) {
-        idleAction.reset().fadeIn(0.2).play();
-        if (walkAction) walkAction.fadeOut(0.2);
+        idleAction.reset().fadeIn(0.25).play();
+        if (walkAction) walkAction.fadeOut(0.25);
       }
     } catch {
       // Guard against animation errors
     }
-
-    return () => {
-      mixer.stopAllAction();
-    };
   }, [mixer, gltf.animations, isMoving]);
 
   useFrame((_, delta) => {
@@ -1040,14 +1059,6 @@ function CEOAvatar({
 
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
-      {/* Monograma / Tag Flotante del CEO */}
-      <Html position={[0, 2.30, 0]} center distanceFactor={8} style={{ pointerEvents: "none" }}>
-        <div className="hm-ceo-tag">
-          <span className="hm-ceo-badge">CEO</span>
-          <span className="hm-ceo-name">JAKES RODRIGUEZ</span>
-        </div>
-      </Html>
-
       {/* Modelo Humanoide 3D del CEO Exportado de Blender 5.2 */}
       <primitive object={clone} scale={1.0} position={[0, 0, 0]} />
     </group>
@@ -1144,6 +1155,10 @@ function ThirdPersonController({
   // Teletransporte / Waypoint seleccionado
   useEffect(() => {
     if (activeWaypoint) {
+      if (activeWaypoint.id === "superficial_overview") {
+        // En la vista superficial general de las oficinas, la cámara vuela a la vista cenital/aérea
+        return;
+      }
       targetPlayerPos.current.set(activeWaypoint.pos[0], 0, activeWaypoint.pos[2]);
       const dx = activeWaypoint.target[0] - activeWaypoint.pos[0];
       const dz = activeWaypoint.target[2] - activeWaypoint.pos[2];
@@ -1155,10 +1170,18 @@ function ThirdPersonController({
   useFrame((state, delta) => {
     const c = controls.current;
 
-    // 1. MODO ÓRBITA / VISTA AÉREA
+    // 1. MODO ÓRBITA / VISTA SUPERFICIAL Y AÉREA DE LAS OFICINAS
     if (navMode === "orbit") {
       if (c) {
         c.enabled = true;
+        c.enablePan = true;
+        if (activeWaypoint) {
+          const targetCamPos = new THREE.Vector3(...activeWaypoint.pos);
+          const targetCtrlTarget = new THREE.Vector3(...activeWaypoint.target);
+          state.camera.position.lerp(targetCamPos, 0.08);
+          c.target.lerp(targetCtrlTarget, 0.08);
+          c.update();
+        }
       }
       onUpdatePlayer(
         [playerPos.current.x, playerPos.current.y, playerPos.current.z],
@@ -1220,7 +1243,8 @@ function ThirdPersonController({
       const nextZ = playerPos.current.z + moveDir.z * moveSpeed;
 
       // Colisiones perimetrales de la Penthouse de Dubai
-      let minX = -10.5, maxX = 10.5, minZ = -7.5, maxZ = 5.0;
+      const minZ = -7.5;
+      let minX = -10.5, maxX = 10.5, maxZ = 5.0;
       if (playerPos.current.z > 5.0 || nextZ > 5.0) {
         minX = -5.5; maxX = 10.5; maxZ = 12.0; // Terraza panorámica y helipuerto
       }
@@ -1401,7 +1425,7 @@ export default function DubaiPenthouse({
     >
       {/* BARRA DE NAVEGACIÓN Y WAYPOINTS */}
       <div className={`jrg-waypoints-dock ${!drawerOpen ? "drawer-closed" : ""}`}>
-        {/* Selector de Modo: Tercera Persona CEO vs Vista Aérea */}
+        {/* Selector de Modo: Tercera Persona CEO vs Vista Superficial de las oficinas */}
         <button
           className="jrg-mode-toggle-pill"
           onClick={(e) => {
@@ -1409,24 +1433,17 @@ export default function DubaiPenthouse({
             const nextMode = navMode === "walk" ? "orbit" : "walk";
             setNavMode(nextMode);
             if (nextMode === "orbit") {
-              setActiveWaypoint({
-                id: "orbit_overview",
-                name: "Vista Aérea Penthouse",
-                shortLabel: "Vista Aérea",
-                pos: [14, 11, 14],
-                target: [0, 1.0, 0],
-                tag: "AÉREA",
-              });
-            } else {
               setActiveWaypoint(DUBAI_WAYPOINTS[0]);
+            } else {
+              setActiveWaypoint(DUBAI_WAYPOINTS[1]);
             }
           }}
-          title={navMode === "walk" ? "Cambiar a Vista Aérea Órbita" : "Cambiar a Tercera Persona CEO"}
+          title={navMode === "walk" ? "Cambiar a Vista Superficial / Aérea de las oficinas" : "Controlar al CEO en 3ª Persona"}
         >
-          {navMode === "walk" ? "🎮 3ª PERSONA" : "🛸 VISTA AÉREA"}
+          {navMode === "walk" ? "🏢 VISTA SUPERFICIAL" : "🎮 3ª PERSONA (CEO)"}
         </button>
 
-        {/* Píldoras de Teletransporte a los 7 Waypoints */}
+        {/* Píldoras de Teletransporte a los Waypoints */}
         {DUBAI_WAYPOINTS.map((wp) => (
           <button
             key={`wp-${wp.id}`}
@@ -1434,6 +1451,9 @@ export default function DubaiPenthouse({
             onClick={(e) => {
               e.stopPropagation();
               setActiveWaypoint(wp);
+              if (wp.id === "superficial_overview") {
+                setNavMode("orbit");
+              }
               if (wp.agentId) onSelect(wp.agentId);
             }}
           >
@@ -1552,16 +1572,16 @@ export default function DubaiPenthouse({
         />
         <directionalLight position={[-15, 12, -25]} intensity={0.9} color="#9ec4ff" />
 
-        {/* Controles de Órbita (Activos únicamente en modo Vista Aérea) */}
+        {/* Controles de Órbita (Activos únicamente en modo Vista Aérea / Superficial) */}
         <OrbitControls
           ref={controls}
           enableDamping
           dampingFactor={0.06}
-          enablePan={false}
-          minDistance={3}
-          maxDistance={45}
+          enablePan={true}
+          minDistance={2}
+          maxDistance={65}
           maxPolarAngle={Math.PI / 2.05}
-          target={[-7.0, 1.2, -6.5]}
+          target={[0, 0.8, -2.0]}
         />
 
         {/* Controlador en Tercera Persona con WASD y Mira de Ratón */}

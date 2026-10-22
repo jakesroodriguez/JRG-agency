@@ -41,24 +41,30 @@ export function setCharTimeline(
     },
   });
 
-  let monitor: any;
-  character?.children.forEach((object: any) => {
+  let monitor: THREE.Mesh | undefined;
+  character?.children.forEach((object: THREE.Object3D) => {
     if (object.name === "Plane004" || object.name === "Plane.004") {
-      object.children.forEach((child: any) => {
-        child.material.transparent = true;
-        child.material.opacity = 0;
-        if (child.material.name === "Material.027") {
-          monitor = child;
-          child.material.color.set("#FFFFFF");
+      object.children.forEach((child: THREE.Object3D) => {
+        const mesh = child as THREE.Mesh;
+        if (mesh.material && !Array.isArray(mesh.material)) {
+          mesh.material.transparent = true;
+          mesh.material.opacity = 0;
+          if (mesh.material.name === "Material.027") {
+            monitor = mesh;
+            if ("color" in mesh.material) {
+              (mesh.material as THREE.MeshStandardMaterial).color.set("#FFFFFF");
+            }
+          }
         }
       });
     }
     if (object.name === "screenlight") {
-      object.visible = false;
-      if (object.material) {
-        object.material.transparent = true;
-        object.material.opacity = 0;
-        object.material.visible = false;
+      const lightMesh = object as THREE.Mesh;
+      lightMesh.visible = false;
+      if (lightMesh.material && !Array.isArray(lightMesh.material)) {
+        lightMesh.material.transparent = true;
+        lightMesh.material.opacity = 0;
+        lightMesh.material.visible = false;
       }
     }
   });

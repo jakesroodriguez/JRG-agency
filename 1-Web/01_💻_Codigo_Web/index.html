@@ -9,6 +9,17 @@
     <meta name="author" content="JRG Agency" />
     <link rel="canonical" href="https://www.jrgagency.eus/" />
 
+    <!-- Robots & Crawler Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Geo-Tags & Local SEO (Urretxu, Gipuzkoa, País Vasco / Euskadi, España) -->
+    <meta name="geo.region" content="ES-SS" />
+    <meta name="geo.placename" content="Urretxu, Gipuzkoa, Euskadi, España" />
+    <meta name="geo.position" content="43.0931;-2.3164" />
+    <meta name="ICBM" content="43.0931, -2.3164" />
+
     <!-- Open Graph & Social Cards -->
     <meta property="og:title" content="JRG Agency" />
     <meta property="og:description" content="Agencia de Inteligencia Artificial & Desarrollo Web" />
@@ -56,27 +67,56 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["ProfessionalService", "Organization"],
+          "@type": ["ProfessionalService", "LocalBusiness", "Organization"],
           "@id": "https://www.jrgagency.eus/#organization",
           "name": "JRG Agency",
-          "alternateName": ["JRG", "JRG Agency AI"],
+          "legalName": "JRG Agency",
+          "alternateName": ["JRG", "JRG Agency AI", "Jakes Rodriguez Agency"],
           "url": "https://www.jrgagency.eus/",
           "logo": {
             "@type": "ImageObject",
+            "@id": "https://www.jrgagency.eus/#logo",
             "url": "https://www.jrgagency.eus/logoJRG.png",
+            "contentUrl": "https://www.jrgagency.eus/logoJRG.png",
+            "caption": "JRG Agency Logo",
             "width": 512,
             "height": 512
           },
-          "image": "https://www.jrgagency.eus/og-image.jpg",
-          "description": "Agencia especializada en soluciones de inteligencia artificial, automatización de procesos empresariales, desarrollo de chatbots y diseño web de alto rendimiento.",
+          "image": {
+            "@type": "ImageObject",
+            "@id": "https://www.jrgagency.eus/#primaryimage",
+            "url": "https://www.jrgagency.eus/og-image.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "description": "Agencia especializada en soluciones de inteligencia artificial, automatización de procesos empresariales, desarrollo de agentes y chatbots inteligentes, y desarrollo web 3D de alto rendimiento.",
           "telephone": "+34613448185",
           "email": "jakessrodriguezz@gmail.com",
           "priceRange": "€€",
+          "currenciesAccepted": "EUR",
+          "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+          "founder": {
+            "@type": "Person",
+            "@id": "https://www.jrgagency.eus/#founder",
+            "name": "Jakes Rodriguez",
+            "jobTitle": "Fundador & Lead AI Architect",
+            "url": "https://www.jrgagency.eus/",
+            "sameAs": [
+              "https://github.com/jakessrodriguezz"
+            ]
+          },
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Urretxu",
             "addressLocality": "Urretxu",
+            "postalCode": "20700",
             "addressRegion": "Gipuzkoa",
             "addressCountry": "ES"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 43.0931,
+            "longitude": -2.3164
           },
           "areaServed": [
             {
@@ -85,42 +125,81 @@
             },
             {
               "@type": "AdministrativeArea",
-              "name": "Gipuzkoa"
+              "name": "País Vasco"
             },
             {
               "@type": "AdministrativeArea",
-              "name": "País Vasco"
+              "name": "Gipuzkoa"
+            },
+            {
+              "@type": "City",
+              "name": "Urretxu"
+            }
+          ],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ],
+              "opens": "09:00",
+              "closes": "19:00"
             }
           ],
           "sameAs": [
-            "https://github.com/jakessrodriguezz"
+            "https://github.com/jakessrodriguezz",
+            "https://www.jrgagency.eus/"
           ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Servicios JRG Agency",
+            "name": "Servicios de IA y Desarrollo Web - JRG Agency",
             "itemListElement": [
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Automatizaciones con IA",
-                  "description": "Automatización de tareas repetitivas, flujos de trabajo e integraciones de herramientas con inteligencia artificial."
+                  "name": "Automatizaciones de Procesos con IA",
+                  "description": "Automatización integral de flujos operativos, tareas repetitivas y sincronización de herramientas en la nube con inteligencia artificial.",
+                  "provider": {
+                    "@id": "https://www.jrgagency.eus/#organization"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Chatbots con IA para Empresas",
-                  "description": "Asistentes virtuales de IA y chatbots inteligentes para atención al cliente 24/7 y cualificación de leads."
+                  "name": "Chatbots con IA y Sistemas Multi-Agente",
+                  "description": "Asistentes virtuales entrenados con datos corporativos y orquestadores de agentes autónomos para atención al cliente y operaciones 24/7.",
+                  "provider": {
+                    "@id": "https://www.jrgagency.eus/#organization"
+                  }
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Diseño y Desarrollo Web",
-                  "description": "Desarrollo de páginas web modernas, rápidas y optimizadas para conversión con tecnología de vanguardia."
+                  "name": "Diseño Web 3D y Desarrollo de Alto Rendimiento",
+                  "description": "Desarrollo de páginas y aplicaciones web interactivas con Three.js, React y optimización SEO técnica de primer nivel.",
+                  "provider": {
+                    "@id": "https://www.jrgagency.eus/#organization"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Consultoría e Implementación Estratégica de IA",
+                  "description": "Auditorías de procesos empresariales y diseño de soluciones de inteligencia artificial a medida para empresas y pymes.",
+                  "provider": {
+                    "@id": "https://www.jrgagency.eus/#organization"
+                  }
                 }
               }
             ]
@@ -130,11 +209,20 @@
           "@type": "WebSite",
           "@id": "https://www.jrgagency.eus/#website",
           "url": "https://www.jrgagency.eus/",
-          "name": "JRG Agency",
+          "name": "JRG Agency | Inteligencia Artificial, Automatizaciones y Desarrollo Web",
+          "description": "Agencia de inteligencia artificial, desarrollo web 3D y automatización empresarial en Urretxu, Gipuzkoa, País Vasco y España.",
           "publisher": {
             "@id": "https://www.jrgagency.eus/#organization"
           },
-          "inLanguage": "es"
+          "inLanguage": "es-ES",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.jrgagency.eus/myworks?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
         }
       ]
     }

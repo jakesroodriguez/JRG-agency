@@ -12,7 +12,7 @@ import type { Agent } from "./AgentOrchestratorPage";
 
 const MODEL = (n: string) => `/office-assets/models/furniture/${n}.glb`;
 
-export const DESK_LAYOUT: Record<string, { pos: [number, number, number]; rot: number }> = {
+const DESK_LAYOUT: Record<string, { pos: [number, number, number]; rot: number }> = {
   "jrg-aitor": { pos: [-7, 0, -5.2], rot: 0 },
   "jrg-maider": { pos: [-3.6, 0, -5.2], rot: 0 },
   "jrg-iker": { pos: [-7, 0, -1.6], rot: 0 },

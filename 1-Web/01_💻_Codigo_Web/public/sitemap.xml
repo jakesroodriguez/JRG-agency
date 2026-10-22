@@ -1,27 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- 1. Inicio / Home Principal -->
   <url>
     <loc>https://www.jrgagency.eus/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/og-image.jpg</image:loc>
+      <image:title>JRG Agency - Inteligencia Artificial, Automatizaciones y Desarrollo Web</image:title>
+      <image:caption>Soluciones de IA de alto impacto, automatización de procesos empresariales y experiencias digitales 3D en Gipuzkoa y España.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/logoJRG.png</image:loc>
+      <image:title>JRG Agency Logo</image:title>
+      <image:caption>Identidad visual oficial de JRG Agency</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/cyber_hands_clean.png</image:loc>
+      <image:title>IA y Automatización de Procesos Empresariales</image:title>
+      <image:caption>Ecosistema de automatizaciones inteligentes y agentes autónomos para empresas.</image:caption>
+    </image:image>
   </url>
+
+  <!-- 2. Portfolio y Trabajos Realizados -->
   <url>
     <loc>https://www.jrgagency.eus/myworks</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-1.webp</image:loc>
+      <image:title>Casos de Éxito y Proyectos Web - JRG Agency</image:title>
+      <image:caption>Desarrollo web y soluciones tecnológicas a medida para marcas y empresas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-2.webp</image:loc>
+      <image:title>Arquitectura de Software y Sistemas IA</image:title>
+      <image:caption>Despliegue de arquitecturas digitales modernas y eficaces.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-3.webp</image:loc>
+      <image:title>Automatización e Integraciones Cloud</image:title>
+      <image:caption>Optimización de flujos operativos para negocios y pymes.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-otxaran.png</image:loc>
+      <image:title>Proyecto Otxaran - Diseño Web y Experiencia Digital</image:title>
+      <image:caption>Plataforma web desarrollada con rendimiento superior por JRG Agency.</image:caption>
+    </image:image>
   </url>
+
+  <!-- 3. Servicios: Agentes de Inteligencia Artificial & Orquestador -->
+  <url>
+    <loc>https://www.jrgagency.eus/agentes</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/og-image-dark.jpg</image:loc>
+      <image:title>Orquestador de Agentes Autónomos IA - JRG Agency</image:title>
+      <image:caption>Sistemas multi-agente, automatización de soporte 24/7 y agentes inteligentes especializados.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/hands_neon.png</image:loc>
+      <image:title>Conexión de Agentes y Flujos de Trabajo Inteligentes</image:title>
+      <image:caption>Interconexión sin fricción entre personas, IA y sistemas de negocio.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 4. Contacto Oficial (Inglés / Internacional) -->
   <url>
     <loc>https://www.jrgagency.eus/contact</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/tarjeta.png</image:loc>
+      <image:title>Contacto JRG Agency - Consulta y Auditoría</image:title>
+      <image:caption>Contacta con JRG Agency para potenciar tu empresa con Inteligencia Artificial y Automatizaciones.</image:caption>
+    </image:image>
   </url>
+
+  <!-- 5. Contacto Oficial (Español) -->
+  <url>
+    <loc>https://www.jrgagency.eus/contacto</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/tarjeta.png</image:loc>
+      <image:title>Contacto Directo JRG Agency</image:title>
+      <image:caption>Solicita presupuesto o agenda una consultoría estratégica de IA.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 6. Demos y Bocetos Digitales Interactivos -->
+  <url>
+    <loc>https://www.jrgagency.eus/demo</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/og-image.jpg</image:loc>
+      <image:title>Demos Interactivas y Prototipos Web 3D</image:title>
+      <image:caption>Visualizador de bocetos y prototipos digitales interactivos desarrollados por JRG Agency.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 7. Laboratorio y Playground Interactivo 3D -->
   <url>
     <loc>https://www.jrgagency.eus/play</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/RedxChess.png</image:loc>
+      <image:title>Laboratorio y Experiencias Interactivas Web 3D - JRG Agency</image:title>
+      <image:caption>Entorno interactivo 3D y motor de ajedrez desarrollado con WebAssembly y Three.js.</image:caption>
+    </image:image>
   </url>
 </urlset>

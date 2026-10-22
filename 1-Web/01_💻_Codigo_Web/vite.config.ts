@@ -10,12 +10,11 @@ export default defineConfig({
         manualChunks: {
           'three': ['three', 'three-stdlib'],
           'react-three': ['@react-three/fiber', '@react-three/drei'],
-          'gsap': ['gsap'],
           'vendor': ['react', 'react-dom', 'react-router-dom']
         }
       }
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 4000,
     minify: 'terser',
     terserOptions: {
       compress: {

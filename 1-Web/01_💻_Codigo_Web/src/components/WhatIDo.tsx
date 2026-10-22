@@ -8,16 +8,20 @@ const WhatIDo = () => {
     containerRef.current[index] = el;
   };
   useEffect(() => {
-    containerRef.current.forEach((container) => {
+    const containers = containerRef.current.slice();
+    const listeners: Array<[HTMLDivElement, () => void]> = [];
+
+    containers.forEach((container) => {
       if (container) {
-        container.addEventListener("click", () => handleClick(container));
+        const handler = () => handleClick(container);
+        container.addEventListener("click", handler);
+        listeners.push([container, handler]);
       }
     });
+
     return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
+      listeners.forEach(([container, handler]) => {
+        container.removeEventListener("click", handler);
       });
     };
   }, []);

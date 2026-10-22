@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./App.css";
 
 const MobileLanding = lazy(() => import("./mobile/MobileLanding"));
+const DesktopLanding = lazy(() => import("./components/prisma/PrismaDesktopLanding"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
@@ -21,7 +22,30 @@ function ScrollToTop() {
   return null;
 }
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth < breakpoint;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 const App = () => {
+  const isMobile = useIsMobile(768);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -29,8 +53,30 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f7fb' }} />}>
-              <MobileLanding />
+            isMobile ? (
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f7fb' }} />}>
+                <MobileLanding />
+              </Suspense>
+            ) : (
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+                <DesktopLanding />
+              </Suspense>
+            )
+          }
+        />
+        <Route
+          path="/prisma"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+              <DesktopLanding />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/desktop"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+              <DesktopLanding />
             </Suspense>
           }
         />

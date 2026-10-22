@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
 import { config } from "../config";
 import { Link } from "react-router-dom";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,14 +24,14 @@ const Work = () => {
         .getBoundingClientRect().left;
       const rect = box[0].getBoundingClientRect();
       const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
+      const padding: number =
         parseInt(window.getComputedStyle(box[0]).padding) / 2;
       translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
     }
 
     setTranslateX();
 
-    let timeline = gsap.timeline({
+    const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".work-section",
         start: "top top",
@@ -57,6 +58,7 @@ const Work = () => {
       ScrollTrigger.getById("work")?.kill();
     };
   }, []);
+
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
@@ -64,30 +66,74 @@ const Work = () => {
           Proyectos <span>Destacados</span>
         </h2>
         <div className="work-flex">
-          {config.projects.slice(0, 5).map((project, index) => (
-            <div className="work-box" key={project.id}>
-              <div className="work-info">
-                <div className="work-title">
-                  <h3>0{index + 1}</h3>
+          {config.projects.slice(0, 5).map((project, index) => {
+            const isExternal = Boolean(project.link && !project.link.startsWith("/"));
+            const techList = project.technologies
+              ? project.technologies.split(",").map((t) => t.trim()).filter(Boolean)
+              : [];
 
-                  <div>
-                    <h4>{project.title}</h4>
-                    <p>{project.category}</p>
+            return (
+              <div className="work-box" key={project.id}>
+                <div className="work-info">
+                  <div className="work-title">
+                    <span className="work-index">0{index + 1}</span>
+
+                    <div className="work-title-meta">
+                      <span className="work-category">{project.category}</span>
+                      <h4>{project.title}</h4>
+                    </div>
                   </div>
+
+                  <div className="work-tech-section">
+                    <span className="work-tech-title">Stack & Tecnologías</span>
+                    <div className="work-tech-chips">
+                      {techList.map((tech, i) => (
+                        <span key={i} className="work-tech-pill">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {project.link && (
+                    <div className="work-link-wrapper">
+                      {isExternal ? (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="work-explore-btn"
+                          data-cursor="disable"
+                        >
+                          <span>Ver proyecto</span>
+                          <ArrowUpRight size={14} className="work-arrow" />
+                        </a>
+                      ) : (
+                        <Link
+                          to={project.link}
+                          className="work-explore-btn"
+                          data-cursor="disable"
+                        >
+                          <span>Explorar</span>
+                          <ArrowRight size={14} className="work-arrow" />
+                        </Link>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <h4>Herramientas y características</h4>
-                <p>{project.technologies}</p>
+                <WorkImage image={project.image} alt={project.title} link={project.link} />
               </div>
-              <WorkImage image={project.image} alt={project.title} link={project.link} />
-            </div>
-          ))}
+            );
+          })}
           {/* See All Works Button */}
           <div className="work-box work-box-cta">
             <div className="see-all-works">
+              <span className="see-all-badge">PORTFOLIO COMPLETO</span>
               <h3>¿Quieres ver más?</h3>
-              <p>Explora todos nuestros proyectos y creaciones</p>
+              <p>Explora todos nuestros proyectos, integraciones y creaciones interactivas</p>
               <Link to="/myworks" className="see-all-btn" data-cursor="disable">
-                Ver Todos los Trabajos →
+                <span>Ver Todos los Trabajos</span>
+                <ArrowRight size={16} />
               </Link>
             </div>
           </div>

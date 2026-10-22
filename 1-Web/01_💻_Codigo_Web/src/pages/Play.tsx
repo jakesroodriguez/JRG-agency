@@ -112,53 +112,7 @@ const Play = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (game.turn() === 'b' && !game.isGameOver() && redoxchessRef.current) {
-      setEngineThinking(true);
-      redoxchessRef.current.setPosition(game.fen());
-      redoxchessRef.current.getBestMove((move) => {
-        const from = move.substring(0, 2) as Square;
-        const to = move.substring(2, 4) as Square;
-        makeMove(from, to);
-        setEngineThinking(false);
-      }, 12);
-    }
-  }, [game]);
-
-  const getPieceAt = (square: Square): { type: PieceSymbol; color: Color } | null => {
-    return game.get(square) || null;
-  };
-
-  const handleSquareClick = (square: Square) => {
-    if (engineThinking || game.turn() !== 'w') return;
-    const piece = getPieceAt(square);
-
-    // If a piece is already selected
-    if (selectedSquare) {
-      // Try to make a move
-      if (possibleMoves.includes(square)) {
-        makeMove(selectedSquare, square);
-      } else if (piece && piece.color === game.turn()) {
-        // Select a different piece of the same color
-        setSelectedSquare(square);
-        const moves = game.moves({ square, verbose: true });
-        setPossibleMoves(moves.map(m => m.to as Square));
-      } else {
-        // Deselect
-        setSelectedSquare(null);
-        setPossibleMoves([]);
-      }
-    } else {
-      // Select a piece if it's the current player's turn
-      if (piece && piece.color === game.turn()) {
-        setSelectedSquare(square);
-        const moves = game.moves({ square, verbose: true });
-        setPossibleMoves(moves.map(m => m.to as Square));
-      }
-    }
-  };
-
-  const makeMove = (from: Square, to: Square) => {
+  const makeMove = useCallback((from: Square, to: Square) => {
     try {
       const gameCopy = new Chess(game.fen());
       const move = gameCopy.move({ from, to, promotion: 'q' }); // Auto-promote to queen
@@ -190,6 +144,52 @@ const Play = () => {
     } catch {
       setSelectedSquare(null);
       setPossibleMoves([]);
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (game.turn() === 'b' && !game.isGameOver() && redoxchessRef.current) {
+      setEngineThinking(true);
+      redoxchessRef.current.setPosition(game.fen());
+      redoxchessRef.current.getBestMove((move) => {
+        const from = move.substring(0, 2) as Square;
+        const to = move.substring(2, 4) as Square;
+        makeMove(from, to);
+        setEngineThinking(false);
+      }, 12);
+    }
+  }, [game, makeMove]);
+
+  const getPieceAt = (square: Square): { type: PieceSymbol; color: Color } | null => {
+    return game.get(square) || null;
+  };
+
+  const handleSquareClick = (square: Square) => {
+    if (engineThinking || game.turn() !== 'w') return;
+    const piece = getPieceAt(square);
+
+    // If a piece is already selected
+    if (selectedSquare) {
+      // Try to make a move
+      if (possibleMoves.includes(square)) {
+        makeMove(selectedSquare, square);
+      } else if (piece && piece.color === game.turn()) {
+        // Select a different piece of the same color
+        setSelectedSquare(square);
+        const moves = game.moves({ square, verbose: true });
+        setPossibleMoves(moves.map(m => m.to as Square));
+      } else {
+        // Deselect
+        setSelectedSquare(null);
+        setPossibleMoves([]);
+      }
+    } else {
+      // Select a piece if it's the current player's turn
+      if (piece && piece.color === game.turn()) {
+        setSelectedSquare(square);
+        const moves = game.moves({ square, verbose: true });
+        setPossibleMoves(moves.map(m => m.to as Square));
+      }
     }
   };
 

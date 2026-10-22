@@ -317,15 +317,15 @@ const setCharacter = (
     const handleLoadedModel = (gltf: GLTF) => {
       const character = gltf.scene;
       applyWardrobe(character);
-      character.traverse((child: any) => {
-        if (!child.isMesh) return;
+      character.traverse((child: THREE.Object3D) => {
+        if (!("isMesh" in child) || !child.isMesh) return;
         const mesh = child as THREE.Mesh;
         const name = (mesh.name || "").toLowerCase();
         if (name === "screenlight" || name.includes("screenlight")) {
           mesh.visible = false;
           if (mesh.material) {
             const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-            mats.forEach((m: any) => {
+            mats.forEach((m: THREE.Material) => {
               m.visible = false;
               m.opacity = 0;
               m.transparent = true;
@@ -335,12 +335,13 @@ const setCharacter = (
         }
         if (name === "ground" || name.includes("ground")) {
           const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-          mats.forEach((m: any) => {
-            if (m && m.map) {
-              const cleanTex = neutralizeGroundTexture(m.map);
+          mats.forEach((m: THREE.Material) => {
+            const matWithMap = m as THREE.MeshStandardMaterial;
+            if (matWithMap && matWithMap.map) {
+              const cleanTex = neutralizeGroundTexture(matWithMap.map);
               if (cleanTex) {
-                m.map = cleanTex;
-                m.needsUpdate = true;
+                matWithMap.map = cleanTex;
+                matWithMap.needsUpdate = true;
               }
             }
           });
@@ -349,10 +350,11 @@ const setCharacter = (
         mesh.receiveShadow = false;
         mesh.frustumCulled = true;
         const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-        materials.forEach((material: any) => {
-          if (!material) return;
-          material.precision = "highp";
-          if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
+        materials.forEach((mat: THREE.Material) => {
+          if (!mat) return;
+          mat.precision = "highp";
+          if ("isMeshStandardMaterial" in mat || "isMeshPhysicalMaterial" in mat) {
+            const material = mat as THREE.MeshStandardMaterial;
             const name = (mesh.name || "").toLowerCase();
             const matName = (material.name || "").toLowerCase();
 
@@ -412,7 +414,7 @@ const setCharacter = (
       if (footL) footL.position.y = 3.36;
       try {
         renderer.compile(character, camera, scene);
-      } catch (e) {
+      } catch {
         // Ignorar fallos no críticos de compilación
       }
       resolve(gltf);

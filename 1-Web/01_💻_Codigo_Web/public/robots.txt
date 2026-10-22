@@ -1,8 +1,59 @@
+# Robots.txt for JRG Agency (https://www.jrgagency.eus)
+# Optimizacion para indexacion rapida y rastreo en Google Search Console
+
 User-agent: *
 Allow: /
-
-# Evitar indexación de parámetros de seguimiento para prevenir contenido duplicado
 Disallow: /*?*fbclid=*
 Disallow: /*?*utm_*
+Disallow: /*?*gclid=*
 
+# Googlebot general
+User-agent: Googlebot
+Allow: /
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+Disallow: /*?*fbclid=*
+Disallow: /*?*utm_*
+Disallow: /*?*gclid=*
+
+# Googlebot Images
+User-agent: Googlebot-Image
+Allow: /
+Allow: /images/
+Allow: /office-assets/
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Disallow: /*?*fbclid=*
+Disallow: /*?*utm_*
+Disallow: /*?*gclid=*
+
+# Redes Sociales & Social Previews
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# Sitemap oficial XML 0.9
 Sitemap: https://www.jrgagency.eus/sitemap.xml
