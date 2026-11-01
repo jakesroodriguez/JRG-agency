@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  Bot,
   CheckCircle2,
   ShieldCheck,
   Clock,
-  ChevronDown,
-  ChevronUp,
   Smartphone,
   Globe,
   Calendar,
   Users2,
   MessageCircle
 } from "lucide-react";
-import ServiceIslandHeader from "../components/prisma/ServiceIslandHeader";
+import BottomServiceDock from "../components/prisma/BottomServiceDock";
+import LuxuryFAQAccordion from "../components/prisma/LuxuryFAQAccordion";
+import InteractivePhoneMockup from "../components/prisma/InteractivePhoneMockup";
 import PrismaHarvestFooter from "../components/prisma/PrismaHarvestFooter";
 import CinematicCursor from "../components/prisma/CinematicCursor";
 import CinematicVSLSection from "../components/prisma/CinematicVSLSection";
@@ -49,7 +48,6 @@ const FAQS: FAQItem[] = [
 ];
 
 export const ChatbotsIA: React.FC = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,12 +81,35 @@ export const ChatbotsIA: React.FC = () => {
   );
 
   return (
-    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden">
+    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden pb-28 sm:pb-36">
       {/* 00. Desktop Cinematic Cursor */}
       <CinematicCursor />
 
-      {/* 01. Unified Luxury Floating Island Header */}
-      <ServiceIslandHeader currentService="chatbots" />
+      {/* 01. Minimal Luxury Brand Top Bar */}
+      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-6xl px-4 pointer-events-none">
+        <div className="pointer-events-auto flex items-center justify-between py-2 px-4 rounded-full bg-black/70 border border-white/10 backdrop-blur-xl shadow-lg">
+          <Link to="/" className="flex items-center gap-2 group" title="Volver a la Home">
+            <img src="/logoJRG.png" alt="Logo JRG Agency" className="w-6 h-6 rounded-full border border-[#C2A88F]/50 group-hover:scale-105 transition-transform" />
+            <span className="font-alata text-xs font-bold tracking-wider text-white">
+              JRG <span className="text-[#C2A88F] font-normal">AGENCY</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Meta API Activa
+            </span>
+            <a
+              href={`https://wa.me/34613448185?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black text-[11px] font-semibold transition-all hover:scale-105 active:scale-95"
+            >
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </header>
 
       {/* 02. SVG Film Grain Filter Overlay */}
       <div
@@ -234,11 +255,11 @@ export const ChatbotsIA: React.FC = () => {
         </div>
       </section>
 
-      {/* 03. High-Converting VSL Video Presentation */}
+      {/* 03. High-Converting Bespoke VSL Video Presentation */}
       <CinematicVSLSection
-        title="CÓMO UN ASISTENTE CON IA CUALIFICA LEADS Y AGENDA RESERVAS EN WHATSAPP 24/7"
-        subtitle="Mira en 3 minutos una demostración real: cómo responde a preguntas de clientes, consulta huecos disponibles en Google Calendar y formaliza reservas sin intervención humana."
-        videoSrc="/videos/hero-bg.mp4"
+        title="DEMOSTRACIÓN: CÓMO UN ASISTENTE CON IA GESTIONA RESERVAS Y VENTAS 24/7"
+        subtitle="En este vídeo te mostramos la velocidad de respuesta real en WhatsApp (1.2s), integración con Google Calendar y cierre de reservas sin comisiones a terceros."
+        videoSrc="/videos/vsl/vsl_chatbots.mp4"
         ctaText="Probar Asistente en WhatsApp Directo"
         ctaLink={`https://wa.me/34613448185?text=${whatsappMessage}`}
       />
@@ -333,107 +354,16 @@ export const ChatbotsIA: React.FC = () => {
         </div>
       </section>
 
-      {/* Simulated Chat Showcase: Luxury Floating Device Console */}
-      <section className="py-24 px-6 relative">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-xs font-mono uppercase text-[#C2A88F] tracking-widest">Demostración Interactiva</span>
-            <h2 className="font-alata text-2xl sm:text-4xl font-bold text-white mt-2 uppercase tracking-wide">
-              Cómo experimenta la conversación tu cliente
-            </h2>
-            <p className="text-zinc-400 text-xs sm:text-sm mt-2 font-light">
-              Naturalidad, rapidez y enfoque en conseguir la reserva o los datos del cliente.
-            </p>
-          </div>
+      {/* 05. Bespoke 3D Smartphone Interactive Chat Console */}
+      <InteractivePhoneMockup />
 
-          <div className="max-w-md mx-auto p-7 rounded-[2rem] bg-gradient-to-b from-zinc-950/90 to-black border border-[#C2A88F]/40 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.25)]">
-            {/* Header chat mock */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-black/60 border border-[#C2A88F]/50 shadow-[0_0_12px_rgba(194,168,143,0.35)] flex items-center justify-center text-[#C2A88F]">
-                  <Bot className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-sm font-alata font-bold text-white tracking-wide">Asistente IA JRG</div>
-                  <div className="text-[10px] font-mono text-emerald-400 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    En línea · Responde al instante
-                  </div>
-                </div>
-              </div>
-              <div className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-zinc-400">
-                Meta API
-              </div>
-            </div>
-
-            {/* Messages */}
-            <div className="space-y-3.5 text-xs leading-relaxed font-light">
-              <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-zinc-200 max-w-[88%] shadow-sm">
-                ¡Hola! Bienvenido a Gure Trena. 🍽️ ¿Te gustaría reservar mesa para hoy o prefieres consultar nuestra carta de raciones y pintxos?
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#C2A88F] text-black ml-auto max-w-[82%] text-right font-medium shadow-md">
-                Hola, quiero reservar mesa para 4 personas esta noche a las 21:30.
-              </div>
-
-              <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-zinc-200 max-w-[88%] shadow-sm">
-                Perfecto, tenemos disponibilidad en el comedor interior a las 21:30 para 4 personas. ¿A qué nombre y teléfono formalizamos la reserva?
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#C2A88F] text-black ml-auto max-w-[82%] text-right font-medium shadow-md">
-                A nombre de Mikel, teléfono 612 345 678.
-              </div>
-
-              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 max-w-[92%] shadow-sm">
-                ✅ <strong>¡Mesa confirmada!</strong> Te esperamos hoy a las 21:30 en C/ Mayor 12. Te he enviado la confirmación con el enlace para modificarla si lo necesitas. ¡Buen provecho!
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Accordion Section */}
-      <section className="py-24 px-6 bg-zinc-950/50 border-t border-white/10 relative">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-mono uppercase text-[#C2A88F] tracking-widest">Preguntas Habituales</span>
-            <h2 className="font-alata text-2xl sm:text-4xl font-bold text-white mt-2 uppercase tracking-wide">
-              Dudas frecuentes sobre Chatbots con IA
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-3xl bg-zinc-950/70 border border-white/10 overflow-hidden transition-all duration-300"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full px-7 py-5 flex items-center justify-between text-left text-sm font-semibold text-white hover:text-[#C2A88F] transition-colors"
-                    aria-expanded={isOpen}
-                  >
-                    <span>{faq.q}</span>
-                    {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#C2A88F] shrink-0 ml-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0 ml-4" />
-                    )}
-                  </button>
-                  {isOpen && (
-                    <div className="px-7 pb-6 text-xs text-zinc-300 leading-relaxed border-t border-white/[0.06] pt-4 font-light">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Luxury Liquid Glass FAQ Accordion Section */}
+      <LuxuryFAQAccordion
+        items={FAQS}
+        title="Preguntas Frecuentes sobre Chatbots con IA"
+        badge="Dudas Habituales"
+        subtitle="Todo sobre entrenamiento de datos, WhatsApp Business API oficial, idiomas y agenda de citas."
+      />
 
       {/* Final Conversion CTA Section */}
       <section className="py-24 px-6 relative">
@@ -487,6 +417,9 @@ export const ChatbotsIA: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Bottom Service Dock Navigation */}
+      <BottomServiceDock currentService="chatbots" />
 
       {/* 03. Luxury Prisma Harvest Master Footer */}
       <PrismaHarvestFooter />

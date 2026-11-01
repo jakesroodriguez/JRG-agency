@@ -82,7 +82,7 @@ export const CinematicVSLSection: React.FC<VSLProps> = ({
               </span>
             </div>
             <div className="px-3 py-1 rounded-full bg-black/60 border border-white/10 text-[10px] font-mono text-[#C2A88F] backdrop-blur-md">
-              4K UHD · 03:20
+              4K UHD · Vídeo Oficial
             </div>
           </div>
 
@@ -113,7 +113,7 @@ export const CinematicVSLSection: React.FC<VSLProps> = ({
                   <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-black translate-x-0.5" />
                 </button>
                 <span className="mt-4 font-mono text-xs sm:text-sm uppercase tracking-wider text-white font-medium bg-black/60 px-4 py-1.5 rounded-full border border-white/15 backdrop-blur-md">
-                  Ver vídeo explicativo (3 min)
+                  Reproducir demostración con audio
                 </span>
               </div>
             )}

@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { config } from "../config";
-import ServiceIslandHeader from "../components/prisma/ServiceIslandHeader";
+import { Link } from "react-router-dom";
+import BottomServiceDock from "../components/prisma/BottomServiceDock";
 import PrismaHarvestFooter from "../components/prisma/PrismaHarvestFooter";
 import CinematicCursor from "../components/prisma/CinematicCursor";
 
@@ -102,12 +103,35 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden">
+    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden pb-28 sm:pb-36">
       {/* 00. Cinematic Cursor */}
       <CinematicCursor />
 
-      {/* 01. Unified Island Header */}
-      <ServiceIslandHeader currentService="automatizaciones" />
+      {/* 01. Minimal Luxury Brand Top Bar */}
+      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-6xl px-4 pointer-events-none">
+        <div className="pointer-events-auto flex items-center justify-between py-2 px-4 rounded-full bg-black/70 border border-white/10 backdrop-blur-xl shadow-lg">
+          <Link to="/" className="flex items-center gap-2 group" title="Volver a la Home">
+            <img src="/logoJRG.png" alt="Logo JRG Agency" className="w-6 h-6 rounded-full border border-[#C2A88F]/50 group-hover:scale-105 transition-transform" />
+            <span className="font-alata text-xs font-bold tracking-wider text-white">
+              JRG <span className="text-[#C2A88F] font-normal">AGENCY</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Contacto Prioritario
+            </span>
+            <a
+              href={`https://wa.me/34613448185?text=${encodeURIComponent(selectedProject.message)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C2A88F] hover:bg-[#D4BEA7] text-black text-[11px] font-semibold transition-all hover:scale-105 active:scale-95"
+            >
+              <span>WhatsApp Directo</span>
+            </a>
+          </div>
+        </div>
+      </header>
 
       {/* 02. SVG Film Grain Filter */}
       <div
@@ -345,6 +369,9 @@ export const ContactPage: React.FC = () => {
           </div>
         </div>
       </main>
+
+      {/* Floating Bottom Service Dock Navigation */}
+      <BottomServiceDock currentService="contacto" />
 
       {/* 03. Luxury Master Footer */}
       <PrismaHarvestFooter />

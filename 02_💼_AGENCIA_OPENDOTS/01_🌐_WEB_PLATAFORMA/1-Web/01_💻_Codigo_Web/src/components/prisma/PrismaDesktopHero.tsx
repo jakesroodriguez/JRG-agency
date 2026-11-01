@@ -29,65 +29,63 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
         {/* Cinematic gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none z-[2]" />
 
-        {/* Hero bottom-aligned content */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10 lg:p-14 pb-12 sm:pb-8 md:pb-10 lg:pb-14 z-10">
-          <div className="grid grid-cols-12 items-end gap-6 md:gap-8">
-            {/* Left 8 columns: Giant Heading JRG */}
-            <div className="col-span-12 lg:col-span-8 flex flex-col justify-end">
-              <WordsPullUp
-                text="JRG"
-                showAsterisk={true}
-                className="text-[20vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
-              />
-            </div>
+        {/* Hero content: Mobile splits Top (JRG*) & Bottom (Text + CTA). Desktop aligns both at bottom grid */}
+        <div className="absolute inset-0 p-6 sm:p-8 md:p-10 lg:p-14 pb-8 sm:pb-8 md:pb-10 lg:pb-14 z-10 flex flex-col justify-between lg:grid lg:grid-cols-12 lg:items-end lg:gap-8 pointer-events-none">
+          {/* Top on mobile, Bottom-Left on desktop: Giant Heading JRG */}
+          <div className="col-span-12 lg:col-span-8 flex flex-col justify-start lg:justify-end pt-8 sm:pt-4 lg:pt-0 pointer-events-auto">
+            <WordsPullUp
+              text="JRG"
+              showAsterisk={true}
+              className="text-[20vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
+            />
+          </div>
 
-            {/* Right 4 columns: Description + Iniciar proyecto Button */}
-            <div className="col-span-12 lg:col-span-4 flex flex-col gap-6 justify-end pb-2">
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="text-xs sm:text-sm md:text-base leading-[1.2] max-w-md font-normal"
-                style={{ color: "rgba(222, 219, 200, 0.85)" }}
-              >
-                <span className="hidden sm:inline">
-                  JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
-                </span>
-                <span className="sm:hidden">
-                  Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.
-                </span>
-              </motion.p>
+          {/* Bottom on mobile, Bottom-Right on desktop: Description + Iniciar proyecto Button */}
+          <div className="col-span-12 lg:col-span-4 flex flex-col gap-5 sm:gap-6 justify-end pb-2 pointer-events-auto">
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="text-xs sm:text-sm md:text-base leading-[1.2] max-w-md font-normal"
+              style={{ color: "rgba(222, 219, 200, 0.85)" }}
+            >
+              <span className="hidden sm:inline">
+                JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
+              </span>
+              <span className="sm:hidden">
+                Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.
+              </span>
+            </motion.p>
 
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.7,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  if (onContactClick) {
+                    e.preventDefault();
+                    onContactClick();
+                  }
                 }}
+                className="inline-flex items-center justify-between gap-2 hover:gap-3 group bg-gradient-to-r from-[#DEDBC8] via-[#C2A88F] to-[#A8896C] hover:brightness-110 text-black rounded-full pl-5 pr-2 py-2 sm:pl-6 sm:pr-2 sm:py-2 text-sm sm:text-base font-medium transition-all duration-300 shadow-[0_10px_30px_rgba(194,168,143,0.25)] hover:shadow-[0_12px_36px_rgba(194,168,143,0.4)] cursor-pointer"
               >
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    if (onContactClick) {
-                      e.preventDefault();
-                      onContactClick();
-                    }
-                  }}
-                  className="inline-flex items-center justify-between gap-2 hover:gap-3 group bg-gradient-to-r from-[#DEDBC8] via-[#C2A88F] to-[#A8896C] hover:brightness-110 text-black rounded-full pl-5 pr-2 py-2 sm:pl-6 sm:pr-2 sm:py-2 text-sm sm:text-base font-medium transition-all duration-300 shadow-[0_10px_30px_rgba(194,168,143,0.25)] hover:shadow-[0_12px_36px_rgba(194,168,143,0.4)] cursor-pointer"
-                >
-                  <span className="font-alata tracking-tight text-black font-bold">Iniciar proyecto</span>
-                  <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ml-2 shadow-md">
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#EFE8E1]" />
-                  </div>
-                </a>
-              </motion.div>
-            </div>
+                <span className="font-alata tracking-tight text-black font-bold">Iniciar proyecto</span>
+                <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ml-2 shadow-md">
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#EFE8E1]" />
+                </div>
+              </a>
+            </motion.div>
           </div>
         </div>
       </div>

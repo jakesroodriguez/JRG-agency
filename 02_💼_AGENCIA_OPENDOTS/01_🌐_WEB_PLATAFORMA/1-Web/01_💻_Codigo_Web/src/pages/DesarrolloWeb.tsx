@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -6,15 +6,15 @@ import {
   CheckCircle2,
   ShieldCheck,
   Clock,
-  ChevronDown,
-  ChevronUp,
   Layout,
   UtensilsCrossed,
   ShoppingBag,
   ExternalLink,
   Zap
 } from "lucide-react";
-import ServiceIslandHeader from "../components/prisma/ServiceIslandHeader";
+import BottomServiceDock from "../components/prisma/BottomServiceDock";
+import LuxuryFAQAccordion from "../components/prisma/LuxuryFAQAccordion";
+import LighthouseSpeedComparator from "../components/prisma/LighthouseSpeedComparator";
 import PrismaHarvestFooter from "../components/prisma/PrismaHarvestFooter";
 import CinematicCursor from "../components/prisma/CinematicCursor";
 import CinematicVSLSection from "../components/prisma/CinematicVSLSection";
@@ -49,7 +49,6 @@ const FAQS: FAQItem[] = [
 ];
 
 export const DesarrolloWeb: React.FC = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,12 +82,35 @@ export const DesarrolloWeb: React.FC = () => {
   );
 
   return (
-    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden">
+    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden pb-28 sm:pb-36">
       {/* 00. Desktop Cinematic Cursor */}
       <CinematicCursor />
 
-      {/* 01. Unified Luxury Floating Island Header */}
-      <ServiceIslandHeader currentService="desarrollo-web" />
+      {/* 01. Minimal Luxury Brand Top Bar */}
+      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-6xl px-4 pointer-events-none">
+        <div className="pointer-events-auto flex items-center justify-between py-2 px-4 rounded-full bg-black/70 border border-white/10 backdrop-blur-xl shadow-lg">
+          <Link to="/" className="flex items-center gap-2 group" title="Volver a la Home">
+            <img src="/logoJRG.png" alt="Logo JRG Agency" className="w-6 h-6 rounded-full border border-[#C2A88F]/50 group-hover:scale-105 transition-transform" />
+            <span className="font-alata text-xs font-bold tracking-wider text-white">
+              JRG <span className="text-[#C2A88F] font-normal">AGENCY</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Lighthouse 100/100
+            </span>
+            <a
+              href={`https://wa.me/34613448185?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C2A88F] hover:bg-[#D4BEA7] text-black text-[11px] font-semibold transition-all hover:scale-105 active:scale-95"
+            >
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </header>
 
       {/* 02. SVG Film Grain Filter Overlay */}
       <div
@@ -234,17 +256,20 @@ export const DesarrolloWeb: React.FC = () => {
         </div>
       </section>
 
-      {/* 03. High-Converting VSL Video Presentation */}
+      {/* 03. High-Converting Bespoke VSL Video Presentation */}
       <CinematicVSLSection
-        title="CÓMO UNA WEB CON ARQUITECTURA REACT Y LIGHTHOUSE 100/100 DISPARA TUS CONVERSIONES"
-        subtitle="Analizamos en 3 minutos la diferencia técnica entre una plantilla lenta que espanta a tus clientes y una experiencia digital premium optimizada para posicionar en Google y cerrar ventas."
-        videoSrc="/videos/hero-bg.mp4"
+        title="DEMOSTRACIÓN: CÓMO UNA WEB CON LIGHTHOUSE 100/100 DISPARA TUS VENTAS"
+        subtitle="En este vídeo te mostramos la comparativa de velocidad real: 0,8s de carga nativa vs 4,8s de lentitud en plantillas pesadas y casos auditados en Goierri."
+        videoSrc="/videos/vsl/vsl_desarrollo_web.mp4"
         ctaText="Pedir Presupuesto y Auditoría Web"
         ctaLink={`https://wa.me/34613448185?text=${whatsappMessage}`}
       />
 
       {/* 04. Verified Client Social Proof */}
       <PrismaSocialProofSection />
+
+      {/* 05. Bespoke Lighthouse Speed Benchmark Comparator */}
+      <LighthouseSpeedComparator />
 
       {/* Comparison: Template vs JRG Agency Architecture */}
       <section className="py-24 px-6 border-t border-white/10 bg-zinc-950/40 relative">
@@ -393,48 +418,13 @@ export const DesarrolloWeb: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section className="py-24 px-6 relative">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-mono uppercase text-[#C2A88F] tracking-widest">Resolución de Dudas</span>
-            <h2 className="font-alata text-2xl sm:text-4xl font-bold text-white mt-2 uppercase tracking-wide">
-              Preguntas Frecuentes sobre Desarrollo Web
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-3xl bg-zinc-950/70 border border-white/10 overflow-hidden transition-all duration-300"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full px-7 py-5 flex items-center justify-between text-left text-sm font-semibold text-white hover:text-[#C2A88F] transition-colors"
-                    aria-expanded={isOpen}
-                  >
-                    <span>{faq.q}</span>
-                    {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#C2A88F] shrink-0 ml-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0 ml-4" />
-                    )}
-                  </button>
-                  {isOpen && (
-                    <div className="px-7 pb-6 text-xs text-zinc-300 leading-relaxed border-t border-white/[0.06] pt-4 font-light">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Luxury Liquid Glass FAQ Accordion Section */}
+      <LuxuryFAQAccordion
+        items={FAQS}
+        title="Preguntas Frecuentes sobre Desarrollo Web"
+        badge="Resolución de Dudas"
+        subtitle="Todo lo que necesitas saber sobre tecnologías, SEO en Google, propiedad del código y plazos."
+      />
 
       {/* Final Conversion CTA Section */}
       <section className="py-24 px-6 relative">
@@ -488,6 +478,9 @@ export const DesarrolloWeb: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Bottom Service Dock Navigation */}
+      <BottomServiceDock currentService="desarrollo-web" />
 
       {/* 03. Luxury Prisma Harvest Master Footer */}
       <PrismaHarvestFooter />

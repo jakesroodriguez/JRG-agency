@@ -9,14 +9,15 @@ import {
   CheckCircle2,
   Clock,
   ShieldCheck,
-  ChevronDown,
-  ChevronUp,
+
   Layers,
   MessageSquare,
   FileSpreadsheet,
-  UtensilsCrossed
+  UtensilsCrossed,
 } from "lucide-react";
-import ServiceIslandHeader from "../components/prisma/ServiceIslandHeader";
+import BottomServiceDock from "../components/prisma/BottomServiceDock";
+import LuxuryFAQAccordion from "../components/prisma/LuxuryFAQAccordion";
+import PipelineVisualSimulator from "../components/prisma/PipelineVisualSimulator";
 import PrismaHarvestFooter from "../components/prisma/PrismaHarvestFooter";
 import CinematicCursor from "../components/prisma/CinematicCursor";
 import CinematicVSLSection from "../components/prisma/CinematicVSLSection";
@@ -51,7 +52,6 @@ const FAQS: FAQItem[] = [
 ];
 
 export const AutomatizacionesIA: React.FC = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [empleados, setEmpleados] = useState<number>(3);
   const [horasSemana, setHorasSemana] = useState<number>(6);
 
@@ -90,12 +90,35 @@ export const AutomatizacionesIA: React.FC = () => {
   );
 
   return (
-    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden">
+    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative overflow-hidden pb-28 sm:pb-36">
       {/* 00. Desktop Cinematic Cursor */}
       <CinematicCursor />
 
-      {/* 01. Unified Luxury Floating Island Header */}
-      <ServiceIslandHeader currentService="automatizaciones" />
+      {/* 01. Minimal Luxury Brand Top Bar */}
+      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-40 w-full max-w-6xl px-4 pointer-events-none">
+        <div className="pointer-events-auto flex items-center justify-between py-2 px-4 rounded-full bg-black/70 border border-white/10 backdrop-blur-xl shadow-lg">
+          <Link to="/" className="flex items-center gap-2 group" title="Volver a la Home">
+            <img src="/logoJRG.png" alt="Logo JRG Agency" className="w-6 h-6 rounded-full border border-[#C2A88F]/50 group-hover:scale-105 transition-transform" />
+            <span className="font-alata text-xs font-bold tracking-wider text-white">
+              JRG <span className="text-[#C2A88F] font-normal">AGENCY</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Sistemas Online
+            </span>
+            <a
+              href={`https://wa.me/34613448185?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C2A88F] hover:bg-[#D4BEA7] text-black text-[11px] font-semibold transition-all hover:scale-105 active:scale-95"
+            >
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </header>
 
       {/* 02. SVG Film Grain Filter Overlay */}
       <div
@@ -241,17 +264,20 @@ export const AutomatizacionesIA: React.FC = () => {
         </div>
       </section>
 
-      {/* 03. High-Converting VSL Video Presentation */}
+      {/* 03. High-Converting Bespoke VSL Video Presentation */}
       <CinematicVSLSection
-        title="CÓMO AUTOMATIZAMOS LA OPERATIVA DE TU EMPRESA Y MULTIPLICAMOS TUS VENTAS"
-        subtitle="En este vídeo de 3 minutos te mostramos el proceso técnico exacto que aplicamos en negocios reales: desde la captación en WhatsApp hasta la eliminación total de tareas repetitivas."
-        videoSrc="/videos/hero-bg.mp4"
+        title="DEMOSTRACIÓN: CÓMO AUTOMATIZAMOS LA OPERATIVA DE TU EMPRESA"
+        subtitle="En este vídeo te mostramos el flujo técnico real: extracción de datos con IA en 1.2s, sincronización con tu ERP y notificación instantánea sin errores manuales."
+        videoSrc="/videos/vsl/vsl_automatizaciones.mp4"
         ctaText="Solicitar Auditoría de 15 Minutos"
         ctaLink={`https://wa.me/34613448185?text=${whatsappMessage}`}
       />
 
       {/* 04. Verified Client Social Proof */}
       <PrismaSocialProofSection />
+
+      {/* 05. Bespoke Interactive Pipeline Simulator Widget */}
+      <PipelineVisualSimulator />
 
       {/* Problem Diagnostic Section */}
       <section className="py-20 px-6 border-t border-white/10 bg-zinc-950/40 relative">
@@ -529,48 +555,13 @@ export const AutomatizacionesIA: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
-      <section className="py-24 px-6 bg-zinc-950/50 border-t border-white/10 relative">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-mono uppercase text-[#C2A88F] tracking-widest">Resolución de Dudas</span>
-            <h2 className="font-alata text-2xl sm:text-4xl font-bold text-white mt-2 uppercase tracking-wide">
-              Preguntas Frecuentes sobre Automatizaciones con IA
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-3xl bg-zinc-950/70 border border-white/10 overflow-hidden transition-all duration-300"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full px-7 py-5 flex items-center justify-between text-left text-sm font-semibold text-white hover:text-[#C2A88F] transition-colors"
-                    aria-expanded={isOpen}
-                  >
-                    <span>{faq.q}</span>
-                    {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#C2A88F] shrink-0 ml-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-zinc-400 shrink-0 ml-4" />
-                    )}
-                  </button>
-                  {isOpen && (
-                    <div className="px-7 pb-6 text-xs text-zinc-300 leading-relaxed border-t border-white/[0.06] pt-4 font-light">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Luxury Liquid Glass FAQ Accordion Section */}
+      <LuxuryFAQAccordion
+        items={FAQS}
+        title="Preguntas Frecuentes sobre Automatizaciones con IA"
+        badge="Resolución de Dudas"
+        subtitle="Todo lo que necesitas saber sobre seguridad, cumplimiento estricto del RGPD, plazos y rentabilidad."
+      />
 
       {/* Final Conversion CTA Section */}
       <section className="py-24 px-6 relative">
@@ -624,6 +615,9 @@ export const AutomatizacionesIA: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Floating Bottom Service Dock Navigation */}
+      <BottomServiceDock currentService="automatizaciones" />
 
       {/* 03. Luxury Prisma Harvest Master Footer */}
       <PrismaHarvestFooter />
