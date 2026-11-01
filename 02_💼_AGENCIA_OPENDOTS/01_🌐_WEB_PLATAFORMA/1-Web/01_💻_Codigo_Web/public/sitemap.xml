@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- 1. Inicio / Home Principal -->
+  <url>
+    <loc>https://www.jrgagency.eus/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/og-image.jpg</image:loc>
+      <image:title>JRG Agency - Inteligencia Artificial, Automatizaciones y Desarrollo Web</image:title>
+      <image:caption>Agencia tecnológica especializada en automatizaciones con IA, chatbots para empresas y desarrollo web de alto rendimiento en España y Gipuzkoa.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/logoJRG.png</image:loc>
+      <image:title>JRG Agency Logo</image:title>
+      <image:caption>Identidad visual oficial de JRG Agency</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 2. Servicio: Automatizaciones con IA -->
+  <url>
+    <loc>https://www.jrgagency.eus/automatizaciones-ia</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/cyber_hands_clean.png</image:loc>
+      <image:title>Automatizaciones con IA para Empresas - JRG Agency</image:title>
+      <image:caption>Automatización de procesos repetitivos, sincronización de CRMs y extracción inteligente de datos con IA.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 3. Servicio: Chatbots con IA y Asistentes Virtuales -->
+  <url>
+    <loc>https://www.jrgagency.eus/chatbots-ia</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/hands_neon.png</image:loc>
+      <image:title>Chatbots con IA y Asistentes para Empresas - JRG Agency</image:title>
+      <image:caption>Chatbots oficiales de WhatsApp Business y asistentes web con atención al cliente y reservas 24/7.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 4. Servicio: Diseño y Desarrollo Web Profesional -->
+  <url>
+    <loc>https://www.jrgagency.eus/desarrollo-web</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-otxaran.png</image:loc>
+      <image:title>Diseño y Desarrollo Web Profesional - JRG Agency</image:title>
+      <image:caption>Páginas web modernas, ultrarrápidas (Lighthouse 100/100) y optimizadas para SEO y conversión.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 5. Portfolio y Trabajos Realizados -->
+  <url>
+    <loc>https://www.jrgagency.eus/myworks</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-1.webp</image:loc>
+      <image:title>Casos de Éxito y Proyectos Web - JRG Agency</image:title>
+      <image:caption>Desarrollo web y soluciones tecnológicas a medida para marcas y empresas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/portfolio-2.webp</image:loc>
+      <image:title>Arquitectura de Software y Sistemas IA</image:title>
+      <image:caption>Despliegue de arquitecturas digitales modernas y eficaces.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 6. Servicios: Agentes de Inteligencia Artificial & Orquestador -->
+  <url>
+    <loc>https://www.jrgagency.eus/agentes</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/og-image-dark.jpg</image:loc>
+      <image:title>Orquestador de Agentes Autónomos IA - JRG Agency</image:title>
+      <image:caption>Sistemas multi-agente y automatización avanzada de soporte especializado.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 7. Contacto Oficial (Español) -->
+  <url>
+    <loc>https://www.jrgagency.eus/contacto</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/tarjeta.png</image:loc>
+      <image:title>Contacto Directo JRG Agency</image:title>
+      <image:caption>Solicita presupuesto o agenda una consultoría estratégica de IA.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 8. Contacto Oficial (Internacional) -->
+  <url>
+    <loc>https://www.jrgagency.eus/contact</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/tarjeta.png</image:loc>
+      <image:title>Contacto JRG Agency - Consulta y Auditoría</image:title>
+      <image:caption>Contacta con JRG Agency para potenciar tu empresa con Inteligencia Artificial y Automatizaciones.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 9. Demos y Bocetos Digitales Interactivos -->
+  <url>
+    <loc>https://www.jrgagency.eus/demo</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 10. Laboratorio y Experiencias 3D -->
+  <url>
+    <loc>https://www.jrgagency.eus/play</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://www.jrgagency.eus/images/RedxChess.png</image:loc>
+      <image:title>Laboratorio y Experiencias Interactivas Web 3D - JRG Agency</image:title>
+      <image:caption>Entorno interactivo 3D y motor de ajedrez desarrollado con WebAssembly y Three.js.</image:caption>
+    </image:image>
+  </url>
+</urlset>

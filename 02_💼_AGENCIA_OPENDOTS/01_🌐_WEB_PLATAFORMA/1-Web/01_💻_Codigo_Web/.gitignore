@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-ssr
+.vercel
+.env*
+*.local
+.DS_Store
+scratch_unificada/
