@@ -29,81 +29,11 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
         {/* Cinematic gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none z-[2]" />
 
-        {/* Top Floating Glass Navigation Header: Unified Centered Island Dock */}
-        <header className="absolute top-0 left-0 right-0 p-5 sm:p-7 md:p-8 flex items-center justify-center z-20 pointer-events-none">
-          <div className="pointer-events-auto inline-flex items-center gap-2 sm:gap-3 p-1.5 pl-2.5 sm:pl-3 pr-2.5 sm:pr-3 rounded-full bg-black/45 hover:bg-black/60 border border-white/10 hover:border-[#C2A88F]/40 backdrop-blur-2xl transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.5)]">
-            {/* Brand Logo & Studio Name */}
-            <a
-              href="#hero"
-              className="group flex items-center gap-2.5 py-1 px-2.5 rounded-full hover:bg-white/[0.06] transition-all cursor-pointer"
-            >
-              <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[#C2A88F]/50 shadow-[0_0_12px_rgba(194,168,143,0.35)] shrink-0 group-hover:scale-105 transition-transform">
-                <img
-                  src="/logoJRG.png"
-                  alt="Logo JRG Agency"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="font-alata text-xs sm:text-sm font-bold tracking-wider text-white group-hover:text-[#EFE8E1]">
-                JRG <span className="text-[#C2A88F] font-normal">AGENCY</span>
-              </span>
-            </a>
-
-            {/* Subtle Vertical Divider (desktop only) */}
-            <div className="w-px h-4 bg-white/15 hidden md:block" />
-
-            {/* Quick Nav Links (desktop only, mobile uses Bottom App Dock) */}
-            <nav className="hidden md:flex items-center gap-0.5 sm:gap-1 text-xs font-mono tracking-wider">
-              <a
-                href="#about"
-                className="px-3 py-1.5 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                ESTUDIO
-              </a>
-              <a
-                href="#features"
-                className="px-3 py-1.5 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                SERVICIOS
-              </a>
-              <a
-                href="#portfolio"
-                className="px-3 py-1.5 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                PROYECTOS
-              </a>
-              <a
-                href="#process"
-                className="px-3 py-1.5 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                PIPELINE
-              </a>
-            </nav>
-
-            {/* Mobile Studio Status Badge */}
-            <div className="md:hidden flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10px] font-mono text-emerald-300 tracking-wider">CORE LIVE</span>
-            </div>
-          </div>
-        </header>
-
         {/* Hero bottom-aligned content */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10 lg:p-14 pb-20 sm:pb-8 md:pb-10 lg:pb-14 z-10">
+        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10 lg:p-14 pb-12 sm:pb-8 md:pb-10 lg:pb-14 z-10">
           <div className="grid grid-cols-12 items-end gap-6 md:gap-8">
-            {/* Left 8 columns: Giant Heading with DaVinci HUD & Gold Accent */}
+            {/* Left 8 columns: Giant Heading JRG */}
             <div className="col-span-12 lg:col-span-8 flex flex-col justify-end">
-              <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2 sm:mb-4">
-                <span className="font-alata text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.28em] uppercase text-[#C2A88F] border border-[#C2A88F]/30 bg-black/60 backdrop-blur-md px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_0_15px_rgba(194,168,143,0.15)] flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C2A88F] animate-pulse" />
-                  <span className="hidden sm:inline">EST. 2026 // URRETXU · GIPUZKOA</span>
-                  <span className="sm:hidden">URRETXU · EST. 2026</span>
-                </span>
-                <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-[#E1E0CC]/70 bg-white/[0.04] px-3 py-1.5 rounded-full border border-white/5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                  STUDIO CORE
-                </span>
-              </div>
               <WordsPullUp
                 text="JRG"
                 showAsterisk={true}

@@ -10,7 +10,6 @@ import PrismaDesktopMetrics from "./PrismaDesktopMetrics";
 import PrismaDesktopContact from "./PrismaDesktopContact";
 import PrismaHarvestFooter from "./PrismaHarvestFooter";
 import CinematicCursor from "./CinematicCursor";
-import PrismaMobileBottomDock from "./PrismaMobileBottomDock";
 
 export const PrismaDesktopLanding: React.FC = () => {
   return (
@@ -20,9 +19,6 @@ export const PrismaDesktopLanding: React.FC = () => {
 
       {/* LUXURY INTERACTIVE MICRO-INTERACTIONS */}
       <CinematicCursor />
-
-      {/* MOBILE THUMB-FRIENDLY BOTTOM NAVIGATION DOCK */}
-      <PrismaMobileBottomDock />
 
       {/* 01. HERO */}
       <PrismaDesktopHero />
