@@ -4,6 +4,7 @@ import { LandingConfig, defaultLandingConfig, HeroConfig, SectionItem } from "..
 interface LandingConfigContextType {
   config: LandingConfig;
   updateHero: (partial: Partial<HeroConfig>) => void;
+  updatePosition: (element: "logo" | "subtitle" | "cta", x: number, y: number) => void;
   updateSections: (sections: SectionItem[]) => void;
   toggleSection: (id: string, enabled: boolean) => void;
   moveSection: (index: number, direction: "up" | "down") => void;
@@ -14,7 +15,7 @@ interface LandingConfigContextType {
   isSaving: boolean;
 }
 
-const STORAGE_KEY = "jrg_landing_config_v1";
+const STORAGE_KEY = "jrg_landing_config_v2";
 
 const LandingConfigContext = createContext<LandingConfigContextType | null>(null);
 
@@ -24,12 +25,21 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        return {
-          ...defaultLandingConfig,
-          ...parsed,
-          hero: { ...defaultLandingConfig.hero, ...(parsed.hero || {}) },
-          sections: parsed.sections && parsed.sections.length ? parsed.sections : defaultLandingConfig.sections,
-        };
+        if (parsed && parsed.version === defaultLandingConfig.version) {
+          return {
+            ...defaultLandingConfig,
+            ...parsed,
+            hero: {
+              ...defaultLandingConfig.hero,
+              ...(parsed.hero || {}),
+              positionsMobile: {
+                ...defaultLandingConfig.hero.positionsMobile,
+                ...(parsed.hero?.positionsMobile || {}),
+              },
+            },
+            sections: parsed.sections && parsed.sections.length ? parsed.sections : defaultLandingConfig.sections,
+          };
+        }
       }
     } catch {
       // Fallback to default
@@ -49,13 +59,19 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
         if (res.ok) {
           const cloudConfig = await res.json();
           if (cloudConfig && cloudConfig.hero && isMounted) {
-            // Only overwrite if cloudConfig is newer or local is not modified
             const savedLocal = localStorage.getItem(STORAGE_KEY);
             if (!savedLocal) {
               setConfig({
                 ...defaultLandingConfig,
                 ...cloudConfig,
-                hero: { ...defaultLandingConfig.hero, ...(cloudConfig.hero || {}) },
+                hero: {
+                  ...defaultLandingConfig.hero,
+                  ...(cloudConfig.hero || {}),
+                  positionsMobile: {
+                    ...defaultLandingConfig.hero.positionsMobile,
+                    ...(cloudConfig.hero?.positionsMobile || {}),
+                  },
+                },
                 sections: cloudConfig.sections || defaultLandingConfig.sections,
               });
             }
@@ -108,6 +124,30 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsDirty(true);
   }, []);
 
+  const updatePosition = useCallback((element: "logo" | "subtitle" | "cta", x: number, y: number) => {
+    setConfig((prev) => {
+      const clampedX = Math.max(0, Math.min(92, Math.round(x * 10) / 10));
+      const clampedY = Math.max(0, Math.min(95, Math.round(y * 10) / 10));
+
+      const next = {
+        ...prev,
+        updatedAt: new Date().toISOString(),
+        hero: {
+          ...prev.hero,
+          positionsMobile: {
+            ...prev.hero.positionsMobile,
+            [element]: { x: clampedX, y: clampedY },
+          },
+        },
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+    setIsDirty(true);
+  }, []);
+
   const updateSections = useCallback((sections: SectionItem[]) => {
     setConfig((prev) => {
       const next = {
@@ -153,7 +193,6 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
       newSections[index] = newSections[targetIndex];
       newSections[targetIndex] = temp;
 
-      // Update orders
       const reordered = newSections.map((sec, idx) => ({ ...sec, order: idx + 1 }));
 
       const next = {
@@ -227,6 +266,7 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         config,
         updateHero,
+        updatePosition,
         updateSections,
         toggleSection,
         moveSection,
@@ -245,10 +285,10 @@ export const LandingConfigProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useLandingConfig = () => {
   const context = useContext(LandingConfigContext);
   if (!context) {
-    // Return fallback with defaults if used outside provider
     return {
       config: defaultLandingConfig,
       updateHero: () => {},
+      updatePosition: () => {},
       updateSections: () => {},
       toggleSection: () => {},
       moveSection: () => {},

@@ -18,8 +18,8 @@ export const WordsPullUp: React.FC<WordsPullUpProps> = ({
 
   return (
     <h1
-      className={`inline-flex flex-wrap items-baseline select-none ${className}`}
-      style={{ color: "#E1E0CC", fontSize: "inherit" }}
+      className={`inline-flex flex-wrap items-baseline select-none m-0 p-0 leading-none ${className}`}
+      style={{ color: "#E1E0CC", fontSize: "inherit", margin: 0, padding: 0 }}
     >
       {words.map((word, wordIndex) => {
         const isLastWord = wordIndex === words.length - 1;

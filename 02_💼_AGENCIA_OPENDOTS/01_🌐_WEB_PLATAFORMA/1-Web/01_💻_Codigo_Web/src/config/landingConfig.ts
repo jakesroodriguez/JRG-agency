@@ -1,3 +1,8 @@
+export interface ElementCoordinates {
+  x: number; // percentage (0 to 100)
+  y: number; // percentage (0 to 100)
+}
+
 export interface HeroConfig {
   logoText: string;
   logoFontSizeMobile: number; // in vw, e.g. 28
@@ -7,6 +12,14 @@ export interface HeroConfig {
   logoColor: string;
   showAsterisk: boolean;
   asteriskColor: string;
+
+  // Free Drag & Drop Positioning (Canva Mode)
+  freeDragMobile: boolean;
+  positionsMobile: {
+    logo: ElementCoordinates;
+    subtitle: ElementCoordinates;
+    cta: ElementCoordinates;
+  };
 
   // Subtitle / Text
   showSubtitle: boolean;
@@ -45,7 +58,7 @@ export interface LandingConfig {
 }
 
 export const defaultLandingConfig: LandingConfig = {
-  version: "1.0.0",
+  version: "1.2.0",
   updatedAt: new Date().toISOString(),
   hero: {
     logoText: "JRG",
@@ -56,6 +69,14 @@ export const defaultLandingConfig: LandingConfig = {
     logoColor: "#E1E0CC",
     showAsterisk: true,
     asteriskColor: "#C2A88F",
+
+    // Canva-Style Free Drag Coordinates (JRG arriba en cielo, texto justo debajo, CTA abajo)
+    freeDragMobile: true,
+    positionsMobile: {
+      logo: { x: 6, y: 5 },
+      subtitle: { x: 6, y: 26.5 },
+      cta: { x: 6, y: 88 },
+    },
 
     showSubtitle: true,
     subtitleText: "Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.",
