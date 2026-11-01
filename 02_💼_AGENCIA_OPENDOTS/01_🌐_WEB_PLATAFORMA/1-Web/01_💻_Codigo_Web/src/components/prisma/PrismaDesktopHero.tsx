@@ -29,18 +29,32 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
         {/* Cinematic gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none z-[2]" />
 
-        {/* Hero content: Mobile splits Top (JRG*) & Bottom (Text + CTA). Desktop aligns both at bottom grid */}
+        {/* Hero content: Mobile splits Top (JRG* + Subtitle) & Bottom (CTA). Desktop aligns both at bottom grid */}
         <div className="absolute inset-0 p-6 sm:p-8 md:p-10 lg:p-14 pb-8 sm:pb-8 md:pb-10 lg:pb-14 z-10 flex flex-col justify-between lg:grid lg:grid-cols-12 lg:items-end lg:gap-8 pointer-events-none">
-          {/* Top on mobile, Bottom-Left on desktop: Giant Heading JRG */}
-          <div className="col-span-12 lg:col-span-8 flex flex-col justify-start lg:justify-end pt-8 sm:pt-4 lg:pt-0 pointer-events-auto">
+          {/* Top on mobile, Bottom-Left on desktop: Giant Heading JRG + Subtitle directly under JRG on mobile */}
+          <div className="col-span-12 lg:col-span-8 flex flex-col justify-start lg:justify-end pt-8 sm:pt-6 lg:pt-0 pointer-events-auto">
             <WordsPullUp
               text="JRG"
               showAsterisk={true}
-              className="text-[20vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
+              className="text-[30vw] sm:text-[26vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.06em]"
             />
+            {/* Subtitle placed directly below JRG on mobile */}
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="lg:hidden mt-3 sm:mt-4 text-xs sm:text-sm leading-[1.3] max-w-[290px] sm:max-w-sm font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]"
+              style={{ color: "rgba(222, 219, 200, 0.95)" }}
+            >
+              Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.
+            </motion.p>
           </div>
 
-          {/* Bottom on mobile, Bottom-Right on desktop: Description + Iniciar proyecto Button */}
+          {/* Bottom on mobile, Bottom-Right on desktop: Desktop Description + Iniciar proyecto Button */}
           <div className="col-span-12 lg:col-span-4 flex flex-col gap-5 sm:gap-6 justify-end pb-2 pointer-events-auto">
             <motion.p
               initial={{ y: 20, opacity: 0 }}
@@ -50,15 +64,10 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
                 delay: 0.5,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="text-xs sm:text-sm md:text-base leading-[1.2] max-w-md font-normal"
+              className="hidden lg:block text-xs sm:text-sm md:text-base leading-[1.2] max-w-md font-normal"
               style={{ color: "rgba(222, 219, 200, 0.85)" }}
             >
-              <span className="hidden sm:inline">
-                JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
-              </span>
-              <span className="sm:hidden">
-                Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.
-              </span>
+              JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
             </motion.p>
 
             <motion.div
