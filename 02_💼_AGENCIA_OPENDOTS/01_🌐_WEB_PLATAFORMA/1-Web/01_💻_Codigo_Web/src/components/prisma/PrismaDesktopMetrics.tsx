@@ -87,8 +87,9 @@ export const PrismaDesktopMetrics: React.FC = () => {
         <div className="text-center mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#C2A88F]/40 bg-black/70 backdrop-blur-xl shadow-[0_0_20px_rgba(194,168,143,0.18)] mb-4">
             <Award className="w-3.5 h-3.5 text-[#C2A88F]" />
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#C2A88F] font-semibold">
-              VALIDACIÓN EMPÍRICA // TELEMETRÍA DE ESTUDIO
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#C2A88F] font-semibold">
+              <span className="hidden sm:inline">VALIDACIÓN EMPÍRICA // TELEMETRÍA DE ESTUDIO</span>
+              <span className="sm:hidden">TELEMETRÍA DE ESTUDIO</span>
             </span>
           </div>
 
@@ -105,7 +106,7 @@ export const PrismaDesktopMetrics: React.FC = () => {
         </div>
 
         {/* 4 Architectural Telemetry Metrics Bento */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12 md:mb-20">
           {topMetrics.map((m, idx) => {
             const Icon = m.icon;
             return (
@@ -115,17 +116,17 @@ export const PrismaDesktopMetrics: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="bg-[#0A0A0B]/90 rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-300 flex flex-col justify-between shadow-2xl backdrop-blur-xl group hover:-translate-y-1"
+                className="bg-[#0A0A0B]/90 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-300 flex flex-col justify-between shadow-2xl backdrop-blur-xl group hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#C2A88F] px-2.5 py-1 rounded bg-[#C2A88F]/10 border border-[#C2A88F]/25">
+                    <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.18em] text-[#C2A88F] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-[#C2A88F]/10 border border-[#C2A88F]/25 truncate max-w-[110px] sm:max-w-none">
                       {m.badge}
                     </span>
                     <Icon className="w-4 h-4 text-zinc-500 group-hover:text-[#C2A88F] transition-colors" />
                   </div>
 
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-mono tabular-nums font-light text-[#EFE8E1] tracking-tight mb-2">
+                  <div className="text-2xl sm:text-4xl md:text-5xl font-mono tabular-nums font-light text-[#EFE8E1] tracking-tight mb-1 sm:mb-2">
                     {m.value}
                   </div>
 
@@ -134,7 +135,7 @@ export const PrismaDesktopMetrics: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-[11px] sm:text-xs text-zinc-400 font-light leading-relaxed pt-4 border-t border-white/5">
+                <p className="hidden sm:block text-[11px] sm:text-xs text-zinc-400 font-light leading-relaxed pt-4 border-t border-white/5">
                   {m.desc}
                 </p>
               </motion.div>

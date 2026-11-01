@@ -123,8 +123,9 @@ export const PrismaDesktopContact: React.FC = () => {
 
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#C2A88F]/40 bg-black/70 backdrop-blur-xl shadow-[0_0_20px_rgba(194,168,143,0.18)] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#C2A88F] animate-pulse" />
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#C2A88F] font-semibold">
-              DISPONIBILIDAD ESTUDIO Q4 2026 // 2 CUPOS ABIERTOS
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#C2A88F] font-semibold">
+              <span className="hidden sm:inline">DISPONIBILIDAD ESTUDIO Q4 2026 // 2 CUPOS ABIERTOS</span>
+              <span className="sm:hidden">ESTUDIO // 2 CUPOS ABIERTOS</span>
             </span>
           </div>
 
@@ -134,12 +135,25 @@ export const PrismaDesktopContact: React.FC = () => {
           <div className="text-lg sm:text-2xl md:text-3xl font-normal text-zinc-400">
             <WordsPullUpMultiStyle segments={line2Segments} delay={0.15} />
           </div>
+
+          {/* Quick-Access WhatsApp Button on Mobile */}
+          <div className="lg:hidden mt-8 flex justify-center">
+            <a
+              href="https://wa.me/34688849495?text=Hola%20Jakes,%20quiero%20consultar%20la%20viabilidad%20de%20un%20proyecto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#DEDBC8] via-[#C2A88F] to-[#A8896C] text-black font-semibold text-xs font-mono tracking-wider shadow-lg shadow-[#C2A88F]/25 hover:brightness-110 transition-all cursor-pointer"
+            >
+              <MessageSquare className="w-4 h-4 text-black" />
+              <span>CONSULTA DIRECTA POR WHATSAPP</span>
+            </a>
+          </div>
         </div>
 
         {/* High-Ticket Conversion Terminal Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Left 5 Columns: Founder Authority & Risk Reversal Guarantees */}
-          <div className="lg:col-span-5 rounded-3xl p-7 sm:p-9 md:p-10 border border-white/10 bg-[#0A0A0B]/90 backdrop-blur-2xl shadow-2xl flex flex-col justify-between">
+          <div className="lg:col-span-5 rounded-3xl p-5 sm:p-9 md:p-10 border border-white/10 bg-[#0A0A0B]/90 backdrop-blur-2xl shadow-2xl flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#C2A88F] mb-3">
                 <ShieldCheck className="w-4 h-4 text-[#C2A88F]" />
@@ -235,7 +249,7 @@ export const PrismaDesktopContact: React.FC = () => {
           </div>
 
           {/* Right 7 Columns: Interactive Micro-Intake Qualification Terminal */}
-          <div className="lg:col-span-7 rounded-3xl p-7 sm:p-9 md:p-10 border border-white/10 bg-[#0A0A0B]/90 backdrop-blur-2xl shadow-2xl flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-3xl p-5 sm:p-9 md:p-10 border border-white/10 bg-[#0A0A0B]/90 backdrop-blur-2xl shadow-2xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#C2A88F]">

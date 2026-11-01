@@ -66,7 +66,11 @@ export const PrismaDesktopProcess: React.FC = () => {
   return (
     <section className="bg-black py-24 md:py-36 px-4 md:px-8 relative select-none overflow-hidden" id="process">
       {/* 3D Full-Screen Metallic Chain Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      {/* Mobile Ambient Glow */}
+      <div className="md:hidden absolute top-1/3 left-1/2 -translate-x-1/2 w-80 h-80 bg-[#C2A88F]/[0.06] rounded-full blur-3xl pointer-events-none" />
+
+      {/* 3D Full-Screen Metallic Chain Background (Desktop only) */}
+      <div className="hidden md:block absolute inset-0 z-0 overflow-hidden">
         <TaffyChain
           speed={30}
           sway={80}

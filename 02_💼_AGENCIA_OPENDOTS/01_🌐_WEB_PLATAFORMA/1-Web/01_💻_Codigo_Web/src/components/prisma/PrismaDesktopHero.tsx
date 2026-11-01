@@ -89,14 +89,15 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
         </header>
 
         {/* Hero bottom-aligned content */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10 lg:p-14 pb-24 sm:pb-8 md:pb-10 lg:pb-14 z-10">
+        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10 lg:p-14 pb-20 sm:pb-8 md:pb-10 lg:pb-14 z-10">
           <div className="grid grid-cols-12 items-end gap-6 md:gap-8">
             {/* Left 8 columns: Giant Heading with DaVinci HUD & Gold Accent */}
             <div className="col-span-12 lg:col-span-8 flex flex-col justify-end">
               <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2 sm:mb-4">
-                <span className="font-alata text-[10px] sm:text-xs tracking-[0.28em] uppercase text-[#C2A88F] border border-[#C2A88F]/30 bg-black/60 backdrop-blur-md px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_0_15px_rgba(194,168,143,0.15)] flex items-center gap-2">
+                <span className="font-alata text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.28em] uppercase text-[#C2A88F] border border-[#C2A88F]/30 bg-black/60 backdrop-blur-md px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_0_15px_rgba(194,168,143,0.15)] flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C2A88F] animate-pulse" />
-                  EST. 2026 // URRETXU · GIPUZKOA
+                  <span className="hidden sm:inline">EST. 2026 // URRETXU · GIPUZKOA</span>
+                  <span className="sm:hidden">URRETXU · EST. 2026</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-[#E1E0CC]/70 bg-white/[0.04] px-3 py-1.5 rounded-full border border-white/5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
@@ -106,7 +107,7 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
               <WordsPullUp
                 text="JRG"
                 showAsterisk={true}
-                className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
+                className="text-[20vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em]"
               />
             </div>
 
@@ -121,9 +122,14 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className="text-xs sm:text-sm md:text-base leading-[1.2] max-w-md font-normal"
-                style={{ color: "rgba(222, 219, 200, 0.7)" }}
+                style={{ color: "rgba(222, 219, 200, 0.85)" }}
               >
-                JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
+                <span className="hidden sm:inline">
+                  JRG Agency es un estudio de desarrollo web de alto impacto, experiencias interactivas 3D y sistemas de agentes inteligentes, enfocado en desbloquear el potencial ilimitado de proyectos visionarios.
+                </span>
+                <span className="sm:hidden">
+                  Estudio de desarrollo web de alto impacto, experiencias 3D y sistemas de IA para marcas visionarias.
+                </span>
               </motion.p>
 
               <motion.div

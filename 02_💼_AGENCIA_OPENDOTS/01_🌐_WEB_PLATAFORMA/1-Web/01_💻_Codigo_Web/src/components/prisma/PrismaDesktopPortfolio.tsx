@@ -297,12 +297,12 @@ export const PrismaDesktopPortfolio: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4 }}
-            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-6 sm:p-8 md:p-12"
+            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
           >
             {/* Main Grid: Info + Interactive Mockup */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
               {/* Left 5 Columns: Project Details */}
-              <div className="lg:col-span-5 flex flex-col justify-between h-full">
+              <div className="lg:col-span-5 flex flex-col justify-between h-full order-2 lg:order-1">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentProject.id}
@@ -386,7 +386,7 @@ export const PrismaDesktopPortfolio: React.FC = () => {
               </div>
 
               {/* Right 7 Columns: 3D Tilt Device Browser Mockup */}
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-7 order-1 lg:order-2">
                 <AnimatePresence mode="wait">
                   <TiltCard maxTilt={8} glare={true}>
                     <motion.div
@@ -517,11 +517,11 @@ export const PrismaDesktopPortfolio: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4 }}
-            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-6 sm:p-8 md:p-12"
+            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
               {/* Left 5-6 Columns: Hardware Story & Specs */}
-              <div className="lg:col-span-5 flex flex-col justify-between h-full">
+              <div className="lg:col-span-5 flex flex-col justify-between h-full order-2 lg:order-1">
                 <div>
                   {/* Status & Badge */}
                   <div className="flex items-center gap-3 mb-4">
@@ -623,7 +623,7 @@ export const PrismaDesktopPortfolio: React.FC = () => {
               </div>
 
               {/* Right 6-7 Columns: TiltCard Studio Render Showcase */}
-              <div className="lg:col-span-7">
+              <div className="lg:col-span-7 order-1 lg:order-2">
                 <TiltCard maxTilt={8} glare={true}>
                   <div className="relative group rounded-2xl md:rounded-3xl overflow-hidden border border-white/15 bg-[#0a0a0a] shadow-2xl">
                     {/* Studio Camera Monitor Topbar */}

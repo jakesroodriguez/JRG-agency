@@ -111,15 +111,17 @@ export const PrismaDesktopMethod: React.FC = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none" />
 
       {/* Ambient warm specular aura */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#C2A88F]/[0.05] blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#C2A88F]/[0.08] blur-[140px] pointer-events-none" />
+      <div className="md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 w-80 h-80 bg-[#C2A88F]/[0.06] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Editorial Eyebrow & Headline */}
         <div className="mb-14 md:mb-20 text-left md:text-center">
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-xl mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C2A88F]" />
-            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#C2A88F]">
-              METODOLOGÍA DE AUTOR // ESPECIFICACIÓN TÉCNICA
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#C2A88F]">
+              <span className="hidden sm:inline">METODOLOGÍA DE AUTOR // ESPECIFICACIÓN TÉCNICA</span>
+              <span className="sm:hidden">METODOLOGÍA DE AUTOR</span>
             </span>
           </div>
 
@@ -136,8 +138,8 @@ export const PrismaDesktopMethod: React.FC = () => {
         </div>
 
         {/* Minimalist Architectural View Switcher */}
-        <div className="flex justify-start md:justify-center mb-10">
-          <div className="p-1 rounded-full bg-zinc-950 border border-white/10 inline-flex items-center gap-1 shadow-2xl">
+        <div className="flex justify-center mb-10">
+          <div className="w-full sm:w-auto p-1 rounded-full bg-zinc-950 border border-white/10 grid grid-cols-2 sm:flex sm:items-center gap-1 shadow-2xl">
             <button
               onClick={() => {
                 if (activeView !== "audit") {
@@ -145,7 +147,7 @@ export const PrismaDesktopMethod: React.FC = () => {
                   setActiveView("audit");
                 }
               }}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 rounded-full text-[10px] sm:text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
                 activeView === "audit"
                   ? "bg-[#EFE8E1] text-black font-semibold shadow-md"
                   : "text-zinc-400 hover:text-white"
@@ -162,7 +164,7 @@ export const PrismaDesktopMethod: React.FC = () => {
                   setActiveView("vectors");
                 }
               }}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 rounded-full text-[10px] sm:text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
                 activeView === "vectors"
                   ? "bg-[#EFE8E1] text-black font-semibold shadow-md"
                   : "text-zinc-400 hover:text-white"

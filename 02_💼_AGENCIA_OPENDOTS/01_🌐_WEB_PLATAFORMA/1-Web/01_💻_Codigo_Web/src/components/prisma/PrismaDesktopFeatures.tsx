@@ -93,7 +93,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
   return (
     <section className="min-h-screen bg-black py-28 md:py-40 px-4 md:px-8 relative select-none overflow-hidden" id="features">
       {/* 3D Tornado WebGL Vortex Background */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-90">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-35 md:opacity-90">
         <TornadoVortex
           background="transparent"
           topRadius={420}
@@ -144,8 +144,9 @@ export const PrismaDesktopFeatures: React.FC = () => {
         <div className="text-center mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#C2A88F]/40 bg-black/70 backdrop-blur-xl shadow-[0_0_20px_rgba(194,168,143,0.18)] mb-5">
             <Sparkles className="w-3.5 h-3.5 text-[#C2A88F]" />
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#C2A88F] font-semibold">
-              SERVICIOS & WORKFLOWS DE AUTOR // STACK 2026
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#C2A88F] font-semibold">
+              <span className="hidden sm:inline">SERVICIOS & WORKFLOWS DE AUTOR // STACK 2026</span>
+              <span className="sm:hidden">WORKFLOWS DE AUTOR // 2026</span>
             </span>
           </div>
 
@@ -176,7 +177,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
             >
               {card.type === "video" ? (
                 /* Card 1: Video background card */
-                <div className="relative h-full min-h-[420px] lg:min-h-0 rounded-3xl overflow-hidden group border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-500 shadow-2xl flex flex-col justify-between p-7">
+                <div className="relative h-full min-h-[420px] lg:min-h-0 rounded-3xl overflow-hidden group border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-500 shadow-2xl flex flex-col justify-between p-5 sm:p-7">
                   <video
                     autoPlay
                     loop
@@ -193,7 +194,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
 
                   {/* Top Tag */}
                   <div className="relative z-10 flex items-center justify-between">
-                    <span className="text-[10px] tracking-[0.2em] uppercase font-mono px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#C2A88F]/30 text-[#C2A88F] inline-block shadow-md">
+                    <span className="text-[9px] sm:text-[10px] tracking-[0.14em] sm:tracking-[0.2em] uppercase font-mono px-2.5 sm:px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#C2A88F]/30 text-[#C2A88F] inline-block shadow-md">
                       {card.tag}
                     </span>
                     <span className="font-mono text-[10px] text-zinc-400 bg-white/10 px-2 py-0.5 rounded">
@@ -214,7 +215,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
               ) : (
                 /* Card 2, 3, 4: Content cards with 3D Tilt */
                 <TiltCard maxTilt={5} glare={true} className="h-full">
-                  <div className="h-full min-h-[440px] lg:min-h-0 bg-[#0A0A0B]/90 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-500 shadow-2xl group relative overflow-hidden">
+                  <div className="h-full min-h-[380px] lg:min-h-0 bg-[#0A0A0B]/90 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-[#C2A88F]/40 transition-all duration-500 shadow-2xl group relative overflow-hidden">
                     {/* Optional ToonFireball energy core background for Card 02 (Agentes & IA) */}
                     {card.hasFireball && (
                       <div className="absolute -top-12 -right-12 w-44 h-44 rounded-full pointer-events-none opacity-30 overflow-hidden z-0">
@@ -257,7 +258,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
                             <span className="mt-0.5 flex-shrink-0 text-[#C2A88F]">
                               <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                             </span>
-                            <span className="text-xs leading-relaxed text-zinc-400 font-light">
+                            <span className="text-xs leading-relaxed text-zinc-300 font-light">
                               {item}
                             </span>
                           </li>

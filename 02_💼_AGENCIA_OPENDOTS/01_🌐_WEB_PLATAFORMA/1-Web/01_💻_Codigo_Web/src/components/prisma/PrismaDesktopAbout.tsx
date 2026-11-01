@@ -63,7 +63,7 @@ export const PrismaDesktopAbout: React.FC = () => {
       </div>
 
       {/* Liquid Glass Main Window */}
-      <div className="max-w-5xl mx-auto bg-[#0a0a0a]/30 backdrop-blur-md rounded-2xl md:rounded-[2.5rem] p-8 sm:p-12 md:p-16 text-center border border-white/10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.95)] relative overflow-hidden z-10">
+      <div className="max-w-5xl mx-auto bg-[#0a0a0a]/30 backdrop-blur-md rounded-2xl md:rounded-[2.5rem] p-5 sm:p-12 md:p-16 text-center border border-white/10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.95)] relative overflow-hidden z-10">
         {/* Subtle radial ambient glow inside card */}
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
 
@@ -81,13 +81,14 @@ export const PrismaDesktopAbout: React.FC = () => {
               </div>
             </div>
           </div>
-          <span className="text-[10px] sm:text-xs tracking-[0.28em] uppercase font-alata px-4 py-1.5 rounded-full border border-[#C2A88F]/30 bg-[#C2A88F]/[0.06] backdrop-blur-md inline-block shadow-[0_0_15px_rgba(194, 168, 143,0.12)] text-[#C2A88F]">
-            DESARROLLO WEB & EXPERIENCIAS 3D
+          <span className="text-[9px] sm:text-xs tracking-[0.16em] sm:tracking-[0.28em] uppercase font-alata px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[#C2A88F]/30 bg-[#C2A88F]/[0.06] backdrop-blur-md inline-block shadow-[0_0_15px_rgba(194, 168, 143,0.12)] text-[#C2A88F]">
+            <span className="hidden sm:inline">DESARROLLO WEB & EXPERIENCIAS 3D</span>
+            <span className="sm:hidden">DESARROLLO WEB & 3D</span>
           </span>
         </div>
 
         {/* Main heading with WordsPullUpMultiStyle */}
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-3xl mx-auto leading-[0.95] sm:leading-[0.9] text-center relative z-10">
+        <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl max-w-3xl mx-auto leading-[1.08] sm:leading-[0.9] text-center relative z-10">
           <WordsPullUpMultiStyle segments={headingSegments} delay={0.1} />
         </div>
 
@@ -119,26 +120,26 @@ export const PrismaDesktopAbout: React.FC = () => {
         </p>
 
         {/* Bottom stats pill row */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-wrap justify-center items-center gap-8 md:gap-16 text-left relative z-10">
+        <div className="mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-white/10 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:items-center sm:gap-16 text-center sm:text-left relative z-10">
           <div>
-            <div className="text-2xl font-bold" style={{ color: "#E1E0CC" }}>
+            <div className="text-base sm:text-2xl font-bold" style={{ color: "#E1E0CC" }}>
               +5 Años
             </div>
-            <div className="text-xs text-gray-400 font-mono">Experiencia Web</div>
+            <div className="text-[10px] sm:text-xs text-gray-400 font-mono">Experiencia Web</div>
           </div>
           <div className="w-[1px] h-8 bg-white/10 hidden sm:block" />
           <div>
-            <div className="text-2xl font-bold" style={{ color: "#E1E0CC" }}>
+            <div className="text-base sm:text-2xl font-bold" style={{ color: "#E1E0CC" }}>
               3D & WebGL
             </div>
-            <div className="text-xs text-gray-400 font-mono">Three.js / Shaders</div>
+            <div className="text-[10px] sm:text-xs text-gray-400 font-mono">Three.js / Shaders</div>
           </div>
           <div className="w-[1px] h-8 bg-white/10 hidden sm:block" />
           <div>
-            <div className="text-2xl font-bold" style={{ color: "#E1E0CC" }}>
+            <div className="text-base sm:text-2xl font-bold" style={{ color: "#E1E0CC" }}>
               Agentes IA
             </div>
-            <div className="text-xs text-gray-400 font-mono">Orquestación LLM</div>
+            <div className="text-[10px] sm:text-xs text-gray-400 font-mono">Orquestación LLM</div>
           </div>
         </div>
       </div>
