@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LegalAssistantModal from "./components/legal/LegalAssistantModal";
 import "./App.css";
 
-const MobileLanding = lazy(() => import("./mobile/MobileLanding"));
 const DesktopLanding = lazy(() => import("./components/prisma/PrismaDesktopLanding"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
@@ -33,29 +32,6 @@ function ScrollToTop() {
   return null;
 }
 
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.innerWidth < breakpoint;
-  });
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mql = window.matchMedia('(max-width: ' + (breakpoint - 1) + 'px)');
-    const update = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
-    update(mql);
-
-    if (mql.addEventListener) {
-      mql.addEventListener("change", update);
-      return () => mql.removeEventListener("change", update);
-    } else {
-      mql.addListener(update);
-      return () => mql.removeListener(update);
-    }
-  }, [breakpoint]);
-
-  return isMobile;
-}
 
 const LegalFallback = () => (
   <div style={{ minHeight: "100vh", background: "#07090E", display: "flex", alignItems: "center", justifyContent: "center", color: "#8b949e", fontFamily: "sans-serif" }}>
@@ -64,8 +40,6 @@ const LegalFallback = () => (
 );
 
 const App = () => {
-  const isMobile = useIsMobile(768);
-
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -73,15 +47,9 @@ const App = () => {
         <Route
           path="/"
           element={
-            isMobile ? (
-              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f7fb' }} />}>
-                <MobileLanding />
-              </Suspense>
-            ) : (
-              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
-                <DesktopLanding />
-              </Suspense>
-            )
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+              <DesktopLanding />
+            </Suspense>
           }
         />
         <Route

@@ -10,15 +10,19 @@ import PrismaDesktopMetrics from "./PrismaDesktopMetrics";
 import PrismaDesktopContact from "./PrismaDesktopContact";
 import PrismaHarvestFooter from "./PrismaHarvestFooter";
 import CinematicCursor from "./CinematicCursor";
+import PrismaMobileBottomDock from "./PrismaMobileBottomDock";
 
 export const PrismaDesktopLanding: React.FC = () => {
   return (
-    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black">
-      {/* 00. DESKTOP PRELOADER */}
+    <div className="prisma-scope min-h-screen bg-black text-[#E1E0CC] selection:bg-[#DEDBC8] selection:text-black relative">
+      {/* 00. PRELOADER */}
       <PrismaDesktopPreloader />
 
       {/* LUXURY INTERACTIVE MICRO-INTERACTIONS */}
       <CinematicCursor />
+
+      {/* MOBILE THUMB-FRIENDLY BOTTOM NAVIGATION DOCK */}
+      <PrismaMobileBottomDock />
 
       {/* 01. HERO */}
       <PrismaDesktopHero />
