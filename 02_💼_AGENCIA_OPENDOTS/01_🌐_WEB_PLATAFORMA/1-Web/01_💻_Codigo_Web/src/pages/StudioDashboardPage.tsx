@@ -29,6 +29,71 @@ import WordsPullUp from "../components/prisma/WordsPullUp";
 
 type ElementType = "logo" | "subtitle" | "cta";
 
+export const ELEMENT_CALIBRATION: Record<
+  ElementType,
+  {
+    name: string;
+    widthApprox: number;
+    leftMargin: number;
+    center: number;
+    rightMargin: number;
+    maxX: number;
+    defaultY: number;
+    yTopLabel: string;
+    yTopVal: number;
+    yMidLabel: string;
+    yMidVal: number;
+    yBottomLabel: string;
+    yBottomVal: number;
+  }
+> = {
+  logo: {
+    name: "Logo JRG",
+    widthApprox: 57,
+    leftMargin: 6,
+    center: 21.5,
+    rightMargin: 37,
+    maxX: 42,
+    defaultY: 5,
+    yTopLabel: "⬆ Cielo",
+    yTopVal: 5,
+    yMidLabel: "↕ En Medio",
+    yMidVal: 40,
+    yBottomLabel: "⬇ Rocas",
+    yBottomVal: 72,
+  },
+  subtitle: {
+    name: "Texto Descriptivo",
+    widthApprox: 74,
+    leftMargin: 6,
+    center: 13,
+    rightMargin: 20,
+    maxX: 26,
+    defaultY: 26.5,
+    yTopLabel: "⬆ En Cielo",
+    yTopVal: 10,
+    yMidLabel: "↕ Bajo JRG",
+    yMidVal: 26.5,
+    yBottomLabel: "⬇ Sobre CTA",
+    yBottomVal: 76,
+  },
+  cta: {
+    name: "Botón CTA",
+    widthApprox: 46,
+    leftMargin: 6,
+    center: 27,
+    rightMargin: 48,
+    maxX: 54,
+    defaultY: 88,
+    yTopLabel: "⬆ Arriba",
+    yTopVal: 16,
+    yMidLabel: "↕ En Medio",
+    yMidVal: 50,
+    yBottomLabel: "⬇ Fondo",
+    yBottomVal: 88,
+  },
+};
+
 const CanvaStudioInner: React.FC = () => {
   const {
     config,
@@ -98,8 +163,18 @@ const CanvaStudioInner: React.FC = () => {
       const deltaXPercent = (deltaX / rect.width) * 100;
       const deltaYPercent = (deltaY / rect.height) * 100;
 
-      const newX = Math.max(0, Math.min(85, dragStartRef.current.initialElemX + deltaXPercent));
-      const newY = Math.max(0, Math.min(92, dragStartRef.current.initialElemY + deltaYPercent));
+      let newX = Math.max(0, Math.min(85, dragStartRef.current.initialElemX + deltaXPercent));
+      let newY = Math.max(0, Math.min(92, dragStartRef.current.initialElemY + deltaYPercent));
+
+      // Magnetic snap to center if within 1.2%
+      const targetCenter = ELEMENT_CALIBRATION[elem].center;
+      if (Math.abs(newX - targetCenter) <= 1.2) {
+        newX = targetCenter;
+      }
+      // Magnetic snap to left margin (6%) if within 1%
+      if (Math.abs(newX - 6) <= 1.0) {
+        newX = 6;
+      }
 
       updatePosition(elem, newX, newY);
     };
@@ -196,6 +271,10 @@ const CanvaStudioInner: React.FC = () => {
   };
 
   const currentPos = positions[selectedElement] || { x: 6, y: 10 };
+  const calib = ELEMENT_CALIBRATION[selectedElement];
+  const isElementCentered = Math.abs(currentPos.x - calib.center) <= 0.6;
+  const isElementLeft = Math.abs(currentPos.x - calib.leftMargin) <= 0.6;
+  const isElementRight = Math.abs(currentPos.x - calib.rightMargin) <= 0.6;
 
   return (
     <div className="min-h-screen bg-[#07080B] text-[#E1E0CC] flex flex-col font-sans select-none overflow-hidden">
@@ -376,101 +455,191 @@ const CanvaStudioInner: React.FC = () => {
                   <div className="flex items-center justify-between text-stone-200 font-bold border-b border-white/10 pb-2">
                     <span className="flex items-center gap-2">
                       <Crosshair className="w-4 h-4 text-[#C2A88F]" />
-                      Coordenadas de {selectedElement === "logo" ? "Logo JRG" : selectedElement === "subtitle" ? "Texto Descriptivo" : "Botón CTA"}
+                      Posición de {calib.name}
                     </span>
-                    <span className="text-[11px] font-mono text-[#C2A88F] bg-[#C2A88F]/15 px-2 py-0.5 rounded-full">
-                      X: {currentPos.x}% · Y: {currentPos.y}%
-                    </span>
+                    {isElementCentered ? (
+                      <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1 shadow-[0_0_12px_rgba(16,185,129,0.3)]">
+                        ✓ 🎯 Centrado
+                      </span>
+                    ) : isElementLeft ? (
+                      <span className="text-[10px] font-mono text-[#C2A88F] bg-[#C2A88F]/15 border border-[#C2A88F]/30 px-2 py-0.5 rounded-full">
+                        ⬅ Margen Izquierdo (6%)
+                      </span>
+                    ) : isElementRight ? (
+                      <span className="text-[10px] font-mono text-[#C2A88F] bg-[#C2A88F]/15 border border-[#C2A88F]/30 px-2 py-0.5 rounded-full">
+                        ➡ Margen Derecho ({calib.rightMargin}%)
+                      </span>
+                    ) : (
+                      <span className="text-[11px] font-mono text-[#C2A88F] bg-[#C2A88F]/15 px-2 py-0.5 rounded-full">
+                        X: {currentPos.x}% · Y: {currentPos.y}%
+                      </span>
+                    )}
                   </div>
 
-                  {/* Horizontal X Slider */}
-                  <div>
-                    <div className="flex justify-between text-[11px] text-stone-300 mb-1.5">
-                      <span>Posición Horizontal (X)</span>
-                      <span className="font-mono text-white font-bold">{currentPos.x}%</span>
+                  {/* Horizontal X with Precision Controls */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px] text-stone-300">
+                      <span className="font-semibold text-white">Posición Horizontal (X)</span>
+
+                      {/* Precision Micro-steppers and Number Input */}
+                      <div className="flex items-center gap-1 bg-black/60 border border-white/15 rounded-lg p-0.5">
+                        <button
+                          onClick={() => updatePosition(selectedElement, Math.max(0, Math.round((currentPos.x - 0.5) * 10) / 10), currentPos.y)}
+                          className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-stone-300 hover:text-white hover:bg-white/15 transition-colors"
+                          title="Mover 0.5% a la izquierda"
+                        >
+                          -
+                        </button>
+                        <div className="flex items-center px-1">
+                          <input
+                            type="number"
+                            step="0.5"
+                            min="0"
+                            max="80"
+                            value={currentPos.x}
+                            onChange={(e) => updatePosition(selectedElement, Number(e.target.value), currentPos.y)}
+                            className="w-12 bg-transparent text-center font-mono text-white text-xs font-bold focus:outline-none"
+                          />
+                          <span className="text-[10px] text-stone-400 font-mono">%</span>
+                        </div>
+                        <button
+                          onClick={() => updatePosition(selectedElement, Math.min(80, Math.round((currentPos.x + 0.5) * 10) / 10), currentPos.y)}
+                          className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-stone-300 hover:text-white hover:bg-white/15 transition-colors"
+                          title="Mover 0.5% a la derecha"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
+
+                    {/* Calibrated Slider */}
                     <input
                       type="range"
                       min={0}
-                      max={80}
+                      max={Math.max(45, calib.maxX + 10)}
                       step={0.5}
                       value={currentPos.x}
                       onChange={(e) => updatePosition(selectedElement, Number(e.target.value), currentPos.y)}
                       className="w-full accent-[#C2A88F] bg-white/15 h-2 rounded-lg appearance-none cursor-pointer"
                     />
-                    <div className="flex justify-between text-[10px] text-stone-500 mt-1">
-                      <span>Izquierda (0%)</span>
-                      <span>Centro (30%)</span>
-                      <span>Derecha (60%)</span>
+
+                    {/* Exact Calibrated Snapping Buttons */}
+                    <div className="grid grid-cols-3 gap-1.5 pt-1">
+                      <button
+                        onClick={() => updatePosition(selectedElement, calib.leftMargin, currentPos.y)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-semibold transition-all ${
+                          isElementLeft
+                            ? "bg-[#C2A88F] text-black border-[#C2A88F] shadow-md font-bold"
+                            : "bg-black/40 border-white/10 text-stone-300 hover:text-white hover:bg-white/10"
+                        }`}
+                      >
+                        ⬅ Izquierda ({calib.leftMargin}%)
+                      </button>
+
+                      <button
+                        onClick={() => updatePosition(selectedElement, calib.center, currentPos.y)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-bold transition-all ${
+                          isElementCentered
+                            ? "bg-emerald-500 text-black border-emerald-400 shadow-[0_0_14px_rgba(16,185,129,0.5)] scale-[1.02]"
+                            : "bg-black/40 border-white/10 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/10"
+                        }`}
+                      >
+                        🎯 Centro ({calib.center}%)
+                      </button>
+
+                      <button
+                        onClick={() => updatePosition(selectedElement, calib.rightMargin, currentPos.y)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-semibold transition-all ${
+                          isElementRight
+                            ? "bg-[#C2A88F] text-black border-[#C2A88F] shadow-md font-bold"
+                            : "bg-black/40 border-white/10 text-stone-300 hover:text-white hover:bg-white/10"
+                        }`}
+                      >
+                        ➡ Derecha ({calib.rightMargin}%)
+                      </button>
                     </div>
                   </div>
 
-                  {/* Vertical Y Slider */}
-                  <div>
-                    <div className="flex justify-between text-[11px] text-stone-300 mb-1.5">
-                      <span>Posición Vertical (Y)</span>
-                      <span className="font-mono text-white font-bold">{currentPos.y}%</span>
+                  {/* Vertical Y with Precision Controls */}
+                  <div className="space-y-2 pt-3 border-t border-white/10">
+                    <div className="flex items-center justify-between text-[11px] text-stone-300">
+                      <span className="font-semibold text-white">Posición Vertical (Y)</span>
+
+                      {/* Precision Micro-steppers and Number Input */}
+                      <div className="flex items-center gap-1 bg-black/60 border border-white/15 rounded-lg p-0.5">
+                        <button
+                          onClick={() => updatePosition(selectedElement, currentPos.x, Math.max(0, Math.round((currentPos.y - 0.5) * 10) / 10))}
+                          className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-stone-300 hover:text-white hover:bg-white/15 transition-colors"
+                          title="Subir 0.5%"
+                        >
+                          -
+                        </button>
+                        <div className="flex items-center px-1">
+                          <input
+                            type="number"
+                            step="0.5"
+                            min="0"
+                            max="95"
+                            value={currentPos.y}
+                            onChange={(e) => updatePosition(selectedElement, currentPos.x, Number(e.target.value))}
+                            className="w-12 bg-transparent text-center font-mono text-white text-xs font-bold focus:outline-none"
+                          />
+                          <span className="text-[10px] text-stone-400 font-mono">%</span>
+                        </div>
+                        <button
+                          onClick={() => updatePosition(selectedElement, currentPos.x, Math.min(95, Math.round((currentPos.y + 0.5) * 10) / 10))}
+                          className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-stone-300 hover:text-white hover:bg-white/15 transition-colors"
+                          title="Bajar 0.5%"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
+
+                    {/* Calibrated Slider */}
                     <input
                       type="range"
                       min={0}
-                      max={92}
+                      max={95}
                       step={0.5}
                       value={currentPos.y}
                       onChange={(e) => updatePosition(selectedElement, currentPos.x, Number(e.target.value))}
                       className="w-full accent-[#C2A88F] bg-white/15 h-2 rounded-lg appearance-none cursor-pointer"
                     />
-                    <div className="flex justify-between text-[10px] text-stone-500 mt-1">
-                      <span>Cielo (5%)</span>
-                      <span>En medio (45%)</span>
-                      <span>Abajo (88%)</span>
-                    </div>
-                  </div>
 
-                  {/* Quick Snap Alignment Buttons */}
-                  <div className="pt-2 border-t border-white/5 space-y-2">
-                    <label className="text-[10px] uppercase font-mono tracking-wider text-stone-400 block">
-                      Alineación Rápida
-                    </label>
-                    <div className="grid grid-cols-3 gap-1.5">
+                    {/* Exact Calibrated Snapping Buttons */}
+                    <div className="grid grid-cols-3 gap-1.5 pt-1">
                       <button
-                        onClick={() => updatePosition(selectedElement, 6, currentPos.y)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
+                        onClick={() => updatePosition(selectedElement, currentPos.x, calib.yTopVal)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-semibold transition-all ${
+                          Math.abs(currentPos.y - calib.yTopVal) <= 0.6
+                            ? "bg-[#C2A88F] text-black border-[#C2A88F] shadow-md font-bold"
+                            : "bg-black/40 border-white/10 text-stone-300 hover:text-white hover:bg-white/10"
+                        }`}
                       >
-                        ⬅ Pegar Izq (6%)
+                        {calib.yTopLabel} ({calib.yTopVal}%)
                       </button>
-                      <button
-                        onClick={() => updatePosition(selectedElement, 25, currentPos.y)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
-                      >
-                        ⬛ Centrar Horiz
-                      </button>
-                      <button
-                        onClick={() => updatePosition(selectedElement, 50, currentPos.y)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
-                      >
-                        ➡ Pegar Der
-                      </button>
-                    </div>
 
-                    <div className="grid grid-cols-3 gap-1.5">
                       <button
-                        onClick={() => updatePosition(selectedElement, currentPos.x, 6)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
+                        onClick={() => updatePosition(selectedElement, currentPos.x, calib.yMidVal)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-semibold transition-all ${
+                          Math.abs(currentPos.y - calib.yMidVal) <= 0.6
+                            ? "bg-[#C2A88F] text-black border-[#C2A88F] shadow-md font-bold"
+                            : "bg-black/40 border-white/10 text-stone-300 hover:text-white hover:bg-white/10"
+                        }`}
                       >
-                        ⬆ En Cielo (6%)
+                        {calib.yMidLabel} ({calib.yMidVal}%)
                       </button>
+
                       <button
-                        onClick={() => updatePosition(selectedElement, currentPos.x, 26.5)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
+                        onClick={() => updatePosition(selectedElement, currentPos.x, calib.yBottomVal)}
+                        className={`py-1.5 px-1 rounded-xl border text-[10px] font-semibold transition-all ${
+                          Math.abs(currentPos.y - calib.yBottomVal) <= 0.6
+                            ? "bg-[#C2A88F] text-black border-[#C2A88F] shadow-md font-bold"
+                            : "bg-black/40 border-white/10 text-stone-300 hover:text-white hover:bg-white/10"
+                        }`}
                       >
-                        ↕ Bajo JRG (26.5%)
-                      </button>
-                      <button
-                        onClick={() => updatePosition(selectedElement, currentPos.x, 88)}
-                        className="py-1 px-1 rounded bg-black/40 hover:bg-white/10 text-stone-300 text-[10px] border border-white/5"
-                      >
-                        ⬇ En Fondo (88%)
+                        {calib.yBottomLabel} ({calib.yBottomVal}%)
                       </button>
                     </div>
                   </div>
@@ -796,6 +965,15 @@ const CanvaStudioInner: React.FC = () => {
                 className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/85 pointer-events-none z-[2]"
                 style={{ opacity: hero.overlayOpacity }}
               />
+
+              {/* SMART CENTER ALIGNMENT GUIDELINE (Canva / Figma style) */}
+              {(isDragging || isElementCentered) && (
+                <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-b from-emerald-400/0 via-emerald-400/70 to-emerald-400/0 z-20 pointer-events-none flex flex-col items-center justify-start pt-14 transition-opacity duration-200">
+                  <span className="bg-emerald-500 text-black text-[8px] font-black px-2 py-0.5 rounded-full uppercase font-mono shadow-[0_0_10px_rgba(16,185,129,0.5)] tracking-wider">
+                    Eje Central 50%
+                  </span>
+                </div>
+              )}
 
               {/* -----------------------------------------------------------------
                   DRAGGABLE ELEMENT 1: LOGO JRG
