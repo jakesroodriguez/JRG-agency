@@ -8,7 +8,8 @@ interface PrismaDesktopPreloaderProps {
 export const PrismaDesktopPreloader: React.FC<PrismaDesktopPreloaderProps> = ({
   onComplete,
 }) => {
-  const isAlreadyViewed = typeof window !== "undefined" && sessionStorage.getItem("jrg_preloaded") === "true";
+  const isPreview = typeof window !== "undefined" && window.location.search.includes("preview=true");
+  const isAlreadyViewed = (typeof window !== "undefined" && sessionStorage.getItem("jrg_preloaded") === "true") || isPreview;
 
   const [progress, setProgress] = useState(isAlreadyViewed ? 100 : 0);
   const [isExiting, setIsExiting] = useState(false);

@@ -9,6 +9,7 @@ const Play = lazy(() => import("./pages/Play"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const DemoPreview = lazy(() => import("./pages/DemoPreview"));
 const AgentOrchestratorPage = lazy(() => import("./pages/AgentOrchestratorPage"));
+const StudioDashboardPage = lazy(() => import("./pages/StudioDashboardPage"));
 
 // Páginas de Servicios SEO Especializados
 const AutomatizacionesIA = lazy(() => import("./pages/AutomatizacionesIA"));
@@ -121,6 +122,22 @@ const App = () => {
           element={
             <Suspense fallback={<div style={{ minHeight: '100vh', background: '#07090e', color: '#00f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace' }}>⚡ Iniciando Sistema de Agentes JRG...</div>}>
               <AgentOrchestratorPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/studio"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#07080B', color: '#C2A88F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cargando JRG Studio...</div>}>
+              <StudioDashboardPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/editor"
+          element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#07080B', color: '#C2A88F', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cargando JRG Studio...</div>}>
+              <StudioDashboardPage />
             </Suspense>
           }
         />
