@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight, Sparkles, Layers, Cpu, Compass } from "lucide-react";
 import WordsPullUpMultiStyle, { TextSegment } from "./WordsPullUpMultiStyle";
@@ -52,8 +53,8 @@ export const PrismaDesktopFeatures: React.FC = () => {
         "Código nativo en React 18, Vite y TypeScript sin dependencias infladas.",
         "Optimización milimétrica para Core Web Vitals 98-100 y SEO técnico.",
       ],
-      linkText: "Ver proyectos 3D",
-      linkHref: "#portfolio",
+      linkText: "Ver Desarrollo Web",
+      linkHref: "/desarrollo-web",
     },
     {
       type: "content",
@@ -68,32 +69,32 @@ export const PrismaDesktopFeatures: React.FC = () => {
         "Integración con APIs externas y consolas de control interactivas.",
         "Cualificación instantánea de prospectos sin intervención manual.",
       ],
-      linkText: "Explorar sistemas IA",
-      linkHref: "#portfolio",
+      linkText: "Explorar Automatizaciones IA",
+      linkHref: "/automatizaciones-ia",
       hasFireball: true,
     },
     {
       type: "content",
       number: "03",
       iconNode: Compass,
-      title: "Ingeniería de Conversión",
+      title: "Chatbots & Conversión 24/7",
       badge: "RETENCIÓN Y VENTAS",
       metric: "3.4X RETORNO",
       items: [
         "Diseño 'Dark & Moody' de alta gama con texturas y grano cinematográfico.",
-        "Feedback háptico sonoro y micro-física de resorte táctil.",
-        "Embudos de alta conversión canalizados directamente a WhatsApp API.",
+        "Asistentes inteligentes conectados a WhatsApp Business API 24/7.",
+        "Embudos de alta conversión con reservas y atención en < 2 segundos.",
         "Psicología visual orientada a captar clientes de alto valor.",
       ],
-      linkText: "Solicitar diagnóstico",
-      linkHref: "#contact",
+      linkText: "Explorar Chatbots IA",
+      linkHref: "/chatbots-ia",
     },
   ];
 
   return (
     <section className="min-h-screen bg-black py-28 md:py-40 px-4 md:px-8 relative select-none overflow-hidden" id="features">
       {/* 3D Tornado WebGL Vortex Background */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-35 md:opacity-90">
+      <div className="hidden md:block absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-90">
         <TornadoVortex
           background="transparent"
           topRadius={420}
@@ -139,6 +140,9 @@ export const PrismaDesktopFeatures: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 pointer-events-none z-[1]" />
       </div>
 
+      {/* Subtle Clean Ambient Gradient (MOBILE ONLY - ZERO LAG / ZERO NOISE) */}
+      <div className="md:hidden absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_top,rgba(194,168,143,0.08)_0%,rgba(0,0,0,0.98)_70%)]" />
+
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16 md:mb-20">
@@ -151,7 +155,7 @@ export const PrismaDesktopFeatures: React.FC = () => {
           </div>
 
           <div className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.1] mb-3">
-            <WordsPullUpMultiStyle segments={line1Segments} />
+            <WordsPullUpMultiStyle as="h2" segments={line1Segments} />
           </div>
           <div className="text-lg sm:text-2xl md:text-3xl font-normal text-zinc-400">
             <WordsPullUpMultiStyle segments={line2Segments} delay={0.2} />
@@ -268,14 +272,14 @@ export const PrismaDesktopFeatures: React.FC = () => {
 
                     {/* Bottom link: Learn more with rotated arrow (-45deg) */}
                     <div className="pt-5 mt-5 border-t border-white/5 relative z-10">
-                      <a
-                        href={card.linkHref}
+                      <Link
+                        to={card.linkHref || "/contacto"}
                         onClick={() => sounds.playClick()}
                         className="inline-flex items-center gap-2 text-xs font-mono tracking-wider font-semibold text-[#DEDBC8] hover:text-white transition-colors duration-200 group-hover:gap-2.5"
                       >
                         <span>{card.linkText}</span>
                         <ArrowRight className="w-3.5 h-3.5 -rotate-45 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#C2A88F]" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </TiltCard>
