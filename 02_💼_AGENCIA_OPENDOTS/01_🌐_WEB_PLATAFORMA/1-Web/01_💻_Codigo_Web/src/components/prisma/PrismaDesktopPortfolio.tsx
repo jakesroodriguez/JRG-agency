@@ -6,6 +6,7 @@ import {
   Sparkles,
   CheckCircle2,
   ChevronRight,
+  ChevronLeft,
   Eye,
   Globe,
   Box,
@@ -192,6 +193,36 @@ export const PrismaDesktopPortfolio: React.FC = () => {
     },
   ];
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+    if (diff > 50) {
+      // swipe left -> next
+      if (activeCategory === "web") {
+        setActiveProjectIndex((prev) => (prev + 1) % webProjects.length);
+      } else {
+        setActiveShotIndex((prev) => (prev + 1) % nfcStudioShots.length);
+      }
+      sounds.playSwoosh();
+    } else if (diff < -50) {
+      // swipe right -> prev
+      if (activeCategory === "web") {
+        setActiveProjectIndex((prev) => (prev === 0 ? webProjects.length - 1 : prev - 1));
+      } else {
+        setActiveShotIndex((prev) => (prev === 0 ? nfcStudioShots.length - 1 : prev - 1));
+      }
+      sounds.playSwoosh();
+    }
+    setTouchStart(null);
+  };
+
   const currentProject = webProjects[activeProjectIndex];
   const currentShot = nfcStudioShots[activeShotIndex];
 
@@ -250,7 +281,7 @@ export const PrismaDesktopPortfolio: React.FC = () => {
             </span>
           </div>
           <div className="text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight mb-2">
-            <WordsPullUpMultiStyle segments={line1Segments} />
+            <WordsPullUpMultiStyle as="h2" segments={line1Segments} />
           </div>
           <div className="text-xl sm:text-2xl md:text-3xl font-normal text-gray-400">
             <WordsPullUpMultiStyle segments={line2Segments} delay={0.15} />
@@ -290,6 +321,205 @@ export const PrismaDesktopPortfolio: React.FC = () => {
         {/* ============================================================== */}
         {/* VIEW A: WEBS DE CLIENTES (4 Proyectos)                        */}
         {/* ============================================================== */}
+        {/* ============================================================== */}
+        {/* MOBILE VIEW A: WEBS DE CLIENTES (MD:HIDDEN)                    */}
+        {/* ============================================================== */}
+        {activeCategory === "web" && (
+          <div className="md:hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            {/* Quick Project Switcher Pills */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-950/90 border border-white/10 backdrop-blur-xl mb-4 overflow-x-auto no-scrollbar shadow-lg">
+              {webProjects.map((p, idx) => {
+                const isActive = idx === activeProjectIndex;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handleSelectProject(idx)}
+                    className={`flex-1 min-w-[76px] py-2 px-2.5 rounded-xl text-[10px] font-mono tracking-tight font-medium transition-all duration-300 flex items-center justify-center gap-1 whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? "bg-[#DEDBC8] text-black font-bold shadow-[0_0_12px_rgba(222,219,200,0.35)] scale-[1.02]"
+                        : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    <span>{p.number}</span>
+                    <span className="truncate">{p.title.split(" ")[0]}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Mobile Project Card */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="bg-[#121212]/95 backdrop-blur-2xl rounded-3xl border border-white/15 overflow-hidden shadow-2xl p-4 flex flex-col gap-4"
+              >
+                {/* Browser Mockup Header */}
+                <div className="rounded-2xl overflow-hidden border border-white/15 bg-black shadow-lg">
+                  <div className="h-8 bg-[#1a1a1a] border-b border-white/10 px-3 flex items-center justify-between select-none">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                    </div>
+                    <div className="flex items-center gap-1.5 px-3 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-mono text-gray-400 max-w-[190px] truncate">
+                      <span className="text-emerald-400">https://</span>
+                      <span className="text-gray-300 truncate">
+                        {currentProject.liveUrl.replace("https://", "")}
+                      </span>
+                    </div>
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-white"
+                      title="Abrir web"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  {/* Clean High-Res Image Viewport (No heavy mouse dither) */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#0d0d0d] group">
+                    <img
+                      src={currentProject.image}
+                      alt={currentProject.title}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[11px] font-mono text-[#DEDBC8] flex items-center gap-1.5 shadow-lg"
+                    >
+                      <span>Abrir web</span>
+                      <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Project Details */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-400 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      PROYECTO {currentProject.number} / {webProjects.length.toString().padStart(2, "0")}
+                    </span>
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-white/10 bg-white/[0.04] text-[#DEDBC8]">
+                      {currentProject.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl font-bold tracking-tight text-[#E1E0CC] mb-0.5">
+                    {currentProject.title}
+                  </h3>
+                  <div className="text-xs font-serif italic text-gray-400 mb-3">
+                    {currentProject.category} &middot; {currentProject.client.split("·")[0]}
+                  </div>
+
+                  <p className="text-xs leading-relaxed text-gray-300 font-light mb-3">
+                    {currentProject.description}
+                  </p>
+
+                  {/* Compact 3-col Metrics Grid */}
+                  <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-black/60 border border-white/5 mb-3">
+                    {currentProject.metrics.map((m, idx) => (
+                      <div key={idx} className="text-center">
+                        <div className="text-sm font-bold text-[#E1E0CC] font-mono">
+                          {m.value}
+                        </div>
+                        <div className="text-[9px] text-gray-400 font-mono mt-0.5">
+                          {m.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {currentProject.technologies.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/10 text-zinc-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-2">
+                    <a
+                      href={currentProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#DEDBC8] hover:bg-white text-black font-semibold text-xs transition-all shadow-lg cursor-pointer"
+                    >
+                      <span>Ver proyecto en vivo</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                    <a
+                      href="#contact"
+                      className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs font-medium text-gray-300 transition-colors cursor-pointer"
+                    >
+                      <span>Pedir web similar</span>
+                      <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Stepper Navigation */}
+            <div className="flex items-center justify-between mt-3 px-1">
+              <button
+                onClick={() => {
+                  setActiveProjectIndex((prev) => (prev === 0 ? webProjects.length - 1 : prev - 1));
+                  sounds.playSwoosh();
+                }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <ChevronLeft className="w-3.5 h-3.5 text-[#DEDBC8]" />
+                <span>Ant</span>
+              </button>
+
+              <div className="flex items-center gap-1.5">
+                {webProjects.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => handleSelectProject(dotIdx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeProjectIndex === dotIdx
+                        ? "w-6 bg-[#DEDBC8]"
+                        : "w-1.5 bg-white/20 hover:bg-white/40"
+                    }`}
+                    aria-label={`Ir al proyecto ${dotIdx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => {
+                  setActiveProjectIndex((prev) => (prev === webProjects.length - 1 ? 0 : prev + 1));
+                  sounds.playSwoosh();
+                }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <span>Sig</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#DEDBC8]" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* DESKTOP VIEW A: WEBS DE CLIENTES (HIDDEN ON MOBILE)           */}
+        {/* ============================================================== */}
         {activeCategory === "web" && (
           <motion.div
             key="web-category"
@@ -297,7 +527,7 @@ export const PrismaDesktopPortfolio: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4 }}
-            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
+            className="hidden md:block bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
           >
             {/* Main Grid: Info + Interactive Mockup */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
@@ -510,6 +740,134 @@ export const PrismaDesktopPortfolio: React.FC = () => {
         {/* ============================================================== */}
         {/* VIEW B: HARDWARE 3D & PLACAS NFC (Studio Photoshoot)          */}
         {/* ============================================================== */}
+        {/* ============================================================== */}
+        {/* MOBILE VIEW B: HARDWARE 3D & PLACAS NFC (MD:HIDDEN)            */}
+        {/* ============================================================== */}
+        {activeCategory === "hardware" && (
+          <div className="md:hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            {/* Quick Shot Switcher Pills */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-zinc-950/90 border border-white/10 backdrop-blur-xl mb-4 overflow-x-auto no-scrollbar shadow-lg">
+              {nfcStudioShots.map((s, idx) => {
+                const isActive = idx === activeShotIndex;
+                return (
+                  <button
+                    key={s.id}
+                    onClick={() => handleSelectShot(idx)}
+                    className={`flex-1 min-w-[72px] py-2 px-2.5 rounded-xl text-[10px] font-mono tracking-tight font-medium transition-all duration-300 flex items-center justify-center gap-1 whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? "bg-[#DEDBC8] text-black font-bold shadow-[0_0_12px_rgba(222,219,200,0.35)] scale-[1.02]"
+                        : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    <span>{s.number}</span>
+                    <span className="truncate">{s.shortLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Mobile Hardware Card */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentShot.id}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="bg-[#121212]/95 backdrop-blur-2xl rounded-3xl border border-white/15 overflow-hidden shadow-2xl p-4 flex flex-col gap-4"
+              >
+                {/* Clean Image Viewport */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 bg-black">
+                  <img
+                    src={currentShot.image}
+                    alt={currentShot.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[#DEDBC8] font-bold">
+                      {currentShot.badge}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-2.5 right-2.5">
+                    <span className="text-[10px] font-mono text-emerald-400 bg-black/80 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                      {currentShot.focal}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-400 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      TOMA {currentShot.number} / {nfcStudioShots.length.toString().padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold tracking-tight text-[#E1E0CC] mb-1">
+                    {currentShot.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-gray-300 font-light mb-4">
+                    {currentShot.description}
+                  </p>
+
+                  <a
+                    href="#contact"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#DEDBC8] hover:bg-white text-black font-semibold text-xs transition-all shadow-lg cursor-pointer"
+                  >
+                    <span>Solicitar muestras o presupuesto NFC</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Stepper Navigation */}
+            <div className="flex items-center justify-between mt-3 px-1">
+              <button
+                onClick={() => {
+                  setActiveShotIndex((prev) => (prev === 0 ? nfcStudioShots.length - 1 : prev - 1));
+                  sounds.playSwoosh();
+                }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <ChevronLeft className="w-3.5 h-3.5 text-[#DEDBC8]" />
+                <span>Ant</span>
+              </button>
+
+              <div className="flex items-center gap-1.5">
+                {nfcStudioShots.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => handleSelectShot(dotIdx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeShotIndex === dotIdx
+                        ? "w-6 bg-[#DEDBC8]"
+                        : "w-1.5 bg-white/20 hover:bg-white/40"
+                    }`}
+                    aria-label={`Ir a la toma ${dotIdx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => {
+                  setActiveShotIndex((prev) => (prev === nfcStudioShots.length - 1 ? 0 : prev + 1));
+                  sounds.playSwoosh();
+                }}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+              >
+                <span>Sig</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#DEDBC8]" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* DESKTOP VIEW B: HARDWARE 3D (HIDDEN ON MOBILE)                */}
+        {/* ============================================================== */}
         {activeCategory === "hardware" && (
           <motion.div
             key="hardware-category"
@@ -517,7 +875,7 @@ export const PrismaDesktopPortfolio: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.4 }}
-            className="bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
+            className="hidden md:block bg-[#121212] rounded-3xl border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-8 md:p-12"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
               {/* Left 5-6 Columns: Hardware Story & Specs */}
