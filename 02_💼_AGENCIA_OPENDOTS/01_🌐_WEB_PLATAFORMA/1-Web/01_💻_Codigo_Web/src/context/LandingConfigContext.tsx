@@ -15,7 +15,7 @@ interface LandingConfigContextType {
   isSaving: boolean;
 }
 
-const STORAGE_KEY = "jrg_landing_config_v2";
+const STORAGE_KEY = "jrg_landing_config_v3";
 
 const LandingConfigContext = createContext<LandingConfigContextType | null>(null);
 

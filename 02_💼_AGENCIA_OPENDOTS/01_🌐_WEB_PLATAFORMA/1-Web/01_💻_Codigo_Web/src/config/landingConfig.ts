@@ -58,7 +58,7 @@ export interface LandingConfig {
 }
 
 export const defaultLandingConfig: LandingConfig = {
-  version: "1.2.0",
+  version: "1.3.0",
   updatedAt: new Date().toISOString(),
   hero: {
     logoText: "JRG",
@@ -74,7 +74,7 @@ export const defaultLandingConfig: LandingConfig = {
     freeDragMobile: true,
     positionsMobile: {
       logo: { x: 6, y: 5 },
-      subtitle: { x: 6, y: 26.5 },
+      subtitle: { x: 6, y: 74.5 },
       cta: { x: 6, y: 88 },
     },
 

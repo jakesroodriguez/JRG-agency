@@ -16,7 +16,7 @@ export const PrismaDesktopHero: React.FC<PrismaDesktopHeroProps> = ({
 
   const positions = hero.positionsMobile || {
     logo: { x: 6, y: 5 },
-    subtitle: { x: 6, y: 26.5 },
+    subtitle: { x: 6, y: 74.5 },
     cta: { x: 6, y: 88 },
   };
 
